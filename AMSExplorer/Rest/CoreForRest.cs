@@ -15,16 +15,13 @@
 //---------------------------------------------------------------------------------------------
 
 
-using DocumentFormat.OpenXml.Presentation;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace AMSExplorer.Rest
 {

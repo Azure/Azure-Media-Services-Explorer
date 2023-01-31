@@ -321,14 +321,14 @@ namespace AMSExplorer
 
         private void UpdateJSONInfo()
         {
-            dynamic obj = new JObject() as dynamic;
+            dynamic obj = new JObject();
             obj.Subclips = new JArray() as dynamic;
 
             if (checkBoxTrimming.Checked && checkBoxUseEDL.Checked) // EDL
             {
                 foreach (ExplorerEDLEntryInOut entry in buttonShowEDL.GetEDLEntries())
                 {
-                    dynamic sourceEntry = new JObject() as dynamic;
+                    dynamic sourceEntry = new JObject();
                     sourceEntry.StartTime = entry.Start + buttonShowEDL.Offset;
                     sourceEntry.Duration = entry.Duration;
                     sourceEntry.EndTime = entry.Start + entry.Duration;
@@ -337,7 +337,7 @@ namespace AMSExplorer
             }
             else // No EDL
             {
-                dynamic sourceEntry = new JObject() as dynamic;
+                dynamic sourceEntry = new JObject();
 
                 if (checkBoxTrimming.Checked) // with trimming
                 {

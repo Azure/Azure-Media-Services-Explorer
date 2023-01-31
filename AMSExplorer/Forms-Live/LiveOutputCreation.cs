@@ -15,7 +15,6 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
 using System;
 using System.Text.RegularExpressions;

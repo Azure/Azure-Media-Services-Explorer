@@ -15,19 +15,18 @@
 //---------------------------------------------------------------------------------------------
 
 
+using Azure;
+using Azure.Core;
 using Azure.ResourceManager;
-using Azure.ResourceManager.Resources;
-using Azure.ResourceManager.Storage;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
-using Microsoft.Azure.Management.Storage;
+using Azure.ResourceManager.Resources;
+using Azure.ResourceManager.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Azure;
-using Azure.Core;
 
 namespace AMSExplorer
 {
@@ -114,7 +113,7 @@ namespace AMSExplorer
 
             // list locations in order to be able the long name of location 
 
-            ArmClient armClient = new ArmClient(_amsClient.credentialForArmClient);
+            ArmClient armClient = new(_amsClient.credentialForArmClient);
 
             // Subcriptions listing
             var subscriptions = armClient.GetSubscriptions().ToList();

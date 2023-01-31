@@ -17,7 +17,6 @@
 using AMSExplorer.Rest;
 using AMSExplorer.Utils.TransformInfo;
 using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

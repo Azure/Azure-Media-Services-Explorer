@@ -16,9 +16,12 @@
 
 
 using AMSExplorer.ManifestGeneration;
+using AMSExplorer.Rest;
+using Azure;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.Storage.DataMovement;
-using Microsoft.Rest.Azure;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -34,11 +37,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
-using Azure;
-using DocumentFormat.OpenXml.Office2010.CustomUI;
-using AMSExplorer.Rest;
 
 namespace AMSExplorer
 {
@@ -2543,7 +2541,7 @@ namespace AMSExplorer
 
                         await Task.WhenAll(deleteTasks);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         MessageBox.Show("Error when deleting track(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -2596,7 +2594,7 @@ namespace AMSExplorer
                             //Task[] deleteTasks = SelectedTracks.Select(b => _amsClient.AMSclient.Tracks.Hide.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, b)).ToArray();
                             // await Task.WhenAll(deleteTasks);
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             MessageBox.Show("Error when changing the visibility of the track(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
@@ -2633,7 +2631,7 @@ namespace AMSExplorer
 
                         } while (texttracksnames.Contains(trackname));
 
-                        AssetInfoTextTrackCreation form = new AssetInfoTextTrackCreation(bl.Name, trackname);
+                        AssetInfoTextTrackCreation form = new(bl.Name, trackname);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             Cursor = Cursors.WaitCursor;

@@ -46,7 +46,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
-using static Azure.Core.HttpHeader;
 
 namespace AMSExplorer
 {
@@ -829,7 +828,7 @@ namespace AMSExplorer
                     var checkpoint = checkpoints.Last();
 
                     // Create a new TransferContext with the store checkpoint
-                    SingleTransferContext resumeContext = new SingleTransferContext(checkpoint.Item2);
+                    SingleTransferContext resumeContext = new(checkpoint.Item2);
 
                     long LengthAllFiles = checkpoint.Item3;
                     string location = checkpoint.Item4;
@@ -897,7 +896,7 @@ namespace AMSExplorer
                     var checkpointD = checkpointsD.Last();
 
                     // Create a new TransferContext with the store checkpoint
-                    SingleTransferContext resumeContextD = new SingleTransferContext(checkpointD.Item2);
+                    SingleTransferContext resumeContextD = new(checkpointD.Item2);
 
                     long totalBytesToBeDownloaded = checkpointD.Item3;
                     string folder = checkpointD.Item4;
@@ -2302,7 +2301,7 @@ namespace AMSExplorer
 
                     if (formLocator.StreamingPolicyName == "Predefined_ClearKey" || formLocator.StreamingPolicyName == "Predefined_MultiDrmCencStreaming" || formLocator.StreamingPolicyName == "Predefined_MultiDrmStreaming")
                     {
-                        DRM_CreateOrSelectCKPolicy formCreatePolicy = new DRM_CreateOrSelectCKPolicy(_amsClient);
+                        DRM_CreateOrSelectCKPolicy formCreatePolicy = new(_amsClient);
                         if (formCreatePolicy.ShowDialog() != DialogResult.OK)
                         {
                             return;
@@ -2690,7 +2689,7 @@ namespace AMSExplorer
                     {
                         AssetName = AssetToP.Data.Name,
                         StreamingPolicyName = streamingPolicyName,
-                        StreamingLocatorId = string.IsNullOrEmpty(ForceLocatorGUID) ? (Guid?)null : Guid.Parse(ForceLocatorGUID),
+                        StreamingLocatorId = string.IsNullOrEmpty(ForceLocatorGUID) ? null : Guid.Parse(ForceLocatorGUID),
                         StartOn = startTime,
                         EndOn = endTime,
                         DefaultContentKeyPolicyName = keyPolicyName,
@@ -3287,7 +3286,7 @@ namespace AMSExplorer
             btna.Click += Btna_Click;
             textBoxAssetSearch.Controls.Add(btna);
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
-            SendMessage(textBoxAssetSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btna.Width << 16));
+            SendMessage(textBoxAssetSearch.Handle, 0xd3, 2, btna.Width << 16);
 
             // let's add a button to job textbox search
             System.Windows.Forms.Button btnj = new()
@@ -3302,7 +3301,7 @@ namespace AMSExplorer
             btnj.Click += Btnj_Click;
             textBoxJobSearch.Controls.Add(btnj);
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
-            SendMessage(textBoxJobSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnj.Width << 16));
+            SendMessage(textBoxJobSearch.Handle, 0xd3, 2, btnj.Width << 16);
 
             // let's add a button to live event textbox search
             System.Windows.Forms.Button btnc = new()
@@ -3317,7 +3316,7 @@ namespace AMSExplorer
             btnc.Click += Btnc_Click;
             textBoxSearchNameLiveEvent.Controls.Add(btnc);
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
-            SendMessage(textBoxSearchNameLiveEvent.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnc.Width << 16));
+            SendMessage(textBoxSearchNameLiveEvent.Handle, 0xd3, 2, btnc.Width << 16);
         }
 
         private void Btna_Click(object sender, EventArgs e)
@@ -7392,7 +7391,7 @@ namespace AMSExplorer
         private async Task DoExportMetadataAsync()
         {
             Telemetry.TrackEvent("DoExportMetadataAsync");
-            ExportToExcel form = new ExportToExcel(_amsClient, await ReturnSelectedAssetsAsync());
+            ExportToExcel form = new(_amsClient, await ReturnSelectedAssetsAsync());
             if (form.ShowDialog() == DialogResult.OK)
             {
 
@@ -8476,7 +8475,7 @@ namespace AMSExplorer
                     MediaAssetResource OutputAssetNow = outputAsset;
                     string OutputAssetNameNow = OutputAssetNow?.Data.Name;
 
-                    MediaJobData jobData = new MediaJobData { Input = jobInput };
+                    MediaJobData jobData = new() { Input = jobInput };
 
                     if (OutputAssetNow == null)
                     {

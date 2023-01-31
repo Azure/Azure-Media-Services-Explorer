@@ -16,15 +16,11 @@
 
 using AMSClient;
 using AMSExplorer.AMSLogin;
-using Azure.Core;
-using Azure.Identity;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Client.Extensibility;
 using Microsoft.Rest;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -182,12 +178,12 @@ namespace AMSExplorer
                 );
             //var credential = new DefaultAzureCredential(includeInteractiveCredentials: true);
             var armClient = new ArmClient(credentialForArmClient);
-                     
+
 
             var amsClient = armClient.GetMediaServicesAccountResource(MediaServiceAccount);
 
             AMSclient = await amsClient.GetAsync();
-                        
+
 
             /*
             // Getting Media Services account...

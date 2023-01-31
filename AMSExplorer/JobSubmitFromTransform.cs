@@ -352,8 +352,8 @@ namespace AMSExplorer
             string assetName = comboBoxSourceAsset.Text;
             AddEDLEntry(new EDLEntryInOut()
             {
-                Start = (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked) ? timeControlStartTime.TimeStampWithoutOffset : (TimeSpan?)null,
-                End = (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) ? timeControlEndTime.TimeStampWithoutOffset : (TimeSpan?)null,
+                Start = (checkBoxSourceTrimmingStart.CheckState == CheckState.Checked) ? timeControlStartTime.TimeStampWithoutOffset : null,
+                End = (checkBoxSourceTrimmingEnd.CheckState == CheckState.Checked) ? timeControlEndTime.TimeStampWithoutOffset : null,
                 AssetName = assetName,
                 Description = _listAssets.Where(a => a.Data.Name == assetName).First().Data.Description
             });

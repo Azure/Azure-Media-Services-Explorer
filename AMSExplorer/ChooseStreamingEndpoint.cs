@@ -15,11 +15,8 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Azure;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
-using DocumentFormat.OpenXml.Office2010.CustomUI;
-using Microsoft.Rest.Azure;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;

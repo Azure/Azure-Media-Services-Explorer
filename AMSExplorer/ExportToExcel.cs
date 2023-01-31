@@ -14,18 +14,16 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
-using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
-using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -179,7 +177,7 @@ namespace AMSExplorer
 
         private static DateTime? returnDate(bool localtime, DateTimeOffset? time)
         {
-            if (time == null) return (DateTime?)null;
+            if (time == null) return null;
 
             return localtime ? ((DateTimeOffset)time?.ToLocalTime()).DateTime : ((DateTimeOffset)time).DateTime;
         }
@@ -360,8 +358,8 @@ namespace AMSExplorer
 
                         Rows.Add(output.Item2);
 
-                        backgroundWorkerExcel.ReportProgress((int)(100d * (double)index / total), DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                                                 //if cancellation is pending, cancel work.  
+                        backgroundWorkerExcel.ReportProgress((int)(100d * index / total), DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                                                                                                         //if cancellation is pending, cancel work.  
                         if (backgroundWorkerExcel.CancellationPending)
                         {
                             // Save the new worksheet.

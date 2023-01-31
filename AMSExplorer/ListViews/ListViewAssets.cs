@@ -16,10 +16,7 @@
 
 using Azure;
 using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
-using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.OData;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 

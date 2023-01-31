@@ -16,13 +16,8 @@
 
 
 using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
-using DocumentFormat.OpenXml.Spreadsheet;
-using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -35,7 +30,7 @@ namespace AMSExplorer
 
         public DateTime? LocatorStartDate
         {
-            get => (checkBoxStartDate.Checked) ? dateTimePickerStartDate.Value.ToUniversalTime() : (Nullable<DateTime>)null;
+            get => (checkBoxStartDate.Checked) ? dateTimePickerStartDate.Value.ToUniversalTime() : null;
             set
             {
                 dateTimePickerStartDate.Value = ((DateTime)value).ToLocalTime();

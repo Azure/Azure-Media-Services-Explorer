@@ -14,9 +14,6 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
-using Azure.ResourceManager.Storage.Models;
 using System;
 using System.Security.Cryptography;
 using System.Text;

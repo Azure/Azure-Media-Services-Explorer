@@ -14,7 +14,6 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
 using System;
 using System.Windows.Forms;

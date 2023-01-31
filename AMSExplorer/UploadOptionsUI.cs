@@ -14,11 +14,8 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
-using Microsoft.Azure.Management.Storage.Models;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSExplorer

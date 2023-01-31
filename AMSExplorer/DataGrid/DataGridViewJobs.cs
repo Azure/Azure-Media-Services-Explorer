@@ -17,15 +17,12 @@
 
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
-using Microsoft.Azure.Storage;
-using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.OData;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.DirectoryServices;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -261,19 +258,19 @@ namespace AMSExplorer
             MediaTransformResource transformResource;
             try
             {
-                 transformResource = (await amsClient.AMSclient.GetMediaTransformAsync(transformName)).Value;
+                transformResource = (await amsClient.AMSclient.GetMediaTransformAsync(transformName)).Value;
             }
-            catch(Exception ex)
+            catch (Exception)
             {
                 // transform no there anymore
                 return;
             }
-           
+
 
             IReadOnlyList<MediaJobResource> currentPage = null;
 
             var jobsQuery = transformResource.GetMediaJobs().GetAllAsync(filter: odataQuery.Filter, orderby: odataQuery.OrderBy);
-           
+
             if (pagetodisplay == 1)
             {
                 //firstpage = await amsClient.AMSclient.Jobs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, transform, odataQuery);
@@ -282,7 +279,7 @@ namespace AMSExplorer
             else
             {
                 string continuationToken = null;
-               
+
                 _currentPageNumber = 1;
                 do
                 {
@@ -347,7 +344,7 @@ namespace AMSExplorer
                 var jobsQuery = transformResource.Value.GetMediaJobs().GetAllAsync(filter: odataQuery.Filter, orderby: odataQuery.OrderBy);
                 //IPage<Job> jobsPage = await amsClient.AMSclient.Jobs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, t, odataQuery);
 
-                await foreach(var job in jobsQuery)
+                await foreach (var job in jobsQuery)
                 {
                     ActiveAndVisibleJobs.Add(new JobExtension() { Job = job, TransformName = t });
                 }

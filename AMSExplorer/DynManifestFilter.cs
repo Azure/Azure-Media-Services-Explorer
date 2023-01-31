@@ -16,15 +16,11 @@
 
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
-using DocumentFormat.OpenXml.Spreadsheet;
-using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
@@ -612,7 +608,7 @@ namespace AMSExplorer
         {
             get
             {
-                FilterCreationInfo filterinfo = new FilterCreationInfo
+                FilterCreationInfo filterinfo = new()
                 {
                     Name = newfilter ? textBoxFilterName.Text : _filter_name,
                     Firstquality = checkBoxFirstQualityBitrate.Checked ? (int)numericUpDownFirstQualityBitrate.Value : null
@@ -623,12 +619,12 @@ namespace AMSExplorer
                     {
                         filterinfo.Presentationtimerange = new PresentationTimeRange()
                         {
-                            StartTimestamp = string.IsNullOrWhiteSpace(textBoxRawStart.Text) ? (long?)null : long.Parse(textBoxRawStart.Text),
-                            EndTimestamp = string.IsNullOrWhiteSpace(textBoxRawEnd.Text) ? (long?)null : long.Parse(textBoxRawEnd.Text),
-                            PresentationWindowDuration = string.IsNullOrWhiteSpace(textBoxRawDVR.Text) ? (long?)null : long.Parse(textBoxRawDVR.Text),
-                            LiveBackoffDuration = string.IsNullOrWhiteSpace(textBoxRawBackoff.Text) ? (long?)null : long.Parse(textBoxRawBackoff.Text),
-                            Timescale = string.IsNullOrWhiteSpace(textBoxRawTimescale.Text) ? (long?)null : long.Parse(textBoxRawTimescale.Text),
-                            ForceEndTimestamp = checkBoxForValueLiveRaw.Checked ? true : (bool?)null
+                            StartTimestamp = string.IsNullOrWhiteSpace(textBoxRawStart.Text) ? null : long.Parse(textBoxRawStart.Text),
+                            EndTimestamp = string.IsNullOrWhiteSpace(textBoxRawEnd.Text) ? null : long.Parse(textBoxRawEnd.Text),
+                            PresentationWindowDuration = string.IsNullOrWhiteSpace(textBoxRawDVR.Text) ? null : long.Parse(textBoxRawDVR.Text),
+                            LiveBackoffDuration = string.IsNullOrWhiteSpace(textBoxRawBackoff.Text) ? null : long.Parse(textBoxRawBackoff.Text),
+                            Timescale = string.IsNullOrWhiteSpace(textBoxRawTimescale.Text) ? null : long.Parse(textBoxRawTimescale.Text),
+                            ForceEndTimestamp = checkBoxForValueLiveRaw.Checked ? true : null
                         };
 
                     }
@@ -651,12 +647,12 @@ namespace AMSExplorer
 
         private PresentationTimeRange GetFilterPresenTationTRDefaultMode => new()
         {
-            StartTimestamp = checkBoxStartTime.Checked ? timeControlStart.ScaledTimeStampWithOffset : (long?)null,
-            EndTimestamp = checkBoxEndTime.Checked ? timeControlEnd.ScaledTimeStampWithOffset : (long?)null,
-            PresentationWindowDuration = checkBoxPresentationWindowDuration.Checked ? timeControlDVR.TimeStampWithoutOffset.Ticks : (long?)null,
-            LiveBackoffDuration = checkBoxLiveBackoff.Checked ? (long)numericUpDownBackoffSeconds.Value : (long?)null,
+            StartTimestamp = checkBoxStartTime.Checked ? timeControlStart.ScaledTimeStampWithOffset : null,
+            EndTimestamp = checkBoxEndTime.Checked ? timeControlEnd.ScaledTimeStampWithOffset : null,
+            PresentationWindowDuration = checkBoxPresentationWindowDuration.Checked ? timeControlDVR.TimeStampWithoutOffset.Ticks : null,
+            LiveBackoffDuration = checkBoxLiveBackoff.Checked ? (long)numericUpDownBackoffSeconds.Value : null,
             Timescale = _timescale,
-            ForceEndTimestamp = checkBoxForValueForLive.Checked ? true : (bool?)null
+            ForceEndTimestamp = checkBoxForValueForLive.Checked ? true : null
         };
 
 
@@ -1121,7 +1117,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                ulong? value = string.IsNullOrWhiteSpace(tb.Text) ? null : (ulong?)ulong.Parse(tb.Text);
+                ulong? value = string.IsNullOrWhiteSpace(tb.Text) ? null : ulong.Parse(tb.Text);
             }
             catch
             {
@@ -1142,7 +1138,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                TimeSpan? value = string.IsNullOrWhiteSpace(tb.Text) ? null : (TimeSpan?)TimeSpan.FromTicks(long.Parse(tb.Text));
+                TimeSpan? value = string.IsNullOrWhiteSpace(tb.Text) ? null : TimeSpan.FromTicks(long.Parse(tb.Text));
             }
             catch
             {

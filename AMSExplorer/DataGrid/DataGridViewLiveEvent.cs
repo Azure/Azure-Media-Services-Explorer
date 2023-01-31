@@ -18,7 +18,6 @@
 using Azure;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
-using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -252,7 +251,7 @@ namespace AMSExplorer
                     );
 
             }
-                       
+
             float scale = DeviceDpi / 96f;
 
             _MyObservLiveEvent = new SortableBindingList<LiveEventEntry>(channelquery);

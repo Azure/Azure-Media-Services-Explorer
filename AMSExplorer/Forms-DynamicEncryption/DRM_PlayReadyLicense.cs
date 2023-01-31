@@ -252,7 +252,7 @@ namespace AMSExplorer
             //comboBoxContentType.Items.Add(ContentKeyPolicyPlayReadyContentType.Unknown);
             comboBoxContentType.SelectedIndex = 0;
             comboBoxContentType.EndUpdate();
-            
+
             labelWarning.Text = string.Empty;
         }
 

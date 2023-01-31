@@ -15,7 +15,6 @@
 //---------------------------------------------------------------------------------------------
 
 using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Win32;

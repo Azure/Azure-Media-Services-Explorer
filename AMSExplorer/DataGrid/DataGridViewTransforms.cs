@@ -16,11 +16,9 @@
 
 
 using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;

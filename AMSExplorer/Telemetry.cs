@@ -1,14 +1,12 @@
-﻿using Microsoft.ApplicationInsights;
+﻿using Azure.ResourceManager.Media;
+using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
-using Azure.ResourceManager.Media.Models;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
-using Azure.ResourceManager.Media;
 
 namespace AMSExplorer
 {

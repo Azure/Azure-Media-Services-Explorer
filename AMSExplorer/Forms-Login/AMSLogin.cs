@@ -18,10 +18,10 @@
 using AMSClient;
 using AMSExplorer.AMSLogin;
 using AMSExplorer.Rest;
+using Azure.Core;
 using Azure.ResourceManager;
-using Azure.ResourceManager.Resources;
 using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
+using Azure.ResourceManager.Resources;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Client.Extensibility;
 using Microsoft.Rest;
@@ -37,9 +37,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Azure.Core;
-using Newtonsoft.Json.Linq;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace AMSExplorer
 {
@@ -501,7 +498,7 @@ namespace AMSExplorer
 
                     TokenCredentials credentials = new(accessToken.AccessToken, "Bearer");
                     var credentialForArmClient = new BearerTokenCredential(accessToken.AccessToken);
-                    ArmClient armClient = new ArmClient(credentialForArmClient);
+                    ArmClient armClient = new(credentialForArmClient);
 
                     // Subcriptions listing
                     var subscriptions = armClient.GetSubscriptions().ToList();
@@ -544,7 +541,7 @@ namespace AMSExplorer
                             var listMediaServices = subscription.GetMediaServicesAccounts().ToList();
 
                             // let's get the list of avaibility zones
-                            AzureProviders aP = new AzureProviders(environment.ArmEndpoint);
+                            AzureProviders aP = new(environment.ArmEndpoint);
 
                             var list = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.Data.SubscriptionId, "Microsoft.Network", accessToken.AccessToken);
                             var listNatGateways = list.ResourceTypes.Where(r => r.ResourceType == "natGateways").FirstOrDefault();
@@ -599,7 +596,7 @@ namespace AMSExplorer
                     Telemetry.TrackEvent("AMSLogin buttonPickupAccount_Click FromAzureCliOrPortalJson");
 
                     string example = @"{";
-  
+
 
                     if (addaccount1.JsonWithServicePrincipal)
                     {

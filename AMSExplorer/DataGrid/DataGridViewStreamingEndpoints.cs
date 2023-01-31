@@ -159,7 +159,7 @@ namespace AMSExplorer
             var streamingendpointsPage = amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync();
             List<StreamingEndpointResource> streamingEndpointResources = new();
 
-            await foreach (var se in streamingendpointsPage) 
+            await foreach (var se in streamingendpointsPage)
             {
                 streamingEndpointResources.Add(se);
             }

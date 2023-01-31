@@ -17,21 +17,20 @@
 using Azure;
 using Azure.Core;
 using Azure.ResourceManager;
-using Azure.ResourceManager.Resources;
-using Azure.ResourceManager.Resources.Models;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
+using Azure.ResourceManager.Models;
+using Azure.ResourceManager.Resources;
+using Azure.ResourceManager.Resources.Models;
 using Microsoft.Azure.Management.Storage;
 using Microsoft.Azure.Management.Storage.Models;
 using Microsoft.Rest;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Azure.ResourceManager.Models;
 
 namespace AMSExplorer
 {
@@ -268,7 +267,7 @@ namespace AMSExplorer
                     //resourceGroup = await resourceGroupsClient.CreateOrUpdateAsync(ResourceGroupName, resourceGroup);
 
 
-                    ResourceGroupData resourceGroupData = new ResourceGroupData(SelectedLocationName);
+                    ResourceGroupData resourceGroupData = new(SelectedLocationName);
                     ArmOperation<ResourceGroupResource> operation = await resourceGroups.CreateOrUpdateAsync(WaitUntil.Completed, ResourceGroupName, resourceGroupData);
                     //ResourceGroupResource resourceGroup = operation.Value;
                 }
@@ -282,7 +281,7 @@ namespace AMSExplorer
                         SubscriptionId = _subscription.Data.Id.SubscriptionId// _mediaServicesClient.SubscriptionId
                     };
 
-                    StorageAccountCreateParameters parametersStorage = new StorageAccountCreateParameters
+                    StorageAccountCreateParameters parametersStorage = new()
                     {
                         Location = SelectedLocationName,
                         Sku = new Microsoft.Azure.Management.Storage.Models.Sku { Name = ((Item)comboBoxStorageType.SelectedItem).Value },
@@ -315,7 +314,7 @@ namespace AMSExplorer
 
                         }
                      }
-                     });
+                    });
 
                 MediaServiceCreated = createAccountOperation.Value;
 

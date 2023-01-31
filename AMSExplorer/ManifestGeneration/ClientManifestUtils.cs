@@ -1,8 +1,6 @@
 ﻿using Azure;
-using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
 using Microsoft.Azure.Storage.Blob;
-using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
 using System.Linq;

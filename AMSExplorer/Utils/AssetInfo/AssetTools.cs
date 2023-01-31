@@ -17,7 +17,6 @@
 using Azure;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
-using DocumentFormat.OpenXml.Office2010.CustomUI;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Win32;
@@ -490,7 +489,7 @@ namespace AMSExplorer
                 IEnumerable<XElement> videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
 
                 // TIMESCALE
-                long? rootTimeScaleFromManifest = smoothmedia.Attribute("TimeScale").Value != null ? long.Parse(smoothmedia.Attribute("TimeScale").Value) : (long?)null;
+                long? rootTimeScaleFromManifest = smoothmedia.Attribute("TimeScale").Value != null ? long.Parse(smoothmedia.Attribute("TimeScale").Value) : null;
 
                 long? videoTimeScaleFromManifest = null;
                 if (videotrack.FirstOrDefault().Attribute("TimeScale") != null) // there is timescale value in the video track. Let's take this one.
@@ -507,7 +506,7 @@ namespace AMSExplorer
                 ulong? overallDuration = null;
                 if (durationFromManifest != null && rootTimeScaleFromManifest != null) // there is a duration value in the root (and a timescale). Let's take this one.
                 {
-                    var ratio = (double)rootTimeScaleFromManifest / (double)timescaleVideo;
+                    var ratio = (double)rootTimeScaleFromManifest / timescaleVideo;
                     overallDuration = (ulong?)(ulong.Parse(durationFromManifest) / ratio); // value with the timescale of the video track
                 }
 

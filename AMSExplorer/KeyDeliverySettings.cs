@@ -15,11 +15,8 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
-using DocumentFormat.OpenXml.Drawing;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net;
@@ -73,7 +70,7 @@ namespace AMSExplorer
                 else
                 {
                     checkBoxUseIpList.Checked = true;
-                    _amsClient.AMSclient.Data.KeyDeliveryAccessControl.IPAllowList.ToList().ForEach(i => ipList.Add(new IpAddr() { IpAddress=i.ToString() }));
+                    _amsClient.AMSclient.Data.KeyDeliveryAccessControl.IPAllowList.ToList().ForEach(i => ipList.Add(new IpAddr() { IpAddress = i.ToString() }));
                 }
             }
 
@@ -85,9 +82,9 @@ namespace AMSExplorer
 
         public async Task UpdateKeyDeliveryConfigAsync()
         {
-             // To restrict the client access and delivery of your content keys, set the key delivery accessControl ipAllowList. 
+            // To restrict the client access and delivery of your content keys, set the key delivery accessControl ipAllowList. 
 
-            MediaAccessControl maControl = new MediaAccessControl();
+            MediaAccessControl maControl = new();
 
             if (checkBoxUseIpList.Checked)
             {
@@ -109,15 +106,15 @@ namespace AMSExplorer
                 // "10.0.0.1/32", // you can use the CIDR IPv3 format,
                 // "127.0.0.1"  or a single individual Ipv4 address as well.
 
-                maControl.DefaultAction = IPAccessControlDefaultAction.Allow;               
+                maControl.DefaultAction = IPAccessControlDefaultAction.Allow;
             }
 
 
-            MediaServicesAccountPatch patch = new MediaServicesAccountPatch()
+            MediaServicesAccountPatch patch = new()
             {
                 KeyDeliveryAccessControl = maControl
             };
-                            
+
             await _amsClient.AMSclient.UpdateAsync(Azure.WaitUntil.Completed, patch);
             // await mediaClient.Mediaservices.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, msUpdate);
         }

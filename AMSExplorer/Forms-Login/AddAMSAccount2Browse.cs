@@ -17,19 +17,18 @@
 using AMSClient;
 using AMSExplorer.AMSLogin;
 using Azure.ResourceManager;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Azure.ResourceManager.Resources;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Client.Extensibility;
 using Microsoft.Rest;
-using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
 
 namespace AMSExplorer
 {
@@ -151,7 +150,7 @@ namespace AMSExplorer
 
             var autoCode = new BearerTokenCredential(accessToken.AccessToken);
 
-            ArmClient armClient = new ArmClient(autoCode);
+            ArmClient armClient = new(autoCode);
 
             subscriptions = armClient.GetSubscriptions().ToList();
 

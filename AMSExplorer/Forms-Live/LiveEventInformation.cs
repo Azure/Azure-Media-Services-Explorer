@@ -28,7 +28,6 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
-using System.Xml;
 
 namespace AMSExplorer
 {

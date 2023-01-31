@@ -36,7 +36,7 @@ namespace AMSExplorer.AMSLogin
         {
             var tcs = new TaskCompletionSource<Uri>();
 
-            _owner.Invoke((Action)(() =>
+            _owner.Invoke(() =>
             {
                 new EmbeddedBrowserFormUI(authorizationUri,
                   redirectUri,
@@ -48,7 +48,7 @@ namespace AMSExplorer.AMSLogin
                     Height = _windowHeight,
                     StartPosition = _windowStartupLocation
                 }.ShowDialog();
-            }));
+            });
 
             /*
             _owner.Dispatcher.Invoke(() =>
