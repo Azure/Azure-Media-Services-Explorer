@@ -4810,7 +4810,7 @@ namespace AMSExplorer
 
                 bool Error = false;
                 // TODO2023 : verify value is location (string)
-                MediaLiveEventData liveEventData = new(_amsClient.AMSclient.Data.Id.Location.Value);
+                MediaLiveEventData liveEventData = new(_amsClient.AMSclient.Data.Location.Name);
 
                 try
                 {

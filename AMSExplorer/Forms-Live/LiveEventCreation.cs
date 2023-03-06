@@ -137,7 +137,7 @@ namespace AMSExplorer
         }
 
 
-        public LiveEventInputProtocol Protocol => (comboBoxProtocolInput.SelectedItem as Item).Value;
+        public LiveEventInputProtocol Protocol => new LiveEventInputProtocol((comboBoxProtocolInput.SelectedItem as Item).Value);
 
         public TimeSpan? InputKeyframeIntervalSerialized
         {
@@ -347,8 +347,8 @@ namespace AMSExplorer
         private void FillComboProtocols()
         {
             comboBoxProtocolInput.Items.Clear();
-            comboBoxProtocolInput.Items.Add(new Item(nameof(LiveEventInputProtocol.FragmentedMp4), nameof(LiveEventInputProtocol.FragmentedMp4)));
-            comboBoxProtocolInput.Items.Add(new Item(nameof(LiveEventInputProtocol.Rtmp), nameof(LiveEventInputProtocol.Rtmp)));
+            comboBoxProtocolInput.Items.Add(new Item(nameof(LiveEventInputProtocol.FragmentedMp4), "FragmentedMp4"));
+            comboBoxProtocolInput.Items.Add(new Item(nameof(LiveEventInputProtocol.Rtmp), "RTMP"));
             comboBoxProtocolInput.SelectedIndex = 1;
         }
 
