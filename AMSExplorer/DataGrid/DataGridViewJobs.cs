@@ -443,8 +443,8 @@ namespace AMSExplorer
 
                               _MyObservJobV3[index].Progress = progress.progress;
                               _MyObservJobV3[index].Priority = myJob.Data.Priority;
-                              _MyObservJobV3[index].StartOn = ReportLocalTime(myJob.Data.StartOn.Value.UtcDateTime);
-                              _MyObservJobV3[index].EndOn = ReportLocalTime(myJob.Data.EndOn.Value.UtcDateTime);
+                              _MyObservJobV3[index].StartOn = ReportLocalTime(myJob.Data.StartOn?.UtcDateTime);
+                              _MyObservJobV3[index].EndOn = ReportLocalTime(myJob.Data.EndOn?.UtcDateTime);
                               _MyObservJobV3[index].State = myJob.Data.State;
 
                               // let's calculate the estimated time
@@ -475,7 +475,7 @@ namespace AMSExplorer
                                               Rows[indexdisplayed].Cells[Columns["Progress"].Index].ToolTipText = progress.sb.ToString(); // mouse hover info
                                               if (progress.progress != 0)
                                               {
-                                                  Rows[indexdisplayed].Cells[Columns["EndTime"].Index].ToolTipText = ETAstr;// mouse hover info
+                                                  Rows[indexdisplayed].Cells[Columns["EndOn"].Index].ToolTipText = ETAstr;// mouse hover info
                                                   Rows[indexdisplayed].Cells[Columns["Duration"].Index].ToolTipText = Durationstr;// mouse hover info
                                               }
                                               //base.Refresh();

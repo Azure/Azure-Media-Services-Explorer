@@ -210,14 +210,22 @@ namespace AMSExplorer
                 .Concat(quotas.Select(q => q.QuotaMetric))
                 .Where(v => v != null);
 
-            var metricsClient = new MetricsQueryClient(_amsClient.credentialForArmClient);
-            var results = metricsClient.QueryResource(
-                _amsClient.AMSclient.Data.Id.ToString(),
-                allQuotaNames);
+            try
+            {
+                var metricsClient = new MetricsQueryClient(_amsClient.credentialForArmClient);
+                var results = metricsClient.QueryResource(
+                    _amsClient.AMSclient.Data.Id.ToString(),
+                    allQuotaNames);
 
-            QuotasValues = results.Value.Metrics.ToDictionary(
-               m => m.Name,
-               m => m.TimeSeries.Last().Values.Last().Average);
+                QuotasValues = results.Value.Metrics.ToDictionary(
+                   m => m.Name,
+                   m => m.TimeSeries.Last().Values.Last().Average);
+            }
+            catch
+            {
+
+            }
+
 
             // end of quotas
 
@@ -4364,7 +4372,16 @@ namespace AMSExplorer
                  // tabPageLive.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0}/{1})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents));
                  tabPageLive.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabLive + " ({0})", dataGridViewLiveEventsV.DisplayedCount));
                  //labelLiveEvents.Invoke(l => l.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0}/{1} max:{2})", dataGridViewLiveEventsV.DisplayedCount, dataGridViewLiveEventsV.totalLiveEvents, QuotasValues["MaxChannelsAndLiveEventsCount"]));
-                 labelLiveEvents.Invoke(l => l.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0} max:{1})", dataGridViewLiveEventsV.DisplayedCount, QuotasValues["MaxChannelsAndLiveEventsCount"]));
+
+                 if (QuotasValues != null)
+                 {
+                     labelLiveEvents.Invoke(l => l.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0} max:{1})", dataGridViewLiveEventsV.DisplayedCount, QuotasValues["MaxChannelsAndLiveEventsCount"]));
+                 }
+                 else
+                 {
+                     labelLiveEvents.Invoke(l => l.Text = string.Format(AMSExplorer.Properties.Resources.LabelChannel + " ({0})", dataGridViewLiveEventsV.DisplayedCount));
+                 }
+
              });
         }
 
