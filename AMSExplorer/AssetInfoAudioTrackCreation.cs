@@ -23,7 +23,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class AssetInfoTextTrackCreation : Form
+    public partial class AssetInfoAudioTrackCreation : Form
     {
         public string LanguageDisplayName
         {
@@ -49,6 +49,14 @@ namespace AMSExplorer
             }
         }
 
+        public string DashRole
+        {
+            get
+            {
+                return ((Item)comboBoxDashRole.SelectedItem).Value;
+            }
+        }
+
         public bool HLSDefaultTrack
         {
             get
@@ -57,23 +65,17 @@ namespace AMSExplorer
             }
         }
 
-        public bool HLSSetForced
+        public bool HLSIsDescriptiveAudio
         {
             get
             {
-                return checkBoxIsHLSSetForced.Checked;
+                return checkBoxIsHLSDescriptiveAudio.Checked;
             }
         }
 
-        public bool VisibleInPlayer
-        {
-            get
-            {
-                return checkBoxPlayerVisible.Checked;
-            }
-        }
 
-        public AssetInfoTextTrackCreation(string blobName, string trackName)
+
+        public AssetInfoAudioTrackCreation(string blobName, string trackName)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -88,6 +90,15 @@ namespace AMSExplorer
                     comboBoxTexttrackLanguage.SelectedIndex = comboBoxTexttrackLanguage.Items.Count - 1;
                 }
             }
+
+            comboBoxDashRole.Items.Add(new Item("", null));
+            comboBoxDashRole.Items.Add(new Item("main", "main"));
+            comboBoxDashRole.Items.Add(new Item("alternate", "alternate"));
+            comboBoxDashRole.Items.Add(new Item("supplementary", "supplementary"));
+            comboBoxDashRole.Items.Add(new Item("commentary", "commentary"));
+            comboBoxDashRole.Items.Add(new Item("dub", "dub"));
+            comboBoxDashRole.Items.Add(new Item("emergency", "emergency"));
+            comboBoxDashRole.SelectedIndex = 0;
 
             labelBlobName.Text = blobName;
             textBoxTrackName.Text = trackName;

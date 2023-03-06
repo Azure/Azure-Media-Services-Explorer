@@ -24,6 +24,7 @@ using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.Storage.DataMovement;
 using Newtonsoft.Json;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -358,6 +359,7 @@ namespace AMSExplorer
             }
         }
 
+        /*
         private async Task<List<string>> ReturnTexttracksNamesAsync()
         {
             List<string> listTracks = new();
@@ -370,6 +372,32 @@ namespace AMSExplorer
                 {
                     var tbase = track.Data.Track;
                     if (tbase is TextTrack tt)
+                    {
+                        listTracks.Add(track.Data.Name);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return listTracks;
+        }
+        */
+
+        private async Task<List<string>> ReturnTracksNamesAsync(Type typeTrack) // = typeof( TextTrack)
+        {
+            List<string> listTracks = new();
+
+            try
+            {
+                var response = _asset.GetMediaAssetTracks().GetAllAsync();
+
+                await foreach (var track in response)
+                {
+                    var tbase = track.Data.Track;
+                    if (tbase.GetType() == typeTrack)
                     {
                         listTracks.Add(track.Data.Name);
                     }
@@ -822,7 +850,7 @@ namespace AMSExplorer
                         dGTracks.Rows.Add("HLS is default", tt.HlsSettings.IsDefault);
                     }
                 }
-                else if (track.Data.Track is AudioTrack)
+                else if (track.Data.Track is AudioTrack at)
                 {
                     dGTracks.Rows.Add("Type", audiotrack);
                 }
@@ -2618,7 +2646,7 @@ namespace AMSExplorer
                 {
                     if (blob is CloudBlockBlob bl)
                     {
-                        var texttracksnames = await ReturnTexttracksNamesAsync();
+                        var texttracksnames = await ReturnTracksNamesAsync(typeof(TextTrack));
 
                         // let's find a name not used
                         int i = 1;
@@ -2645,13 +2673,79 @@ namespace AMSExplorer
                                         // this properties should be written but v1 of the SDK has this constraint
                                         //LanguageCode = form.LanguageCode,
                                         DisplayName = form.LanguageDisplayName,
-                                        FileName = bl.Name
+                                        FileName = bl.Name,
+                                        PlayerVisibility = form.VisibleInPlayer ? PlayerVisibility.Visible : PlayerVisibility.Hidden,
+                                        HlsSettings = new HlsSettings()
+                                        {
+                                            IsDefault = form.HLSDefaultTrack,
+                                            IsForced = form.HLSSetForced
+                                        }
                                     }
                                 };
-                                //TextTrack tt = new TextTrack { LanguageCode = form.LanguageCode, DisplayName = form.LanguageDisplayName, FileName = bl.Name };
                                 var track = await _asset.GetMediaAssetTracks().CreateOrUpdateAsync(WaitUntil.Completed, form.TrackName, data);
-                                //Task[] deleteTasks = SelectedTracks.Select(b => _amsClient.AMSclient.Tracks.Hide.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, b)).ToArray();
-                                // await Task.WhenAll(deleteTasks);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error when creating text track(s)." + Constants.endline + Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            Cursor = Cursors.Arrow;
+                        }
+                    }
+                }
+                await ListAssetBlobsAsync();
+            }
+        }
+
+
+        private async Task DoCreateAudiotrackFromBlobAsync()
+        {
+            Telemetry.TrackEvent("AssetInformation DoCreateAudiotrackFromBlobAsync");
+
+            var SelectedBlobs = ReturnSelectedBlobs();
+
+            if (SelectedBlobs.Any())
+            {
+                foreach (var blob in SelectedBlobs)
+                {
+                    if (blob is CloudBlockBlob bl)
+                    {
+                        var texttracksnames = await ReturnTracksNamesAsync(typeof(AudioTrack));
+
+                        // let's find a name not used
+                        int i = 1;
+                        string trackname;
+
+                        do
+                        {
+                            trackname = "audio" + i;
+                            i++;
+
+                        } while (texttracksnames.Contains(trackname));
+
+                        AssetInfoAudioTrackCreation form = new(bl.Name, trackname);
+                        if (form.ShowDialog() == DialogResult.OK)
+                        {
+                            Cursor = Cursors.WaitCursor;
+                            try
+                            {
+                                var data = new MediaAssetTrackData
+                                {
+                                    Track = new AudioTrack()
+                                    {
+                                        // TODO2023
+                                        // this properties should be written but v1 of the SDK has this constraint
+                                        //LanguageCode = form.LanguageCode,
+                                        DisplayName = form.LanguageDisplayName,
+                                        FileName = bl.Name,
+                                        DashRole = form.DashRole,
+                                        HlsSettings = new HlsSettings()
+                                        {
+                                            IsDefault = form.HLSDefaultTrack,
+                                            Characteristics = form.HLSIsDescriptiveAudio ? "public.accessibility.describes-video" : null
+                                        }
+                                    }
+                                };
+                                var track = await _asset.GetMediaAssetTracks().CreateOrUpdateAsync(WaitUntil.Completed, form.TrackName, data);
                             }
                             catch (Exception ex)
                             {
@@ -2694,12 +2788,24 @@ namespace AMSExplorer
         {
             var names = ReturnSelectedTracksNamesAndTypes();
             bool subtitle = names.All(b => b.Item2 == texttrack);
-            showInPlayerToolStripMenuItem.Enabled = hideFromPlayerToolStripMenuItem.Enabled = deleteTrackToolStripMenuItem.Enabled = subtitle;
+            bool audio = names.All(b => b.Item2 == audiotrack);
+            showInPlayerToolStripMenuItem.Enabled = hideFromPlayerToolStripMenuItem.Enabled = subtitle;
+            deleteTrackToolStripMenuItem.Enabled = subtitle || audio;
         }
 
         private async void showInPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await DoChangeVisibilityTracksFromPlayerAsync(true);
+        }
+
+        private void addTrackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("To add a track, go the asset blobs tab. From there, upload a new blob, select it and create a track with the contextual menu.", "Add a track", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private async void createAnAudioTrackFromThisBlobToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoCreateAudiotrackFromBlobAsync();
         }
     }
 }
