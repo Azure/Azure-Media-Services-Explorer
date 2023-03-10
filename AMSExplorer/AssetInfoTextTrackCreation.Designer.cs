@@ -67,6 +67,7 @@
             resources.ApplyResources(buttonUpdate, "buttonUpdate");
             buttonUpdate.DialogResult = System.Windows.Forms.DialogResult.OK;
             buttonUpdate.Name = "buttonUpdate";
+            buttonUpdate.Tag = "Update text track";
             buttonUpdate.UseVisualStyleBackColor = true;
             // 
             // panel1

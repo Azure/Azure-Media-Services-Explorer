@@ -898,37 +898,25 @@
     <value>193, 56</value>
   </metadata>
   <data name="deleteTrackToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="deleteTrackToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete track...</value>
   </data>
-  <data name="showInPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
-  </data>
-  <data name="showInPlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Show track on player</value>
-  </data>
-  <data name="hideFromPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
-  </data>
-  <data name="hideFromPlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Hide track on player</value>
-  </data>
   <data name="addTrackToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="addTrackToolStripMenuItem.Text" xml:space="preserve">
     <value>Add track...</value>
   </data>
   <data name="editSettingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="editSettingsToolStripMenuItem.Text" xml:space="preserve">
     <value>Edit settings...</value>
   </data>
   <data name="contextMenuStripTracks.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 136</value>
+    <value>181, 92</value>
   </data>
   <data name="&gt;&gt;contextMenuStripTracks.Name" xml:space="preserve">
     <value>contextMenuStripTracks</value>
@@ -2752,18 +2740,6 @@
     <value>deleteTrackToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;deleteTrackToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;showInPlayerToolStripMenuItem.Name" xml:space="preserve">
-    <value>showInPlayerToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;showInPlayerToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;hideFromPlayerToolStripMenuItem.Name" xml:space="preserve">
-    <value>hideFromPlayerToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;hideFromPlayerToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;addTrackToolStripMenuItem.Name" xml:space="preserve">

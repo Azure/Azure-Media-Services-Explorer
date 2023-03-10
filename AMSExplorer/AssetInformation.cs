@@ -2592,61 +2592,6 @@ namespace AMSExplorer
             }
         }
 
-
-        private async Task DoChangeVisibilityTracksFromPlayerAsync(bool visible)
-        {
-            Telemetry.TrackEvent("AssetInformation DoChangeVisibilityTracksFromPlayerAsync");
-
-            var SelectedTracks = ReturnSelectedTracksNamesAndTypes();
-
-            if (SelectedTracks.Any())
-            {
-                string verb = visible ? "Show" : "Hide";
-                string question = SelectedTracks.Count() == 1 ? string.Format("{0} the '{1}' track ?", verb, SelectedTracks.FirstOrDefault().Item1) : string.Format("{0} these {1} tracks ?", verb, SelectedTracks.Count());
-
-                if (System.Windows.Forms.MessageBox.Show(question, $"{verb} track(s)", System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    Cursor = Cursors.WaitCursor;
-                    foreach (var trackname in SelectedTracks)
-                    {
-                        try
-                        {
-                            var track = (await _asset.GetMediaAssetTrackAsync(trackname.Item1)).Value;
-                            //var track = await _amsClient.AMSclient.Tracks.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, trackname.Item1);
-
-                            var tbase = track.Data;
-                            if (tbase.Track is AudioTrack at)
-                            {
-                                MessageBox.Show("Track is an audio track and visibility cannot be changed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else if (tbase.Track is VideoTrack vt)
-                            {
-                                MessageBox.Show("Track is an video track and visibility cannot be changed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else if (tbase.Track is TextTrack tt)
-                            {
-                                tt.PlayerVisibility = visible ? PlayerVisibility.Visible : PlayerVisibility.Hidden;
-
-                                //await _amsClient.AMSclient.Tracks.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, trackname.Item1, tt);
-                                // TODO2023 : Test than this code update correctly the track for visibility (tbase and tt)
-                                await _asset.GetMediaAssetTracks().CreateOrUpdateAsync(WaitUntil.Completed, trackname.Item1, tbase);
-                            }
-
-                            //Task[] deleteTasks = SelectedTracks.Select(b => _amsClient.AMSclient.Tracks.Hide.DeleteAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, b)).ToArray();
-                            // await Task.WhenAll(deleteTasks);
-                        }
-                        catch (Exception)
-                        {
-                            MessageBox.Show("Error when changing the visibility of the track(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                    Cursor = Cursors.Arrow;
-
-                    await ListAssetTracksAsync();
-                }
-            }
-        }
-
         private async Task DoCreateTexttrackFromBlobAsync()
         {
             Telemetry.TrackEvent("AssetInformation DoCreateTexttrackFromBlobAsync");
@@ -2778,20 +2723,13 @@ namespace AMSExplorer
         {
             bool bSelect = listViewTracks.SelectedItems.Count > 0;
             bool bMultiSelect = listViewTracks.SelectedItems.Count > 1;
-            deleteTrackToolStripMenuItem.Enabled =
-                hideFromPlayerToolStripMenuItem.Enabled =
-                showInPlayerToolStripMenuItem.Enabled = bSelect;
+            deleteTrackToolStripMenuItem.Enabled = bSelect;
             await DoDisplayTrackPropertiesAsync();
         }
 
         private async void deleteTrackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await DoDeleteTracksAsync();
-        }
-
-        private async void hideFromPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            await DoChangeVisibilityTracksFromPlayerAsync(false);
         }
 
         private async void createTextTrackFromThisBlobToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2804,13 +2742,7 @@ namespace AMSExplorer
             var names = ReturnSelectedTracksNamesAndTypes();
             bool subtitle = names.All(b => b.Item2 == texttrack);
             bool audio = names.All(b => b.Item2 == audiotrack);
-            showInPlayerToolStripMenuItem.Enabled = hideFromPlayerToolStripMenuItem.Enabled = subtitle;
             deleteTrackToolStripMenuItem.Enabled = editSettingsToolStripMenuItem.Enabled = subtitle || audio;
-        }
-
-        private async void showInPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            await DoChangeVisibilityTracksFromPlayerAsync(true);
         }
 
         private void addTrackToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2846,7 +2778,6 @@ namespace AMSExplorer
                         Cursor = Cursors.WaitCursor;
                         try
                         {
-
                             at.DashRole = form.DashRole;
                             at.DisplayName = form.LanguageDisplayName;
                             at.HlsSettings = new HlsSettings()
@@ -2854,52 +2785,42 @@ namespace AMSExplorer
                                 IsDefault = form.HLSDefaultTrack,
                                 Characteristics = form.HLSIsDescriptiveAudio ? "public.accessibility.describes-video" : null
                             };
-
-                            var data = new MediaAssetTrackData
-                            {
-                                Track = at
-                            };
-
-                            /*
-                            var data = new MediaAssetTrackData
-                            {
-                                Track = new AudioTrack()
-                                {
-                                    // TODO2023
-                                    // this properties should be written but v1 of the SDK has this constraint
-                                    //LanguageCode = form.LanguageCode,
-                                    DisplayName = form.LanguageDisplayName,
-                                    FileName = at.FileName,
-                                    DashRole = form.DashRole,
-                                    Mpeg4TrackId = at.Mpeg4TrackId,
-                                    HlsSettings = new HlsSettings()
-                                    {
-                                        IsDefault = form.HLSDefaultTrack,
-                                        Characteristics = form.HLSIsDescriptiveAudio ? "public.accessibility.describes-video" : null
-                                    }
-                                }
-                            };
-                            */
-                            var track = await _asset.GetMediaAssetTracks().CreateOrUpdateAsync(WaitUntil.Completed, tbase.Name, data);
+                            var track = await _asset.GetMediaAssetTracks().CreateOrUpdateAsync(WaitUntil.Completed, tbase.Name, new MediaAssetTrackData { Track = at });
                         }
                         catch (Exception ex)
                         {
                             MessageBox.Show("Error when updating audio track." + Constants.endline + Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         Cursor = Cursors.Arrow;
-
                     }
                 }
-
-
-
+                else if (tbase.Track is TextTrack tt)
+                {
+                    AssetInfoTextTrackCreation form = new(tt.FileName, tbase.Name, tt);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        Cursor = Cursors.WaitCursor;
+                        try
+                        {
+                            tt.DisplayName = form.LanguageDisplayName;
+                            tt.PlayerVisibility = form.VisibleInPlayer ? PlayerVisibility.Visible : PlayerVisibility.Hidden;
+                            tt.HlsSettings = new HlsSettings()
+                            {
+                                IsDefault = form.HLSDefaultTrack,
+                                IsForced = form.HLSSetForced,
+                                Characteristics = form.HLSAccessibilityCharacteristics
+                            };
+                            var track = await _asset.GetMediaAssetTracks().CreateOrUpdateAsync(WaitUntil.Completed, tbase.Name, new MediaAssetTrackData { Track = tt });
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error when updating text track." + Constants.endline + Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        Cursor = Cursors.Arrow;
+                    }
+                }
+                await DoDisplayTrackPropertiesAsync();
             }
-            else // texttrack settings
-            {
-
-            }
-
-
         }
     }
 }

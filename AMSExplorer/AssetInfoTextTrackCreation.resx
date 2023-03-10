@@ -182,7 +182,7 @@
     <value>False</value>
   </data>
   <data name="comboBoxTexttrackLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 88</value>
+    <value>114, 123</value>
   </data>
   <data name="comboBoxTexttrackLanguage.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 23</value>
@@ -209,7 +209,7 @@
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 128</value>
+    <value>18, 163</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
@@ -237,7 +237,7 @@
     <value>14</value>
   </data>
   <data name="textBoxDisplayName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 125</value>
+    <value>116, 159</value>
   </data>
   <data name="textBoxDisplayName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -327,7 +327,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 90</value>
+    <value>16, 125</value>
   </data>
   <data name="checkBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 19</value>
@@ -561,7 +561,7 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 162</value>
+    <value>16, 90</value>
   </data>
   <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -588,7 +588,7 @@
     <value>9</value>
   </data>
   <data name="textBoxTrackName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 159</value>
+    <value>114, 87</value>
   </data>
   <data name="textBoxTrackName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>

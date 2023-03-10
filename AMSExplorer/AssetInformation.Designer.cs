@@ -79,8 +79,6 @@
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
             contextMenuStripTracks = new System.Windows.Forms.ContextMenuStrip(components);
             deleteTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            showInPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            hideFromPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             addTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             editSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             tabPage6 = new System.Windows.Forms.TabPage();
@@ -551,7 +549,7 @@
             // 
             // contextMenuStripTracks
             // 
-            contextMenuStripTracks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { deleteTrackToolStripMenuItem, showInPlayerToolStripMenuItem, hideFromPlayerToolStripMenuItem, addTrackToolStripMenuItem, editSettingsToolStripMenuItem });
+            contextMenuStripTracks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { deleteTrackToolStripMenuItem, addTrackToolStripMenuItem, editSettingsToolStripMenuItem });
             contextMenuStripTracks.Name = "contextMenuStripTracks";
             resources.ApplyResources(contextMenuStripTracks, "contextMenuStripTracks");
             contextMenuStripTracks.Opening += contextMenuStripTracks_Opening;
@@ -561,18 +559,6 @@
             deleteTrackToolStripMenuItem.Name = "deleteTrackToolStripMenuItem";
             resources.ApplyResources(deleteTrackToolStripMenuItem, "deleteTrackToolStripMenuItem");
             deleteTrackToolStripMenuItem.Click += deleteTrackToolStripMenuItem_Click;
-            // 
-            // showInPlayerToolStripMenuItem
-            // 
-            showInPlayerToolStripMenuItem.Name = "showInPlayerToolStripMenuItem";
-            resources.ApplyResources(showInPlayerToolStripMenuItem, "showInPlayerToolStripMenuItem");
-            showInPlayerToolStripMenuItem.Click += showInPlayerToolStripMenuItem_Click;
-            // 
-            // hideFromPlayerToolStripMenuItem
-            // 
-            hideFromPlayerToolStripMenuItem.Name = "hideFromPlayerToolStripMenuItem";
-            resources.ApplyResources(hideFromPlayerToolStripMenuItem, "hideFromPlayerToolStripMenuItem");
-            hideFromPlayerToolStripMenuItem.Click += hideFromPlayerToolStripMenuItem_Click;
             // 
             // addTrackToolStripMenuItem
             // 
@@ -1228,8 +1214,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTracks;
         private System.Windows.Forms.ToolStripMenuItem deleteTrackToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showInPlayerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hideFromPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createTextTrackFromThisBlobToolStripMenuItem;
         private System.Windows.Forms.DataGridView dGTracks;
         private System.Windows.Forms.Label label12;

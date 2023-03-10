@@ -15,6 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -25,6 +26,12 @@ namespace AMSExplorer
 {
     public partial class AssetInfoTextTrackCreation : Form
     {
+        private const string stringTranscribesSpokenDialog = "public.accessibility.transcribes-spoken-dialog";
+        private const string stringDescribesMusicSound = "public.accessibility.describes-music-and-sound";
+        private const string stringEasyToRead = "public.easy-to-read";
+        private bool _editMode;
+        private TextTrack _textTrack;
+
         public string LanguageDisplayName
         {
             get
@@ -80,25 +87,26 @@ namespace AMSExplorer
                 List<string> tabS = new();
                 if (checkBoxAccessTranscribe.Checked)
                 {
-                    tabS.Add("public.accessibility.transcribes-spoken-dialog");
+                    tabS.Add(stringTranscribesSpokenDialog);
                 }
                 if (checkBoxAccessMusicSound.Checked)
                 {
-                    tabS.Add("public.accessibility.describes-music-and-sound");
+                    tabS.Add(stringDescribesMusicSound);
                 }
                 if (checkBoxAccessEditedEaseReading.Checked)
                 {
-                    tabS.Add("public.easy-to-read");
+                    tabS.Add(stringEasyToRead);
                 }
                 return tabS.Count == 0 ? null : string.Join(",", tabS);
             }
         }
 
 
-        public AssetInfoTextTrackCreation(string blobName, string trackName)
+        public AssetInfoTextTrackCreation(string blobName, string trackName, TextTrack textTrack = null)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
+            _editMode = textTrack != null;
 
             List<CultureInfo> cultures = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
 
@@ -113,10 +121,51 @@ namespace AMSExplorer
 
             labelBlobName.Text = blobName;
             textBoxTrackName.Text = trackName;
+            _textTrack = textTrack;
         }
 
         private void AssetInfoTextTrackCreation_Load(object sender, EventArgs e)
         {
+            if (_editMode)
+            {
+                buttonUpdate.Text = (string)buttonUpdate.Tag;
+                textBoxTrackName.Enabled = false;
+                
+                if (_textTrack.LanguageCode != null)
+                {
+                    checkBoxLanguage.Checked = true;
+                    comboBoxTexttrackLanguage.Items.Add(new Item(_textTrack.LanguageCode, _textTrack.LanguageCode));
+                    comboBoxTexttrackLanguage.SelectedIndex = comboBoxTexttrackLanguage.Items.Count - 1;
+                }
+                checkBoxLanguage.Enabled = false;
+                comboBoxTexttrackLanguage.Enabled = false;
+
+                textBoxDisplayName.Text = _textTrack.DisplayName;
+
+                if (_textTrack.PlayerVisibility != null)
+                {
+                    checkBoxPlayerVisible.Checked = _textTrack.PlayerVisibility == PlayerVisibility.Visible ? true : false;
+                }
+
+                if (_textTrack.HlsSettings != null)
+                {
+                    if (_textTrack.HlsSettings.IsDefault != null)
+                    {
+                        checkBoxHLSSetAsDefault.Checked = (bool)_textTrack.HlsSettings.IsDefault;
+                    }
+                    if (_textTrack.HlsSettings.IsForced != null)
+                    {
+                        checkBoxIsHLSSetForced.Checked = (bool)_textTrack.HlsSettings.IsForced;
+                    }
+                }
+
+                if (_textTrack.HlsSettings.Characteristics != null)
+                {
+                    checkBoxAccessTranscribe.Checked = _textTrack.HlsSettings.Characteristics.Contains(stringTranscribesSpokenDialog);
+                    checkBoxAccessEditedEaseReading.Checked = _textTrack.HlsSettings.Characteristics.Contains(stringEasyToRead);
+                    checkBoxAccessMusicSound.Checked = _textTrack.HlsSettings.Characteristics.Contains(stringDescribesMusicSound);
+                }
+            }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
