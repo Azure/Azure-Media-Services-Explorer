@@ -43,10 +43,14 @@
             toolTip1 = new System.Windows.Forms.ToolTip(components);
             checkBoxIsHLSSetForced = new System.Windows.Forms.CheckBox();
             checkBoxHLSSetAsDefault = new System.Windows.Forms.CheckBox();
+            checkBoxPlayerVisible = new System.Windows.Forms.CheckBox();
+            checkBoxAccessMusicSound = new System.Windows.Forms.CheckBox();
+            checkBoxAccessTranscribe = new System.Windows.Forms.CheckBox();
+            checkBoxAccessEditedEaseReading = new System.Windows.Forms.CheckBox();
             label1 = new System.Windows.Forms.Label();
             textBoxTrackName = new System.Windows.Forms.TextBox();
             label6 = new System.Windows.Forms.Label();
-            checkBoxPlayerVisible = new System.Windows.Forms.CheckBox();
+            label5 = new System.Windows.Forms.Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -128,6 +132,36 @@
             toolTip1.SetToolTip(checkBoxHLSSetAsDefault, resources.GetString("checkBoxHLSSetAsDefault.ToolTip"));
             checkBoxHLSSetAsDefault.UseVisualStyleBackColor = true;
             // 
+            // checkBoxPlayerVisible
+            // 
+            resources.ApplyResources(checkBoxPlayerVisible, "checkBoxPlayerVisible");
+            checkBoxPlayerVisible.Checked = true;
+            checkBoxPlayerVisible.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkBoxPlayerVisible.Name = "checkBoxPlayerVisible";
+            toolTip1.SetToolTip(checkBoxPlayerVisible, resources.GetString("checkBoxPlayerVisible.ToolTip"));
+            checkBoxPlayerVisible.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAccessMusicSound
+            // 
+            resources.ApplyResources(checkBoxAccessMusicSound, "checkBoxAccessMusicSound");
+            checkBoxAccessMusicSound.Name = "checkBoxAccessMusicSound";
+            toolTip1.SetToolTip(checkBoxAccessMusicSound, resources.GetString("checkBoxAccessMusicSound.ToolTip"));
+            checkBoxAccessMusicSound.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAccessTranscribe
+            // 
+            resources.ApplyResources(checkBoxAccessTranscribe, "checkBoxAccessTranscribe");
+            checkBoxAccessTranscribe.Name = "checkBoxAccessTranscribe";
+            toolTip1.SetToolTip(checkBoxAccessTranscribe, resources.GetString("checkBoxAccessTranscribe.ToolTip"));
+            checkBoxAccessTranscribe.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAccessEditedEaseReading
+            // 
+            resources.ApplyResources(checkBoxAccessEditedEaseReading, "checkBoxAccessEditedEaseReading");
+            checkBoxAccessEditedEaseReading.Name = "checkBoxAccessEditedEaseReading";
+            toolTip1.SetToolTip(checkBoxAccessEditedEaseReading, resources.GetString("checkBoxAccessEditedEaseReading.ToolTip"));
+            checkBoxAccessEditedEaseReading.UseVisualStyleBackColor = true;
+            // 
             // label1
             // 
             resources.ApplyResources(label1, "label1");
@@ -143,14 +177,10 @@
             resources.ApplyResources(label6, "label6");
             label6.Name = "label6";
             // 
-            // checkBoxPlayerVisible
+            // label5
             // 
-            resources.ApplyResources(checkBoxPlayerVisible, "checkBoxPlayerVisible");
-            checkBoxPlayerVisible.Checked = true;
-            checkBoxPlayerVisible.CheckState = System.Windows.Forms.CheckState.Checked;
-            checkBoxPlayerVisible.Name = "checkBoxPlayerVisible";
-            toolTip1.SetToolTip(checkBoxPlayerVisible, resources.GetString("checkBoxPlayerVisible.ToolTip"));
-            checkBoxPlayerVisible.UseVisualStyleBackColor = true;
+            resources.ApplyResources(label5, "label5");
+            label5.Name = "label5";
             // 
             // AssetInfoTextTrackCreation
             // 
@@ -159,6 +189,10 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.SystemColors.Window;
             CancelButton = buttonCancel;
+            Controls.Add(checkBoxAccessEditedEaseReading);
+            Controls.Add(checkBoxAccessMusicSound);
+            Controls.Add(checkBoxAccessTranscribe);
+            Controls.Add(label5);
             Controls.Add(checkBoxPlayerVisible);
             Controls.Add(checkBoxIsHLSSetForced);
             Controls.Add(checkBoxHLSSetAsDefault);
@@ -200,5 +234,9 @@
         private System.Windows.Forms.CheckBox checkBoxHLSSetAsDefault;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkBoxPlayerVisible;
+        private System.Windows.Forms.CheckBox checkBoxAccessMusicSound;
+        private System.Windows.Forms.CheckBox checkBoxAccessTranscribe;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox checkBoxAccessEditedEaseReading;
     }
 }

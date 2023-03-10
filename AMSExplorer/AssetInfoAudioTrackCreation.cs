@@ -15,16 +15,22 @@
 //---------------------------------------------------------------------------------------------
 
 
+using Azure.ResourceManager.Media.Models;
+using DocumentFormat.OpenXml.Office2013.Drawing.Chart;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace AMSExplorer
 {
     public partial class AssetInfoAudioTrackCreation : Form
     {
+        private bool _editMode;
+        private AudioTrack _audioTrack;
+
         public string LanguageDisplayName
         {
             get
@@ -73,23 +79,42 @@ namespace AMSExplorer
             }
         }
 
+        public int? Mp4TrackId
+        {
+            get
+            {
+                int? result = null;
+
+                if (!string.IsNullOrEmpty(textBoxTrackId.Text))
+                {
+                    int res;
+                    if (int.TryParse(textBoxTrackId.Text, out res))
+                    {
+                        result = res;
+                    }
+                }
+                return result;
+            }
+        }
 
 
-        public AssetInfoAudioTrackCreation(string blobName, string trackName)
+        public AssetInfoAudioTrackCreation(string blobName, string trackName, AudioTrack audioTrack = null)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
+            _editMode = audioTrack != null;
 
             List<CultureInfo> cultures = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
 
             foreach (CultureInfo culture in cultures)
             {
                 comboBoxTexttrackLanguage.Items.Add(new Item(culture.EnglishName, culture.Name));
-                if (culture.Name == "en-US")
+                if (!_editMode && culture.Name == "en-US")
                 {
                     comboBoxTexttrackLanguage.SelectedIndex = comboBoxTexttrackLanguage.Items.Count - 1;
                 }
             }
+
 
             comboBoxDashRole.Items.Add(new Item("", null));
             comboBoxDashRole.Items.Add(new Item("main", "main"));
@@ -102,10 +127,47 @@ namespace AMSExplorer
 
             labelBlobName.Text = blobName;
             textBoxTrackName.Text = trackName;
+
+            _audioTrack = audioTrack;
+
         }
 
         private void AssetInfoTextTrackCreation_Load(object sender, EventArgs e)
         {
+            if (_editMode)
+            {
+                buttonUpdate.Text = (string)buttonUpdate.Tag;
+                textBoxTrackName.Enabled = false;
+                textBoxTrackId.Text = _audioTrack.Mpeg4TrackId?.ToString();
+                textBoxTrackId.Enabled = false; // Track Id cannot be edited after creation
+
+                if (_audioTrack.LanguageCode != null)
+                {
+                    checkBoxLanguage.Checked = true;
+                    comboBoxTexttrackLanguage.Items.Add(new Item(_audioTrack.LanguageCode, _audioTrack.LanguageCode));
+                    comboBoxTexttrackLanguage.SelectedIndex = comboBoxTexttrackLanguage.Items.Count - 1;
+                }
+                checkBoxLanguage.Enabled = false;
+                comboBoxTexttrackLanguage.Enabled = false;
+
+                textBoxDisplayName.Text = _audioTrack.DisplayName;
+                if (_audioTrack.DashRole != null)
+                {
+                    comboBoxDashRole.Items.Add(new Item(_audioTrack.DashRole, _audioTrack.DashRole));
+                    comboBoxDashRole.SelectedIndex = comboBoxDashRole.Items.Count - 1;
+                }
+                if (_audioTrack.HlsSettings != null)
+                {
+                    if (_audioTrack.HlsSettings.IsDefault != null)
+                    {
+                        checkBoxHLSSetAsDefault.Checked = (bool)_audioTrack.HlsSettings.IsDefault;
+                    }
+                    if (_audioTrack.HlsSettings.Characteristics == "public.accessibility.describes-video")
+                    {
+                        checkBoxIsHLSDescriptiveAudio.Checked = true;
+                    }
+                }
+            }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

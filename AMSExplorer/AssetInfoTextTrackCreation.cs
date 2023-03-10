@@ -73,6 +73,28 @@ namespace AMSExplorer
             }
         }
 
+        public string HLSAccessibilityCharacteristics
+        {
+            get
+            {
+                List<string> tabS = new();
+                if (checkBoxAccessTranscribe.Checked)
+                {
+                    tabS.Add("public.accessibility.transcribes-spoken-dialog");
+                }
+                if (checkBoxAccessMusicSound.Checked)
+                {
+                    tabS.Add("public.accessibility.describes-music-and-sound");
+                }
+                if (checkBoxAccessEditedEaseReading.Checked)
+                {
+                    tabS.Add("public.easy-to-read");
+                }
+                return tabS.Count == 0 ? null : string.Join(",", tabS);
+            }
+        }
+
+
         public AssetInfoTextTrackCreation(string blobName, string trackName)
         {
             InitializeComponent();

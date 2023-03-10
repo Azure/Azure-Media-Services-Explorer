@@ -82,6 +82,7 @@
             showInPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             hideFromPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             addTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            editSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             tabPage6 = new System.Windows.Forms.TabPage();
             buttonPlayFilter = new System.Windows.Forms.Button();
             buttonDuplicateFilter = new System.Windows.Forms.Button();
@@ -550,7 +551,7 @@
             // 
             // contextMenuStripTracks
             // 
-            contextMenuStripTracks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { deleteTrackToolStripMenuItem, showInPlayerToolStripMenuItem, hideFromPlayerToolStripMenuItem, addTrackToolStripMenuItem });
+            contextMenuStripTracks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { deleteTrackToolStripMenuItem, showInPlayerToolStripMenuItem, hideFromPlayerToolStripMenuItem, addTrackToolStripMenuItem, editSettingsToolStripMenuItem });
             contextMenuStripTracks.Name = "contextMenuStripTracks";
             resources.ApplyResources(contextMenuStripTracks, "contextMenuStripTracks");
             contextMenuStripTracks.Opening += contextMenuStripTracks_Opening;
@@ -578,6 +579,12 @@
             addTrackToolStripMenuItem.Name = "addTrackToolStripMenuItem";
             resources.ApplyResources(addTrackToolStripMenuItem, "addTrackToolStripMenuItem");
             addTrackToolStripMenuItem.Click += addTrackToolStripMenuItem_Click;
+            // 
+            // editSettingsToolStripMenuItem
+            // 
+            editSettingsToolStripMenuItem.Name = "editSettingsToolStripMenuItem";
+            resources.ApplyResources(editSettingsToolStripMenuItem, "editSettingsToolStripMenuItem");
+            editSettingsToolStripMenuItem.Click += editSettingsToolStripMenuItem_Click;
             // 
             // tabPage6
             // 
@@ -1229,5 +1236,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ToolStripMenuItem addTrackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createAnAudioTrackFromThisBlobToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editSettingsToolStripMenuItem;
     }
 }

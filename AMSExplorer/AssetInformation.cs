@@ -20,6 +20,7 @@ using AMSExplorer.Rest;
 using Azure;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.Storage.DataMovement;
 using Newtonsoft.Json;
@@ -845,14 +846,26 @@ namespace AMSExplorer
                     dGTracks.Rows.Add("Player visibility", tt.PlayerVisibility);
                     if (tt.HlsSettings != null)
                     {
-                        dGTracks.Rows.Add("HLS is forced", tt.HlsSettings.IsForced);
-                        dGTracks.Rows.Add("HLS characteristics", tt.HlsSettings.Characteristics);
-                        dGTracks.Rows.Add("HLS is default", tt.HlsSettings.IsDefault);
+                        dGTracks.Rows.Add("HLS: Is forced", tt.HlsSettings.IsForced);
+                        dGTracks.Rows.Add("HLS: Characteristics", tt.HlsSettings.Characteristics);
+                        dGTracks.Rows.Add("HLS: Is default", tt.HlsSettings.IsDefault);
                     }
                 }
                 else if (track.Data.Track is AudioTrack at)
                 {
                     dGTracks.Rows.Add("Type", audiotrack);
+                    dGTracks.Rows.Add("Display name", at.DisplayName);
+                    dGTracks.Rows.Add("File name", at.FileName);
+                    dGTracks.Rows.Add("Language code", at.LanguageCode);
+                    dGTracks.Rows.Add("Bitrate", at.BitRate);
+                    dGTracks.Rows.Add("DASH role", at.DashRole);
+                    dGTracks.Rows.Add("MP4 Track Id", at.Mpeg4TrackId);
+                    if (at.HlsSettings != null)
+                    {
+                        dGTracks.Rows.Add("HLS: Is forced", at.HlsSettings.IsForced);
+                        dGTracks.Rows.Add("HLS: Characteristics", at.HlsSettings.Characteristics);
+                        dGTracks.Rows.Add("HLS: Is default", at.HlsSettings.IsDefault);
+                    }
                 }
                 else if (track.Data.Track is VideoTrack)
                 {
@@ -2678,7 +2691,8 @@ namespace AMSExplorer
                                         HlsSettings = new HlsSettings()
                                         {
                                             IsDefault = form.HLSDefaultTrack,
-                                            IsForced = form.HLSSetForced
+                                            IsForced = form.HLSSetForced,
+                                            Characteristics = form.HLSAccessibilityCharacteristics
                                         }
                                     }
                                 };
@@ -2709,7 +2723,7 @@ namespace AMSExplorer
                 {
                     if (blob is CloudBlockBlob bl)
                     {
-                        var texttracksnames = await ReturnTracksNamesAsync(typeof(AudioTrack));
+                        var audiotracksnames = await ReturnTracksNamesAsync(typeof(AudioTrack));
 
                         // let's find a name not used
                         int i = 1;
@@ -2720,7 +2734,7 @@ namespace AMSExplorer
                             trackname = "audio" + i;
                             i++;
 
-                        } while (texttracksnames.Contains(trackname));
+                        } while (audiotracksnames.Contains(trackname));
 
                         AssetInfoAudioTrackCreation form = new(bl.Name, trackname);
                         if (form.ShowDialog() == DialogResult.OK)
@@ -2742,14 +2756,15 @@ namespace AMSExplorer
                                         {
                                             IsDefault = form.HLSDefaultTrack,
                                             Characteristics = form.HLSIsDescriptiveAudio ? "public.accessibility.describes-video" : null
-                                        }
+                                        },
+                                        Mpeg4TrackId = form.Mp4TrackId
                                     }
                                 };
                                 var track = await _asset.GetMediaAssetTracks().CreateOrUpdateAsync(WaitUntil.Completed, form.TrackName, data);
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("Error when creating text track(s)." + Constants.endline + Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Error when creating audio track(s)." + Constants.endline + Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                             Cursor = Cursors.Arrow;
                         }
@@ -2790,7 +2805,7 @@ namespace AMSExplorer
             bool subtitle = names.All(b => b.Item2 == texttrack);
             bool audio = names.All(b => b.Item2 == audiotrack);
             showInPlayerToolStripMenuItem.Enabled = hideFromPlayerToolStripMenuItem.Enabled = subtitle;
-            deleteTrackToolStripMenuItem.Enabled = subtitle || audio;
+            deleteTrackToolStripMenuItem.Enabled = editSettingsToolStripMenuItem.Enabled = subtitle || audio;
         }
 
         private async void showInPlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2806,6 +2821,85 @@ namespace AMSExplorer
         private async void createAnAudioTrackFromThisBlobToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await DoCreateAudiotrackFromBlobAsync();
+        }
+
+        private async void editSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoEditTrackSettingsAsync();
+        }
+
+        private async Task DoEditTrackSettingsAsync()
+        {
+            Telemetry.TrackEvent("AssetInformation DoEditTrackSettingsAsync");
+
+            var SelectedTracks = ReturnSelectedTracksNamesAndTypes();
+
+            if (SelectedTracks.Any())
+            {
+                var returnedTrack = (await _asset.GetMediaAssetTrackAsync(SelectedTracks.FirstOrDefault().Item1)).Value;
+                var tbase = returnedTrack.Data;
+                if (tbase.Track is AudioTrack at)
+                {
+                    AssetInfoAudioTrackCreation form = new(at.FileName, tbase.Name, at);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        Cursor = Cursors.WaitCursor;
+                        try
+                        {
+
+                            at.DashRole = form.DashRole;
+                            at.DisplayName = form.LanguageDisplayName;
+                            at.HlsSettings = new HlsSettings()
+                            {
+                                IsDefault = form.HLSDefaultTrack,
+                                Characteristics = form.HLSIsDescriptiveAudio ? "public.accessibility.describes-video" : null
+                            };
+
+                            var data = new MediaAssetTrackData
+                            {
+                                Track = at
+                            };
+
+                            /*
+                            var data = new MediaAssetTrackData
+                            {
+                                Track = new AudioTrack()
+                                {
+                                    // TODO2023
+                                    // this properties should be written but v1 of the SDK has this constraint
+                                    //LanguageCode = form.LanguageCode,
+                                    DisplayName = form.LanguageDisplayName,
+                                    FileName = at.FileName,
+                                    DashRole = form.DashRole,
+                                    Mpeg4TrackId = at.Mpeg4TrackId,
+                                    HlsSettings = new HlsSettings()
+                                    {
+                                        IsDefault = form.HLSDefaultTrack,
+                                        Characteristics = form.HLSIsDescriptiveAudio ? "public.accessibility.describes-video" : null
+                                    }
+                                }
+                            };
+                            */
+                            var track = await _asset.GetMediaAssetTracks().CreateOrUpdateAsync(WaitUntil.Completed, tbase.Name, data);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error when updating audio track." + Constants.endline + Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        Cursor = Cursors.Arrow;
+
+                    }
+                }
+
+
+
+            }
+            else // texttrack settings
+            {
+
+            }
+
+
         }
     }
 }

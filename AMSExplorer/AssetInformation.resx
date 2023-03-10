@@ -501,7 +501,7 @@
     <value>Create an audio track from this blob</value>
   </data>
   <data name="contextMenuStripBlobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>265, 180</value>
+    <value>265, 158</value>
   </data>
   <data name="&gt;&gt;contextMenuStripBlobs.Name" xml:space="preserve">
     <value>contextMenuStripBlobs</value>
@@ -901,7 +901,7 @@
     <value>184, 22</value>
   </data>
   <data name="deleteTrackToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete track</value>
+    <value>Delete track...</value>
   </data>
   <data name="showInPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>184, 22</value>
@@ -921,8 +921,14 @@
   <data name="addTrackToolStripMenuItem.Text" xml:space="preserve">
     <value>Add track...</value>
   </data>
+  <data name="editSettingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 22</value>
+  </data>
+  <data name="editSettingsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Edit settings...</value>
+  </data>
   <data name="contextMenuStripTracks.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 92</value>
+    <value>185, 136</value>
   </data>
   <data name="&gt;&gt;contextMenuStripTracks.Name" xml:space="preserve">
     <value>contextMenuStripTracks</value>
@@ -2764,6 +2770,12 @@
     <value>addTrackToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;addTrackToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;editSettingsToolStripMenuItem.Name" xml:space="preserve">
+    <value>editSettingsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;editSettingsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;filterInfoupdateToolStripMenuItem.Name" xml:space="preserve">

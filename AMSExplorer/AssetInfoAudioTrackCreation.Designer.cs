@@ -48,6 +48,8 @@
             label5 = new System.Windows.Forms.Label();
             comboBoxDashRole = new System.Windows.Forms.ComboBox();
             label6 = new System.Windows.Forms.Label();
+            label7 = new System.Windows.Forms.Label();
+            textBoxTrackId = new System.Windows.Forms.TextBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -64,6 +66,7 @@
             resources.ApplyResources(buttonUpdate, "buttonUpdate");
             buttonUpdate.DialogResult = System.Windows.Forms.DialogResult.OK;
             buttonUpdate.Name = "buttonUpdate";
+            buttonUpdate.Tag = "Update audio track";
             buttonUpdate.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -156,6 +159,16 @@
             resources.ApplyResources(label6, "label6");
             label6.Name = "label6";
             // 
+            // label7
+            // 
+            resources.ApplyResources(label7, "label7");
+            label7.Name = "label7";
+            // 
+            // textBoxTrackId
+            // 
+            resources.ApplyResources(textBoxTrackId, "textBoxTrackId");
+            textBoxTrackId.Name = "textBoxTrackId";
+            // 
             // AssetInfoAudioTrackCreation
             // 
             AcceptButton = buttonUpdate;
@@ -163,6 +176,8 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.SystemColors.Window;
             CancelButton = buttonCancel;
+            Controls.Add(textBoxTrackId);
+            Controls.Add(label7);
             Controls.Add(checkBoxIsHLSDescriptiveAudio);
             Controls.Add(checkBoxHLSSetAsDefault);
             Controls.Add(label6);
@@ -206,5 +221,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkBoxHLSSetAsDefault;
         private System.Windows.Forms.CheckBox checkBoxIsHLSDescriptiveAudio;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxTrackId;
     }
 }
