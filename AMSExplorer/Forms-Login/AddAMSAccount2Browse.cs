@@ -15,13 +15,12 @@
 //---------------------------------------------------------------------------------------------
 
 using AMSClient;
-using AMSExplorer.AMSLogin;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
 using Azure.ResourceManager.Resources;
 using Microsoft.Identity.Client;
-using Microsoft.Identity.Client.Extensibility;
+using Microsoft.Identity.Client.Broker;
 using Microsoft.Rest;
 using System;
 using System.Collections.Generic;
@@ -106,6 +105,7 @@ namespace AMSExplorer
                 _clientApplications[selectedTenantId] = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
                 .WithAuthority(environment.AADSettings.AuthenticationEndpoint + selectedTenantId)
                 .WithDefaultRedirectUri()
+                .WithBrokerPreview(true)
                 //.WithRedirectUri("http://localhost")
                 .Build();
             }
@@ -125,8 +125,10 @@ namespace AMSExplorer
                 {
                     accessToken = await app
                         .AcquireTokenInteractive(scopes)
-                        .WithPrompt(_prompt)
-                        .WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
+                        .WithAccount(null)
+                        .WithParentActivityOrWindow(this.Handle)
+                        //.WithPrompt(_prompt)
+                        //.WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
                         .ExecuteAsync();
                 }
                 catch (MsalException)

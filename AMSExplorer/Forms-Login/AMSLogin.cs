@@ -16,14 +16,13 @@
 
 
 using AMSClient;
-using AMSExplorer.AMSLogin;
 using AMSExplorer.Rest;
 using Azure.Core;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Resources;
 using Microsoft.Identity.Client;
-using Microsoft.Identity.Client.Extensibility;
+using Microsoft.Identity.Client.Broker;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure.Authentication;
 using Newtonsoft.Json;
@@ -458,7 +457,9 @@ namespace AMSExplorer
 
                     IPublicClientApplication appPickUp = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
                         .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "common")
-                        .WithRedirectUri("http://localhost")
+                        .WithDefaultRedirectUri()
+                        //.WithRedirectUri("http://localhost")
+                        .WithBrokerPreview(true)
                         .Build();
 
                     AuthenticationResult accessToken = null;
@@ -474,8 +475,10 @@ namespace AMSExplorer
                         try
                         {
                             accessToken = await appPickUp.AcquireTokenInteractive(scopes)
-                                .WithPrompt(addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.SelectAccount)
-                                .WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
+                                //.WithPrompt(addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.SelectAccount)
+                                //.WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
+                                .WithAccount(null)
+                                .WithParentActivityOrWindow(this.Handle)
                                 .ExecuteAsync();
                         }
                         catch (MsalException)

@@ -15,13 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_40FD6AD8F9E6400495A4A1FB4C1E7A75"
+        "MsmKey" = "8:_000D9EA0C1584A8587932C31B2FCE3C1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9D5CE24C90C9470491CE1D865EE7EFA4"
+        "MsmKey" = "8:_40FD6AD8F9E6400495A4A1FB4C1E7A75"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -229,15 +229,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Azure Media Services Explorer"
-        "ProductCode" = "8:{0D59F2DD-5178-4DF0-9254-647F3648E693}"
-        "PackageCode" = "8:{0AC37AE3-017A-4581-9F6D-6082E42711A8}"
+        "ProductCode" = "8:{40D2BCC9-D64F-4240-8A70-5B102C4F6B04}"
+        "PackageCode" = "8:{45145C42-1FCF-49E5-9230-27004D2DD251}"
         "UpgradeCode" = "8:{5145C7B3-B64F-42CA-A111-45E636E02027}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:5.6.1"
+        "ProductVersion" = "8:5.7.0"
         "Manufacturer" = "8:Microsoft Corporation"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -350,18 +350,18 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9EA171672DA243829C4705884CF15FCA"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D0303D5EC71341D6B61D637CE490B682"
             {
             "Name" = "8:Azure Media Services Explorer"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:32512"
+            "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_9D5CE24C90C9470491CE1D865EE7EFA4"
+            "Target" = "8:_000D9EA0C1584A8587932C31B2FCE3C1"
             "Folder" = "8:_F5163051431A4E0CA7F6400EEFE11208"
             "WorkingFolder" = "8:_B1F75C9643004F2F89DDF6F590A168D4"
-            "Icon" = "8:_9D5CE24C90C9470491CE1D865EE7EFA4"
+            "Icon" = "8:_9D68868F5A12419DA86FA0D880BCE7F1"
             "Feature" = "8:"
             }
         }
@@ -810,9 +810,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9D5CE24C90C9470491CE1D865EE7EFA4"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_000D9EA0C1584A8587932C31B2FCE3C1"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\AMSExplorer\\obj\\Release\\net7.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_B1F75C9643004F2F89DDF6F590A168D4"
@@ -834,7 +834,6 @@
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{67573AA5-0316-4C90-8CE4-93A950CD0A86}"
             "ShowKeyOutput" = "11:TRUE"
-            "PublishProfilePath" = "8:Properties\\PublishProfiles\\FolderProfile.pubxml"
                 "ExcludeFilters"
                 {
                 }

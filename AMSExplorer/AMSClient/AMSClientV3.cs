@@ -15,11 +15,10 @@
 //---------------------------------------------------------------------------------------------
 
 using AMSClient;
-using AMSExplorer.AMSLogin;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
 using Microsoft.Identity.Client;
-using Microsoft.Identity.Client.Extensibility;
+using Microsoft.Identity.Client.Broker;
 using Microsoft.Rest;
 using System;
 using System.Diagnostics;
@@ -59,9 +58,12 @@ namespace AMSExplorer
             if (!credentialsEntry.UseSPAuth)
             {
                 _appInteract = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
+
                   //.WithAuthority(AzureCloudInstance.AzurePublic, credentialsEntry.AadTenantId)
                   .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"))
-                  .WithRedirectUri("http://localhost")
+                  .WithDefaultRedirectUri()
+                  //.WithRedirectUri("http://localhost")
+                  .WithBrokerPreview(true)
                   .Build();
             }
             else // SP
@@ -75,8 +77,6 @@ namespace AMSExplorer
             scopes = new[] { environment.AADSettings.TokenAudience.ToString() + "/user_impersonation" };
             scopes2 = new[] { environment.MediaServicesV2Resource + "/user_impersonation" };
             scopes3 = new[] { environment.AADSettings.TokenAudience.ToString() + "/.default" };
-
-
             // Timer Auto Refresh of Auth token
             TimerAutoRefreshAuthToken = new System.Timers.Timer() { AutoReset = false };
         }
@@ -85,7 +85,6 @@ namespace AMSExplorer
         {
             _form = form;
         }
-
 
         private async void OnTimedEventAuthRefresh(object sender, ElapsedEventArgs e)
         {
@@ -112,6 +111,7 @@ namespace AMSExplorer
             {
                 var accounts = await _appInteract.GetAccountsAsync();
 
+
                 try
                 {
                     authResult = await _appInteract.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync().ConfigureAwait(false);
@@ -122,10 +122,21 @@ namespace AMSExplorer
                 {
                     try
                     {
+                        /*
                         authResult = await _appInteract.AcquireTokenInteractive(scopes)
                              .WithPrompt(credentialsEntry.PromptUser ? Prompt.ForceLogin : Prompt.SelectAccount)
                              .WithCustomWebUi(new EmbeddedBrowserCustomWebUI(callerForm ?? _form))
                              .ExecuteAsync();
+                        */
+
+                        if (callerForm != null) // if interactive and not refresh of token
+                        {
+                            authResult = await _appInteract.AcquireTokenInteractive(scopes)
+                                                 .WithAccount(null)  // this already exists in MSAL, but it is more important for WAM
+                                                 .WithParentActivityOrWindow(callerForm.Handle) // to be able to parent WAM's windows to your app (optional, but highly recommended; not needed on UWP)
+                                                 .ExecuteAsync();
+                        }
+
 
                     }
                     catch (MsalException maslException)
@@ -208,6 +219,7 @@ namespace AMSExplorer
 
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             //AMSclient.SetUserAgent("AMSE", version);
+            firstTimeAuth = false;
             return AMSclient;
         }
 
