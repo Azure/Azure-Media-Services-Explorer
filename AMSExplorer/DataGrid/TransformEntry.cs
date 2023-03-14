@@ -70,7 +70,7 @@ namespace AMSExplorer
         }
 
         private string _LastModified;
-        public string LastModified
+        public string LastModifiedOn
         {
             get => _LastModified;
             set

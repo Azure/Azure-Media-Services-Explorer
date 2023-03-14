@@ -14,13 +14,13 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
 
 namespace AMSExplorer
 {
     public class JobExtension
     {
-        public Job Job { get; set; }
+        public MediaJobResource Job { get; set; }
         public string TransformName { get; set; }
     }
 

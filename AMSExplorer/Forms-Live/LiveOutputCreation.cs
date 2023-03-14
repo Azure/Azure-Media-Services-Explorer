@@ -15,8 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -134,7 +133,7 @@ namespace AMSExplorer
             _client = client;
         }
 
-        private async void LiveOutputCreation_Load(object sender, EventArgs e)
+        private void LiveOutputCreation_Load(object sender, EventArgs e)
         {
             // DpiUtils.InitPerMonitorDpi(this);
 
@@ -142,10 +141,10 @@ namespace AMSExplorer
             //checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
 
 
-            System.Collections.Generic.IList<StorageAccount> storages = (await _client.AMSclient.Mediaservices.GetAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName)).StorageAccounts;
-            foreach (StorageAccount storage in storages)
+            // System.Collections.Generic.IList<StorageAccount> storages = _client.AMSclient.Data.StorageAccounts;
+            foreach (var storage in _client.AMSclient.Data.StorageAccounts)
             {
-                bool primary = (storage.Type == StorageAccountType.Primary);
+                bool primary = (storage.AccountType == MediaServicesStorageAccountType.Primary);
 
                 comboBoxStorage.Items.Add(new Item(AMSClientV3.GetStorageName(storage.Id) + (primary ? " (primary)" : string.Empty), AMSClientV3.GetStorageName(storage.Id)));
                 if (primary)

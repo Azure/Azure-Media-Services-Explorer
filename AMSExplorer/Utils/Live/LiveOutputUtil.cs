@@ -14,16 +14,16 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
 
 namespace AMSExplorer
 {
     public class LiveOutputUtil
     {
-        public static string ReturnLiveEventFromOutput(LiveOutput liveoutput)
+        public static string ReturnLiveEventFromOutput(MediaLiveOutputResource liveoutput)
 
         {
-            string[] idParts = liveoutput.Id.Split('/');
+            string[] idParts = liveoutput.Data.Id.ToString().Split('/');
             return idParts[10];
         }
     }

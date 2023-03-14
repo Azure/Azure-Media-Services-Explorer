@@ -15,7 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -24,15 +24,15 @@ namespace AMSExplorer
 {
     public partial class PriorityForm : Form
     {
-        public Priority? JobPriority
+        public MediaJobPriority? JobPriority
         {
             get
             {
                 var p = comboBoxPriority.SelectedItem switch
                 {
-                    "Low" => Priority.Low,
-                    "High" => Priority.High,
-                    _ => Priority.Normal,
+                    "Low" => MediaJobPriority.Low,
+                    "High" => MediaJobPriority.High,
+                    _ => MediaJobPriority.Normal,
                 };
                 return p;
             }
@@ -44,7 +44,7 @@ namespace AMSExplorer
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
 
-            List<string> ep = new() { Priority.Low, Priority.Normal, Priority.High };
+            List<string> ep = new() { MediaJobPriority.Low.ToString(), MediaJobPriority.Normal.ToString(), MediaJobPriority.High.ToString() };
             comboBoxPriority.Items.AddRange(ep.ToArray());
             comboBoxPriority.SelectedIndex = 1;
 

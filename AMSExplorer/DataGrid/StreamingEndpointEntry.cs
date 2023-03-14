@@ -15,7 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using System;
 
 namespace AMSExplorer
@@ -29,7 +29,7 @@ namespace AMSExplorer
         public string CDN { get; set; }
         public string Description { get; set; }
         public string ScaleUnits { get; set; }
-        public DateTime LastModified { get; set; }
+        public DateTime? LastModifiedOn { get; set; }
 
     }
 }

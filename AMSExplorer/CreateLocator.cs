@@ -15,13 +15,9 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Rest.Azure;
+using Azure.ResourceManager.Media;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -29,12 +25,12 @@ namespace AMSExplorer
 {
     public partial class CreateLocator : Form
     {
-        private readonly List<Asset> _SelectedAssets;
+        private readonly List<MediaAssetResource> _SelectedAssets;
         private readonly AMSClientV3 _client;
 
         public DateTime? LocatorStartDate
         {
-            get => (checkBoxStartDate.Checked) ? dateTimePickerStartDate.Value.ToUniversalTime() : (Nullable<DateTime>)null;
+            get => (checkBoxStartDate.Checked) ? dateTimePickerStartDate.Value.ToUniversalTime() : null;
             set
             {
                 dateTimePickerStartDate.Value = ((DateTime)value).ToLocalTime();
@@ -104,34 +100,34 @@ namespace AMSExplorer
             {
                 if (radioButtonDownload.Checked)
                 {
-                    return PredefinedStreamingPolicy.DownloadOnly;
+                    return "Predefined_DownloadOnly";
                 }
                 else if (radioButtonDownloadAndClear.Checked)
                 {
-                    return PredefinedStreamingPolicy.DownloadAndClearStreaming;
+                    return "Predefined_DownloadAndClearStreaming";
                 }
                 else if (radioButtonClearKey.Checked)
                 {
-                    return PredefinedStreamingPolicy.ClearKey;
+                    return "Predefined_ClearKey";
                 }
                 else if (radioButtonMultiDRMCENC.Checked)
                 {
-                    return PredefinedStreamingPolicy.MultiDrmCencStreaming;
+                    return "Predefined_MultiDrmCencStreaming";
                 }
                 else if (radioButtonMultiDRM.Checked)
                 {
-                    return PredefinedStreamingPolicy.MultiDrmStreaming;
+                    return "Predefined_MultiDrmStreaming";
                 }
                 else
                 {
-                    return PredefinedStreamingPolicy.ClearStreamingOnly;
+                    return "Predefined_ClearStreamingOnly";
                 }
             }
         }
 
 
 
-        public CreateLocator(AMSClientV3 client, List<Asset> SelectedAssets, bool extendlocator = false)
+        public CreateLocator(AMSClientV3 client, List<MediaAssetResource> SelectedAssets, bool extendlocator = false)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -201,61 +197,32 @@ namespace AMSExplorer
             {
                 labelNoAssetFilter.Visible = false;
 
-                List<AssetFilter> assetFilters = new();
-                IPage<AssetFilter> assetFiltersPage = await _client.AMSclient.AssetFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, _SelectedAssets.First().Name);
-                while (assetFiltersPage != null)
+                List<MediaAssetFilterResource> assetFilters = new();
+
+                var filters = _SelectedAssets.First().GetMediaAssetFilters().GetAllAsync();
+
+
+                await foreach (var filter in filters)
                 {
-                    assetFilters.AddRange(assetFiltersPage);
-                    if (assetFiltersPage.NextPageLink != null)
-                    {
-                        assetFiltersPage = await _client.AMSclient.AssetFilters.ListNextAsync(assetFiltersPage.NextPageLink);
-                    }
-                    else
-                    {
-                        assetFiltersPage = null;
-                    }
-                }
-
-                afiltersnames = assetFilters.Select(a => a.Name).ToList();
-
-
-                assetFilters.ToList().ForEach(f =>
-                {
-                    ListViewItem lvitem = new(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + f.Name, f.Name });
+                    ListViewItem lvitem = new(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_AssetFilter + filter.Data.Name, filter.Data.Name });
                     listViewFilters.Items.Add(lvitem);
+                    afiltersnames.Add(filter.Data.Name);
                 }
-               );
             }
-
 
             // account filters
-            List<AccountFilter> acctFilters = new();
-            IPage<AccountFilter> acctFiltersPage = await _client.AMSclient.AccountFilters.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
-            while (acctFiltersPage != null)
+            var acctFilters = _client.AMSclient.GetMediaServicesAccountFilters().GetAllAsync();
+            await foreach (var filter in acctFilters)
             {
-                acctFilters.AddRange(acctFiltersPage);
-                if (acctFiltersPage.NextPageLink != null)
-                {
-                    acctFiltersPage = await _client.AMSclient.AccountFilters.ListNextAsync(acctFiltersPage.NextPageLink);
-                }
-                else
-                {
-                    acctFiltersPage = null;
-                }
-            }
+                ListViewItem lvitem = new(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + filter.Data.Name, filter.Data.Name });
 
-
-            acctFilters.ToList().ForEach(f =>
-            {
-                ListViewItem lvitem = new(new string[] { AMSExplorer.Properties.Resources.ChooseStreamingEndpoint_ChooseStreamingEndpoint_Load_GlobalFilter + f.Name, f.Name });
-
-                if (afiltersnames.Contains(f.Name)) // global filter with same name than asset filter
+                if (afiltersnames.Contains(filter.Data.Name)) // global filter with same name than asset filter
                 {
-                    lvitem.ForeColor = Color.Gray;
+                    lvitem.ForeColor = System.Drawing.Color.Gray;
                 }
                 listViewFilters.Items.Add(lvitem);
             }
-           );
+
             listViewFilters.EndUpdate();
         }
 

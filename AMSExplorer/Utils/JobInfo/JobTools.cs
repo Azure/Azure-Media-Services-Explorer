@@ -1,5 +1,4 @@
-﻿using Microsoft.Azure.Management.Media.Models;
-using System;
+﻿using Azure.ResourceManager.Media.Models;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,29 +10,29 @@ namespace AMSExplorer.Utils.JobInfo
         public static async Task<StringBuilder> GetStatAsync(JobExtension MyJobExt, AMSClientV3 _amsClient)
         {
             ListRepData infoStr = new();
-            Job MyJob = MyJobExt.Job;
+            var MyJob = MyJobExt.Job;
 
             infoStr.Add("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             infoStr.Add(string.Empty);
 
-            infoStr.Add("Job Name", MyJob.Name);
+            infoStr.Add("Job Name", MyJob.Data.Name);
             infoStr.Add("Based on transform", MyJobExt.TransformName);
-            infoStr.Add("Description", MyJob.Description);
-            infoStr.Add("Id", MyJob.Id);
-            infoStr.Add("Created (UTC)", MyJob.Created.ToLongDateString() + " " + MyJob.Created.ToLongTimeString());
-            infoStr.Add("Last Modified (UTC)", MyJob.LastModified.ToLongDateString() + " " + MyJob.LastModified.ToLongTimeString());
-            infoStr.Add("Priority", MyJob.Priority);
-            infoStr.Add("State", MyJob.State.ToString());
+            infoStr.Add("Description", MyJob.Data.Description);
+            infoStr.Add("Id", MyJob.Data.Id);
+            infoStr.Add("Created (UTC)", MyJob.Data.CreatedOn?.UtcDateTime.ToString());
+            infoStr.Add("Last Modified (UTC)", MyJob.Data.LastModifiedOn?.UtcDateTime.ToString());
+            infoStr.Add("Priority", MyJob.Data.Priority.ToString());
+            infoStr.Add("State", MyJob.Data.State.ToString());
 
             infoStr.Add(string.Empty);
 
-            if (MyJob.Input is JobInputSequence dd) // multiple inputs
+            if (MyJob.Data.Input is MediaJobInputSequence dd) // multiple inputs
             {
                 foreach (var input in dd.Inputs)
                 {
                     infoStr.Add("   --- Job Input (Sequence) -------------------------------------");
 
-                    if (input is JobInputAsset iAsset)
+                    if (input is MediaJobInputAsset iAsset)
                     {
                         infoStr.Add("   Input type", "asset");
                         infoStr.Add("   Asset name", iAsset.AssetName);
@@ -62,12 +61,12 @@ namespace AMSExplorer.Utils.JobInfo
                     infoStr.Add(string.Empty);
                 }
             }
-            else if (MyJob.Input is JobInputAsset inputA)
+            else if (MyJob.Data.Input is MediaJobInputAsset inputA)
             {
                 infoStr.Add("   --- Job Input (Single asset) ---------------------------------");
 
                 infoStr.Add("   Asset name", inputA.AssetName);
-                infoStr.Add("   Asset type", (await AssetTools.GetAssetTypeAsync(inputA.AssetName, _amsClient))?.Type);
+                infoStr.Add("   Asset type", (await AssetTools.GetAssetTypeAsync(inputA, _amsClient))?.Type);
 
                 if (inputA.Start != null && inputA.Start is AbsoluteClipTime startA)
                 {
@@ -82,11 +81,11 @@ namespace AMSExplorer.Utils.JobInfo
                 infoStr.Add(string.Empty);
 
             }
-            else if (MyJob.Input is JobInputHttp inputH)
+            else if (MyJob.Data.Input is MediaJobInputHttp inputH)
             {
                 infoStr.Add("   --- Job Input (Https) ----------------------------------------");
 
-                infoStr.Add("   Base Url", inputH.BaseUri);
+                infoStr.Add("   Base Url", inputH.BaseUri.ToString());
 
                 if (inputH.Start != null && inputH.Start is AbsoluteClipTime startA)
                 {
@@ -103,17 +102,17 @@ namespace AMSExplorer.Utils.JobInfo
 
             infoStr.Add(string.Empty);
 
-            foreach (var output in MyJob.Outputs)
+            foreach (var output in MyJob.Data.Outputs)
             {
                 infoStr.Add("   --- Job Output -----------------------------------------------");
                 infoStr.Add("   Output label", output.Label);
                 infoStr.Add("   Output progress", output.Progress.ToString());
                 infoStr.Add("   Output state", output.State.ToString());
 
-                if (output.StartTime != null)
-                    infoStr.Add("   Output start time", ((DateTime)output.StartTime).ToLongDateString() + " " + ((DateTime)output.StartTime).ToLongTimeString());
-                if (output.EndTime != null)
-                    infoStr.Add("   Output end time", ((DateTime)output.EndTime).ToLongDateString() + " " + ((DateTime)output.EndTime).ToLongTimeString());
+                if (output.StartOn != null)
+                    infoStr.Add("   Output start time (UTC)", output.StartOn?.UtcDateTime.ToString());
+                if (output.EndOn != null)
+                    infoStr.Add("   Output end time (UTC)", output.EndOn?.UtcDateTime.ToString());
 
                 if (output.Error != null && output.Error.Details != null)
                 {

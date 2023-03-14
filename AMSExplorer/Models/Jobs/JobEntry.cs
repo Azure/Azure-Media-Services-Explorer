@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 
 namespace AMSExplorer
 {
@@ -24,11 +24,11 @@ namespace AMSExplorer
         public string TransformName { get; set; }
         public string Description { get; set; }
         public int Outputs { get; set; }
-        public Priority? Priority { get; set; }
-        public Microsoft.Azure.Management.Media.Models.JobState State { get; set; }
-        public string StartTime { get; set; }
+        public MediaJobPriority? Priority { get; set; }
+        public MediaJobState? State { get; set; }
+        public string StartOn { get; set; }
         public string LastModified { get; set; }
-        public string EndTime { get; set; }
+        public string EndOn { get; set; }
         public string Duration { get; set; }
         public double Progress { get; set; }
     }

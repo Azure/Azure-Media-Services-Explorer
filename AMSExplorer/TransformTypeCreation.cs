@@ -43,10 +43,6 @@ namespace AMSExplorer
                 {
                     return simpleTransformType.analyze;
                 }
-                else if (radioButtonFaceDetection.Checked)
-                {
-                    return simpleTransformType.facedetection;
-                }
                 else
                 {
                     return simpleTransformType.customJson;

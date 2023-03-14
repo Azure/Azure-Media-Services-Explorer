@@ -17,14 +17,14 @@
 using Azure;
 using Azure.Core;
 using Azure.ResourceManager;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
+using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources;
 using Azure.ResourceManager.Resources.Models;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Azure.Management.Storage;
 using Microsoft.Azure.Management.Storage.Models;
 using Microsoft.Rest;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -37,7 +37,6 @@ namespace AMSExplorer
     public partial class CreateAccount : Form
     {
         private List<LocationExpanded> _locations;
-        private AzureMediaServicesClient _mediaServicesClient;
         private TokenCredentials _tokenCredentials;
         private List<string> _listRegionWithAvailabilityZone;
         private SubscriptionResource _subscription;
@@ -61,15 +60,14 @@ namespace AMSExplorer
 
         public string ResourceGroupName => textBoxRG.Text;
 
-        public MediaService MediaServiceCreated { get; private set; }
+        public MediaServicesAccountResource MediaServiceCreated { get; private set; }
 
 
-        public CreateAccount(List<LocationExpanded> locations, AzureMediaServicesClient mediaServicesClient, TokenCredentials tokenCredentials, List<string> listRegionWithAvailabilityZone, SubscriptionResource subscription)
+        public CreateAccount(List<LocationExpanded> locations, TokenCredentials tokenCredentials, List<string> listRegionWithAvailabilityZone, SubscriptionResource subscription)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             _locations = locations;
-            _mediaServicesClient = mediaServicesClient;
             _tokenCredentials = tokenCredentials;
             _listRegionWithAvailabilityZone = listRegionWithAvailabilityZone;
             _subscription = subscription;
@@ -162,12 +160,13 @@ namespace AMSExplorer
 
             try
             {
-                var availability = _mediaServicesClient.Locations.CheckNameAvailability(
+                var availability = _subscription.CheckMediaServicesNameAvailability(SelectedLocationName, new MediaServicesNameAvailabilityContent { Name = AccountName, ResourceType = "Microsoft.Media/mediaservices" }).Value;
+                /*var availability = _mediaServicesClient.Locations.CheckNameAvailability(
                                         type: "Microsoft.Media/mediaservices",
                                         locationName: SelectedLocationName,
                                         name: AccountName);
-
-                if (!availability.NameAvailable)
+                */
+                if (!availability.IsNameAvailable)
                 {
                     errorProvider1.SetError(textBoxAccountName, availability.Message);
                     labelOkAMSAccount.Text = string.Empty;
@@ -257,6 +256,7 @@ namespace AMSExplorer
 
             try
             {
+                ResourceGroupCollection resourceGroups = _subscription.GetResourceGroups();
                 if (checkBoxCreateRG.Checked)
                 {
                     // create resource group if needed
@@ -266,10 +266,10 @@ namespace AMSExplorer
                     //var resourceGroup = new ResourceGroup(SelectedLocationName);
                     //resourceGroup = await resourceGroupsClient.CreateOrUpdateAsync(ResourceGroupName, resourceGroup);
 
-                    ResourceGroupCollection resourceGroups = _subscription.GetResourceGroups();
-                    ResourceGroupData resourceGroupData = new ResourceGroupData(SelectedLocationName);
+
+                    ResourceGroupData resourceGroupData = new(SelectedLocationName);
                     ArmOperation<ResourceGroupResource> operation = await resourceGroups.CreateOrUpdateAsync(WaitUntil.Completed, ResourceGroupName, resourceGroupData);
-                    ResourceGroupResource resourceGroup = operation.Value;
+                    //ResourceGroupResource resourceGroup = operation.Value;
                 }
 
                 string storageId;
@@ -278,10 +278,10 @@ namespace AMSExplorer
                     // New storage account
                     StorageManagementClient storageManagementClient = new(_tokenCredentials)
                     {
-                        SubscriptionId = _mediaServicesClient.SubscriptionId
+                        SubscriptionId = _subscription.Data.Id.SubscriptionId// _mediaServicesClient.SubscriptionId
                     };
 
-                    StorageAccountCreateParameters parametersStorage = new StorageAccountCreateParameters
+                    StorageAccountCreateParameters parametersStorage = new()
                     {
                         Location = SelectedLocationName,
                         Sku = new Microsoft.Azure.Management.Storage.Models.Sku { Name = ((Item)comboBoxStorageType.SelectedItem).Value },
@@ -296,23 +296,29 @@ namespace AMSExplorer
                     storageId = textBoxStorageId.Text;
                 }
 
-                // Set up the values for your Media Services account 
-                MediaService parameters = new(
-                    location: SelectedLocationName, // This is the location for the account to be created. 
-                    storageAccounts: new List<Microsoft.Azure.Management.Media.Models.StorageAccount>(){
-                        new Microsoft.Azure.Management.Media.Models.StorageAccount(
-                            type: StorageAccountType.Primary,
-                            // set this to the name of a storage account in your subscription using the full resource path formatting for Microsoft.Storage
-                            id: storageId
-                        )
-                    },
-                    identity: new MediaServiceIdentity(checkBoxManagedIdentity.Checked ? "SystemAssigned" : "None")
-                );
+
+                ResourceGroupResource resourceGroup = await resourceGroups.GetAsync(ResourceGroupName);
+                MediaServicesAccountCollection mediaServiceCollection = resourceGroup.GetMediaServicesAccounts();
 
                 // Create a new Media Services account
-                MediaServiceCreated = await _mediaServicesClient.Mediaservices.CreateOrUpdateAsync(ResourceGroupName, AccountName, parameters);
+                ArmOperation<MediaServicesAccountResource> createAccountOperation = await mediaServiceCollection.CreateOrUpdateAsync(
+                    WaitUntil.Completed,
+                    accountName: AccountName,
+                    new MediaServicesAccountData(SelectedLocationName)
+                    {
+                        Identity = new Azure.ResourceManager.Models.ManagedServiceIdentity(checkBoxManagedIdentity.Checked ? ManagedServiceIdentityType.SystemAssigned : ManagedServiceIdentityType.None),
+                        StorageAccounts = {
+                        new MediaServicesStorageAccount(MediaServicesStorageAccountType.Primary)
+                        {
+                            Id = new ResourceIdentifier(storageId)
 
-                MessageBox.Show($"Account '{AccountName}' has been successfully created.", "Account creation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                     }
+                    });
+
+                MediaServiceCreated = createAccountOperation.Value;
+
+                MessageBox.Show($"Account '{AccountName}' has been successfully created." + Constants.endline + createAccountOperation.GetRawResponse(), "Account creation", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();
@@ -325,11 +331,14 @@ namespace AMSExplorer
                 {
                     message += Environment.NewLine + Program.GetErrorMessage(ex);
                 }
+                //TODO2023 Check this part and how to restore it
+                /*
                 if (ex is Microsoft.Azure.Management.Media.Models.ErrorResponseException eApi)
                 {
                     dynamic error = JsonConvert.DeserializeObject(eApi.Response.Content);
                     message += Environment.NewLine + (string)error?.error?.message;
                 }
+                */
 
                 MessageBox.Show(message, "Account creation failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Telemetry.TrackException(ex);
@@ -343,7 +352,7 @@ namespace AMSExplorer
         {
             StorageManagementClient storageManagementClient = new(_tokenCredentials)
             {
-                SubscriptionId = _mediaServicesClient.SubscriptionId
+                SubscriptionId = _subscription.Data.Id.SubscriptionId//_mediaServicesClient.SubscriptionId
             };
             var availability = await storageManagementClient.StorageAccounts.CheckNameAvailabilityAsync(textBoxNewStorageName.Text);
 

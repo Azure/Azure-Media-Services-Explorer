@@ -14,7 +14,8 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Collections.Generic;
 
@@ -26,6 +27,6 @@ namespace AMSExplorer
         public string LocatorName { get; set; }
         public Guid? LocatorId { get; set; }
         public string AssetName { get; set; }
+        public StreamingLocatorResource Locator { get; set; }
     }
-
 }

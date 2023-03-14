@@ -15,7 +15,8 @@
 //---------------------------------------------------------------------------------------------
 
 using AMSExplorer.Forms_Live;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Microsoft.Web.WebView2.Core;
 using System;
 using System.Collections.Generic;
@@ -27,13 +28,12 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
-using System.Xml;
 
 namespace AMSExplorer
 {
     public partial class LiveEventInformation : Form
     {
-        public LiveEvent MyLiveEvent;
+        public MediaLiveEventResource MyLiveEvent;
         public bool MultipleSelection = false;
         public ExplorerLiveEventModifications Modifications = new();
         private readonly BindingList<IPRange> InputEndpointSettingList = new();
@@ -44,20 +44,20 @@ namespace AMSExplorer
         private readonly BindingList<ExplorerAudioStream> audiostreams = new();
         private string _radioButtonDefaultPreset;
 
-        public IPAccessControl GetInputAllowList
+        public IList<IPRange> GetInputAllowList
         {
             get
             {
-                IPAccessControl ipac = new(InputEndpointSettingList);
+                IList<IPRange> ipac = new List<IPRange>(InputEndpointSettingList);
                 return (checkBoxInputSet.Checked) ? ipac : null;
             }
         }
 
-        public IPAccessControl GetPreviewAllowList
+        public IList<IPRange> GetPreviewAllowList
         {
             get
             {
-                IPAccessControl ipac = new(PreviewEndpointSettingList);
+                IList<IPRange> ipac = new List<IPRange>(PreviewEndpointSettingList);
                 return (checkBoxPreviewSet.Checked) ? ipac : null;
             }
         }
@@ -68,16 +68,16 @@ namespace AMSExplorer
 
         public string GetLiveEventCrossdomainPolicy => (checkBoxcrossdomains.Checked) ? textBoxCrossDomPolicy.Text : null;
 
-        public string InputKeyframeIntervalSerialized
+        public TimeSpan? InputKeyframeIntervalSerialized
         {
             get
             {
-                string ts = null;
+                TimeSpan? ts = null;
                 if (checkBoxKeyFrameIntDefined.Checked)
                 {
                     try
                     {
-                        ts = XmlConvert.ToString(TimeSpan.FromSeconds(double.Parse(textBoxKeyFrame.Text)));
+                        ts = TimeSpan.FromSeconds(double.Parse(textBoxKeyFrame.Text));
                     }
                     catch
                     {
@@ -122,8 +122,12 @@ namespace AMSExplorer
             {
                 IList<LiveEventTranscription> transcriptionList = new List<LiveEventTranscription>
                 {
-                    new LiveEventTranscription(language: ((Item)comboBoxLanguage.SelectedItem).Value)
+                    new LiveEventTranscription()
+                    {
+                        Language = ((Item)comboBoxLanguage.SelectedItem).Value
+                    }
                 };
+
                 return transcriptionList;
             }
         }
@@ -178,51 +182,51 @@ namespace AMSExplorer
 
             if (!MultipleSelection) // one channel
             {
-                labelLEName.Text += MyLiveEvent.Name;
+                labelLEName.Text += MyLiveEvent.Data.Name;
 
                 DGLiveEvent.ColumnCount = 2;
 
                 // live event info
                 DGLiveEvent.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, MyLiveEvent.Name);
-                DGLiveEvent.Rows.Add("Id", MyLiveEvent.Id);
-                DGLiveEvent.Rows.Add("Location", MyLiveEvent.Location);
-                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, (LiveEventResourceState)MyLiveEvent.ResourceState);
-                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, ((DateTime)MyLiveEvent.Created).ToLocalTime().ToString("G"));
-                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, ((DateTime)MyLiveEvent.LastModified).ToLocalTime().ToString("G"));
-                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Description, MyLiveEvent.Description);
-                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_InputProtocol, MyLiveEvent.Input.StreamingProtocol);
+                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, MyLiveEvent.Data.Name);
+                DGLiveEvent.Rows.Add("Id", MyLiveEvent.Data.Id);
+                DGLiveEvent.Rows.Add("Location", MyLiveEvent.Data.Location.DisplayName);
+                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_State, (LiveEventResourceState)MyLiveEvent.Data.ResourceState);
+                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, MyLiveEvent.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"));
+                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, MyLiveEvent.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
+                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Description, MyLiveEvent.Data.Description);
+                DGLiveEvent.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_InputProtocol, MyLiveEvent.Data.Input.StreamingProtocol);
 
                 pictureBoxLE.Image = LiveEventUtil.ReturnChannelBitmap(MyLiveEvent);
 
-                if (MyLiveEvent.Encoding != null)
+                if (MyLiveEvent.Data.Encoding != null)
                 {
-                    DGLiveEvent.Rows.Add("Live event type", MyLiveEvent.Encoding.EncodingType);
-                    DGLiveEvent.Rows.Add("Preset Name", MyLiveEvent.Encoding.PresetName);
+                    DGLiveEvent.Rows.Add("Live event type", MyLiveEvent.Data.Encoding.EncodingType);
+                    DGLiveEvent.Rows.Add("Preset Name", MyLiveEvent.Data.Encoding.PresetName);
 
-                    if (MyLiveEvent.Encoding.KeyFrameInterval != null)
+                    if (MyLiveEvent.Data.Encoding.KeyFrameInterval != null)
                     {
-                        DGLiveEvent.Rows.Add("Encoding Key Frame Interval Duration", MyLiveEvent.Encoding.KeyFrameInterval);
+                        DGLiveEvent.Rows.Add("Encoding Key Frame Interval Duration", MyLiveEvent.Data.Encoding.KeyFrameInterval);
 
                     }
                 }
 
-                if (!string.IsNullOrEmpty(MyLiveEvent.Input.KeyFrameIntervalDuration))
+                if (MyLiveEvent.Data.Input.KeyFrameIntervalDuration.HasValue)
                 {
-                    DGLiveEvent.Rows.Add("Input Key Frame Interval Duration", MyLiveEvent.Input.KeyFrameIntervalDuration);
+                    DGLiveEvent.Rows.Add("Input Key Frame Interval Duration", MyLiveEvent.Data.Input.KeyFrameIntervalDuration);
                 }
 
                 string[] stringnameurl = new string[] { AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Primary, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_Secondary };
 
-                DGLiveEvent.Rows.Add("Vanity Url", MyLiveEvent.UseStaticHostname);
+                DGLiveEvent.Rows.Add("Vanity Url", MyLiveEvent.Data.UseStaticHostname);
 
                 int i = 0;
-                foreach (LiveEventEndpoint endpoint in MyLiveEvent.Input.Endpoints)
+                foreach (LiveEventEndpoint endpoint in MyLiveEvent.Data.Input.Endpoints)
                 {
-                    DGLiveEvent.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_0InputURL1, MyLiveEvent.Input.Endpoints.Count == 2 ? stringnameurl[i] : string.Empty, endpoint.Protocol), endpoint.Url);
-                    if (MyLiveEvent.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMP4)
+                    DGLiveEvent.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_0InputURL1, MyLiveEvent.Data.Input.Endpoints.Count == 2 ? stringnameurl[i] : string.Empty, endpoint.Protocol), endpoint.Uri);
+                    if (MyLiveEvent.Data.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMp4)
                     {
-                        DGLiveEvent.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_0InputURL1SSL, MyLiveEvent.Input.Endpoints.Count == 2 ? stringnameurl[i] : string.Empty, endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
+                        DGLiveEvent.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_0InputURL1SSL, MyLiveEvent.Data.Input.Endpoints.Count == 2 ? stringnameurl[i] : string.Empty, endpoint.Protocol), endpoint.Uri.ToString().Replace("http://", "https://"));
                     }
                     i++;
                 }
@@ -231,21 +235,21 @@ namespace AMSExplorer
                     DGLiveEvent.Rows.Add("Input url(s)", "(None. Start the live event to get them ?)");
                 }
 
-                if (MyLiveEvent.Preview != null)
+                if (MyLiveEvent.Data.Preview != null)
                 {
-                    foreach (LiveEventEndpoint endpoint in MyLiveEvent.Preview.Endpoints)
+                    foreach (LiveEventEndpoint endpoint in MyLiveEvent.Data.Preview.Endpoints)
                     {
-                        DGLiveEvent.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_PreviewURL0, endpoint.Protocol), endpoint.Url);
+                        DGLiveEvent.Rows.Add(string.Format(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_PreviewURL0, endpoint.Protocol), endpoint.Uri);
                     }
                 }
 
 
                 // live transcript
-                if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
+                if (MyLiveEvent.Data.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
                 {
 
                 }
-                else if (MyLiveEvent.Transcriptions != null && MyLiveEvent.Transcriptions.Count > 0)
+                else if (MyLiveEvent.Data.Transcriptions != null && MyLiveEvent.Data.Transcriptions.Count > 0)
                 {
                     DGLiveEvent.Rows.Add("Live Transcription", "Enabled");
                 }
@@ -264,43 +268,43 @@ namespace AMSExplorer
                 tabControlLiveEvent.TabPages.Remove(tabPageLiveEventInfo); // no channel info page
                 tabControlLiveEvent.TabPages.Remove(tabPagePreview); // no channel info page
 
-                if (!string.IsNullOrEmpty(MyLiveEvent.Input.KeyFrameIntervalDuration))
+                if (MyLiveEvent.Data.Input.KeyFrameIntervalDuration.HasValue)
                 {
                     checkBoxKeyFrameIntDefined.Checked = true;
-                    textBoxKeyFrame.Text = (XmlConvert.ToTimeSpan(MyLiveEvent.Input.KeyFrameIntervalDuration)).TotalSeconds.ToString();
+                    textBoxKeyFrame.Text = MyLiveEvent.Data.Input.KeyFrameIntervalDuration?.TotalSeconds.ToString();
                 }
             }
 
             // comon code - multiselect or only one channel selected
 
-            if (MyLiveEvent.Encoding != null)
+            if (MyLiveEvent.Data.Encoding != null)
             {
 
-                if (MyLiveEvent.Encoding.KeyFrameInterval != null)
+                if (MyLiveEvent.Data.Encoding.KeyFrameInterval.HasValue)
                 {
                     checkBoxEncodingKeyFrameInterval.Checked = true;
-                    textBoxEncodingKeyFrameInterval.Text = ((TimeSpan)MyLiveEvent.Encoding.KeyFrameInterval).TotalSeconds.ToString();
+                    textBoxEncodingKeyFrameInterval.Text = MyLiveEvent.Data.Encoding.KeyFrameInterval?.TotalSeconds.ToString();
                 }
                 //  DGChannel.Rows.Add(AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_SlateSettings, AMSExplorer.Properties.Resources.ChannelInformation_ChannelInformation_Load_None);
             }
 
-            if (!string.IsNullOrEmpty(MyLiveEvent.Input.KeyFrameIntervalDuration))
+            if (MyLiveEvent.Data.Input.KeyFrameIntervalDuration.HasValue)
             {
                 checkBoxKeyFrameIntDefined.Checked = true;
-                textBoxKeyFrame.Text = (XmlConvert.ToTimeSpan(MyLiveEvent.Input.KeyFrameIntervalDuration)).TotalSeconds.ToString();
+                textBoxKeyFrame.Text = MyLiveEvent.Data.Input.KeyFrameIntervalDuration?.TotalSeconds.ToString();
             }
 
 
             // live transcript
-            if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
+            if (MyLiveEvent.Data.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
             {
                 tabControlLiveEvent.TabPages.Remove(tabPageLiveTranscript);
             }
-            else if (MyLiveEvent.Transcriptions != null && MyLiveEvent.Transcriptions.Count > 0)
+            else if (MyLiveEvent.Data.Transcriptions != null && MyLiveEvent.Data.Transcriptions.Count > 0)
             {
                 checkBoxEnableLiveTranscript.Checked = true;
 
-                foreach (LiveEventTranscription transcript in MyLiveEvent.Transcriptions)
+                foreach (LiveEventTranscription transcript in MyLiveEvent.Data.Transcriptions)
                 {
                     DGLiveEvent.Rows.Add("Live Transcription language", transcript.Language);
                 }
@@ -309,7 +313,7 @@ namespace AMSExplorer
                 int index = 0;
                 foreach (var c in comboBoxLanguage.Items)
                 {
-                    if (((Item)c).Value == MyLiveEvent.Transcriptions.First().Language)
+                    if (((Item)c).Value == MyLiveEvent.Data.Transcriptions.First().Language)
                     {
                         index = comboBoxLanguage.Items.IndexOf(c);
                     }
@@ -322,14 +326,14 @@ namespace AMSExplorer
             }
 
             // low latency
-            if (MyLiveEvent.StreamOptions != null && (MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatency) || MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatencyV2)))
+            if (MyLiveEvent.Data.StreamOptions != null && (MyLiveEvent.Data.StreamOptions.Contains(StreamOptionsFlag.LowLatency) || MyLiveEvent.Data.StreamOptions.Contains(StreamOptionsFlag.LowLatencyV2)))
             {
                 checkBoxLowLatency.Checked = true;
-                radioButtonLowLatencyV2.Checked = MyLiveEvent.StreamOptions.Contains(StreamOptionsFlag.LowLatencyV2);
+                radioButtonLowLatencyV2.Checked = MyLiveEvent.Data.StreamOptions.Contains(StreamOptionsFlag.LowLatencyV2);
             }
 
             // encoding settings
-            if (MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || MyLiveEvent.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
+            if (MyLiveEvent.Data.Encoding.EncodingType == LiveEventEncodingType.PassthroughStandard || MyLiveEvent.Data.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic)
             {
                 // Low latency v2 should be removed for pass through event
                 radioButtonLowLatencyV2.Visible = false;
@@ -340,10 +344,10 @@ namespace AMSExplorer
                 tabControlLiveEvent.TabPages.Remove(tabPageEncoding); // no encoding channel
             }
 
-            if (MyLiveEvent.Input != null && MyLiveEvent.Input.AccessControl != null && MyLiveEvent.Input.AccessControl.Ip != null)
+            if (MyLiveEvent.Data.Input != null && MyLiveEvent.Data.Input.IPAllowedIPs != null)
             {
                 checkBoxInputSet.Checked = true;
-                foreach (IPRange endpoint in MyLiveEvent.Input.AccessControl.Ip.Allow)
+                foreach (IPRange endpoint in MyLiveEvent.Data.Input.IPAllowedIPs)
                 {
                     InputEndpointSettingList.Add(endpoint);
                 }
@@ -352,10 +356,10 @@ namespace AMSExplorer
             dataGridViewInputIP.DataSource = InputEndpointSettingList;
             dataGridViewInputIP.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
 
-            if (MyLiveEvent.Preview != null && MyLiveEvent.Preview.AccessControl != null && MyLiveEvent.Preview.AccessControl.Ip != null)
+            if (MyLiveEvent.Data.Preview != null && MyLiveEvent.Data.Preview.IPAllowedIPs != null)
             {
                 checkBoxPreviewSet.Checked = true;
-                foreach (IPRange endpoint in MyLiveEvent.Preview.AccessControl.Ip.Allow)
+                foreach (IPRange endpoint in MyLiveEvent.Data.Preview.IPAllowedIPs)
                 {
                     PreviewEndpointSettingList.Add(endpoint);
                 }
@@ -365,30 +369,30 @@ namespace AMSExplorer
             dataGridViewPreviewIP.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
 
 
-            if (MyLiveEvent.CrossSiteAccessPolicies != null)
+            if (MyLiveEvent.Data.CrossSiteAccessPolicies != null)
             {
-                if (MyLiveEvent.CrossSiteAccessPolicies.ClientAccessPolicy != null)
+                if (MyLiveEvent.Data.CrossSiteAccessPolicies.ClientAccessPolicy != null)
                 {
                     checkBoxclientpolicy.Checked = true;
-                    textBoxClientPolicy.Text = MyLiveEvent.CrossSiteAccessPolicies.ClientAccessPolicy;
+                    textBoxClientPolicy.Text = MyLiveEvent.Data.CrossSiteAccessPolicies.ClientAccessPolicy;
                 }
-                if (MyLiveEvent.CrossSiteAccessPolicies.CrossDomainPolicy != null)
+                if (MyLiveEvent.Data.CrossSiteAccessPolicies.CrossDomainPolicy != null)
                 {
                     checkBoxcrossdomains.Checked = true;
-                    textBoxCrossDomPolicy.Text = MyLiveEvent.CrossSiteAccessPolicies.CrossDomainPolicy;
+                    textBoxCrossDomPolicy.Text = MyLiveEvent.Data.CrossSiteAccessPolicies.CrossDomainPolicy;
                 }
             }
-            textboxchannedesc.Text = MyLiveEvent.Description;
+            textboxchannedesc.Text = MyLiveEvent.Data.Description;
 
 
             // Channel is stopped We can update some settings
-            if (MyLiveEvent.ResourceState == LiveEventResourceState.Stopped)
+            if (MyLiveEvent.Data.ResourceState == LiveEventResourceState.Stopped)
             {
                 tabControlLiveEvent.Text += " (editable)";
                 tabPageEncoding.Text += " (editable)";
                 tabPageAdvanced.Text += " (editable)";
             }
-            else if (MyLiveEvent.ResourceState == LiveEventResourceState.Running)
+            else if (MyLiveEvent.Data.ResourceState == LiveEventResourceState.Running)
             {
                 groupBoxEncoding.Enabled = false;
                 checkBoxIgnore708.Enabled = false;
@@ -519,7 +523,7 @@ namespace AMSExplorer
         private void buttonAllowAllInputIP_Click(object sender, EventArgs e)
         {
             InputEndpointSettingList.Clear();
-            InputEndpointSettingList.Add(new IPRange() { Name = AMSExplorer.Properties.Resources.ChannelInformation_buttonAllowAllInputIP_Click_AllowAll, Address = IPAddress.Parse("0.0.0.0").ToString(), SubnetPrefixLength = 0 });
+            InputEndpointSettingList.Add(new IPRange() { Name = AMSExplorer.Properties.Resources.ChannelInformation_buttonAllowAllInputIP_Click_AllowAll, Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 });
             checkBoxInputSet.Checked = true;
             Modifications.InputIPAllowList = true;
         }
@@ -527,18 +531,18 @@ namespace AMSExplorer
         private void buttonAllowAllPreviewIP_Click(object sender, EventArgs e)
         {
             PreviewEndpointSettingList.Clear();
-            PreviewEndpointSettingList.Add(new IPRange() { Name = AMSExplorer.Properties.Resources.ChannelInformation_buttonAllowAllInputIP_Click_AllowAll, Address = IPAddress.Parse("0.0.0.0").ToString(), SubnetPrefixLength = 0 });
+            PreviewEndpointSettingList.Add(new IPRange() { Name = AMSExplorer.Properties.Resources.ChannelInformation_buttonAllowAllInputIP_Click_AllowAll, Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 });
             checkBoxPreviewSet.Checked = true;
             Modifications.PreviewIPAllowList = true;
         }
 
         private async void tabPage4_Enter(object sender, EventArgs e)
         {
-            if (MyLiveEvent.ResourceState == LiveEventResourceState.Running && MyLiveEvent.Preview != null && MyLiveEvent.Preview.Endpoints.FirstOrDefault().Url != null)
+            if (MyLiveEvent.Data.ResourceState == LiveEventResourceState.Running && MyLiveEvent.Data.Preview != null && MyLiveEvent.Data.Preview.Endpoints.FirstOrDefault().Uri != null)
             {
                 string myurl = await AssetTools.DoPlayBackWithStreamingEndpointAsync(
                             typeplayer: PlayerType.AzureMediaPlayerFrame,
-                            path: MyLiveEvent.Preview.Endpoints.FirstOrDefault().Url,
+                            path: MyLiveEvent.Data.Preview.Endpoints.FirstOrDefault().Uri.ToString(),
                             DoNotRewriteURL: true,
                             client: _client,
                             formatamp: AzureMediaPlayerFormats.Auto,
@@ -628,7 +632,7 @@ namespace AMSExplorer
 
         private string ReturnLiveEncodingProfile()
         {
-            if (MyLiveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && MyLiveEvent.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic)
+            if (MyLiveEvent.Data.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && MyLiveEvent.Data.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic)
             {
                 return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
             }

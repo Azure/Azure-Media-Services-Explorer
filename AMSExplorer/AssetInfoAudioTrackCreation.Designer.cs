@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class AssetInfoTextTrackCreation
+    partial class AssetInfoAudioTrackCreation
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetInfoTextTrackCreation));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetInfoAudioTrackCreation));
             buttonCancel = new System.Windows.Forms.Button();
             buttonUpdate = new System.Windows.Forms.Button();
             panel1 = new System.Windows.Forms.Panel();
@@ -41,16 +41,15 @@
             labelBlobName = new System.Windows.Forms.Label();
             checkBoxLanguage = new System.Windows.Forms.CheckBox();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
-            checkBoxIsHLSSetForced = new System.Windows.Forms.CheckBox();
             checkBoxHLSSetAsDefault = new System.Windows.Forms.CheckBox();
-            checkBoxPlayerVisible = new System.Windows.Forms.CheckBox();
-            checkBoxAccessMusicSound = new System.Windows.Forms.CheckBox();
-            checkBoxAccessTranscribe = new System.Windows.Forms.CheckBox();
-            checkBoxAccessEditedEaseReading = new System.Windows.Forms.CheckBox();
+            checkBoxIsHLSDescriptiveAudio = new System.Windows.Forms.CheckBox();
             label1 = new System.Windows.Forms.Label();
             textBoxTrackName = new System.Windows.Forms.TextBox();
-            label6 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
+            comboBoxDashRole = new System.Windows.Forms.ComboBox();
+            label6 = new System.Windows.Forms.Label();
+            label7 = new System.Windows.Forms.Label();
+            textBoxTrackId = new System.Windows.Forms.TextBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -67,7 +66,7 @@
             resources.ApplyResources(buttonUpdate, "buttonUpdate");
             buttonUpdate.DialogResult = System.Windows.Forms.DialogResult.OK;
             buttonUpdate.Name = "buttonUpdate";
-            buttonUpdate.Tag = "Update text track";
+            buttonUpdate.Tag = "Update audio track";
             buttonUpdate.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -119,13 +118,6 @@
             checkBoxLanguage.UseVisualStyleBackColor = true;
             checkBoxLanguage.CheckedChanged += checkBoxLanguage_CheckedChanged;
             // 
-            // checkBoxIsHLSSetForced
-            // 
-            resources.ApplyResources(checkBoxIsHLSSetForced, "checkBoxIsHLSSetForced");
-            checkBoxIsHLSSetForced.Name = "checkBoxIsHLSSetForced";
-            toolTip1.SetToolTip(checkBoxIsHLSSetForced, resources.GetString("checkBoxIsHLSSetForced.ToolTip"));
-            checkBoxIsHLSSetForced.UseVisualStyleBackColor = true;
-            // 
             // checkBoxHLSSetAsDefault
             // 
             resources.ApplyResources(checkBoxHLSSetAsDefault, "checkBoxHLSSetAsDefault");
@@ -133,35 +125,12 @@
             toolTip1.SetToolTip(checkBoxHLSSetAsDefault, resources.GetString("checkBoxHLSSetAsDefault.ToolTip"));
             checkBoxHLSSetAsDefault.UseVisualStyleBackColor = true;
             // 
-            // checkBoxPlayerVisible
+            // checkBoxIsHLSDescriptiveAudio
             // 
-            resources.ApplyResources(checkBoxPlayerVisible, "checkBoxPlayerVisible");
-            checkBoxPlayerVisible.Checked = true;
-            checkBoxPlayerVisible.CheckState = System.Windows.Forms.CheckState.Checked;
-            checkBoxPlayerVisible.Name = "checkBoxPlayerVisible";
-            toolTip1.SetToolTip(checkBoxPlayerVisible, resources.GetString("checkBoxPlayerVisible.ToolTip"));
-            checkBoxPlayerVisible.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAccessMusicSound
-            // 
-            resources.ApplyResources(checkBoxAccessMusicSound, "checkBoxAccessMusicSound");
-            checkBoxAccessMusicSound.Name = "checkBoxAccessMusicSound";
-            toolTip1.SetToolTip(checkBoxAccessMusicSound, resources.GetString("checkBoxAccessMusicSound.ToolTip"));
-            checkBoxAccessMusicSound.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAccessTranscribe
-            // 
-            resources.ApplyResources(checkBoxAccessTranscribe, "checkBoxAccessTranscribe");
-            checkBoxAccessTranscribe.Name = "checkBoxAccessTranscribe";
-            toolTip1.SetToolTip(checkBoxAccessTranscribe, resources.GetString("checkBoxAccessTranscribe.ToolTip"));
-            checkBoxAccessTranscribe.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAccessEditedEaseReading
-            // 
-            resources.ApplyResources(checkBoxAccessEditedEaseReading, "checkBoxAccessEditedEaseReading");
-            checkBoxAccessEditedEaseReading.Name = "checkBoxAccessEditedEaseReading";
-            toolTip1.SetToolTip(checkBoxAccessEditedEaseReading, resources.GetString("checkBoxAccessEditedEaseReading.ToolTip"));
-            checkBoxAccessEditedEaseReading.UseVisualStyleBackColor = true;
+            resources.ApplyResources(checkBoxIsHLSDescriptiveAudio, "checkBoxIsHLSDescriptiveAudio");
+            checkBoxIsHLSDescriptiveAudio.Name = "checkBoxIsHLSDescriptiveAudio";
+            toolTip1.SetToolTip(checkBoxIsHLSDescriptiveAudio, resources.GetString("checkBoxIsHLSDescriptiveAudio.ToolTip"));
+            checkBoxIsHLSDescriptiveAudio.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -173,31 +142,47 @@
             resources.ApplyResources(textBoxTrackName, "textBoxTrackName");
             textBoxTrackName.Name = "textBoxTrackName";
             // 
-            // label6
-            // 
-            resources.ApplyResources(label6, "label6");
-            label6.Name = "label6";
-            // 
             // label5
             // 
             resources.ApplyResources(label5, "label5");
             label5.Name = "label5";
             // 
-            // AssetInfoTextTrackCreation
+            // comboBoxDashRole
+            // 
+            comboBoxDashRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBoxDashRole.FormattingEnabled = true;
+            resources.ApplyResources(comboBoxDashRole, "comboBoxDashRole");
+            comboBoxDashRole.Name = "comboBoxDashRole";
+            // 
+            // label6
+            // 
+            resources.ApplyResources(label6, "label6");
+            label6.Name = "label6";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(label7, "label7");
+            label7.Name = "label7";
+            // 
+            // textBoxTrackId
+            // 
+            resources.ApplyResources(textBoxTrackId, "textBoxTrackId");
+            textBoxTrackId.Name = "textBoxTrackId";
+            // 
+            // AssetInfoAudioTrackCreation
             // 
             AcceptButton = buttonUpdate;
             resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.SystemColors.Window;
             CancelButton = buttonCancel;
-            Controls.Add(checkBoxAccessEditedEaseReading);
-            Controls.Add(checkBoxAccessMusicSound);
-            Controls.Add(checkBoxAccessTranscribe);
-            Controls.Add(label5);
-            Controls.Add(checkBoxPlayerVisible);
-            Controls.Add(checkBoxIsHLSSetForced);
+            Controls.Add(textBoxTrackId);
+            Controls.Add(label7);
+            Controls.Add(checkBoxIsHLSDescriptiveAudio);
             Controls.Add(checkBoxHLSSetAsDefault);
             Controls.Add(label6);
+            Controls.Add(comboBoxDashRole);
+            Controls.Add(label5);
             Controls.Add(textBoxTrackName);
             Controls.Add(label1);
             Controls.Add(checkBoxLanguage);
@@ -208,7 +193,7 @@
             Controls.Add(comboBoxTexttrackLanguage);
             Controls.Add(label2);
             Controls.Add(panel1);
-            Name = "AssetInfoTextTrackCreation";
+            Name = "AssetInfoAudioTrackCreation";
             Load += AssetInfoTextTrackCreation_Load;
             Shown += AssetInfoTextTrackCreation_Shown;
             DpiChanged += AssetInfoTextTrackCreation_DpiChanged;
@@ -231,13 +216,12 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxTrackName;
-        private System.Windows.Forms.CheckBox checkBoxIsHLSSetForced;
-        private System.Windows.Forms.CheckBox checkBoxHLSSetAsDefault;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox checkBoxPlayerVisible;
-        private System.Windows.Forms.CheckBox checkBoxAccessMusicSound;
-        private System.Windows.Forms.CheckBox checkBoxAccessTranscribe;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox checkBoxAccessEditedEaseReading;
+        private System.Windows.Forms.ComboBox comboBoxDashRole;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox checkBoxHLSSetAsDefault;
+        private System.Windows.Forms.CheckBox checkBoxIsHLSDescriptiveAudio;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxTrackId;
     }
 }

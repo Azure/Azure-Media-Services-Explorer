@@ -57,8 +57,6 @@ namespace AMSExplorer.Rest
             return LiveEventRestObject.FromJson(responseContent);
         }
 
-
-
         //
         // Transform part
         //
@@ -87,5 +85,30 @@ namespace AMSExplorer.Rest
             string responseContent = await GetObjectContentAsync(URL);
             return TransformRestObject.FromJson(responseContent);
         }
+
+        //
+        // Content key policy
+        //
+        private const string ckpiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/contentKeyPolicies/{3}?api-version=2022-08-01";
+
+        public async Task<string> GetContentKeyPolicyAsync(string contentKeyPolicyName)
+
+        {
+            string URL = GenerateApiUrl(ckpiUrl, contentKeyPolicyName);
+            return await GetObjectContentAsync(URL);
+        }
+
+        //
+        // Streaming policy
+        //
+        private const string streamingUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/streamingPolicies/{3}?api-version=2022-08-01";
+
+        public async Task<string> GetStreamingPolicyAsync(string streamingPolicyName)
+
+        {
+            string URL = GenerateApiUrl(streamingUrl, streamingPolicyName);
+            return await GetObjectContentAsync(URL);
+        }
+
     }
 }

@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -32,9 +32,9 @@ namespace AMSExplorer
         public static readonly string ThumbnailTransformName = "StandardEncoder-AMSE-Thumbnails";
         public static readonly string ConstrainedCAETransformName = "StandardEncoder-AMSE-ConstrainedCAE";
 
-
         private readonly string _existingTransformName;
         private readonly string _existingTransformDesc;
+
         public readonly IList<EncodingProfile> Profiles = new List<EncodingProfile> {
             new EncodingProfile() {Prof=@"AdaptiveStreaming", Desc="Auto-generate a bitrate ladder (bitrate-resolution pairs) based on the input resolution and bitrate. This built-in encoder setting, or preset, will never exceed the input resolution and bitrate. For example, if the input is 720p at 3 Mbps, output remains 720p at best, and will start at rates lower than 3 Mbps. The output contains an audio-only MP4 file with stereo audio encoded at 128 kbps.", Automatic=true, LabelCodec="H.264 / AAC"},
             new EncodingProfile() {Prof=@"ContentAwareEncoding", Desc="Produces a set of GOP-aligned MP4s by using content-aware encoding. Given any input content, the service performs an initial lightweight analysis of the input content, and uses the results to determine the optimal number of layers, appropriate bitrate and resolution settings for delivery by adaptive streaming. This preset is particularly effective for low and medium complexity videos, where the output files will be at lower bitrates but at a quality that still delivers a good experience to viewers. The output will contain MP4 files with video and audio interleaved.", Automatic=true, LabelCodec="H.264 / AAC"},
@@ -52,12 +52,19 @@ namespace AMSExplorer
             new EncodingProfile() {Prof=@"H265SingleBitrate720p", Desc="Produces an MP4 file where the video is encoded with H.265 codec at 1800 kbps and a picture height of 720 pixels, and the stereo audio is encoded with AAC-LC codec at 128 kbps.", Automatic=false, LabelCodec="H.265 / AAC"},
             new EncodingProfile() {Prof=@"H265AdaptiveStreaming", Desc="Produces a set of GOP aligned MP4 files with H.265 video and stereo AAC audio. Auto-generates a bitrate ladder based on the input resolution, bitrate and frame rate. The auto-generated preset will never exceed the input resolution. For example, if the input is 720p, output will remain 720p at best.", Automatic=true, LabelCodec="H.265 / AAC"},
             new EncodingProfile() {Prof=@"H265ContentAwareEncoding", Desc="Produces a set of GOP-aligned MP4s by using content-aware encoding. Given any input content, the service performs an initial lightweight analysis of the input content, and uses the results to determine the optimal number of layers, appropriate bitrate and resolution settings for delivery by adaptive streaming. This preset is particularly effective for low and medium complexity videos, where the output files will be at lower bitrates but at a quality that still delivers a good experience to viewers. The output will contain MP4 files with video and audio interleaved.", Automatic=true, LabelCodec="H.265 / AAC"},
+
+            new EncodingProfile() {Prof=@"SaasCopyCodec", Desc="Copies the source video and audio codecs into an MP4 ready for streaming. The source has to be H264 and AAC with CBR encoding and no B frames typically.", Automatic=true, LabelCodec="H.264 / AAC"},
+            new EncodingProfile() {Prof=@"SaasProxyCopyCodec", Desc="Copies the source video and audio codecs into an MP4 ready for streaming and generates a proxy file. The source has to be H264 and AAC with CBR encoding and no B frames typically.", Automatic=true, LabelCodec="H.264 / AAC"},
+            new EncodingProfile() {Prof=@"SaasSourceAligned360pOnly", Desc="Copies the source video and audio codecs into an MP4 ready for streaming and generates a single 360P proxy layer that is aligned in GOP to the source file. Useful for 'back filling' a proxy on a pre-encoded file uploaded. The source has to be H264 and AAC with CBR encoding and no B frames typically.", Automatic=true, LabelCodec="H.264 / AAC"},
+            new EncodingProfile() {Prof=@"SaasSourceAligned540pOnly", Desc="Copies the source video and audio codecs into an MP4 ready for streaming and generates a single 540P proxy layer that is aligned in GOP to the source file. Useful for 'back filling' a proxy on a pre-encoded file uploaded. The source has to be H264 and AAC with CBR encoding and no B frames typically.", Automatic=true, LabelCodec="H.264 / AAC"},
+            new EncodingProfile() {Prof=@"SaasSourceAligned360p", Desc="Copies the source video and audio codecs into an MP4 ready for streaming and an adaptive set of 360P and 180P that is aligned to the source file. Useful for 'back filling' a proxy on a pre-encoded file uploaded. The source has to be H264 and AAC with CBR encoding and no B frames typically.", Automatic=true, LabelCodec="H.264 / AAC"},
+            new EncodingProfile() {Prof=@"SaasSourceAligned540p", Desc="Copies the source video and audio codecs into an MP4 ready for streaming and an adaptive set of 540P and 360P that is aligned to the source file. Useful for 'back filling' a proxy on a pre-encoded file uploaded. The source has to be H264 and AAC with CBR encoding and no B frames typically.", Automatic=true, LabelCodec="H.264 / AAC"},
                     };
 
         private readonly PresetStandardEncoderThumbnail formThumbnail = new();
         private StandardEncoderPreset encoderPresetThumbnail;
 
-        private PresetConfigurations presetConfigurations = null;
+        private EncoderPresetConfigurations presetConfigurations = null;
 
 
         public EncoderNamedPreset BuiltInPreset => (listboxPresets.SelectedItem as Item).Value;
@@ -78,7 +85,7 @@ namespace AMSExplorer
             }
         }
 
-        public PresetConfigurations CAEConfigurations
+        public EncoderPresetConfigurations CAEConfigurations
         {
             get
             {
@@ -107,20 +114,19 @@ namespace AMSExplorer
         public static StandardEncoderPreset CopyOnlyPreset()
         {
             return new StandardEncoderPreset(
-       codecs: new Codec[]
-       {
-                        // Add an Audio layer for the audio copy
-                        new CopyAudio(),                 
-                        // Next, add a Video for the video copy
-                       new CopyVideo()
-        },
-         // Specify the format for the output files - one for video+audio, and another for the thumbnails
-         formats: new Format[]
-         {
-                        new Mp4Format(
-                            filenamePattern:"Archive-{Basename}{Extension}"
-                        )
-         });
+                codecs: new List<MediaCodecBase>()
+                {
+                    // Add an Audio layer for the audio copy
+                    new CodecCopyAudio(),                 
+                    // Next, add a Video for the video copy
+                    new CodecCopyVideo()
+                },
+                // Specify the format for the output files - one for video+audio, and another for the thumbnails
+                formats: new List<MediaFormatBase>()
+                {
+                    new Mp4Format("Archive-{Basename}{Extension}")
+                }
+                );
         }
 
         public string TransformName => textBoxTransformName.Text;
@@ -139,21 +145,29 @@ namespace AMSExplorer
         {
             // DpiUtils.InitPerMonitorDpi(this);
 
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.AdaptiveStreaming, EncoderNamedPreset.AdaptiveStreaming));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.ContentAwareEncoding, EncoderNamedPreset.ContentAwareEncoding));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.CopyAllBitrateNonInterleaved, EncoderNamedPreset.CopyAllBitrateNonInterleaved));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrate1080p, EncoderNamedPreset.H264MultipleBitrate1080p));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrate720p, EncoderNamedPreset.H264MultipleBitrate720p));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrateSD, EncoderNamedPreset.H264MultipleBitrateSD));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrate1080p, EncoderNamedPreset.H264SingleBitrate1080p));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrate720p, EncoderNamedPreset.H264SingleBitrate720p));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrateSD, EncoderNamedPreset.H264SingleBitrateSD));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.AACGoodQualityAudio, EncoderNamedPreset.AACGoodQualityAudio));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265AdaptiveStreaming, EncoderNamedPreset.H265AdaptiveStreaming));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265ContentAwareEncoding, EncoderNamedPreset.H265ContentAwareEncoding));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate4K, EncoderNamedPreset.H265SingleBitrate4K));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate1080p, EncoderNamedPreset.H265SingleBitrate1080p));
-            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate720p, EncoderNamedPreset.H265SingleBitrate720p));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.AdaptiveStreaming.ToString(), EncoderNamedPreset.AdaptiveStreaming.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.ContentAwareEncoding.ToString(), EncoderNamedPreset.ContentAwareEncoding.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.CopyAllBitrateNonInterleaved.ToString(), EncoderNamedPreset.CopyAllBitrateNonInterleaved.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrate1080P.ToString(), EncoderNamedPreset.H264MultipleBitrate1080P.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrate720P.ToString(), EncoderNamedPreset.H264MultipleBitrate720P.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264MultipleBitrateSD.ToString(), EncoderNamedPreset.H264MultipleBitrateSD.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrate1080P.ToString(), EncoderNamedPreset.H264SingleBitrate1080P.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrate720P.ToString(), EncoderNamedPreset.H264SingleBitrate720P.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H264SingleBitrateSD.ToString(), EncoderNamedPreset.H264SingleBitrateSD.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.AacGoodQualityAudio.ToString(), EncoderNamedPreset.AacGoodQualityAudio.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265AdaptiveStreaming.ToString(), EncoderNamedPreset.H265AdaptiveStreaming.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265ContentAwareEncoding.ToString(), EncoderNamedPreset.H265ContentAwareEncoding.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate4K.ToString(), EncoderNamedPreset.H265SingleBitrate4K.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate1080P.ToString(), EncoderNamedPreset.H265SingleBitrate1080P.ToString()));
+            listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate720P.ToString(), EncoderNamedPreset.H265SingleBitrate720P.ToString()));
+
+            listboxPresets.Items.Add(new Item("SaasCopyCodec", "SaasCopyCodec"));
+            listboxPresets.Items.Add(new Item("SaasProxyCopyCodec", "SaasProxyCopyCodec"));
+            listboxPresets.Items.Add(new Item("SaasSourceAligned360pOnly", "SaasSourceAligned360pOnly"));
+            listboxPresets.Items.Add(new Item("SaasSourceAligned540pOnly", "SaasSourceAligned540pOnly"));
+            listboxPresets.Items.Add(new Item("SaasSourceAligned360p", "SaasSourceAligned360p"));
+            listboxPresets.Items.Add(new Item("SaasSourceAligned540p", "SaasSourceAligned540p"));
+
 
             listboxPresets.SelectedIndex = 0;
 

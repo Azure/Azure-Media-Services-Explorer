@@ -51,7 +51,7 @@ namespace AMSExplorer.Rest
 
         private HttpClient GetHttpClient(string token)
         {
-            HttpClient client = new HttpClient();
+            HttpClient client = new();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
             return client;
         }

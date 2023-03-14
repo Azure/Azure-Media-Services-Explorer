@@ -15,12 +15,10 @@
 //--------------------------------------------------------------------------------------------- 
 
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -41,18 +39,24 @@ namespace AMSExplorer
         {
             _context = context;
 
-            Microsoft.Rest.Azure.IPage<Transform> transformsList = await amsClient.AMSclient.Transforms.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
+            var trans = amsClient.AMSclient.GetMediaTransforms().GetAllAsync();
 
-            IEnumerable<Task<TransformEntry>> transforms = transformsList.Select(async a => new TransformEntry(_context)
+            List<TransformEntry> mappedItems = new();
+            await foreach (var t in trans)
             {
-                Name = a.Name,
-                Description = a.Description,
-                Jobs = (await amsClient.AMSclient.Jobs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, a.Name)).Count(),
-                LastModified = a.LastModified.ToLocalTime().ToString("G")
+                var count = await t.GetMediaJobs().GetAllAsync().CountAsync();
+                mappedItems.Add(
+                   new TransformEntry(_context)
+                   {
+                       Name = t.Data.Name,
+                       Description = t.Data.Description,
+                       Outputs = t.Data.Outputs.Count,
+                       Jobs = count,
+                       LastModifiedOn = t.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G")
+                   }
+                   );
+                break;
             }
-            );
-
-            TransformEntry[] mappedItems = await Task.WhenAll(transforms);
 
             BindingList<TransformEntry> MyObservTransformthisPageV3 = new(mappedItems);
             DataSource = MyObservTransformthisPageV3;
@@ -64,7 +68,7 @@ namespace AMSExplorer
                     Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                     Columns["Name"].Width = 200;
                     Columns["Description"].Width = 200;
-                    Columns["LastModified"].Width = 130;
+                    Columns["LastModifiedOn"].Width = 130;
                 }));
             });
 
@@ -83,18 +87,24 @@ namespace AMSExplorer
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.WaitCursor));
 
+            var trans = amsClient.AMSclient.GetMediaTransforms().GetAllAsync();
 
-
-            IEnumerable<Task<TransformEntry>> transforms = (await amsClient.AMSclient.Transforms.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName)).Select(async a => new TransformEntry(_context)
+            List<TransformEntry> mappedItems = new();
+            await foreach (var t in trans)
             {
-                Name = a.Name,
-                Description = a.Description,
-                Outputs = a.Outputs.Count,
-                Jobs = (await amsClient.AMSclient.Jobs.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName, a.Name)).Count(),
-                LastModified = a.LastModified.ToLocalTime().ToString("G")
+                var count = await t.GetMediaJobs().GetAllAsync().CountAsync();
+
+                mappedItems.Add(
+                    new TransformEntry(_context)
+                    {
+                        Name = t.Data.Name,
+                        Description = t.Data.Description,
+                        Outputs = t.Data.Outputs.Count,
+                        Jobs = count,
+                        LastModifiedOn = t.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G")
+                    }
+                    );
             }
-          );
-            TransformEntry[] mappedItems = await Task.WhenAll(transforms);
 
             _MyObservTransformsV3 = new BindingList<TransformEntry>(mappedItems);
 
@@ -105,17 +115,15 @@ namespace AMSExplorer
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
         }
 
-        public async Task<List<Transform>> ReturnSelectedTransformsAsync(AMSClientV3 amsClient)
+        public async Task<List<MediaTransformResource>> ReturnSelectedTransformsAsync(AMSClientV3 amsClient)
         {
-
-
-            List<Transform> SelectedTransforms = new();
+            List<MediaTransformResource> SelectedTransforms = new();
             foreach (DataGridViewRow Row in SelectedRows)
             {
                 // sometimes, the transform can be null (if just deleted)
                 try
                 {
-                    Transform transform = await amsClient.GetTransformAsync(Row.Cells[Columns["Name"].Index].Value.ToString());
+                    var transform = await amsClient.GetTransformAsync(Row.Cells[Columns["Name"].Index].Value.ToString());
                     SelectedTransforms.Add(transform);
                 }
                 catch
@@ -127,12 +135,12 @@ namespace AMSExplorer
             return SelectedTransforms;
         }
 
-        public void SelectTransform(Transform transform)
+        public void SelectTransform(MediaTransformResource transform)
         {
             ClearSelection();
             foreach (DataGridViewRow Row in Rows)
             {
-                if ((string)Row.Cells[0].Value == transform.Name)
+                if ((string)Row.Cells[0].Value == transform.Data.Name)
                 {
 
                     Row.Selected = true;

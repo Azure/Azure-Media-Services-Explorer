@@ -15,15 +15,13 @@
 //---------------------------------------------------------------------------------------------
 
 using AMSClient;
-using AMSExplorer.AMSLogin;
 using Azure.ResourceManager;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Azure.ResourceManager.Resources;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Identity.Client;
-using Microsoft.Identity.Client.Extensibility;
+using Microsoft.Identity.Client.Broker;
 using Microsoft.Rest;
-using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -43,15 +41,14 @@ namespace AMSExplorer
         private readonly IPublicClientApplication _app;
         private readonly AuthenticationResult _accessToken;
         private List<SubscriptionResource> subscriptions;
-        private readonly Dictionary<string, List<MediaService>> allAMSAccountsPerSub = new();
-        public MediaService selectedAccount = null;
+        private readonly Dictionary<string, List<MediaServicesAccountResource>> allAMSAccountsPerSub = new();
+        public MediaServicesAccountResource selectedAccount = null;
         public string selectedTenantId = null;
         private string _selectText;
         private string _createText;
 
         public bool SelectMode;
         public SubscriptionResource SelectedSubscription;
-        public AzureMediaServicesClient MediaServicesClient;
 
         public AddAMSAccount2Browse(TokenCredentials credentials, List<SubscriptionResource> subscriptions, AzureEnvironment environment, List<TenantResource> myTenants, Prompt prompt, IPublicClientApplication app, AuthenticationResult accessToken)
         {
@@ -108,6 +105,7 @@ namespace AMSExplorer
                 _clientApplications[selectedTenantId] = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
                 .WithAuthority(environment.AADSettings.AuthenticationEndpoint + selectedTenantId)
                 .WithDefaultRedirectUri()
+                .WithBrokerPreview(true)
                 //.WithRedirectUri("http://localhost")
                 .Build();
             }
@@ -127,8 +125,10 @@ namespace AMSExplorer
                 {
                     accessToken = await app
                         .AcquireTokenInteractive(scopes)
-                        .WithPrompt(_prompt)
-                        .WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
+                        .WithAccount(null)
+                        .WithParentActivityOrWindow(this.Handle)
+                        //.WithPrompt(_prompt)
+                        //.WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
                         .ExecuteAsync();
                 }
                 catch (MsalException)
@@ -152,7 +152,7 @@ namespace AMSExplorer
 
             var autoCode = new BearerTokenCredential(accessToken.AccessToken);
 
-            ArmClient armClient = new ArmClient(autoCode);
+            ArmClient armClient = new(autoCode);
 
             subscriptions = armClient.GetSubscriptions().ToList();
 
@@ -176,7 +176,7 @@ namespace AMSExplorer
         /// Display the AMS account info on the right.
         /// </summary>
         /// <param name="account"></param>
-        private void DisplayInfoAccount(MediaService account)
+        private void DisplayInfoAccount(MediaServicesAccountData account)
         {
             DGAcct.Rows.Clear();
             DGAcct.ColumnCount = 2;
@@ -186,14 +186,14 @@ namespace AMSExplorer
             // account info
             DGAcct.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGAcct.Rows.Add("AMS Account Name", account.Name);
-            DGAcct.Rows.Add("Location", account.Location);
+            DGAcct.Rows.Add("Location", account.Location.DisplayName);
             DGAcct.Rows.Add("Resource Group", GetResourceGroupNameFromId(account.Id));
-            DGAcct.Rows.Add("MediaServiceId", account.MediaServiceId);
+            DGAcct.Rows.Add("MediaServiceId", account.Id);
 
             int i = 1;
-            foreach (StorageAccount stor in account.StorageAccounts)
+            foreach (var stor in account.StorageAccounts)
             {
-                string add = stor.Type == StorageAccountType.Primary ? " (primary)" : string.Empty;
+                string add = stor.AccountType == MediaServicesStorageAccountType.Primary ? " (primary)" : string.Empty;
                 DGAcct.Rows.Add($"Storage account #{i}" + add, GetStorageNameFromId(stor.Id));
                 i++;
             }
@@ -260,6 +260,10 @@ namespace AMSExplorer
 
             SelectedSubscription = subscriptions.Where(s => s.Data.SubscriptionId == (string)e.Node.Tag).FirstOrDefault();
 
+
+            var mediaServicesAccounts = SelectedSubscription.GetMediaServicesAccounts();
+
+            /*
             // Getting Media Services accounts...
             MediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
             {
@@ -280,15 +284,16 @@ namespace AMSExplorer
                     mediaServicesAccountsPage = null;
                 }
             }
+            */
 
             // let's save the data
-            allAMSAccountsPerSub[MediaServicesClient.SubscriptionId] = mediaServicesAccounts;
+            allAMSAccountsPerSub[SelectedSubscription.Data.SubscriptionId] = mediaServicesAccounts.ToList();
 
             treeViewAzureSub.BeginUpdate();
             e.Node.Nodes.Clear();
-            foreach (MediaService mediaAcct in mediaServicesAccounts)
+            foreach (var mediaAcct in mediaServicesAccounts)
             {
-                TreeNode node = new(mediaAcct.Name)
+                TreeNode node = new(mediaAcct.Data.Name)
                 {
                     Tag = mediaAcct.Id
                 };
@@ -303,11 +308,11 @@ namespace AMSExplorer
         {
             if (e.Node.Level == 1) // AMS Account selected
             {
-                List<MediaService> accounts = allAMSAccountsPerSub[(string)e.Node.Parent.Tag];
-                MediaService account = accounts.Where(a => a.Id == (string)e.Node.Tag).FirstOrDefault();
+                List<MediaServicesAccountResource> accounts = allAMSAccountsPerSub[(string)e.Node.Parent.Tag];
+                var account = accounts.Where(a => a.Id.ToString() == e.Node.Tag.ToString()).FirstOrDefault();
 
                 // let's display account info
-                DisplayInfoAccount(account);
+                DisplayInfoAccount(account.Data);
                 selectedAccount = account;
                 buttonNext.Text = _selectText;
                 buttonNext.Enabled = true;

@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -34,10 +34,7 @@ namespace AMSExplorer
         }
 
 
-        public ContentKeyPolicyWidevineConfiguration GetWidevineConfiguration => new()
-        {
-            WidevineTemplate = textBoxConfiguration.Text
-        };
+        public ContentKeyPolicyWidevineConfiguration GetWidevineConfiguration => new(textBoxConfiguration.Text);
 
         public DRM_WidevineLicense(int step = -1, int option = -1, bool laststep = true)
         {

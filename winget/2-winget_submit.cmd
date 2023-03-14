@@ -1,1 +1,1 @@
-wingetcreate submit C:\Repos\Azure-Media-Services-Explorer\winget\manifests\m\Microsoft\AzureMediaServicesExplorer\5.6.1
+wingetcreate update --urls https://amsexplorer.azureedge.net/release/AMSExplorerSetup_v5.6.1.msi --version 5.6.1 Microsoft.AzureMediaServicesExplorer

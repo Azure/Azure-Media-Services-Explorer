@@ -16,7 +16,7 @@
 
 using AMSExplorer.Rest;
 using AMSExplorer.Utils.TransformInfo;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -29,12 +29,12 @@ namespace AMSExplorer
 {
     public partial class TransformInformation : Form
     {
-        private readonly Transform _transform;
+        private readonly MediaTransformResource _transform;
         private readonly TransformRestObject _transformRest;
         private readonly AMSClientV3 _amsClient;
-        public IEnumerable<StreamingEndpoint> MyStreamingEndpoints;
+        public IEnumerable<StreamingEndpointResource> MyStreamingEndpoints;
 
-        public TransformInformation(Transform transform, TransformRestObject transformRest, AMSClientV3 amsClient)
+        public TransformInformation(MediaTransformResource transform, TransformRestObject transformRest, AMSClientV3 amsClient)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -65,25 +65,25 @@ namespace AMSExplorer
         {
             // DpiUtils.InitPerMonitorDpi(this);
 
-            labelJobNameTitle.Text += _transform.Name;
+            labelJobNameTitle.Text += _transform.Data.Name;
 
             DGTransform.ColumnCount = 2;
             DGOutputs.ColumnCount = 2;
             DGOutputs.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
             DGTransform.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _transform.Name);
-            DGTransform.Rows.Add("Description", _transform.Description);
-            DGTransform.Rows.Add("Id", _transform.Id);
-            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _transform.Created.ToLocalTime().ToString("G"));
-            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _transform.LastModified.ToLocalTime().ToString("G"));
+            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _transform.Data.Name);
+            DGTransform.Rows.Add("Description", _transform.Data.Description);
+            DGTransform.Rows.Add("Id", _transform.Data.Id);
+            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _transform.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"));
+            DGTransform.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _transform.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
 
-            bool boutoutsintransform = (_transform.Outputs.Count > 0);
+            bool boutoutsintransform = (_transform.Data.Outputs.Count > 0);
 
             int index = 0;
             if (boutoutsintransform)
             {
-                foreach (TransformOutput output in _transform.Outputs)
+                foreach (var output in _transform.Data.Outputs)
                 {
                     // listBoxTasks.Items.Add(output..Name ?? Constants.stringNull);
                     string outputLabel = "output #" + index;
@@ -96,7 +96,7 @@ namespace AMSExplorer
 
         private void ListBoxOutputs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TransformOutput output = _transform.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
+            var output = _transform.Data.Outputs.Skip(listBoxOutputs.SelectedIndex).Take(1).FirstOrDefault();
             DGOutputs.Rows.Clear();
 
             DGOutputs.Rows.Add("Preset type", output.Preset.GetType().ToString());
@@ -210,7 +210,7 @@ namespace AMSExplorer
         public void DoTransformStat()
         {
             Telemetry.TrackEvent("TransformInformation DoTransformStat");
-            StringBuilder SB = TransformTools.GetStat(_transform, _transformRest);
+            StringBuilder SB = TransformTools.GetStat(_transform.Data, _transformRest);
             var tokenDisplayForm = new EditorXMLJSON("Transform report", SB.ToString(), false, ShowSampleMode.None, false);
             tokenDisplayForm.Display();
         }

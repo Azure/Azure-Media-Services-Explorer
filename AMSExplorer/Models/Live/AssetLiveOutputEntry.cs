@@ -14,13 +14,13 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
 
 namespace AMSExplorer
 {
     public class AssetLiveOutputEntry
     {
-        public Asset Asset { get; set; }
-        public LiveOutput LiveOutput { get; set; }
+        public MediaAssetResource Asset { get; set; }
+        public MediaLiveOutputResource LiveOutput { get; set; }
     }
 }

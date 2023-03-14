@@ -15,7 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,14 +26,14 @@ namespace AMSExplorer
 {
     public partial class LiveOutputInformation : Form
     {
-        private IEnumerable<StreamingEndpoint> _streamingEndpoints;
+        private IEnumerable<StreamingEndpointResource> _streamingEndpoints;
         private readonly Mainform MyMainForm;
         private readonly AMSClientV3 _amsClient;
         private bool _multipleSelection = false;
-        private LiveOutput _liveOutput;
-        private Asset _relatedAsset = null;
+        private MediaLiveOutputResource _liveOutput;
+        private MediaAssetResource _relatedAsset = null;
 
-        public LiveOutputInformation(Mainform mainform, AMSClientV3 client, LiveOutput liveOutput, IEnumerable<StreamingEndpoint> streamingEndpoints, bool multipleSelection = false)
+        public LiveOutputInformation(Mainform mainform, AMSClientV3 client, MediaLiveOutputResource liveOutput, IEnumerable<StreamingEndpointResource> streamingEndpoints, bool multipleSelection = false)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -85,7 +85,7 @@ namespace AMSExplorer
             }
             else
             {
-                MessageBox.Show(string.Format("Asset '{0}' not found !", _liveOutput.AssetName), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format("Asset '{0}' not found !", _liveOutput.Data.AssetName), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -95,22 +95,22 @@ namespace AMSExplorer
 
             if (!_multipleSelection)
             {
-                labelProgramName.Text += _liveOutput.Name;
+                labelProgramName.Text += _liveOutput.Data.Name;
                 DGLiveEvent.ColumnCount = 2;
 
                 // Program info
                 DGLiveEvent.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-                DGLiveEvent.Rows.Add("Name", _liveOutput.Name);
-                DGLiveEvent.Rows.Add("Id", _liveOutput.Id);
-                DGLiveEvent.Rows.Add("State", _liveOutput.ResourceState);
-                DGLiveEvent.Rows.Add("Created", ((DateTime)_liveOutput.Created).ToLocalTime().ToString("G"));
-                DGLiveEvent.Rows.Add("Last Modified", ((DateTime)_liveOutput.LastModified).ToLocalTime().ToString("G"));
-                DGLiveEvent.Rows.Add("Description", _liveOutput.Description);
-                DGLiveEvent.Rows.Add("Archive Window Length", _liveOutput.ArchiveWindowLength);
-                DGLiveEvent.Rows.Add("Manifest Name", _liveOutput.ManifestName);
-                DGLiveEvent.Rows.Add("Asset Name", _liveOutput.AssetName);
-                DGLiveEvent.Rows.Add("Output snap time", _liveOutput.OutputSnapTime);
-                DGLiveEvent.Rows.Add("Fragments Per Ts Segment", _liveOutput.Hls?.FragmentsPerTsSegment);
+                DGLiveEvent.Rows.Add("Name", _liveOutput.Data.Name);
+                DGLiveEvent.Rows.Add("Id", _liveOutput.Data.Id);
+                DGLiveEvent.Rows.Add("State", _liveOutput.Data.ResourceState);
+                DGLiveEvent.Rows.Add("Created", _liveOutput.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"));
+                DGLiveEvent.Rows.Add("Last Modified", _liveOutput.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
+                DGLiveEvent.Rows.Add("Description", _liveOutput.Data.Description);
+                DGLiveEvent.Rows.Add("Archive Window Length", _liveOutput.Data.ArchiveWindowLength);
+                DGLiveEvent.Rows.Add("Manifest Name", _liveOutput.Data.ManifestName);
+                DGLiveEvent.Rows.Add("Asset Name", _liveOutput.Data.AssetName);
+                DGLiveEvent.Rows.Add("Output snap time", _liveOutput.Data.OutputSnapTime);
+                DGLiveEvent.Rows.Add("Hls Fragments Per Ts Segment", _liveOutput.Data.HlsFragmentsPerTsSegment);
 
                 /*
                 ProgramInfo PI = new ProgramInfo(MyLiveOutput, MyContext);
@@ -129,7 +129,7 @@ namespace AMSExplorer
                 */
                 try
                 {
-                    _relatedAsset = await _amsClient.GetAssetAsync(_liveOutput.AssetName);
+                    _relatedAsset = await _amsClient.GetAssetAsync(_liveOutput.Data.AssetName);
                     var result = await AssetTools.GetValidOnDemandSmoothURIAsync(_relatedAsset, _amsClient, null, _liveOutput);
                     if (result.Item1 != null)
                     {
@@ -145,7 +145,6 @@ namespace AMSExplorer
                 {
 
                 }
-
             }
             else
             {
@@ -153,11 +152,8 @@ namespace AMSExplorer
                 tabControl1.TabPages.Remove(tabPageInfo); // no info as multiple
                 buttonDisplayRelatedAsset.Visible = false;
             }
-
-
-            numericUpDownArchiveHours.Value = Convert.ToInt16(_liveOutput.ArchiveWindowLength.TotalHours);
-            numericUpDownArchiveMinutes.Value = _liveOutput.ArchiveWindowLength.Minutes;
-
+            numericUpDownArchiveHours.Value = Convert.ToInt16(_liveOutput.Data.ArchiveWindowLength?.TotalHours);
+            numericUpDownArchiveMinutes.Value = (decimal)_liveOutput.Data.ArchiveWindowLength?.Minutes;
         }
 
         private void labelProgramName_Click(object sender, EventArgs e)

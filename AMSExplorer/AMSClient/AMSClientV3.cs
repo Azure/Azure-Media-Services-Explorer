@@ -15,11 +15,10 @@
 //---------------------------------------------------------------------------------------------
 
 using AMSClient;
-using AMSExplorer.AMSLogin;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager;
+using Azure.ResourceManager.Media;
 using Microsoft.Identity.Client;
-using Microsoft.Identity.Client.Extensibility;
+using Microsoft.Identity.Client.Broker;
 using Microsoft.Rest;
 using System;
 using System.Diagnostics;
@@ -34,9 +33,9 @@ namespace AMSExplorer
 {
     public class AMSClientV3
     {
-        public AzureMediaServicesClient AMSclient;
+        public MediaServicesAccountResource AMSclient;
         public AuthenticationResult authResult;
-        public CredentialsEntryV3 credentialsEntry;
+        public CredentialsEntryV4 credentialsEntry;
         private Form _form;
         public TokenCredentials credentials;
         public BearerTokenCredential credentialForArmClient;
@@ -49,7 +48,7 @@ namespace AMSExplorer
         private readonly System.Timers.Timer TimerAutoRefreshAuthToken;
 
 
-        public AMSClientV3(AzureEnvironment myEnvironment, string azureSubscriptionId, CredentialsEntryV3 myCredentialsEntry, Form form)
+        public AMSClientV3(AzureEnvironment myEnvironment, string azureSubscriptionId, CredentialsEntryV4 myCredentialsEntry, Form form)
         {
             environment = myEnvironment;
             _azureSubscriptionId = azureSubscriptionId;
@@ -59,9 +58,12 @@ namespace AMSExplorer
             if (!credentialsEntry.UseSPAuth)
             {
                 _appInteract = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
+
                   //.WithAuthority(AzureCloudInstance.AzurePublic, credentialsEntry.AadTenantId)
                   .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"))
-                  .WithRedirectUri("http://localhost")
+                  .WithDefaultRedirectUri()
+                  //.WithRedirectUri("http://localhost")
+                  .WithBrokerPreview(true)
                   .Build();
             }
             else // SP
@@ -75,8 +77,6 @@ namespace AMSExplorer
             scopes = new[] { environment.AADSettings.TokenAudience.ToString() + "/user_impersonation" };
             scopes2 = new[] { environment.MediaServicesV2Resource + "/user_impersonation" };
             scopes3 = new[] { environment.AADSettings.TokenAudience.ToString() + "/.default" };
-
-
             // Timer Auto Refresh of Auth token
             TimerAutoRefreshAuthToken = new System.Timers.Timer() { AutoReset = false };
         }
@@ -85,7 +85,6 @@ namespace AMSExplorer
         {
             _form = form;
         }
-
 
         private async void OnTimedEventAuthRefresh(object sender, ElapsedEventArgs e)
         {
@@ -106,11 +105,12 @@ namespace AMSExplorer
         }
 
 
-        public async Task<AzureMediaServicesClient> ConnectAndGetNewClientV3Async(Form callerForm = null)
+        public async Task<MediaServicesAccountResource> ConnectAndGetNewClientV3Async(Form callerForm = null)
         {
             if (!credentialsEntry.UseSPAuth)
             {
                 var accounts = await _appInteract.GetAccountsAsync();
+
 
                 try
                 {
@@ -122,10 +122,21 @@ namespace AMSExplorer
                 {
                     try
                     {
+                        /*
                         authResult = await _appInteract.AcquireTokenInteractive(scopes)
                              .WithPrompt(credentialsEntry.PromptUser ? Prompt.ForceLogin : Prompt.SelectAccount)
                              .WithCustomWebUi(new EmbeddedBrowserCustomWebUI(callerForm ?? _form))
                              .ExecuteAsync();
+                        */
+
+                        if (callerForm != null) // if interactive and not refresh of token
+                        {
+                            authResult = await _appInteract.AcquireTokenInteractive(scopes)
+                                                 .WithAccount(null)  // this already exists in MSAL, but it is more important for WAM
+                                                 .WithParentActivityOrWindow(callerForm.Handle) // to be able to parent WAM's windows to your app (optional, but highly recommended; not needed on UWP)
+                                                 .ExecuteAsync();
+                        }
+
 
                     }
                     catch (MsalException maslException)
@@ -170,16 +181,33 @@ namespace AMSExplorer
             credentials = new TokenCredentials(authResult.AccessToken, "Bearer");
             credentialForArmClient = new BearerTokenCredential(authResult.AccessToken);
 
+            // new code
+            var MediaServiceAccount = MediaServicesAccountResource.CreateResourceIdentifier(
+                subscriptionId: _azureSubscriptionId,
+                resourceGroupName: credentialsEntry.ResourceGroupName,
+                accountName: credentialsEntry.AccountName
+                );
+            //var credential = new DefaultAzureCredential(includeInteractiveCredentials: true);
+            var armClient = new ArmClient(credentialForArmClient);
+
+
+            var amsClient = armClient.GetMediaServicesAccountResource(MediaServiceAccount);
+
+            AMSclient = await amsClient.GetAsync();
+
+
+            /*
             // Getting Media Services account...
             AMSclient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
             {
                 SubscriptionId = _azureSubscriptionId
             };
+            */
 
             if (firstTimeAuth)
             {
                 // let's get info on mediaService, specifically to get the location (region)
-                credentialsEntry.MediaService = await AMSclient.Mediaservices.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName);
+                // credentialsEntry.MediaService = await AMSclient.Mediaservices.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName);
 
                 // let's refresh the token 3 minutes before it expires
                 TimerAutoRefreshAuthToken.Interval = (authResult.ExpiresOn.ToUniversalTime() - DateTimeOffset.UtcNow.AddMinutes(3)).TotalMilliseconds;
@@ -190,7 +218,8 @@ namespace AMSExplorer
             }
 
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            AMSclient.SetUserAgent("AMSE", version);
+            //AMSclient.SetUserAgent("AMSE", version);
+            firstTimeAuth = false;
             return AMSclient;
         }
 
@@ -206,34 +235,36 @@ namespace AMSExplorer
             return storageId.Split('/')[split.Length - 5];
         }
 
-        public async Task<Asset> GetAssetAsync(string assetName, CancellationToken token = default)
+        public async Task<MediaAssetResource> GetAssetAsync(string assetName, CancellationToken token = default)
         {
-            return await AMSclient.Assets.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName, assetName, token).ConfigureAwait(false);
+            return await AMSclient.GetMediaAssetAsync(assetName, token).ConfigureAwait(false);
         }
 
-        public async Task<Job> GetJobAsync(string transformName, string jobName)
+        public async Task<MediaJobResource> GetJobAsync(string transformName, string jobName)
         {
-            return await AMSclient.Jobs.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName, transformName, jobName).ConfigureAwait(false);
+            var t = await GetTransformAsync(transformName);
+            return await t.GetMediaJobAsync(jobName).ConfigureAwait(false);
         }
 
-        public async Task<Transform> GetTransformAsync(string transformName)
+        public async Task<MediaTransformResource> GetTransformAsync(string transformName)
         {
-            return await AMSclient.Transforms.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName, transformName).ConfigureAwait(false);
+            return await AMSclient.GetMediaTransformAsync(transformName).ConfigureAwait(false);
         }
 
-        public async Task<LiveEvent> GetLiveEventAsync(string liveEventName)
+        public async Task<MediaLiveEventResource> GetLiveEventAsync(string liveEventName)
         {
-            return await AMSclient.LiveEvents.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName, liveEventName).ConfigureAwait(false);
+            return await AMSclient.GetMediaLiveEventAsync(liveEventName).ConfigureAwait(false);
         }
 
-        public async Task<LiveOutput> GetLiveOutputAsync(string liveEventName, string liveOutputName)
+        public async Task<MediaLiveOutputResource> GetLiveOutputAsync(string liveEventName, string liveOutputName)
         {
-            return await AMSclient.LiveOutputs.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName, liveEventName, liveOutputName).ConfigureAwait(false);
+            var o = await GetLiveEventAsync(liveEventName);
+            return await o.GetMediaLiveOutputAsync(liveOutputName).ConfigureAwait(false);
         }
 
-        public async Task<StreamingEndpoint> GetStreamingEndpointAsync(string seName)
+        public async Task<StreamingEndpointResource> GetStreamingEndpointAsync(string seName)
         {
-            return await AMSclient.StreamingEndpoints.GetAsync(credentialsEntry.ResourceGroup, credentialsEntry.AccountName, seName).ConfigureAwait(false);
+            return await AMSclient.GetStreamingEndpointAsync(seName).ConfigureAwait(false);
         }
     }
 }

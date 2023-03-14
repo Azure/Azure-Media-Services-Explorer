@@ -16,14 +16,13 @@
 
 
 using AMSClient;
-using AMSExplorer.AMSLogin;
 using AMSExplorer.Rest;
+using Azure.Core;
 using Azure.ResourceManager;
+using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Resources;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
 using Microsoft.Identity.Client;
-using Microsoft.Identity.Client.Extensibility;
+using Microsoft.Identity.Client.Broker;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure.Authentication;
 using Newtonsoft.Json;
@@ -42,11 +41,11 @@ namespace AMSExplorer
 {
     public partial class AmsLogin : Form
     {
-        private ListCredentialsRPv3 CredentialList = new();
+        private ListCredentialsRPv4 CredentialList = new();
 
         public string accountName;
 
-        private CredentialsEntryV3 LoginInfo;
+        private CredentialsEntryV4 LoginInfo;
         private AzureEnvironment environment;
 
         public AMSClientV3 AmsClient { get; private set; }
@@ -72,19 +71,25 @@ namespace AMSExplorer
             listViewAccounts.Columns.Add(header);
             // Then
             listViewAccounts.Scrollable = true;
-            listViewAccounts.View = System.Windows.Forms.View.Details;
+            listViewAccounts.View = View.Details;
 
 
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListRPv3JSON))
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.LoginListRPv4JSON))
             {
-                // JSon deserialize
-                CredentialList = (ListCredentialsRPv3)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv3JSON, typeof(ListCredentialsRPv3));
 
+                var obj = (ListCredentialsRPv4)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv4JSON, typeof(ListCredentialsRPv4));
 
-                // Display accounts in the list
-                CredentialList.MediaServicesAccounts.ForEach(c =>
-                    AddItemToListviewAccounts(c)
-                );
+                if (obj.Version >= 4)
+                {
+                    // new list v4
+                    // JSon deserialize
+                    CredentialList = (ListCredentialsRPv4)JsonConvert.DeserializeObject(Properties.Settings.Default.LoginListRPv4JSON, typeof(ListCredentialsRPv4));
+
+                    // Display accounts in the list
+                    CredentialList.MediaServicesAccounts.ForEach(c =>
+                        AddItemToListviewAccounts(c)
+                    );
+                }
             }
 
             buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
@@ -97,9 +102,9 @@ namespace AMSExplorer
             DoEnableManualFields(false);
         }
 
-        private void AddItemToListviewAccounts(CredentialsEntryV3 c)
+        private void AddItemToListviewAccounts(CredentialsEntryV4 c)
         {
-            ListViewItem item = listViewAccounts.Items.Add(c.MediaService.Name);
+            ListViewItem item = listViewAccounts.Items.Add(c.AccountName);
             listViewAccounts.Items[item.Index].ForeColor = Color.Black;
             listViewAccounts.Items[item.Index].ToolTipText = null;
         }
@@ -138,9 +143,9 @@ namespace AMSExplorer
                 return;
             }
 
-            AmsClient = new AMSClientV3(LoginInfo.Environment, LoginInfo.AzureSubscriptionId, LoginInfo, this);
+            AmsClient = new AMSClientV3(LoginInfo.Environment, LoginInfo.SubscriptionId, LoginInfo, this);
 
-            AzureMediaServicesClient response;
+            MediaServicesAccountResource response;
             try
             {
                 response = await AmsClient.ConnectAndGetNewClientV3Async(this);
@@ -163,7 +168,9 @@ namespace AMSExplorer
 
             try
             {   // let's refresh storage accounts
-                AmsClient.credentialsEntry.MediaService.StorageAccounts = (await AmsClient.AMSclient.Mediaservices.GetAsync(AmsClient.credentialsEntry.ResourceGroup, AmsClient.credentialsEntry.AccountName)).StorageAccounts;
+                // TODO2023 : to check if storing storage accounts is needed
+                //AmsClient.credentialsEntry.MediaService.StorageAccounts = response.Data.StorageAccounts;
+
                 Cursor = Cursors.Default;
             }
             catch (Exception ex)
@@ -189,8 +196,9 @@ namespace AMSExplorer
                 LoginInfo = CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]];
 
                 textBoxDescription.Text = LoginInfo.Description;
-                textBoxAMSResourceId.Text = LoginInfo.MediaService.Id;
+                textBoxResourceGroup.Text = LoginInfo.ResourceGroupName;
                 textBoxAADtenantId.Text = LoginInfo.AadTenantId;
+                textBoxSubscription.Text = LoginInfo.SubscriptionId;
 
                 DoEnableManualFields(false);
                 groupBoxAADAutMode.Visible = true;
@@ -204,7 +212,7 @@ namespace AMSExplorer
         private void DoEnableManualFields(bool enable)
         {
             textBoxAADtenantId.Enabled =
-            textBoxAMSResourceId.Enabled =
+            textBoxResourceGroup.Enabled =
                                     enable;
         }
 
@@ -233,7 +241,7 @@ namespace AMSExplorer
                     properties.Add("ClearADSPClientSecret");
                 }
 
-                jsonResolver.IgnoreProperty(typeof(CredentialsEntryV3), properties.ToArray()); // let's not export encrypted secret and may be clear secret
+                jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), properties.ToArray()); // let's not export encrypted secret and may be clear secret
 
                 JsonSerializerSettings settings = new()
                 {
@@ -253,7 +261,7 @@ namespace AMSExplorer
                         }
                         else
                         {
-                            ListCredentialsRPv3 copyEntry = new();
+                            ListCredentialsRPv4 copyEntry = new();
 
                             for (int i = 0; i < listViewAccounts.SelectedIndices.Count; i++)
                             {
@@ -298,10 +306,10 @@ namespace AMSExplorer
                         // let's purge entries if user does not want to keep them
                     }
 
-                    ListCredentialsRPv3 ImportedCredentialList = null;
+                    ListCredentialsRPv4 ImportedCredentialList = null;
                     try
                     {
-                        ImportedCredentialList = (ListCredentialsRPv3)JsonConvert.DeserializeObject(json, typeof(ListCredentialsRPv3));
+                        ImportedCredentialList = (ListCredentialsRPv4)JsonConvert.DeserializeObject(json, typeof(ListCredentialsRPv4));
                     }
                     catch (Exception ex)
                     {
@@ -309,7 +317,7 @@ namespace AMSExplorer
                         return;
                     }
 
-                    if (ImportedCredentialList.Version < (new ListCredentialsRPv3()).Version)
+                    if (ImportedCredentialList.Version < (new ListCredentialsRPv4()).Version)
                     {
                         MessageBox.Show("This file was created with an older version of AMSE. Import is not possible.", "Wrong version", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -330,9 +338,9 @@ namespace AMSExplorer
         private void SaveCredentialsToSettings()
         {
             PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new();
-            jsonResolver.IgnoreProperty(typeof(CredentialsEntryV3), "ClearADSPClientSecret"); // let's not save the clear SP secret
+            jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), "ClearADSPClientSecret"); // let's not save the clear SP secret
             JsonSerializerSettings settings = new() { ContractResolver = jsonResolver };
-            Properties.Settings.Default.LoginListRPv3JSON = JsonConvert.SerializeObject(CredentialList, settings);
+            Properties.Settings.Default.LoginListRPv4JSON = JsonConvert.SerializeObject(CredentialList, settings);
             Program.SaveAndProtectUserConfig();
         }
 
@@ -449,16 +457,16 @@ namespace AMSExplorer
 
                     IPublicClientApplication appPickUp = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
                         .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "common")
-                        .WithRedirectUri("http://localhost")
+                        .WithDefaultRedirectUri()
+                        //.WithRedirectUri("http://localhost")
+                        .WithBrokerPreview(true)
                         .Build();
 
                     AuthenticationResult accessToken = null;
                     var accounts = await appPickUp.GetAccountsAsync();
                     try
                     {
-
                         accessToken = await appPickUp.AcquireTokenSilent(scopes, accounts.FirstOrDefault()).ExecuteAsync();
-
                     }
 #pragma warning disable CS0168 // Variable is declared but never used
                     catch (MsalUiRequiredException ex)
@@ -467,8 +475,10 @@ namespace AMSExplorer
                         try
                         {
                             accessToken = await appPickUp.AcquireTokenInteractive(scopes)
-                                .WithPrompt(addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.SelectAccount)
-                                .WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
+                                //.WithPrompt(addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.SelectAccount)
+                                //.WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
+                                .WithAccount(null)
+                                .WithParentActivityOrWindow(this.Handle)
                                 .ExecuteAsync();
                         }
                         catch (MsalException)
@@ -491,51 +501,13 @@ namespace AMSExplorer
 
                     TokenCredentials credentials = new(accessToken.AccessToken, "Bearer");
                     var credentialForArmClient = new BearerTokenCredential(accessToken.AccessToken);
-
-                    ArmClient armClient = new ArmClient(credentialForArmClient);
-
+                    ArmClient armClient = new(credentialForArmClient);
 
                     // Subcriptions listing
                     var subscriptions = armClient.GetSubscriptions().ToList();
 
-                    /*
-                    List<Subscription> subscriptions = new();
-                    IPage<Subscription> subscriptionsPage = subscriptionClient.Subscriptions.List();
-                    while (subscriptionsPage != null)
-                    {
-                        subscriptions.AddRange(subscriptionsPage);
-                        if (subscriptionsPage.NextPageLink != null)
-                        {
-                            subscriptionsPage = subscriptionClient.Subscriptions.ListNext(subscriptionsPage.NextPageLink);
-                        }
-                        else
-                        {
-                            subscriptionsPage = null;
-                        }
-                    }
-                    */
-
                     // Tenants listing
-
                     var tenants = armClient.GetTenants().ToList();
-
-                    /*
-                    List<TenantIdDescription> tenants = new();
-                    IPage<TenantIdDescription> tenantsPage = subscriptionClient.Tenants.List();
-                    while (tenantsPage != null)
-                    {
-                        tenants.AddRange(tenantsPage);
-                        if (tenantsPage.NextPageLink != null)
-                        {
-                            tenantsPage = subscriptionClient.Tenants.ListNext(tenantsPage.NextPageLink);
-                        }
-                        else
-                        {
-                            tenantsPage = null;
-                        }
-                    }
-                    */
-
                     Cursor = Cursors.Default;
 
                     AddAMSAccount2Browse addaccount2 = new(credentials, subscriptions, environment, tenants, prompt, appPickUp, accessToken);
@@ -546,12 +518,15 @@ namespace AMSExplorer
                         {
                             // Getting Media Services accounts...
 
-                            CredentialsEntryV3 entry = new(addaccount2.selectedAccount,
-                               environment,
-                               addaccount1.SelectUser,
-                               false,
-                               addaccount2.selectedTenantId,
-                               false
+                            CredentialsEntryV4 entry = new(
+                                addaccount2.selectedAccount.Data.Name,
+                                addaccount2.selectedAccount.Data.Id.SubscriptionId,
+                                addaccount2.selectedAccount.Data.Id.ResourceGroupName,
+                                environment,
+                                addaccount1.SelectUser,
+                                false,
+                                addaccount2.selectedTenantId,
+                                false
                                );
 
                             CredentialList.MediaServicesAccounts.Add(entry);
@@ -566,13 +541,10 @@ namespace AMSExplorer
                             //var myLocations = subscriptionClient.Subscriptions.ListLocations(addaccount2.SelectedSubscription.SubscriptionId).Where(l => l.Metadata.RegionType == "Physical").OrderBy(l => l.RegionalDisplayName);
 
                             // Getting Media Services accounts...
-                            var MediaServicesClient = new AzureMediaServicesClient(environment.ArmEndpoint, credentials)
-                            {
-                                SubscriptionId = addaccount2.SelectedSubscription.Data.SubscriptionId
-                            };
+                            var listMediaServices = subscription.GetMediaServicesAccounts().ToList();
 
                             // let's get the list of avaibility zones
-                            AzureProviders aP = new AzureProviders(environment.ArmEndpoint);
+                            AzureProviders aP = new(environment.ArmEndpoint);
 
                             var list = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.Data.SubscriptionId, "Microsoft.Network", accessToken.AccessToken);
                             var listNatGateways = list.ResourceTypes.Where(r => r.ResourceType == "natGateways").FirstOrDefault();
@@ -583,19 +555,20 @@ namespace AMSExplorer
                             }
 
                             // let's get the list of Media Services
-                            var listMedia = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.Data.SubscriptionId, "Microsoft.Media", accessToken.AccessToken);
-                            var listMediaServices = listMedia.ResourceTypes.Where(r => r.ResourceType == "mediaservices").FirstOrDefault().Locations;
+                            var listMediaServicesLocations = listMediaServices.FirstOrDefault().GetAvailableLocations().Value;
 
                             // var myLocationsWithMS = myLocations.Where(l => listMediaServices.Contains(l.DisplayName)).ToList();
-                            var myLocationsWithMS = myLocations.Where(l => listMediaServices.Contains(l.DisplayName)).ToList();
+                            var myLocationsWithMS = myLocations.Where(l => listMediaServicesLocations.Contains(l.DisplayName)).ToList();
 
-                            CreateAccount createAccount = new(myLocationsWithMS, MediaServicesClient, credentials, listRegionWithAvailabilityZone, subscription);
+                            CreateAccount createAccount = new(myLocationsWithMS, credentials, listRegionWithAvailabilityZone, subscription);
 
                             if (createAccount.ShowDialog() == DialogResult.OK)
                             {
                                 // Add account to list
-                                CredentialsEntryV3 entry = new(
-                                  createAccount.MediaServiceCreated,
+                                CredentialsEntryV4 entry = new(
+                                  createAccount.MediaServiceCreated.Data.Id.Name,
+                                  createAccount.MediaServiceCreated.Data.Id.SubscriptionId,
+                                  createAccount.MediaServiceCreated.Data.Id.ResourceGroupName,
                                   environment,
                                   addaccount1.SelectUser,
                                   false,
@@ -621,29 +594,38 @@ namespace AMSExplorer
 
 
                 // Get info from the Portal or Azure CLI JSON
-                else if (addaccount1.SelectedMode == AddAccountMode.FromAzureCliOrPortalJson)
+                else if (addaccount1.SelectedMode == AddAccountMode.FromAzurePortalJson)
                 {
                     Telemetry.TrackEvent("AMSLogin buttonPickupAccount_Click FromAzureCliOrPortalJson");
 
-                    string example = @"{
-  ""AadClientId"": ""00000000-0000-0000-0000-000000000000"",
-  ""AadSecret"": ""00000000-0000-0000-0000-000000000000"",
-  ""AadTenantId"": ""00000000-0000-0000-0000-000000000000"",
-  ""AccountName"": ""amsaccount"",
-  ""ResourceGroup"": ""amsResourceGroup"",
-  ""SubscriptionId"": ""00000000-0000-0000-0000-000000000000"",
-  ""ArmAadAudience"": ""https://management.core.windows.net/"",
-  ""ArmEndpoint"": ""https://management.azure.com/"",
-  ""AadEndpoint"": ""https://login.microsoftonline.com""
+                    string example = @"{";
+
+
+                    if (addaccount1.JsonWithServicePrincipal)
+                    {
+                        example += @"
+  ""AZURE_CLIENT_ID"": ""00000000-0000-0000-0000-000000000000"",
+  ""AZURE_CLIENT_SECRET"": ""00000000-0000-0000-0000-000000000000"",";
+                    }
+
+                    example += @"
+  ""AZURE_TENANT_DOMAIN"": ""microsoft.onmicrosoft.com"",
+  ""AZURE_TENANT_ID"": ""00000000-0000-0000-0000-000000000000"",
+  ""AZURE_MEDIA_SERVICES_ACCOUNT_NAME"": ""amsaccount"",
+  ""AZURE_RESOURCE_GROUP"": ""amsResourceGroup"",
+  ""AZURE_SUBSCRIPTION_ID"": ""00000000-0000-0000-0000-000000000000"",
+  ""AZURE_ARM_TOKEN_AUDIENCE"": ""https://management.core.windows.net/"",
+  ""AZURE_ARM_ENDPOINT"": ""https://management.azure.com/"",
+  ""AZURE_AAD_ENDPOINT"": ""https://login.microsoftonline.com""
 }";
                     EditorXMLJSON form = new("Enter the JSON output of the Azure Portal or Azure Cli Service Principal creation", example, true, ShowSampleMode.None, true, "The Service Principal secret is stored encrypted in the application settings.");
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        JsonFromAzureCliOrPortal json;
+                        JsonFromAzurePortal json;
                         try
                         {
-                            json = (JsonFromAzureCliOrPortal)JsonConvert.DeserializeObject(form.TextData, typeof(JsonFromAzureCliOrPortal));
+                            json = (JsonFromAzurePortal)JsonConvert.DeserializeObject(form.TextData, typeof(JsonFromAzurePortal));
                         }
                         catch (Exception ex)
                         {
@@ -651,24 +633,25 @@ namespace AMSExplorer
                             return;
                         }
                         string resourceId = string.Format("/subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}", json.SubscriptionId, json.ResourceGroup, json.AccountName);
-                        string AADtenantId = json.AadTenantId;
 
                         // environment
                         ActiveDirectoryServiceSettings aadSettings = new()
                         {
                             AuthenticationEndpoint = json.AadEndpoint ?? addaccount1.GetEnvironment().AADSettings.AuthenticationEndpoint,
-                            TokenAudience = json.ArmAadAudience,
+                            TokenAudience = json.ArmTokenAudience,
                             ValidateAuthority = true
                         };
 
                         AzureEnvironment env = new(AzureEnvType.Custom) { AADSettings = aadSettings, ArmEndpoint = json.ArmEndpoint };
 
-                        CredentialsEntryV3 entry = new(
-                                                        new MediaService(null, resourceId, json.AccountName),
+                        CredentialsEntryV4 entry = new(
+                                                        json.AccountName,
+                                                        json.SubscriptionId,
+                                                        json.ResourceGroup,
                                                         env,
                                                         true,
-                                                        true,
-                                                        AADtenantId,
+                                                        addaccount1.JsonWithServicePrincipal,
+                                                        json.AadTenantId,
                                                         false,
                                                         json.AadClientId,
                                                         json.AadSecret
@@ -692,16 +675,20 @@ namespace AMSExplorer
                     AddAMSAccount2Manual form = new();
                     if (form.ShowDialog() == DialogResult.OK)
                     {
+                        var res = new ResourceIdentifier(form.textBoxAMSResourceId.Text);
+
                         string accountnamecc = form.textBoxAMSResourceId.Text.Split('/').Last();
 
-                        CredentialsEntryV3 entry = new(
-                                                        new MediaService(null, form.textBoxAMSResourceId.Text, accountnamecc),
-                                                        addaccount1.GetEnvironment(),
-                                                        true,
-                                                        form.radioButtonAADServicePrincipal.Checked,
-                                                        form.textBoxAADtenantId.Text,
-                                                        true
-                                                        );
+                        CredentialsEntryV4 entry = new(
+                            res.Name,
+                            res.SubscriptionId,
+                            res.ResourceGroupName,
+                            addaccount1.GetEnvironment(),
+                            true,
+                            form.radioButtonAADServicePrincipal.Checked,
+                            form.textBoxAADtenantId.Text,
+                            true
+                            );
 
                         CredentialList.MediaServicesAccounts.Add(entry);
                         AddItemToListviewAccounts(entry);
@@ -735,12 +722,10 @@ namespace AMSExplorer
             p.Start();
         }
 
-
         private static void ScaleListViewColumns(ListView listview)
         {
             listview.Columns[0].Width = listview.Width - 4 - SystemInformation.VerticalScrollBarWidth;
         }
-
 
         private void AmsLogin_DpiChangedAfterParent(object sender, EventArgs e)
         {

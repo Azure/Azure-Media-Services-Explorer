@@ -24,7 +24,7 @@ namespace AMSExplorer
 
         public int TokenDuration => decimal.ToInt32(numericUpDownTokenDuration.Value);
 
-        public int? TokenUse => checkBoxTokenUse.Checked ? (int?)decimal.ToInt32(numericUpDownTokenUse.Value) : null;
+        public int? TokenUse => checkBoxTokenUse.Checked ? decimal.ToInt32(numericUpDownTokenUse.Value) : null;
 
         public DRM_GenerateToken()
         {

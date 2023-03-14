@@ -14,10 +14,8 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Rest.Azure;
-using System.Linq;
+using Azure;
+using Azure.ResourceManager.Media;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -27,19 +25,18 @@ namespace AMSExplorer
     {
         private AMSClientV3 _client;
         private string _selectedTransformName;
-        private IPage<Transform> _transforms;
         private readonly System.Windows.Forms.ColumnHeader columnHeaderTransformName;
         private readonly System.Windows.Forms.ColumnHeader columnHeaderTransformDate;
         private readonly System.Windows.Forms.ColumnHeader columnHeaderTransformDescription;
 
-        public Transform GetSelectedTransform
+        public MediaTransformResource GetSelectedTransform
         {
             get
             {
                 if (SelectedItems.Count > 0)
                 {
                     int indexName = columnHeaderTransformName.Index;
-                    return _transforms.Where(t => t.Name == SelectedItems[0].SubItems[indexName].Text).FirstOrDefault();
+                    return _client.AMSclient.GetMediaTransform(SelectedItems[0].SubItems[indexName].Text);
                 }
                 else
                 {
@@ -93,19 +90,18 @@ namespace AMSExplorer
         }
         private async Task LoadTransformsAsync()
         {
-
-
-            _transforms = await _client.AMSclient.Transforms.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            var transforms = _client.AMSclient.GetMediaTransforms().GetAllAsync();
+            //.Transforms.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
 
             BeginUpdate();
             Items.Clear();
 
-            foreach (Transform transform in _transforms)
+            await foreach (var transform in transforms)
             {
-                ListViewItem item = new(transform.Name);
-                item.SubItems.Add(transform.Description);
-                item.SubItems.Add(transform.LastModified.ToLocalTime().ToString("G"));
-                if (_selectedTransformName == transform.Name)
+                ListViewItem item = new(transform.Data.Name);
+                item.SubItems.Add(transform.Data.Description);
+                item.SubItems.Add(transform.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
+                if (_selectedTransformName == transform.Data.Name)
                 {
                     item.Selected = true;
                 }
@@ -117,15 +113,14 @@ namespace AMSExplorer
 
         public async Task DeleteSelectedTemplateAsync()
         {
-            Transform transform = GetSelectedTransform;
+            var transform = GetSelectedTransform;
             if (transform != null)
             {
-                if (MessageBox.Show(string.Format("Do you want to delete the transform '{0}' ?", transform.Name), "Transform deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show(string.Format("Do you want to delete the transform '{0}' ?", transform.Data.Name), "Transform deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     try
                     {
-
-                        await _client.AMSclient.Transforms.DeleteAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, transform.Name);
+                        await transform.DeleteAsync(WaitUntil.Completed);
                     }
                     catch
                     {

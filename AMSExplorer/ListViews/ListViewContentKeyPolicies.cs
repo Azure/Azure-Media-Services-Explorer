@@ -14,10 +14,8 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
-using Microsoft.Rest.Azure;
-using System.Linq;
+using Azure;
+using Azure.ResourceManager.Media;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -27,19 +25,18 @@ namespace AMSExplorer
     {
         private AMSClientV3 _client;
         private string _selectedContentKeyPolicyName;
-        private IPage<ContentKeyPolicy> _contentKeyPolicies;
         private readonly System.Windows.Forms.ColumnHeader columnHeaderPolicyName;
         private readonly System.Windows.Forms.ColumnHeader columnHeaderPolicyDate;
         private readonly System.Windows.Forms.ColumnHeader columnHeaderPolicyDescription;
 
-        public ContentKeyPolicy GetSelectedContentKeyPolicy
+        public ContentKeyPolicyResource GetSelectedContentKeyPolicy
         {
             get
             {
                 if (SelectedItems.Count > 0)
                 {
                     int indexName = columnHeaderPolicyName.Index;
-                    return _contentKeyPolicies.Where(t => t.Name == SelectedItems[0].SubItems[indexName].Text).FirstOrDefault();
+                    return _client.AMSclient.GetContentKeyPolicy(SelectedItems[0].SubItems[indexName].Text);
                 }
                 else
                 {
@@ -93,17 +90,17 @@ namespace AMSExplorer
         }
         private async Task LoadContentKeyPoliciesAsync()
         {
-            _contentKeyPolicies = await _client.AMSclient.ContentKeyPolicies.ListAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName);
+            var contentKeyPolicies = _client.AMSclient.GetContentKeyPolicies().GetAllAsync();
 
             BeginUpdate();
             Items.Clear();
 
-            foreach (ContentKeyPolicy policy in _contentKeyPolicies)
+            await foreach (var policy in contentKeyPolicies)
             {
-                ListViewItem item = new(policy.Name);
-                item.SubItems.Add(policy.Description);
-                item.SubItems.Add(policy.LastModified.ToLocalTime().ToString("G"));
-                if (_selectedContentKeyPolicyName == policy.Name)
+                ListViewItem item = new(policy.Data.Name);
+                item.SubItems.Add(policy.Data.Description);
+                item.SubItems.Add(policy.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
+                if (_selectedContentKeyPolicyName == policy.Data.Name)
                 {
                     item.Selected = true;
                 }
@@ -115,15 +112,15 @@ namespace AMSExplorer
 
         public async Task DeleteSelectedPolicyAsync()
         {
-            ContentKeyPolicy policy = GetSelectedContentKeyPolicy;
+            var policy = GetSelectedContentKeyPolicy;
             if (policy != null)
             {
-                if (MessageBox.Show(string.Format("Do you want to delete the content key policy '{0}' ?", policy.Name), "Content key policy deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show(string.Format("Do you want to delete the content key policy '{0}' ?", policy.Data.Name), "Content key policy deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     try
                     {
-
-                        await _client.AMSclient.ContentKeyPolicies.DeleteAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, policy.Name);
+                        await policy.DeleteAsync(WaitUntil.Completed);
+                        //await _client.AMSclient.ContentKeyPolicies.DeleteAsync(_client.credentialsEntry.ResourceGroup, _client.credentialsEntry.AccountName, policy.Name);
                     }
                     catch
                     {

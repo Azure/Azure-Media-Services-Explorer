@@ -15,12 +15,11 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -28,8 +27,7 @@ namespace AMSExplorer
 {
     public partial class KeyDeliverySettings : Form
     {
-        private IAzureMediaServicesClient mediaClient;
-        private MediaService mediaService;
+        //private IAzureMediaServicesClient mediaClient;
         private readonly AMSClientV3 _amsClient;
         private BindingList<IpAddr> ipList = new();
 
@@ -48,13 +46,13 @@ namespace AMSExplorer
 
             try
             {
-
-                mediaClient = _amsClient.AMSclient;
+                //mediaClient = _amsClient.AMSclient;
                 // Set the polling interval for long running operations to 2 seconds.
                 // The default value is 30 seconds for the .NET client SDK
-                mediaClient.LongRunningOperationRetryTimeout = 2;
+                //TODO2023
+                //mediaClient.LongRunningOperationRetryTimeout = 2;
 
-                mediaService = mediaClient.Mediaservices.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
+                //mediaService =  mediaClient.Mediaservices.Get(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
             }
             catch (Exception ex)
             {
@@ -63,18 +61,16 @@ namespace AMSExplorer
                 return;
             }
 
-
-
-            if (mediaService.KeyDelivery != null && mediaService.KeyDelivery.AccessControl != null)
+            if (_amsClient.AMSclient.Data.KeyDeliveryAccessControl != null)
             {
-                if (mediaService.KeyDelivery.AccessControl.DefaultAction == DefaultAction.Allow)
+                if (_amsClient.AMSclient.Data.KeyDeliveryAccessControl.DefaultAction == IPAccessControlDefaultAction.Allow)
                 {
                     checkBoxUseIpList.Checked = false;
                 }
                 else
                 {
                     checkBoxUseIpList.Checked = true;
-                    mediaService.KeyDelivery.AccessControl.IpAllowList.ToList().ForEach(i => ipList.Add(new IpAddr() { IpAddress = i }));
+                    _amsClient.AMSclient.Data.KeyDeliveryAccessControl.IPAllowList.ToList().ForEach(i => ipList.Add(new IpAddr() { IpAddress = i.ToString() }));
                 }
             }
 
@@ -86,33 +82,41 @@ namespace AMSExplorer
 
         public async Task UpdateKeyDeliveryConfigAsync()
         {
-            KeyDelivery keyDel = new();  // To restrict the client access and delivery of your content keys, set the key delivery accessControl ipAllowList. 
+            // To restrict the client access and delivery of your content keys, set the key delivery accessControl ipAllowList. 
+
+            MediaAccessControl maControl = new();
 
             if (checkBoxUseIpList.Checked)
             {
-                keyDel.AccessControl = new(
-                    defaultAction: DefaultAction.Deny,  // Allow or Deny access from the ipAllowList. If this is set to Allow, the ipAllowList should be empty.
-                    ipAllowList: ipList.Select(i => i.IpAddress).ToList()
+                // Allow or Deny access from the ipAllowList. If this is set to Allow, the ipAllowList should be empty.
                 // List the IPv3 addresses to Allow or Deny based on the default action. 
                 // "10.0.0.1/32", // you can use the CIDR IPv3 format,
                 // "127.0.0.1"  or a single individual Ipv4 address as well.
 
-                );
+                maControl.DefaultAction = IPAccessControlDefaultAction.Deny;
+                foreach (var i in ipList)
+                {
+                    maControl.IPAllowList.Add(IPAddress.Parse(i.IpAddress));
+                }
             }
             else // no restriction
             {
-                keyDel.AccessControl = new(
-                     defaultAction: DefaultAction.Allow,  // Allow or Deny access from the ipAllowList. If this is set to Allow, the ipAllowList should be empty.
-                     ipAllowList: new List<string>()
-                     {  // List the IPv3 addresses to Allow or Deny based on the default action. 
-                        // "10.0.0.1/32", // you can use the CIDR IPv3 format,
-                        // "127.0.0.1"  or a single individual Ipv4 address as well.
-                     }
-                 );
+                // Allow or Deny access from the ipAllowList. If this is set to Allow, the ipAllowList should be empty.
+                // List the IPv3 addresses to Allow or Deny based on the default action. 
+                // "10.0.0.1/32", // you can use the CIDR IPv3 format,
+                // "127.0.0.1"  or a single individual Ipv4 address as well.
+
+                maControl.DefaultAction = IPAccessControlDefaultAction.Allow;
             }
 
-            MediaServiceUpdate msUpdate = new() { KeyDelivery = keyDel };
-            await mediaClient.Mediaservices.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, msUpdate);
+
+            MediaServicesAccountPatch patch = new()
+            {
+                KeyDeliveryAccessControl = maControl
+            };
+
+            await _amsClient.AMSclient.UpdateAsync(Azure.WaitUntil.Completed, patch);
+            // await mediaClient.Mediaservices.UpdateAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, msUpdate);
         }
 
         private void AttachStorage_DpiChanged(object sender, DpiChangedEventArgs e)
@@ -138,15 +142,11 @@ namespace AMSExplorer
             }
         }
 
-
         private void checkBoxUseIpList_CheckedChanged(object sender, EventArgs e)
         {
             dataGridViewIP.Enabled = buttonAddIP.Enabled = buttonDelIP.Enabled = checkBoxUseIpList.Checked;
         }
     }
-
-
-
 
     public class IpAddr
     {

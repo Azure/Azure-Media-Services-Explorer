@@ -110,7 +110,7 @@
     <value>39</value>
   </data>
   <data name="buttonUpdate.Text" xml:space="preserve">
-    <value>Create text track</value>
+    <value>Create audio track</value>
   </data>
   <data name="&gt;&gt;buttonUpdate.Name" xml:space="preserve">
     <value>buttonUpdate</value>
@@ -128,7 +128,7 @@
     <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 428</value>
+    <value>0, 362</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>345, 55</value>
@@ -146,7 +146,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>16</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -158,13 +158,13 @@
     <value>12, 11</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 20</value>
+    <value>157, 20</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>76</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Text track properties</value>
+    <value>Audio track properties</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
@@ -176,13 +176,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>15</value>
   </data>
   <data name="comboBoxTexttrackLanguage.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="comboBoxTexttrackLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 123</value>
+    <value>114, 126</value>
   </data>
   <data name="comboBoxTexttrackLanguage.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 23</value>
@@ -200,7 +200,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBoxTexttrackLanguage.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>14</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -209,7 +209,7 @@
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 163</value>
+    <value>16, 168</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
@@ -234,10 +234,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>13</value>
   </data>
   <data name="textBoxDisplayName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>116, 159</value>
+    <value>114, 165</value>
   </data>
   <data name="textBoxDisplayName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -258,7 +258,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxDisplayName.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -291,7 +291,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>11</value>
   </data>
   <data name="labelBlobName.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -321,13 +321,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelBlobName.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <data name="checkBoxLanguage.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 125</value>
+    <value>16, 128</value>
   </data>
   <data name="checkBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 19</value>
@@ -354,40 +354,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;checkBoxLanguage.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="checkBoxIsHLSSetForced.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxIsHLSSetForced.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxIsHLSSetForced.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 281</value>
-  </data>
-  <data name="checkBoxIsHLSSetForced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 19</value>
-  </data>
-  <data name="checkBoxIsHLSSetForced.TabIndex" type="System.Int32, mscorlib">
-    <value>93</value>
-  </data>
-  <data name="checkBoxIsHLSSetForced.Text" xml:space="preserve">
-    <value>Set forced</value>
-  </data>
-  <data name="checkBoxIsHLSSetForced.ToolTip" xml:space="preserve">
-    <value>You should declare a language if no language is defined in the subtitle file</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIsHLSSetForced.Name" xml:space="preserve">
-    <value>checkBoxIsHLSSetForced</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIsHLSSetForced.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIsHLSSetForced.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIsHLSSetForced.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>9</value>
   </data>
   <data name="checkBoxHLSSetAsDefault.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -396,13 +363,13 @@
     <value>NoControl</value>
   </data>
   <data name="checkBoxHLSSetAsDefault.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 256</value>
+    <value>114, 301</value>
   </data>
   <data name="checkBoxHLSSetAsDefault.Size" type="System.Drawing.Size, System.Drawing">
     <value>125, 19</value>
   </data>
   <data name="checkBoxHLSSetAsDefault.TabIndex" type="System.Int32, mscorlib">
-    <value>92</value>
+    <value>89</value>
   </data>
   <data name="checkBoxHLSSetAsDefault.Text" xml:space="preserve">
     <value>Set as default track</value>
@@ -420,139 +387,40 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;checkBoxHLSSetAsDefault.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>3</value>
   </data>
-  <data name="checkBoxPlayerVisible.AutoSize" type="System.Boolean, mscorlib">
+  <data name="checkBoxIsHLSDescriptiveAudio.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkBoxPlayerVisible.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBoxIsHLSDescriptiveAudio.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxPlayerVisible.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 200</value>
+  <data name="checkBoxIsHLSDescriptiveAudio.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 326</value>
   </data>
-  <data name="checkBoxPlayerVisible.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 19</value>
+  <data name="checkBoxIsHLSDescriptiveAudio.Size" type="System.Drawing.Size, System.Drawing">
+    <value>127, 19</value>
   </data>
-  <data name="checkBoxPlayerVisible.TabIndex" type="System.Int32, mscorlib">
-    <value>94</value>
+  <data name="checkBoxIsHLSDescriptiveAudio.TabIndex" type="System.Int32, mscorlib">
+    <value>90</value>
   </data>
-  <data name="checkBoxPlayerVisible.Text" xml:space="preserve">
-    <value>Visible in player</value>
+  <data name="checkBoxIsHLSDescriptiveAudio.Text" xml:space="preserve">
+    <value>Is descriptive audio</value>
   </data>
-  <data name="checkBoxPlayerVisible.ToolTip" xml:space="preserve">
+  <data name="checkBoxIsHLSDescriptiveAudio.ToolTip" xml:space="preserve">
     <value>You should declare a language if no language is defined in the subtitle file</value>
   </data>
-  <data name="&gt;&gt;checkBoxPlayerVisible.Name" xml:space="preserve">
-    <value>checkBoxPlayerVisible</value>
+  <data name="&gt;&gt;checkBoxIsHLSDescriptiveAudio.Name" xml:space="preserve">
+    <value>checkBoxIsHLSDescriptiveAudio</value>
   </data>
-  <data name="&gt;&gt;checkBoxPlayerVisible.Type" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxIsHLSDescriptiveAudio.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;checkBoxPlayerVisible.Parent" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxIsHLSDescriptiveAudio.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;checkBoxPlayerVisible.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="checkBoxAccessMusicSound.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxAccessMusicSound.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxAccessMusicSound.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 366</value>
-  </data>
-  <data name="checkBoxAccessMusicSound.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 19</value>
-  </data>
-  <data name="checkBoxAccessMusicSound.TabIndex" type="System.Int32, mscorlib">
-    <value>97</value>
-  </data>
-  <data name="checkBoxAccessMusicSound.Text" xml:space="preserve">
-    <value>Describes music and sound</value>
-  </data>
-  <data name="checkBoxAccessMusicSound.ToolTip" xml:space="preserve">
-    <value>You should declare a language if no language is defined in the subtitle file</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAccessMusicSound.Name" xml:space="preserve">
-    <value>checkBoxAccessMusicSound</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAccessMusicSound.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAccessMusicSound.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAccessMusicSound.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="checkBoxAccessTranscribe.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxAccessTranscribe.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxAccessTranscribe.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 341</value>
-  </data>
-  <data name="checkBoxAccessTranscribe.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 19</value>
-  </data>
-  <data name="checkBoxAccessTranscribe.TabIndex" type="System.Int32, mscorlib">
-    <value>96</value>
-  </data>
-  <data name="checkBoxAccessTranscribe.Text" xml:space="preserve">
-    <value>Transcribes spoken dialog</value>
-  </data>
-  <data name="checkBoxAccessTranscribe.ToolTip" xml:space="preserve">
-    <value>You should declare a language if no language is defined in the subtitle file</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAccessTranscribe.Name" xml:space="preserve">
-    <value>checkBoxAccessTranscribe</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAccessTranscribe.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAccessTranscribe.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAccessTranscribe.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxIsHLSDescriptiveAudio.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="checkBoxAccessEditedEaseReading.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxAccessEditedEaseReading.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxAccessEditedEaseReading.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 391</value>
-  </data>
-  <data name="checkBoxAccessEditedEaseReading.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 19</value>
-  </data>
-  <data name="checkBoxAccessEditedEaseReading.TabIndex" type="System.Int32, mscorlib">
-    <value>98</value>
-  </data>
-  <data name="checkBoxAccessEditedEaseReading.Text" xml:space="preserve">
-    <value>Edited for ease of reading</value>
-  </data>
-  <data name="checkBoxAccessEditedEaseReading.ToolTip" xml:space="preserve">
-    <value>You should declare a language if no language is defined in the subtitle file</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAccessEditedEaseReading.Name" xml:space="preserve">
-    <value>checkBoxAccessEditedEaseReading</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAccessEditedEaseReading.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAccessEditedEaseReading.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAccessEditedEaseReading.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -585,7 +453,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="textBoxTrackName.Location" type="System.Drawing.Point, System.Drawing">
     <value>114, 87</value>
@@ -609,7 +477,61 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxTrackName.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 207</value>
+  </data>
+  <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 15</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>86</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>DASH role</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="comboBoxDashRole.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 204</value>
+  </data>
+  <data name="comboBoxDashRole.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 23</value>
+  </data>
+  <data name="comboBoxDashRole.TabIndex" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="&gt;&gt;comboBoxDashRole.Name" xml:space="preserve">
+    <value>comboBoxDashRole</value>
+  </data>
+  <data name="&gt;&gt;comboBoxDashRole.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxDashRole.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBoxDashRole.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -621,7 +543,7 @@
     <value>NoControl</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 240</value>
+    <value>16, 285</value>
   </data>
   <data name="label6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -630,7 +552,7 @@
     <value>78, 15</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>91</value>
+    <value>88</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>HLS Settings</value>
@@ -645,43 +567,64 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>4</value>
   </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt, style=Bold</value>
-  </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 317</value>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 246</value>
   </data>
-  <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="label7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 15</value>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 15</value>
   </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>95</value>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>91</value>
   </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>HLS Accessibility characteristics</value>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Track Id</value>
   </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
   </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="textBoxTrackId.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 243</value>
+  </data>
+  <data name="textBoxTrackId.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="textBoxTrackId.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 23</value>
+  </data>
+  <data name="textBoxTrackId.TabIndex" type="System.Int32, mscorlib">
+    <value>92</value>
+  </data>
+  <data name="&gt;&gt;textBoxTrackId.Name" xml:space="preserve">
+    <value>textBoxTrackId</value>
+  </data>
+  <data name="&gt;&gt;textBoxTrackId.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxTrackId.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;textBoxTrackId.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -690,7 +633,7 @@
     <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>345, 483</value>
+    <value>345, 417</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -699,7 +642,7 @@
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Text track creation</value>
+    <value>Audio track creation</value>
   </data>
   <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
     <value>toolTip1</value>
@@ -708,7 +651,7 @@
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>AssetInfoTextTrackCreation</value>
+    <value>AssetInfoAudioTrackCreation</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

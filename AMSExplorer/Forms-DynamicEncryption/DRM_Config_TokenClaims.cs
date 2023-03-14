@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media.Models;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -53,8 +53,6 @@ namespace AMSExplorer
                 }
                 else // token
                 {
-                    List<ContentKeyPolicyRestrictionTokenKey> alternateKeys = null;
-
                     ContentKeyPolicyRestrictionTokenKey primarykey = null;
                     if (GetDetailedTokenType == ExplorerTokenType.JWTSym)
                     {
@@ -66,7 +64,16 @@ namespace AMSExplorer
                     }
                     // if OpenID, primary key is null
 
-                    return new ContentKeyPolicyTokenRestriction(Issuer, Audience, primarykey, TokenType, alternateKeys, GetTokenRequiredClaims, GetOpenIdDiscoveryDocument);
+                    //TODO2023 : to check this code change
+                    //return new ContentKeyPolicyTokenRestriction(Issuer, Audience, primarykey, TokenType, alternateKeys, GetTokenRequiredClaims, GetOpenIdDiscoveryDocument);
+                    var restriction = new ContentKeyPolicyTokenRestriction(Issuer, Audience, primarykey, TokenType)
+                    {
+                        OpenIdConnectDiscoveryDocument = GetOpenIdDiscoveryDocument
+                    };
+
+                    GetTokenRequiredClaims.ForEach(restriction.RequiredClaims.Add);
+
+                    return restriction;
                 }
             }
         }
@@ -83,12 +90,15 @@ namespace AMSExplorer
                 {
                     if (!string.IsNullOrEmpty(j.Type))
                     {
-                        mylist.Add(new ContentKeyPolicyTokenClaim(j.Type, j.Value));
+                        mylist.Add(new ContentKeyPolicyTokenClaim() { ClaimType = j.Type, ClaimValue = j.Value });
                     }
                 }
                 if (checkBoxRequiresContentKeyIdentifierClaim.Checked)
                 {
-                    mylist.Add(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim);
+                    // TODO2023 : to check this change of code
+                    // "urn:microsoft:azure:mediaservices:contentkeyidentifier"
+                    // was ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim
+                    mylist.Add(new ContentKeyPolicyTokenClaim() { ClaimType = "urn:microsoft:azure:mediaservices:contentkeyidentifier" });
                 };
                 return mylist;
             }
@@ -191,9 +201,9 @@ namespace AMSExplorer
 
             List<Claim> claims = new();
 
-            if (requiredClaims.Any(c => c.ClaimType == ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaimType))
+            if (requiredClaims.Any(c => c.ClaimType == "urn:microsoft:azure:mediaservices:contentkeyidentifier"))
             {
-                claims.Add(new Claim(ContentKeyPolicyTokenClaim.ContentKeyIdentifierClaim.ClaimType, keyIdentifier));
+                claims.Add(new Claim("urn:microsoft:azure:mediaservices:contentkeyidentifier", keyIdentifier));
             }
 
             if (tokenUse != null)

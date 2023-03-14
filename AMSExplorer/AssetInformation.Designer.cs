@@ -28,1183 +28,1078 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetInformation));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.DGAsset = new System.Windows.Forms.DataGridView();
-            this.contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonClose = new System.Windows.Forms.Button();
-            this.contextMenuStripLocators = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItemCopy = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteLocatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemAzureMediaPlayer = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemAdvPlayer = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemDASHIF = new System.Windows.Forms.ToolStripMenuItem();
-            this.TreeViewLocators = new System.Windows.Forms.TreeView();
-            this.DGFiles = new System.Windows.Forms.DataGridView();
-            this.contextMenuStripBlobs = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItemOpenFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteBlobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.duplicateBlobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemDownloadFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.createTextTrackFromThisBlobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label4 = new System.Windows.Forms.Label();
-            this.buttonCopyStats = new System.Windows.Forms.Button();
-            this.listViewBlobs = new System.Windows.Forms.ListView();
-            this.ListViewFilesName = new System.Windows.Forms.ColumnHeader();
-            this.ListViewFilesSize = new System.Windows.Forms.ColumnHeader();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonAudioVideoAnalysis = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label12 = new System.Windows.Forms.Label();
-            this.buttonGenerateClientManifest = new System.Windows.Forms.Button();
-            this.checkBoxListBlobsDirectories = new System.Windows.Forms.CheckBox();
-            this.buttonGenerateServerManifest = new System.Windows.Forms.Button();
-            this.buttonDeleteAll = new System.Windows.Forms.Button();
-            this.progressBarUpload = new System.Windows.Forms.ProgressBar();
-            this.buttonUpload = new System.Windows.Forms.Button();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.label13 = new System.Windows.Forms.Label();
-            this.dGTracks = new System.Windows.Forms.DataGridView();
-            this.listViewTracks = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.contextMenuStripTracks = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.deleteTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showInPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hideFromPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.buttonPlayFilter = new System.Windows.Forms.Button();
-            this.buttonDuplicateFilter = new System.Windows.Forms.Button();
-            this.buttonDeleteFilter = new System.Windows.Forms.Button();
-            this.buttonCreateAssetFilter = new System.Windows.Forms.Button();
-            this.buttonFilterInfo = new System.Windows.Forms.Button();
-            this.dataGridViewFilters = new System.Windows.Forms.DataGridView();
-            this.contextMenuStripFilter = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.filterInfoupdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createAnAssetFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.playWithThisFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPagePolicy = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxContentKeyPolicyOfStreamingPolicy = new System.Windows.Forms.TextBox();
-            this.textBoxStreamingPolicyOfLocator = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBoxContentKeyPolicyOfLocator = new System.Windows.Forms.TextBox();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.comboBoxKeys = new System.Windows.Forms.ComboBox();
-            this.dataGridViewKeys = new System.Windows.Forms.DataGridView();
-            this.buttonGetDRMToken = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.comboBoxOptions = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.comboBoxPolicyLocators = new System.Windows.Forms.ComboBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.buttonAdvancedTestPlayer = new System.Windows.Forms.Button();
-            this.checkBoxHttps = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxStreamingEndpoint = new System.Windows.Forms.ComboBox();
-            this.buttonOpen = new System.Windows.Forms.Button();
-            this.buttonDel = new System.Windows.Forms.Button();
-            this.buttonAzureMediaPlayer = new System.Windows.Forms.Button();
-            this.buttonDASH = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.contextMenuStripKey = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.removeKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.labelAssetNameTitle = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
-            this.contextMenuStripDG.SuspendLayout();
-            this.contextMenuStripLocators.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DGFiles)).BeginInit();
-            this.contextMenuStripBlobs.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dGTracks)).BeginInit();
-            this.contextMenuStripTracks.SuspendLayout();
-            this.tabPage6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
-            this.contextMenuStripFilter.SuspendLayout();
-            this.tabPagePolicy.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.tabControl2.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tabPage7.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).BeginInit();
-            this.tabPage3.SuspendLayout();
-            this.contextMenuStripKey.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
-            this.contextMenuStrip2.SuspendLayout();
-            this.SuspendLayout();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            DGAsset = new System.Windows.Forms.DataGridView();
+            contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(components);
+            toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            buttonClose = new System.Windows.Forms.Button();
+            contextMenuStripLocators = new System.Windows.Forms.ContextMenuStrip(components);
+            toolStripMenuItemCopy = new System.Windows.Forms.ToolStripMenuItem();
+            deleteLocatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemAzureMediaPlayer = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemAdvPlayer = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemDASHIF = new System.Windows.Forms.ToolStripMenuItem();
+            TreeViewLocators = new System.Windows.Forms.TreeView();
+            DGFiles = new System.Windows.Forms.DataGridView();
+            contextMenuStripBlobs = new System.Windows.Forms.ContextMenuStrip(components);
+            toolStripMenuItemOpenFile = new System.Windows.Forms.ToolStripMenuItem();
+            editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            deleteBlobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            duplicateBlobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemDownloadFile = new System.Windows.Forms.ToolStripMenuItem();
+            createTextTrackFromThisBlobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            createAnAudioTrackFromThisBlobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            label4 = new System.Windows.Forms.Label();
+            buttonCopyStats = new System.Windows.Forms.Button();
+            listViewBlobs = new System.Windows.Forms.ListView();
+            ListViewFilesName = new System.Windows.Forms.ColumnHeader();
+            ListViewFilesSize = new System.Windows.Forms.ColumnHeader();
+            tabControl1 = new System.Windows.Forms.TabControl();
+            tabPage1 = new System.Windows.Forms.TabPage();
+            tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            buttonAudioVideoAnalysis = new System.Windows.Forms.Button();
+            tabPage2 = new System.Windows.Forms.TabPage();
+            label12 = new System.Windows.Forms.Label();
+            buttonGenerateClientManifest = new System.Windows.Forms.Button();
+            checkBoxListBlobsDirectories = new System.Windows.Forms.CheckBox();
+            buttonGenerateServerManifest = new System.Windows.Forms.Button();
+            buttonDeleteAll = new System.Windows.Forms.Button();
+            progressBarUpload = new System.Windows.Forms.ProgressBar();
+            buttonUpload = new System.Windows.Forms.Button();
+            tabPage8 = new System.Windows.Forms.TabPage();
+            label13 = new System.Windows.Forms.Label();
+            dGTracks = new System.Windows.Forms.DataGridView();
+            listViewTracks = new System.Windows.Forms.ListView();
+            columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            contextMenuStripTracks = new System.Windows.Forms.ContextMenuStrip(components);
+            deleteTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            addTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            editSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            tabPage6 = new System.Windows.Forms.TabPage();
+            buttonPlayFilter = new System.Windows.Forms.Button();
+            buttonDuplicateFilter = new System.Windows.Forms.Button();
+            buttonDeleteFilter = new System.Windows.Forms.Button();
+            buttonCreateAssetFilter = new System.Windows.Forms.Button();
+            buttonFilterInfo = new System.Windows.Forms.Button();
+            dataGridViewFilters = new System.Windows.Forms.DataGridView();
+            contextMenuStripFilter = new System.Windows.Forms.ContextMenuStrip(components);
+            filterInfoupdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            createAnAssetFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            playWithThisFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            tabPagePolicy = new System.Windows.Forms.TabPage();
+            tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            label5 = new System.Windows.Forms.Label();
+            tabControl2 = new System.Windows.Forms.TabControl();
+            tabPage5 = new System.Windows.Forms.TabPage();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            label3 = new System.Windows.Forms.Label();
+            textBoxContentKeyPolicyOfStreamingPolicy = new System.Windows.Forms.TextBox();
+            textBoxStreamingPolicyOfLocator = new System.Windows.Forms.TextBox();
+            label7 = new System.Windows.Forms.Label();
+            tabPage4 = new System.Windows.Forms.TabPage();
+            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            label8 = new System.Windows.Forms.Label();
+            textBoxContentKeyPolicyOfLocator = new System.Windows.Forms.TextBox();
+            tabPage7 = new System.Windows.Forms.TabPage();
+            tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            label6 = new System.Windows.Forms.Label();
+            comboBoxKeys = new System.Windows.Forms.ComboBox();
+            dataGridViewKeys = new System.Windows.Forms.DataGridView();
+            buttonGetDRMToken = new System.Windows.Forms.Button();
+            label9 = new System.Windows.Forms.Label();
+            label10 = new System.Windows.Forms.Label();
+            comboBoxOptions = new System.Windows.Forms.ComboBox();
+            label11 = new System.Windows.Forms.Label();
+            comboBoxPolicyLocators = new System.Windows.Forms.ComboBox();
+            tabPage3 = new System.Windows.Forms.TabPage();
+            buttonAdvancedTestPlayer = new System.Windows.Forms.Button();
+            checkBoxHttps = new System.Windows.Forms.CheckBox();
+            label2 = new System.Windows.Forms.Label();
+            comboBoxStreamingEndpoint = new System.Windows.Forms.ComboBox();
+            buttonOpen = new System.Windows.Forms.Button();
+            buttonDel = new System.Windows.Forms.Button();
+            buttonAzureMediaPlayer = new System.Windows.Forms.Button();
+            buttonDASH = new System.Windows.Forms.Button();
+            label1 = new System.Windows.Forms.Label();
+            contextMenuStripKey = new System.Windows.Forms.ContextMenuStrip(components);
+            removeKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            labelAssetNameTitle = new System.Windows.Forms.Label();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            panel1 = new System.Windows.Forms.Panel();
+            contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
+            toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(components);
+            toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
+            ((System.ComponentModel.ISupportInitialize)DGAsset).BeginInit();
+            contextMenuStripDG.SuspendLayout();
+            contextMenuStripLocators.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)DGFiles).BeginInit();
+            contextMenuStripBlobs.SuspendLayout();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tableLayoutPanel5.SuspendLayout();
+            tabPage2.SuspendLayout();
+            tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dGTracks).BeginInit();
+            contextMenuStripTracks.SuspendLayout();
+            tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewFilters).BeginInit();
+            contextMenuStripFilter.SuspendLayout();
+            tabPagePolicy.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
+            tabControl2.SuspendLayout();
+            tabPage5.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            tabPage4.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            tabPage7.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewKeys).BeginInit();
+            tabPage3.SuspendLayout();
+            contextMenuStripKey.SuspendLayout();
+            panel1.SuspendLayout();
+            contextMenuStrip1.SuspendLayout();
+            contextMenuStrip2.SuspendLayout();
+            SuspendLayout();
             // 
             // DGAsset
             // 
-            resources.ApplyResources(this.DGAsset, "DGAsset");
-            this.DGAsset.AllowUserToAddRows = false;
-            this.DGAsset.AllowUserToDeleteRows = false;
-            this.DGAsset.AllowUserToResizeRows = false;
-            this.DGAsset.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.DGAsset.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.DGAsset.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGAsset.ColumnHeadersVisible = false;
-            this.tableLayoutPanel5.SetColumnSpan(this.DGAsset, 4);
-            this.DGAsset.ContextMenuStrip = this.contextMenuStripDG;
-            this.DGAsset.MultiSelect = false;
-            this.DGAsset.Name = "DGAsset";
-            this.DGAsset.ReadOnly = true;
-            this.DGAsset.RowHeadersVisible = false;
-            this.toolTip1.SetToolTip(this.DGAsset, resources.GetString("DGAsset.ToolTip"));
+            DGAsset.AllowUserToAddRows = false;
+            DGAsset.AllowUserToDeleteRows = false;
+            DGAsset.AllowUserToResizeRows = false;
+            resources.ApplyResources(DGAsset, "DGAsset");
+            DGAsset.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            DGAsset.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            DGAsset.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DGAsset.ColumnHeadersVisible = false;
+            tableLayoutPanel5.SetColumnSpan(DGAsset, 4);
+            DGAsset.ContextMenuStrip = contextMenuStripDG;
+            DGAsset.MultiSelect = false;
+            DGAsset.Name = "DGAsset";
+            DGAsset.ReadOnly = true;
+            DGAsset.RowHeadersVisible = false;
             // 
             // contextMenuStripDG
             // 
-            resources.ApplyResources(this.contextMenuStripDG, "contextMenuStripDG");
-            this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemFilesCopyClipboard});
-            this.contextMenuStripDG.Name = "contextMenuStripDG";
-            this.toolTip1.SetToolTip(this.contextMenuStripDG, resources.GetString("contextMenuStripDG.ToolTip"));
-            this.contextMenuStripDG.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripDG_MouseClick_1);
+            contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemFilesCopyClipboard });
+            contextMenuStripDG.Name = "contextMenuStripDG";
+            resources.ApplyResources(contextMenuStripDG, "contextMenuStripDG");
+            contextMenuStripDG.MouseClick += contextMenuStripDG_MouseClick_1;
             // 
             // toolStripMenuItemFilesCopyClipboard
             // 
-            resources.ApplyResources(this.toolStripMenuItemFilesCopyClipboard, "toolStripMenuItemFilesCopyClipboard");
-            this.toolStripMenuItemFilesCopyClipboard.Name = "toolStripMenuItemFilesCopyClipboard";
-            this.toolStripMenuItemFilesCopyClipboard.Click += new System.EventHandler(this.toolStripMenuItemFilesCopyClipboard_Click);
+            toolStripMenuItemFilesCopyClipboard.Name = "toolStripMenuItemFilesCopyClipboard";
+            resources.ApplyResources(toolStripMenuItemFilesCopyClipboard, "toolStripMenuItemFilesCopyClipboard");
+            toolStripMenuItemFilesCopyClipboard.Click += toolStripMenuItemFilesCopyClipboard_Click;
             // 
             // buttonClose
             // 
-            resources.ApplyResources(this.buttonClose, "buttonClose");
-            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonClose.Name = "buttonClose";
-            this.toolTip1.SetToolTip(this.buttonClose, resources.GetString("buttonClose.ToolTip"));
-            this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            resources.ApplyResources(buttonClose, "buttonClose");
+            buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
+            buttonClose.Name = "buttonClose";
+            buttonClose.UseVisualStyleBackColor = true;
+            buttonClose.Click += buttonClose_Click;
             // 
             // contextMenuStripLocators
             // 
-            resources.ApplyResources(this.contextMenuStripLocators, "contextMenuStripLocators");
-            this.contextMenuStripLocators.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemCopy,
-            this.deleteLocatorToolStripMenuItem,
-            this.toolStripMenuItemOpen,
-            this.toolStripMenuItemAzureMediaPlayer,
-            this.toolStripMenuItemAdvPlayer,
-            this.toolStripMenuItemDASHIF});
-            this.contextMenuStripLocators.Name = "contextMenuStripLocators";
-            this.toolTip1.SetToolTip(this.contextMenuStripLocators, resources.GetString("contextMenuStripLocators.ToolTip"));
-            this.contextMenuStripLocators.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStripLocators_Opening);
+            contextMenuStripLocators.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemCopy, deleteLocatorToolStripMenuItem, toolStripMenuItemOpen, toolStripMenuItemAzureMediaPlayer, toolStripMenuItemAdvPlayer, toolStripMenuItemDASHIF });
+            contextMenuStripLocators.Name = "contextMenuStripLocators";
+            resources.ApplyResources(contextMenuStripLocators, "contextMenuStripLocators");
+            contextMenuStripLocators.Opening += ContextMenuStripLocators_Opening;
             // 
             // toolStripMenuItemCopy
             // 
-            resources.ApplyResources(this.toolStripMenuItemCopy, "toolStripMenuItemCopy");
-            this.toolStripMenuItemCopy.Name = "toolStripMenuItemCopy";
-            this.toolStripMenuItemCopy.Click += new System.EventHandler(this.ToolStripMenuItemCopy_Click);
+            toolStripMenuItemCopy.Name = "toolStripMenuItemCopy";
+            resources.ApplyResources(toolStripMenuItemCopy, "toolStripMenuItemCopy");
+            toolStripMenuItemCopy.Click += ToolStripMenuItemCopy_Click;
             // 
             // deleteLocatorToolStripMenuItem
             // 
-            resources.ApplyResources(this.deleteLocatorToolStripMenuItem, "deleteLocatorToolStripMenuItem");
-            this.deleteLocatorToolStripMenuItem.Name = "deleteLocatorToolStripMenuItem";
-            this.deleteLocatorToolStripMenuItem.Click += new System.EventHandler(this.deleteLocatorToolStripMenuItem_Click);
+            resources.ApplyResources(deleteLocatorToolStripMenuItem, "deleteLocatorToolStripMenuItem");
+            deleteLocatorToolStripMenuItem.Name = "deleteLocatorToolStripMenuItem";
+            deleteLocatorToolStripMenuItem.Click += deleteLocatorToolStripMenuItem_Click;
             // 
             // toolStripMenuItemOpen
             // 
-            resources.ApplyResources(this.toolStripMenuItemOpen, "toolStripMenuItemOpen");
-            this.toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
-            this.toolStripMenuItemOpen.Click += new System.EventHandler(this.ToolStripMenuItemOpen_Click);
+            resources.ApplyResources(toolStripMenuItemOpen, "toolStripMenuItemOpen");
+            toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
+            toolStripMenuItemOpen.Click += ToolStripMenuItemOpen_Click;
             // 
             // toolStripMenuItemAzureMediaPlayer
             // 
-            resources.ApplyResources(this.toolStripMenuItemAzureMediaPlayer, "toolStripMenuItemAzureMediaPlayer");
-            this.toolStripMenuItemAzureMediaPlayer.Name = "toolStripMenuItemAzureMediaPlayer";
-            this.toolStripMenuItemAzureMediaPlayer.Click += new System.EventHandler(this.playbackWithToolStripMenuItem_Click);
+            resources.ApplyResources(toolStripMenuItemAzureMediaPlayer, "toolStripMenuItemAzureMediaPlayer");
+            toolStripMenuItemAzureMediaPlayer.Name = "toolStripMenuItemAzureMediaPlayer";
+            toolStripMenuItemAzureMediaPlayer.Click += playbackWithToolStripMenuItem_Click;
             // 
             // toolStripMenuItemAdvPlayer
             // 
-            resources.ApplyResources(this.toolStripMenuItemAdvPlayer, "toolStripMenuItemAdvPlayer");
-            this.toolStripMenuItemAdvPlayer.Name = "toolStripMenuItemAdvPlayer";
-            this.toolStripMenuItemAdvPlayer.Click += new System.EventHandler(this.ToolStripMenuItemPlaybackMP4_Click);
+            resources.ApplyResources(toolStripMenuItemAdvPlayer, "toolStripMenuItemAdvPlayer");
+            toolStripMenuItemAdvPlayer.Name = "toolStripMenuItemAdvPlayer";
+            toolStripMenuItemAdvPlayer.Click += ToolStripMenuItemPlaybackMP4_Click;
             // 
             // toolStripMenuItemDASHIF
             // 
-            resources.ApplyResources(this.toolStripMenuItemDASHIF, "toolStripMenuItemDASHIF");
-            this.toolStripMenuItemDASHIF.Name = "toolStripMenuItemDASHIF";
-            this.toolStripMenuItemDASHIF.Click += new System.EventHandler(this.ToolStripMenuItemDASHIF_Click);
+            resources.ApplyResources(toolStripMenuItemDASHIF, "toolStripMenuItemDASHIF");
+            toolStripMenuItemDASHIF.Name = "toolStripMenuItemDASHIF";
+            toolStripMenuItemDASHIF.Click += ToolStripMenuItemDASHIF_Click;
             // 
             // TreeViewLocators
             // 
-            resources.ApplyResources(this.TreeViewLocators, "TreeViewLocators");
-            this.TreeViewLocators.ContextMenuStrip = this.contextMenuStripLocators;
-            this.TreeViewLocators.Name = "TreeViewLocators";
-            this.toolTip1.SetToolTip(this.TreeViewLocators, resources.GetString("TreeViewLocators.ToolTip"));
-            this.TreeViewLocators.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewLocators_AfterSelect);
+            resources.ApplyResources(TreeViewLocators, "TreeViewLocators");
+            TreeViewLocators.ContextMenuStrip = contextMenuStripLocators;
+            TreeViewLocators.Name = "TreeViewLocators";
+            TreeViewLocators.AfterSelect += TreeViewLocators_AfterSelect;
             // 
             // DGFiles
             // 
-            resources.ApplyResources(this.DGFiles, "DGFiles");
-            this.DGFiles.AllowUserToAddRows = false;
-            this.DGFiles.AllowUserToDeleteRows = false;
-            this.DGFiles.AllowUserToResizeRows = false;
-            this.DGFiles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.DGFiles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.DGFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGFiles.ColumnHeadersVisible = false;
-            this.DGFiles.ContextMenuStrip = this.contextMenuStripDG;
-            this.DGFiles.MultiSelect = false;
-            this.DGFiles.Name = "DGFiles";
-            this.DGFiles.ReadOnly = true;
-            this.DGFiles.RowHeadersVisible = false;
-            this.toolTip1.SetToolTip(this.DGFiles, resources.GetString("DGFiles.ToolTip"));
+            DGFiles.AllowUserToAddRows = false;
+            DGFiles.AllowUserToDeleteRows = false;
+            DGFiles.AllowUserToResizeRows = false;
+            resources.ApplyResources(DGFiles, "DGFiles");
+            DGFiles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            DGFiles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            DGFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DGFiles.ColumnHeadersVisible = false;
+            DGFiles.ContextMenuStrip = contextMenuStripDG;
+            DGFiles.MultiSelect = false;
+            DGFiles.Name = "DGFiles";
+            DGFiles.ReadOnly = true;
+            DGFiles.RowHeadersVisible = false;
             // 
             // contextMenuStripBlobs
             // 
-            resources.ApplyResources(this.contextMenuStripBlobs, "contextMenuStripBlobs");
-            this.contextMenuStripBlobs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemOpenFile,
-            this.editToolStripMenuItem,
-            this.deleteBlobToolStripMenuItem,
-            this.duplicateBlobToolStripMenuItem,
-            this.toolStripMenuItemDownloadFile,
-            this.createTextTrackFromThisBlobToolStripMenuItem});
-            this.contextMenuStripBlobs.Name = "contextMenuStripFiles";
-            this.toolTip1.SetToolTip(this.contextMenuStripBlobs, resources.GetString("contextMenuStripBlobs.ToolTip"));
-            this.contextMenuStripBlobs.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripFiles_Opening);
+            contextMenuStripBlobs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemOpenFile, editToolStripMenuItem, deleteBlobToolStripMenuItem, duplicateBlobToolStripMenuItem, toolStripMenuItemDownloadFile, createTextTrackFromThisBlobToolStripMenuItem, createAnAudioTrackFromThisBlobToolStripMenuItem });
+            contextMenuStripBlobs.Name = "contextMenuStripFiles";
+            resources.ApplyResources(contextMenuStripBlobs, "contextMenuStripBlobs");
+            contextMenuStripBlobs.Opening += contextMenuStripFiles_Opening;
             // 
             // toolStripMenuItemOpenFile
             // 
-            resources.ApplyResources(this.toolStripMenuItemOpenFile, "toolStripMenuItemOpenFile");
-            this.toolStripMenuItemOpenFile.Name = "toolStripMenuItemOpenFile";
-            this.toolStripMenuItemOpenFile.Click += new System.EventHandler(this.ToolStripMenuItemOpenFile_Click);
+            resources.ApplyResources(toolStripMenuItemOpenFile, "toolStripMenuItemOpenFile");
+            toolStripMenuItemOpenFile.Name = "toolStripMenuItemOpenFile";
+            toolStripMenuItemOpenFile.Click += ToolStripMenuItemOpenFile_Click;
             // 
             // editToolStripMenuItem
             // 
-            resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
+            resources.ApplyResources(editToolStripMenuItem, "editToolStripMenuItem");
+            editToolStripMenuItem.Name = "editToolStripMenuItem";
+            editToolStripMenuItem.Click += EditToolStripMenuItem_Click;
             // 
             // deleteBlobToolStripMenuItem
             // 
-            resources.ApplyResources(this.deleteBlobToolStripMenuItem, "deleteBlobToolStripMenuItem");
-            this.deleteBlobToolStripMenuItem.Name = "deleteBlobToolStripMenuItem";
-            this.deleteBlobToolStripMenuItem.Click += new System.EventHandler(this.DeleteFileToolStripMenuItem_Click);
+            resources.ApplyResources(deleteBlobToolStripMenuItem, "deleteBlobToolStripMenuItem");
+            deleteBlobToolStripMenuItem.Name = "deleteBlobToolStripMenuItem";
+            deleteBlobToolStripMenuItem.Click += DeleteFileToolStripMenuItem_Click;
             // 
             // duplicateBlobToolStripMenuItem
             // 
-            resources.ApplyResources(this.duplicateBlobToolStripMenuItem, "duplicateBlobToolStripMenuItem");
-            this.duplicateBlobToolStripMenuItem.Name = "duplicateBlobToolStripMenuItem";
-            this.duplicateBlobToolStripMenuItem.Click += new System.EventHandler(this.duplicateFileToolStripMenuItem_Click);
+            resources.ApplyResources(duplicateBlobToolStripMenuItem, "duplicateBlobToolStripMenuItem");
+            duplicateBlobToolStripMenuItem.Name = "duplicateBlobToolStripMenuItem";
+            duplicateBlobToolStripMenuItem.Click += duplicateFileToolStripMenuItem_Click;
             // 
             // toolStripMenuItemDownloadFile
             // 
-            resources.ApplyResources(this.toolStripMenuItemDownloadFile, "toolStripMenuItemDownloadFile");
-            this.toolStripMenuItemDownloadFile.Name = "toolStripMenuItemDownloadFile";
-            this.toolStripMenuItemDownloadFile.Click += new System.EventHandler(this.ToolStripMenuItemDownloadFile_Click);
+            resources.ApplyResources(toolStripMenuItemDownloadFile, "toolStripMenuItemDownloadFile");
+            toolStripMenuItemDownloadFile.Name = "toolStripMenuItemDownloadFile";
+            toolStripMenuItemDownloadFile.Click += ToolStripMenuItemDownloadFile_Click;
             // 
             // createTextTrackFromThisBlobToolStripMenuItem
             // 
-            resources.ApplyResources(this.createTextTrackFromThisBlobToolStripMenuItem, "createTextTrackFromThisBlobToolStripMenuItem");
-            this.createTextTrackFromThisBlobToolStripMenuItem.Name = "createTextTrackFromThisBlobToolStripMenuItem";
-            this.createTextTrackFromThisBlobToolStripMenuItem.Click += new System.EventHandler(this.createTextTrackFromThisBlobToolStripMenuItem_Click);
+            resources.ApplyResources(createTextTrackFromThisBlobToolStripMenuItem, "createTextTrackFromThisBlobToolStripMenuItem");
+            createTextTrackFromThisBlobToolStripMenuItem.Name = "createTextTrackFromThisBlobToolStripMenuItem";
+            createTextTrackFromThisBlobToolStripMenuItem.Click += createTextTrackFromThisBlobToolStripMenuItem_Click;
+            // 
+            // createAnAudioTrackFromThisBlobToolStripMenuItem
+            // 
+            createAnAudioTrackFromThisBlobToolStripMenuItem.Image = Bitmaps.create;
+            createAnAudioTrackFromThisBlobToolStripMenuItem.Name = "createAnAudioTrackFromThisBlobToolStripMenuItem";
+            resources.ApplyResources(createAnAudioTrackFromThisBlobToolStripMenuItem, "createAnAudioTrackFromThisBlobToolStripMenuItem");
+            createAnAudioTrackFromThisBlobToolStripMenuItem.Click += createAnAudioTrackFromThisBlobToolStripMenuItem_Click;
             // 
             // label4
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            this.toolTip1.SetToolTip(this.label4, resources.GetString("label4.ToolTip"));
+            resources.ApplyResources(label4, "label4");
+            label4.Name = "label4";
             // 
             // buttonCopyStats
             // 
-            resources.ApplyResources(this.buttonCopyStats, "buttonCopyStats");
-            this.buttonCopyStats.Name = "buttonCopyStats";
-            this.toolTip1.SetToolTip(this.buttonCopyStats, resources.GetString("buttonCopyStats.ToolTip"));
-            this.buttonCopyStats.UseVisualStyleBackColor = true;
-            this.buttonCopyStats.Click += new System.EventHandler(this.ButtonCopyStats_Click);
+            resources.ApplyResources(buttonCopyStats, "buttonCopyStats");
+            buttonCopyStats.Name = "buttonCopyStats";
+            buttonCopyStats.UseVisualStyleBackColor = true;
+            buttonCopyStats.Click += ButtonCopyStats_Click;
             // 
             // listViewBlobs
             // 
-            resources.ApplyResources(this.listViewBlobs, "listViewBlobs");
-            this.listViewBlobs.AllowDrop = true;
-            this.listViewBlobs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ListViewFilesName,
-            this.ListViewFilesSize});
-            this.listViewBlobs.ContextMenuStrip = this.contextMenuStripBlobs;
-            this.listViewBlobs.FullRowSelect = true;
-            this.listViewBlobs.Name = "listViewBlobs";
-            this.toolTip1.SetToolTip(this.listViewBlobs, resources.GetString("listViewBlobs.ToolTip"));
-            this.listViewBlobs.UseCompatibleStateImageBehavior = false;
-            this.listViewBlobs.View = System.Windows.Forms.View.Details;
-            this.listViewBlobs.SelectedIndexChanged += new System.EventHandler(this.listViewFiles_SelectedIndexChanged);
-            this.listViewBlobs.DragDrop += new System.Windows.Forms.DragEventHandler(this.ListViewFiles_DragDrop);
-            this.listViewBlobs.DragEnter += new System.Windows.Forms.DragEventHandler(this.ListViewFiles_DragEnter);
+            listViewBlobs.AllowDrop = true;
+            resources.ApplyResources(listViewBlobs, "listViewBlobs");
+            listViewBlobs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { ListViewFilesName, ListViewFilesSize });
+            listViewBlobs.ContextMenuStrip = contextMenuStripBlobs;
+            listViewBlobs.FullRowSelect = true;
+            listViewBlobs.Name = "listViewBlobs";
+            listViewBlobs.UseCompatibleStateImageBehavior = false;
+            listViewBlobs.View = System.Windows.Forms.View.Details;
+            listViewBlobs.SelectedIndexChanged += listViewFiles_SelectedIndexChanged;
+            listViewBlobs.DragDrop += ListViewFiles_DragDrop;
+            listViewBlobs.DragEnter += ListViewFiles_DragEnter;
             // 
             // ListViewFilesName
             // 
-            resources.ApplyResources(this.ListViewFilesName, "ListViewFilesName");
+            resources.ApplyResources(ListViewFilesName, "ListViewFilesName");
             // 
             // ListViewFilesSize
             // 
-            resources.ApplyResources(this.ListViewFilesSize, "ListViewFilesSize");
+            resources.ApplyResources(ListViewFilesSize, "ListViewFilesSize");
             // 
             // tabControl1
             // 
-            resources.ApplyResources(this.tabControl1, "tabControl1");
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage8);
-            this.tabControl1.Controls.Add(this.tabPage6);
-            this.tabControl1.Controls.Add(this.tabPagePolicy);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.toolTip1.SetToolTip(this.tabControl1, resources.GetString("tabControl1.ToolTip"));
-            this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
+            resources.ApplyResources(tabControl1, "tabControl1");
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage8);
+            tabControl1.Controls.Add(tabPage6);
+            tabControl1.Controls.Add(tabPagePolicy);
+            tabControl1.Controls.Add(tabPage3);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Selected += tabControl1_Selected;
             // 
             // tabPage1
             // 
-            resources.ApplyResources(this.tabPage1, "tabPage1");
-            this.tabPage1.Controls.Add(this.tableLayoutPanel5);
-            this.tabPage1.Name = "tabPage1";
-            this.toolTip1.SetToolTip(this.tabPage1, resources.GetString("tabPage1.ToolTip"));
-            this.tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Controls.Add(tableLayoutPanel5);
+            resources.ApplyResources(tabPage1, "tabPage1");
+            tabPage1.Name = "tabPage1";
+            tabPage1.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel5
             // 
-            resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
-            this.tableLayoutPanel5.Controls.Add(this.label4, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.DGAsset, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.buttonAudioVideoAnalysis, 3, 1);
-            this.tableLayoutPanel5.Controls.Add(this.buttonCopyStats, 1, 1);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.toolTip1.SetToolTip(this.tableLayoutPanel5, resources.GetString("tableLayoutPanel5.ToolTip"));
+            resources.ApplyResources(tableLayoutPanel5, "tableLayoutPanel5");
+            tableLayoutPanel5.Controls.Add(label4, 0, 1);
+            tableLayoutPanel5.Controls.Add(DGAsset, 0, 0);
+            tableLayoutPanel5.Controls.Add(buttonAudioVideoAnalysis, 3, 1);
+            tableLayoutPanel5.Controls.Add(buttonCopyStats, 1, 1);
+            tableLayoutPanel5.Name = "tableLayoutPanel5";
             // 
             // buttonAudioVideoAnalysis
             // 
-            resources.ApplyResources(this.buttonAudioVideoAnalysis, "buttonAudioVideoAnalysis");
-            this.buttonAudioVideoAnalysis.Name = "buttonAudioVideoAnalysis";
-            this.toolTip1.SetToolTip(this.buttonAudioVideoAnalysis, resources.GetString("buttonAudioVideoAnalysis.ToolTip"));
-            this.buttonAudioVideoAnalysis.UseVisualStyleBackColor = true;
+            resources.ApplyResources(buttonAudioVideoAnalysis, "buttonAudioVideoAnalysis");
+            buttonAudioVideoAnalysis.Name = "buttonAudioVideoAnalysis";
+            buttonAudioVideoAnalysis.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
-            resources.ApplyResources(this.tabPage2, "tabPage2");
-            this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.buttonGenerateClientManifest);
-            this.tabPage2.Controls.Add(this.checkBoxListBlobsDirectories);
-            this.tabPage2.Controls.Add(this.buttonGenerateServerManifest);
-            this.tabPage2.Controls.Add(this.buttonDeleteAll);
-            this.tabPage2.Controls.Add(this.progressBarUpload);
-            this.tabPage2.Controls.Add(this.buttonUpload);
-            this.tabPage2.Controls.Add(this.DGFiles);
-            this.tabPage2.Controls.Add(this.listViewBlobs);
-            this.tabPage2.Name = "tabPage2";
-            this.toolTip1.SetToolTip(this.tabPage2, resources.GetString("tabPage2.ToolTip"));
-            this.tabPage2.UseVisualStyleBackColor = true;
-            this.tabPage2.Enter += new System.EventHandler(this.tabPageBlobs_Enter);
+            tabPage2.Controls.Add(label12);
+            tabPage2.Controls.Add(buttonGenerateClientManifest);
+            tabPage2.Controls.Add(checkBoxListBlobsDirectories);
+            tabPage2.Controls.Add(buttonGenerateServerManifest);
+            tabPage2.Controls.Add(buttonDeleteAll);
+            tabPage2.Controls.Add(progressBarUpload);
+            tabPage2.Controls.Add(buttonUpload);
+            tabPage2.Controls.Add(DGFiles);
+            tabPage2.Controls.Add(listViewBlobs);
+            resources.ApplyResources(tabPage2, "tabPage2");
+            tabPage2.Name = "tabPage2";
+            tabPage2.UseVisualStyleBackColor = true;
+            tabPage2.Enter += tabPageBlobs_Enter;
             // 
             // label12
             // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label12.Name = "label12";
-            this.toolTip1.SetToolTip(this.label12, resources.GetString("label12.ToolTip"));
+            resources.ApplyResources(label12, "label12");
+            label12.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            label12.Name = "label12";
             // 
             // buttonGenerateClientManifest
             // 
-            resources.ApplyResources(this.buttonGenerateClientManifest, "buttonGenerateClientManifest");
-            this.buttonGenerateClientManifest.Name = "buttonGenerateClientManifest";
-            this.toolTip1.SetToolTip(this.buttonGenerateClientManifest, resources.GetString("buttonGenerateClientManifest.ToolTip"));
-            this.buttonGenerateClientManifest.UseVisualStyleBackColor = true;
-            this.buttonGenerateClientManifest.Click += new System.EventHandler(this.buttonGenerateClientManifest_Click);
+            resources.ApplyResources(buttonGenerateClientManifest, "buttonGenerateClientManifest");
+            buttonGenerateClientManifest.Name = "buttonGenerateClientManifest";
+            toolTip1.SetToolTip(buttonGenerateClientManifest, resources.GetString("buttonGenerateClientManifest.ToolTip"));
+            buttonGenerateClientManifest.UseVisualStyleBackColor = true;
+            buttonGenerateClientManifest.Click += buttonGenerateClientManifest_Click;
             // 
             // checkBoxListBlobsDirectories
             // 
-            resources.ApplyResources(this.checkBoxListBlobsDirectories, "checkBoxListBlobsDirectories");
-            this.checkBoxListBlobsDirectories.Name = "checkBoxListBlobsDirectories";
-            this.toolTip1.SetToolTip(this.checkBoxListBlobsDirectories, resources.GetString("checkBoxListBlobsDirectories.ToolTip"));
-            this.checkBoxListBlobsDirectories.UseVisualStyleBackColor = true;
-            this.checkBoxListBlobsDirectories.CheckedChanged += new System.EventHandler(this.CheckBoxListBlobsDirectories_CheckedChanged);
+            resources.ApplyResources(checkBoxListBlobsDirectories, "checkBoxListBlobsDirectories");
+            checkBoxListBlobsDirectories.Name = "checkBoxListBlobsDirectories";
+            checkBoxListBlobsDirectories.UseVisualStyleBackColor = true;
+            checkBoxListBlobsDirectories.CheckedChanged += CheckBoxListBlobsDirectories_CheckedChanged;
             // 
             // buttonGenerateServerManifest
             // 
-            resources.ApplyResources(this.buttonGenerateServerManifest, "buttonGenerateServerManifest");
-            this.buttonGenerateServerManifest.Name = "buttonGenerateServerManifest";
-            this.toolTip1.SetToolTip(this.buttonGenerateServerManifest, resources.GetString("buttonGenerateServerManifest.ToolTip"));
-            this.buttonGenerateServerManifest.UseVisualStyleBackColor = true;
-            this.buttonGenerateServerManifest.Click += new System.EventHandler(this.buttonGenerateManifest_Click);
+            resources.ApplyResources(buttonGenerateServerManifest, "buttonGenerateServerManifest");
+            buttonGenerateServerManifest.Name = "buttonGenerateServerManifest";
+            toolTip1.SetToolTip(buttonGenerateServerManifest, resources.GetString("buttonGenerateServerManifest.ToolTip"));
+            buttonGenerateServerManifest.UseVisualStyleBackColor = true;
+            buttonGenerateServerManifest.Click += buttonGenerateManifest_Click;
             // 
             // buttonDeleteAll
             // 
-            resources.ApplyResources(this.buttonDeleteAll, "buttonDeleteAll");
-            this.buttonDeleteAll.Name = "buttonDeleteAll";
-            this.toolTip1.SetToolTip(this.buttonDeleteAll, resources.GetString("buttonDeleteAll.ToolTip"));
-            this.buttonDeleteAll.UseVisualStyleBackColor = true;
-            this.buttonDeleteAll.Click += new System.EventHandler(this.buttonDeleteAll_Click);
+            resources.ApplyResources(buttonDeleteAll, "buttonDeleteAll");
+            buttonDeleteAll.Name = "buttonDeleteAll";
+            toolTip1.SetToolTip(buttonDeleteAll, resources.GetString("buttonDeleteAll.ToolTip"));
+            buttonDeleteAll.UseVisualStyleBackColor = true;
+            buttonDeleteAll.Click += buttonDeleteAll_Click;
             // 
             // progressBarUpload
             // 
-            resources.ApplyResources(this.progressBarUpload, "progressBarUpload");
-            this.progressBarUpload.Name = "progressBarUpload";
-            this.toolTip1.SetToolTip(this.progressBarUpload, resources.GetString("progressBarUpload.ToolTip"));
+            resources.ApplyResources(progressBarUpload, "progressBarUpload");
+            progressBarUpload.Name = "progressBarUpload";
             // 
             // buttonUpload
             // 
-            resources.ApplyResources(this.buttonUpload, "buttonUpload");
-            this.buttonUpload.Name = "buttonUpload";
-            this.toolTip1.SetToolTip(this.buttonUpload, resources.GetString("buttonUpload.ToolTip"));
-            this.buttonUpload.UseVisualStyleBackColor = true;
-            this.buttonUpload.Click += new System.EventHandler(this.button2_Click);
+            resources.ApplyResources(buttonUpload, "buttonUpload");
+            buttonUpload.Name = "buttonUpload";
+            toolTip1.SetToolTip(buttonUpload, resources.GetString("buttonUpload.ToolTip"));
+            buttonUpload.UseVisualStyleBackColor = true;
+            buttonUpload.Click += button2_Click;
             // 
             // tabPage8
             // 
-            resources.ApplyResources(this.tabPage8, "tabPage8");
-            this.tabPage8.Controls.Add(this.label13);
-            this.tabPage8.Controls.Add(this.dGTracks);
-            this.tabPage8.Controls.Add(this.listViewTracks);
-            this.tabPage8.Name = "tabPage8";
-            this.toolTip1.SetToolTip(this.tabPage8, resources.GetString("tabPage8.ToolTip"));
-            this.tabPage8.UseVisualStyleBackColor = true;
-            this.tabPage8.Enter += new System.EventHandler(this.tabPage8_Enter);
+            tabPage8.Controls.Add(label13);
+            tabPage8.Controls.Add(dGTracks);
+            tabPage8.Controls.Add(listViewTracks);
+            resources.ApplyResources(tabPage8, "tabPage8");
+            tabPage8.Name = "tabPage8";
+            tabPage8.UseVisualStyleBackColor = true;
+            tabPage8.Enter += tabPage8_Enter;
             // 
             // label13
             // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label13.Name = "label13";
-            this.toolTip1.SetToolTip(this.label13, resources.GetString("label13.ToolTip"));
+            resources.ApplyResources(label13, "label13");
+            label13.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            label13.Name = "label13";
             // 
             // dGTracks
             // 
-            resources.ApplyResources(this.dGTracks, "dGTracks");
-            this.dGTracks.AllowUserToAddRows = false;
-            this.dGTracks.AllowUserToDeleteRows = false;
-            this.dGTracks.AllowUserToResizeRows = false;
-            this.dGTracks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dGTracks.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGTracks.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dGTracks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGTracks.ColumnHeadersVisible = false;
-            this.dGTracks.ContextMenuStrip = this.contextMenuStripDG;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dGTracks.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dGTracks.MultiSelect = false;
-            this.dGTracks.Name = "dGTracks";
-            this.dGTracks.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGTracks.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dGTracks.RowHeadersVisible = false;
-            this.toolTip1.SetToolTip(this.dGTracks, resources.GetString("dGTracks.ToolTip"));
+            dGTracks.AllowUserToAddRows = false;
+            dGTracks.AllowUserToDeleteRows = false;
+            dGTracks.AllowUserToResizeRows = false;
+            resources.ApplyResources(dGTracks, "dGTracks");
+            dGTracks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            dGTracks.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dGTracks.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dGTracks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dGTracks.ColumnHeadersVisible = false;
+            dGTracks.ContextMenuStrip = contextMenuStripDG;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            dGTracks.DefaultCellStyle = dataGridViewCellStyle2;
+            dGTracks.MultiSelect = false;
+            dGTracks.Name = "dGTracks";
+            dGTracks.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dGTracks.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dGTracks.RowHeadersVisible = false;
             // 
             // listViewTracks
             // 
-            resources.ApplyResources(this.listViewTracks, "listViewTracks");
-            this.listViewTracks.AllowDrop = true;
-            this.listViewTracks.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.listViewTracks.ContextMenuStrip = this.contextMenuStripTracks;
-            this.listViewTracks.FullRowSelect = true;
-            this.listViewTracks.Name = "listViewTracks";
-            this.toolTip1.SetToolTip(this.listViewTracks, resources.GetString("listViewTracks.ToolTip"));
-            this.listViewTracks.UseCompatibleStateImageBehavior = false;
-            this.listViewTracks.View = System.Windows.Forms.View.Details;
-            this.listViewTracks.SelectedIndexChanged += new System.EventHandler(this.listViewTracks_SelectedIndexChanged);
+            listViewTracks.AllowDrop = true;
+            resources.ApplyResources(listViewTracks, "listViewTracks");
+            listViewTracks.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2 });
+            listViewTracks.ContextMenuStrip = contextMenuStripTracks;
+            listViewTracks.FullRowSelect = true;
+            listViewTracks.Name = "listViewTracks";
+            listViewTracks.UseCompatibleStateImageBehavior = false;
+            listViewTracks.View = System.Windows.Forms.View.Details;
+            listViewTracks.SelectedIndexChanged += listViewTracks_SelectedIndexChanged;
             // 
             // columnHeader1
             // 
-            resources.ApplyResources(this.columnHeader1, "columnHeader1");
+            resources.ApplyResources(columnHeader1, "columnHeader1");
             // 
             // columnHeader2
             // 
-            resources.ApplyResources(this.columnHeader2, "columnHeader2");
+            resources.ApplyResources(columnHeader2, "columnHeader2");
             // 
             // contextMenuStripTracks
             // 
-            resources.ApplyResources(this.contextMenuStripTracks, "contextMenuStripTracks");
-            this.contextMenuStripTracks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteTrackToolStripMenuItem,
-            this.showInPlayerToolStripMenuItem,
-            this.hideFromPlayerToolStripMenuItem});
-            this.contextMenuStripTracks.Name = "contextMenuStripTracks";
-            this.toolTip1.SetToolTip(this.contextMenuStripTracks, resources.GetString("contextMenuStripTracks.ToolTip"));
-            this.contextMenuStripTracks.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTracks_Opening);
+            contextMenuStripTracks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { deleteTrackToolStripMenuItem, addTrackToolStripMenuItem, editSettingsToolStripMenuItem });
+            contextMenuStripTracks.Name = "contextMenuStripTracks";
+            resources.ApplyResources(contextMenuStripTracks, "contextMenuStripTracks");
+            contextMenuStripTracks.Opening += contextMenuStripTracks_Opening;
             // 
             // deleteTrackToolStripMenuItem
             // 
-            resources.ApplyResources(this.deleteTrackToolStripMenuItem, "deleteTrackToolStripMenuItem");
-            this.deleteTrackToolStripMenuItem.Name = "deleteTrackToolStripMenuItem";
-            this.deleteTrackToolStripMenuItem.Click += new System.EventHandler(this.deleteTrackToolStripMenuItem_Click);
+            deleteTrackToolStripMenuItem.Name = "deleteTrackToolStripMenuItem";
+            resources.ApplyResources(deleteTrackToolStripMenuItem, "deleteTrackToolStripMenuItem");
+            deleteTrackToolStripMenuItem.Click += deleteTrackToolStripMenuItem_Click;
             // 
-            // showInPlayerToolStripMenuItem
+            // addTrackToolStripMenuItem
             // 
-            resources.ApplyResources(this.showInPlayerToolStripMenuItem, "showInPlayerToolStripMenuItem");
-            this.showInPlayerToolStripMenuItem.Name = "showInPlayerToolStripMenuItem";
-            this.showInPlayerToolStripMenuItem.Click += new System.EventHandler(this.showInPlayerToolStripMenuItem_Click);
+            addTrackToolStripMenuItem.Name = "addTrackToolStripMenuItem";
+            resources.ApplyResources(addTrackToolStripMenuItem, "addTrackToolStripMenuItem");
+            addTrackToolStripMenuItem.Click += addTrackToolStripMenuItem_Click;
             // 
-            // hideFromPlayerToolStripMenuItem
+            // editSettingsToolStripMenuItem
             // 
-            resources.ApplyResources(this.hideFromPlayerToolStripMenuItem, "hideFromPlayerToolStripMenuItem");
-            this.hideFromPlayerToolStripMenuItem.Name = "hideFromPlayerToolStripMenuItem";
-            this.hideFromPlayerToolStripMenuItem.Click += new System.EventHandler(this.hideFromPlayerToolStripMenuItem_Click);
+            editSettingsToolStripMenuItem.Name = "editSettingsToolStripMenuItem";
+            resources.ApplyResources(editSettingsToolStripMenuItem, "editSettingsToolStripMenuItem");
+            editSettingsToolStripMenuItem.Click += editSettingsToolStripMenuItem_Click;
             // 
             // tabPage6
             // 
-            resources.ApplyResources(this.tabPage6, "tabPage6");
-            this.tabPage6.Controls.Add(this.buttonPlayFilter);
-            this.tabPage6.Controls.Add(this.buttonDuplicateFilter);
-            this.tabPage6.Controls.Add(this.buttonDeleteFilter);
-            this.tabPage6.Controls.Add(this.buttonCreateAssetFilter);
-            this.tabPage6.Controls.Add(this.buttonFilterInfo);
-            this.tabPage6.Controls.Add(this.dataGridViewFilters);
-            this.tabPage6.Name = "tabPage6";
-            this.toolTip1.SetToolTip(this.tabPage6, resources.GetString("tabPage6.ToolTip"));
-            this.tabPage6.UseVisualStyleBackColor = true;
-            this.tabPage6.Enter += new System.EventHandler(this.tabPage6_Enter);
+            tabPage6.Controls.Add(buttonPlayFilter);
+            tabPage6.Controls.Add(buttonDuplicateFilter);
+            tabPage6.Controls.Add(buttonDeleteFilter);
+            tabPage6.Controls.Add(buttonCreateAssetFilter);
+            tabPage6.Controls.Add(buttonFilterInfo);
+            tabPage6.Controls.Add(dataGridViewFilters);
+            resources.ApplyResources(tabPage6, "tabPage6");
+            tabPage6.Name = "tabPage6";
+            tabPage6.UseVisualStyleBackColor = true;
+            tabPage6.Enter += tabPage6_Enter;
             // 
             // buttonPlayFilter
             // 
-            resources.ApplyResources(this.buttonPlayFilter, "buttonPlayFilter");
-            this.buttonPlayFilter.Name = "buttonPlayFilter";
-            this.toolTip1.SetToolTip(this.buttonPlayFilter, resources.GetString("buttonPlayFilter.ToolTip"));
-            this.buttonPlayFilter.UseVisualStyleBackColor = true;
-            this.buttonPlayFilter.Click += new System.EventHandler(this.button1_Click_4);
+            resources.ApplyResources(buttonPlayFilter, "buttonPlayFilter");
+            buttonPlayFilter.Name = "buttonPlayFilter";
+            buttonPlayFilter.UseVisualStyleBackColor = true;
+            buttonPlayFilter.Click += button1_Click_4;
             // 
             // buttonDuplicateFilter
             // 
-            resources.ApplyResources(this.buttonDuplicateFilter, "buttonDuplicateFilter");
-            this.buttonDuplicateFilter.Name = "buttonDuplicateFilter";
-            this.toolTip1.SetToolTip(this.buttonDuplicateFilter, resources.GetString("buttonDuplicateFilter.ToolTip"));
-            this.buttonDuplicateFilter.UseVisualStyleBackColor = true;
-            this.buttonDuplicateFilter.Click += new System.EventHandler(this.button4_Click);
+            resources.ApplyResources(buttonDuplicateFilter, "buttonDuplicateFilter");
+            buttonDuplicateFilter.Name = "buttonDuplicateFilter";
+            buttonDuplicateFilter.UseVisualStyleBackColor = true;
+            buttonDuplicateFilter.Click += button4_Click;
             // 
             // buttonDeleteFilter
             // 
-            resources.ApplyResources(this.buttonDeleteFilter, "buttonDeleteFilter");
-            this.buttonDeleteFilter.Name = "buttonDeleteFilter";
-            this.toolTip1.SetToolTip(this.buttonDeleteFilter, resources.GetString("buttonDeleteFilter.ToolTip"));
-            this.buttonDeleteFilter.UseVisualStyleBackColor = true;
-            this.buttonDeleteFilter.Click += new System.EventHandler(this.buttonDeleteFilter_Click);
+            resources.ApplyResources(buttonDeleteFilter, "buttonDeleteFilter");
+            buttonDeleteFilter.Name = "buttonDeleteFilter";
+            buttonDeleteFilter.UseVisualStyleBackColor = true;
+            buttonDeleteFilter.Click += buttonDeleteFilter_Click;
             // 
             // buttonCreateAssetFilter
             // 
-            resources.ApplyResources(this.buttonCreateAssetFilter, "buttonCreateAssetFilter");
-            this.buttonCreateAssetFilter.Name = "buttonCreateAssetFilter";
-            this.toolTip1.SetToolTip(this.buttonCreateAssetFilter, resources.GetString("buttonCreateAssetFilter.ToolTip"));
-            this.buttonCreateAssetFilter.UseVisualStyleBackColor = true;
-            this.buttonCreateAssetFilter.Click += new System.EventHandler(this.button2_Click_1);
+            resources.ApplyResources(buttonCreateAssetFilter, "buttonCreateAssetFilter");
+            buttonCreateAssetFilter.Name = "buttonCreateAssetFilter";
+            buttonCreateAssetFilter.UseVisualStyleBackColor = true;
+            buttonCreateAssetFilter.Click += button2_Click_1;
             // 
             // buttonFilterInfo
             // 
-            resources.ApplyResources(this.buttonFilterInfo, "buttonFilterInfo");
-            this.buttonFilterInfo.Name = "buttonFilterInfo";
-            this.toolTip1.SetToolTip(this.buttonFilterInfo, resources.GetString("buttonFilterInfo.ToolTip"));
-            this.buttonFilterInfo.UseVisualStyleBackColor = true;
-            this.buttonFilterInfo.Click += new System.EventHandler(this.button1_Click_3);
+            resources.ApplyResources(buttonFilterInfo, "buttonFilterInfo");
+            buttonFilterInfo.Name = "buttonFilterInfo";
+            buttonFilterInfo.UseVisualStyleBackColor = true;
+            buttonFilterInfo.Click += button1_Click_3;
             // 
             // dataGridViewFilters
             // 
-            resources.ApplyResources(this.dataGridViewFilters, "dataGridViewFilters");
-            this.dataGridViewFilters.AllowUserToAddRows = false;
-            this.dataGridViewFilters.AllowUserToDeleteRows = false;
-            this.dataGridViewFilters.AllowUserToResizeRows = false;
-            this.dataGridViewFilters.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewFilters.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewFilters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewFilters.ContextMenuStrip = this.contextMenuStripFilter;
-            this.dataGridViewFilters.Name = "dataGridViewFilters";
-            this.dataGridViewFilters.ReadOnly = true;
-            this.dataGridViewFilters.RowHeadersVisible = false;
-            this.dataGridViewFilters.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.toolTip1.SetToolTip(this.dataGridViewFilters, resources.GetString("dataGridViewFilters.ToolTip"));
-            this.dataGridViewFilters.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFilters_CellContentDoubleClick);
-            this.dataGridViewFilters.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFilters_CellDoubleClickAsync);
+            dataGridViewFilters.AllowUserToAddRows = false;
+            dataGridViewFilters.AllowUserToDeleteRows = false;
+            dataGridViewFilters.AllowUserToResizeRows = false;
+            resources.ApplyResources(dataGridViewFilters, "dataGridViewFilters");
+            dataGridViewFilters.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewFilters.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewFilters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewFilters.ContextMenuStrip = contextMenuStripFilter;
+            dataGridViewFilters.Name = "dataGridViewFilters";
+            dataGridViewFilters.ReadOnly = true;
+            dataGridViewFilters.RowHeadersVisible = false;
+            dataGridViewFilters.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewFilters.CellContentDoubleClick += dataGridViewFilters_CellContentDoubleClick;
+            dataGridViewFilters.CellDoubleClick += dataGridViewFilters_CellDoubleClickAsync;
             // 
             // contextMenuStripFilter
             // 
-            resources.ApplyResources(this.contextMenuStripFilter, "contextMenuStripFilter");
-            this.contextMenuStripFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.filterInfoupdateToolStripMenuItem,
-            this.createAnAssetFilterToolStripMenuItem,
-            this.deleteToolStripMenuItem,
-            this.duplicateToolStripMenuItem,
-            this.playWithThisFilterToolStripMenuItem});
-            this.contextMenuStripFilter.Name = "contextMenuStripFilter";
-            this.toolTip1.SetToolTip(this.contextMenuStripFilter, resources.GetString("contextMenuStripFilter.ToolTip"));
+            contextMenuStripFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { filterInfoupdateToolStripMenuItem, createAnAssetFilterToolStripMenuItem, deleteToolStripMenuItem, duplicateToolStripMenuItem, playWithThisFilterToolStripMenuItem });
+            contextMenuStripFilter.Name = "contextMenuStripFilter";
+            resources.ApplyResources(contextMenuStripFilter, "contextMenuStripFilter");
             // 
             // filterInfoupdateToolStripMenuItem
             // 
-            resources.ApplyResources(this.filterInfoupdateToolStripMenuItem, "filterInfoupdateToolStripMenuItem");
-            this.filterInfoupdateToolStripMenuItem.Name = "filterInfoupdateToolStripMenuItem";
-            this.filterInfoupdateToolStripMenuItem.Click += new System.EventHandler(this.filterInfoupdateToolStripMenuItem_Click);
+            resources.ApplyResources(filterInfoupdateToolStripMenuItem, "filterInfoupdateToolStripMenuItem");
+            filterInfoupdateToolStripMenuItem.Name = "filterInfoupdateToolStripMenuItem";
+            filterInfoupdateToolStripMenuItem.Click += filterInfoupdateToolStripMenuItem_Click;
             // 
             // createAnAssetFilterToolStripMenuItem
             // 
-            resources.ApplyResources(this.createAnAssetFilterToolStripMenuItem, "createAnAssetFilterToolStripMenuItem");
-            this.createAnAssetFilterToolStripMenuItem.Name = "createAnAssetFilterToolStripMenuItem";
-            this.createAnAssetFilterToolStripMenuItem.Click += new System.EventHandler(this.createAnAssetFilterToolStripMenuItem_Click);
+            resources.ApplyResources(createAnAssetFilterToolStripMenuItem, "createAnAssetFilterToolStripMenuItem");
+            createAnAssetFilterToolStripMenuItem.Name = "createAnAssetFilterToolStripMenuItem";
+            createAnAssetFilterToolStripMenuItem.Click += createAnAssetFilterToolStripMenuItem_Click;
             // 
             // deleteToolStripMenuItem
             // 
-            resources.ApplyResources(this.deleteToolStripMenuItem, "deleteToolStripMenuItem");
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            resources.ApplyResources(deleteToolStripMenuItem, "deleteToolStripMenuItem");
+            deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
             // duplicateToolStripMenuItem
             // 
-            resources.ApplyResources(this.duplicateToolStripMenuItem, "duplicateToolStripMenuItem");
-            this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
-            this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_Click);
+            duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
+            resources.ApplyResources(duplicateToolStripMenuItem, "duplicateToolStripMenuItem");
+            duplicateToolStripMenuItem.Click += duplicateToolStripMenuItem_Click;
             // 
             // playWithThisFilterToolStripMenuItem
             // 
-            resources.ApplyResources(this.playWithThisFilterToolStripMenuItem, "playWithThisFilterToolStripMenuItem");
-            this.playWithThisFilterToolStripMenuItem.Name = "playWithThisFilterToolStripMenuItem";
-            this.playWithThisFilterToolStripMenuItem.Click += new System.EventHandler(this.playWithThisFilterToolStripMenuItem_Click);
+            resources.ApplyResources(playWithThisFilterToolStripMenuItem, "playWithThisFilterToolStripMenuItem");
+            playWithThisFilterToolStripMenuItem.Name = "playWithThisFilterToolStripMenuItem";
+            playWithThisFilterToolStripMenuItem.Click += playWithThisFilterToolStripMenuItem_Click;
             // 
             // tabPagePolicy
             // 
-            resources.ApplyResources(this.tabPagePolicy, "tabPagePolicy");
-            this.tabPagePolicy.Controls.Add(this.tableLayoutPanel4);
-            this.tabPagePolicy.Name = "tabPagePolicy";
-            this.toolTip1.SetToolTip(this.tabPagePolicy, resources.GetString("tabPagePolicy.ToolTip"));
-            this.tabPagePolicy.UseVisualStyleBackColor = true;
-            this.tabPagePolicy.Enter += new System.EventHandler(this.tabPagePolicy_Enter);
+            tabPagePolicy.Controls.Add(tableLayoutPanel4);
+            resources.ApplyResources(tabPagePolicy, "tabPagePolicy");
+            tabPagePolicy.Name = "tabPagePolicy";
+            tabPagePolicy.UseVisualStyleBackColor = true;
+            tabPagePolicy.Enter += tabPagePolicy_Enter;
             // 
             // tableLayoutPanel4
             // 
-            resources.ApplyResources(this.tableLayoutPanel4, "tableLayoutPanel4");
-            this.tableLayoutPanel4.Controls.Add(this.label5, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.tabControl2, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.comboBoxPolicyLocators, 1, 0);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.toolTip1.SetToolTip(this.tableLayoutPanel4, resources.GetString("tableLayoutPanel4.ToolTip"));
+            resources.ApplyResources(tableLayoutPanel4, "tableLayoutPanel4");
+            tableLayoutPanel4.Controls.Add(label5, 0, 0);
+            tableLayoutPanel4.Controls.Add(tabControl2, 0, 1);
+            tableLayoutPanel4.Controls.Add(comboBoxPolicyLocators, 1, 0);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
             // 
             // label5
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
-            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
+            resources.ApplyResources(label5, "label5");
+            label5.Name = "label5";
             // 
             // tabControl2
             // 
-            resources.ApplyResources(this.tabControl2, "tabControl2");
-            this.tableLayoutPanel4.SetColumnSpan(this.tabControl2, 2);
-            this.tabControl2.Controls.Add(this.tabPage5);
-            this.tabControl2.Controls.Add(this.tabPage4);
-            this.tabControl2.Controls.Add(this.tabPage7);
-            this.tabControl2.Multiline = true;
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.toolTip1.SetToolTip(this.tabControl2, resources.GetString("tabControl2.ToolTip"));
+            resources.ApplyResources(tabControl2, "tabControl2");
+            tableLayoutPanel4.SetColumnSpan(tabControl2, 2);
+            tabControl2.Controls.Add(tabPage5);
+            tabControl2.Controls.Add(tabPage4);
+            tabControl2.Controls.Add(tabPage7);
+            tabControl2.Multiline = true;
+            tabControl2.Name = "tabControl2";
+            tabControl2.SelectedIndex = 0;
             // 
             // tabPage5
             // 
-            resources.ApplyResources(this.tabPage5, "tabPage5");
-            this.tabPage5.Controls.Add(this.tableLayoutPanel1);
-            this.tabPage5.Name = "tabPage5";
-            this.toolTip1.SetToolTip(this.tabPage5, resources.GetString("tabPage5.ToolTip"));
-            this.tabPage5.UseVisualStyleBackColor = true;
+            tabPage5.Controls.Add(tableLayoutPanel1);
+            resources.ApplyResources(tabPage5, "tabPage5");
+            tabPage5.Name = "tabPage5";
+            tabPage5.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
-            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxContentKeyPolicyOfStreamingPolicy, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxStreamingPolicyOfLocator, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 2);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.toolTip1.SetToolTip(this.tableLayoutPanel1, resources.GetString("tableLayoutPanel1.ToolTip"));
+            resources.ApplyResources(tableLayoutPanel1, "tableLayoutPanel1");
+            tableLayoutPanel1.Controls.Add(label3, 0, 0);
+            tableLayoutPanel1.Controls.Add(textBoxContentKeyPolicyOfStreamingPolicy, 0, 3);
+            tableLayoutPanel1.Controls.Add(textBoxStreamingPolicyOfLocator, 0, 1);
+            tableLayoutPanel1.Controls.Add(label7, 0, 2);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // label3
             // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            this.toolTip1.SetToolTip(this.label3, resources.GetString("label3.ToolTip"));
+            resources.ApplyResources(label3, "label3");
+            label3.Name = "label3";
             // 
             // textBoxContentKeyPolicyOfStreamingPolicy
             // 
-            resources.ApplyResources(this.textBoxContentKeyPolicyOfStreamingPolicy, "textBoxContentKeyPolicyOfStreamingPolicy");
-            this.textBoxContentKeyPolicyOfStreamingPolicy.Name = "textBoxContentKeyPolicyOfStreamingPolicy";
-            this.textBoxContentKeyPolicyOfStreamingPolicy.ReadOnly = true;
-            this.toolTip1.SetToolTip(this.textBoxContentKeyPolicyOfStreamingPolicy, resources.GetString("textBoxContentKeyPolicyOfStreamingPolicy.ToolTip"));
+            resources.ApplyResources(textBoxContentKeyPolicyOfStreamingPolicy, "textBoxContentKeyPolicyOfStreamingPolicy");
+            textBoxContentKeyPolicyOfStreamingPolicy.Name = "textBoxContentKeyPolicyOfStreamingPolicy";
+            textBoxContentKeyPolicyOfStreamingPolicy.ReadOnly = true;
             // 
             // textBoxStreamingPolicyOfLocator
             // 
-            resources.ApplyResources(this.textBoxStreamingPolicyOfLocator, "textBoxStreamingPolicyOfLocator");
-            this.textBoxStreamingPolicyOfLocator.Name = "textBoxStreamingPolicyOfLocator";
-            this.textBoxStreamingPolicyOfLocator.ReadOnly = true;
-            this.toolTip1.SetToolTip(this.textBoxStreamingPolicyOfLocator, resources.GetString("textBoxStreamingPolicyOfLocator.ToolTip"));
+            resources.ApplyResources(textBoxStreamingPolicyOfLocator, "textBoxStreamingPolicyOfLocator");
+            textBoxStreamingPolicyOfLocator.Name = "textBoxStreamingPolicyOfLocator";
+            textBoxStreamingPolicyOfLocator.ReadOnly = true;
             // 
             // label7
             // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            this.toolTip1.SetToolTip(this.label7, resources.GetString("label7.ToolTip"));
+            resources.ApplyResources(label7, "label7");
+            label7.Name = "label7";
             // 
             // tabPage4
             // 
-            resources.ApplyResources(this.tabPage4, "tabPage4");
-            this.tabPage4.Controls.Add(this.tableLayoutPanel2);
-            this.tabPage4.Name = "tabPage4";
-            this.toolTip1.SetToolTip(this.tabPage4, resources.GetString("tabPage4.ToolTip"));
-            this.tabPage4.UseVisualStyleBackColor = true;
+            tabPage4.Controls.Add(tableLayoutPanel2);
+            resources.ApplyResources(tabPage4, "tabPage4");
+            tabPage4.Name = "tabPage4";
+            tabPage4.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
             // 
-            resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
-            this.tableLayoutPanel2.Controls.Add(this.label8, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.textBoxContentKeyPolicyOfLocator, 0, 1);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.toolTip1.SetToolTip(this.tableLayoutPanel2, resources.GetString("tableLayoutPanel2.ToolTip"));
+            resources.ApplyResources(tableLayoutPanel2, "tableLayoutPanel2");
+            tableLayoutPanel2.Controls.Add(label8, 0, 0);
+            tableLayoutPanel2.Controls.Add(textBoxContentKeyPolicyOfLocator, 0, 1);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
             // label8
             // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            this.toolTip1.SetToolTip(this.label8, resources.GetString("label8.ToolTip"));
+            resources.ApplyResources(label8, "label8");
+            label8.Name = "label8";
             // 
             // textBoxContentKeyPolicyOfLocator
             // 
-            resources.ApplyResources(this.textBoxContentKeyPolicyOfLocator, "textBoxContentKeyPolicyOfLocator");
-            this.textBoxContentKeyPolicyOfLocator.Name = "textBoxContentKeyPolicyOfLocator";
-            this.textBoxContentKeyPolicyOfLocator.ReadOnly = true;
-            this.toolTip1.SetToolTip(this.textBoxContentKeyPolicyOfLocator, resources.GetString("textBoxContentKeyPolicyOfLocator.ToolTip"));
+            resources.ApplyResources(textBoxContentKeyPolicyOfLocator, "textBoxContentKeyPolicyOfLocator");
+            textBoxContentKeyPolicyOfLocator.Name = "textBoxContentKeyPolicyOfLocator";
+            textBoxContentKeyPolicyOfLocator.ReadOnly = true;
             // 
             // tabPage7
             // 
-            resources.ApplyResources(this.tabPage7, "tabPage7");
-            this.tabPage7.Controls.Add(this.tableLayoutPanel3);
-            this.tabPage7.Name = "tabPage7";
-            this.toolTip1.SetToolTip(this.tabPage7, resources.GetString("tabPage7.ToolTip"));
-            this.tabPage7.UseVisualStyleBackColor = true;
+            tabPage7.Controls.Add(tableLayoutPanel3);
+            resources.ApplyResources(tabPage7, "tabPage7");
+            tabPage7.Name = "tabPage7";
+            tabPage7.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel3
             // 
-            resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
-            this.tableLayoutPanel3.Controls.Add(this.label6, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.comboBoxKeys, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.dataGridViewKeys, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.buttonGetDRMToken, 1, 3);
-            this.tableLayoutPanel3.Controls.Add(this.label9, 2, 3);
-            this.tableLayoutPanel3.Controls.Add(this.label10, 1, 4);
-            this.tableLayoutPanel3.Controls.Add(this.comboBoxOptions, 2, 4);
-            this.tableLayoutPanel3.Controls.Add(this.label11, 0, 3);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.toolTip1.SetToolTip(this.tableLayoutPanel3, resources.GetString("tableLayoutPanel3.ToolTip"));
+            resources.ApplyResources(tableLayoutPanel3, "tableLayoutPanel3");
+            tableLayoutPanel3.Controls.Add(label6, 0, 0);
+            tableLayoutPanel3.Controls.Add(comboBoxKeys, 1, 0);
+            tableLayoutPanel3.Controls.Add(dataGridViewKeys, 1, 1);
+            tableLayoutPanel3.Controls.Add(buttonGetDRMToken, 1, 3);
+            tableLayoutPanel3.Controls.Add(label9, 2, 3);
+            tableLayoutPanel3.Controls.Add(label10, 1, 4);
+            tableLayoutPanel3.Controls.Add(comboBoxOptions, 2, 4);
+            tableLayoutPanel3.Controls.Add(label11, 0, 3);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
             // 
             // label6
             // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            this.toolTip1.SetToolTip(this.label6, resources.GetString("label6.ToolTip"));
+            resources.ApplyResources(label6, "label6");
+            label6.Name = "label6";
             // 
             // comboBoxKeys
             // 
-            resources.ApplyResources(this.comboBoxKeys, "comboBoxKeys");
-            this.comboBoxKeys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxKeys.FormattingEnabled = true;
-            this.comboBoxKeys.Name = "comboBoxKeys";
-            this.toolTip1.SetToolTip(this.comboBoxKeys, resources.GetString("comboBoxKeys.ToolTip"));
-            this.comboBoxKeys.SelectedIndexChanged += new System.EventHandler(this.comboBoxKeys_SelectedIndexChanged);
+            resources.ApplyResources(comboBoxKeys, "comboBoxKeys");
+            comboBoxKeys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBoxKeys.FormattingEnabled = true;
+            comboBoxKeys.Name = "comboBoxKeys";
+            comboBoxKeys.SelectedIndexChanged += comboBoxKeys_SelectedIndexChanged;
             // 
             // dataGridViewKeys
             // 
-            resources.ApplyResources(this.dataGridViewKeys, "dataGridViewKeys");
-            this.dataGridViewKeys.AllowUserToAddRows = false;
-            this.dataGridViewKeys.AllowUserToDeleteRows = false;
-            this.dataGridViewKeys.AllowUserToResizeRows = false;
-            this.dataGridViewKeys.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridViewKeys.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewKeys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewKeys.ColumnHeadersVisible = false;
-            this.tableLayoutPanel3.SetColumnSpan(this.dataGridViewKeys, 2);
-            this.dataGridViewKeys.ContextMenuStrip = this.contextMenuStripDG;
-            this.dataGridViewKeys.MultiSelect = false;
-            this.dataGridViewKeys.Name = "dataGridViewKeys";
-            this.dataGridViewKeys.ReadOnly = true;
-            this.dataGridViewKeys.RowHeadersVisible = false;
-            this.toolTip1.SetToolTip(this.dataGridViewKeys, resources.GetString("dataGridViewKeys.ToolTip"));
-            this.dataGridViewKeys.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewKeys_CellContentClick_1);
+            dataGridViewKeys.AllowUserToAddRows = false;
+            dataGridViewKeys.AllowUserToDeleteRows = false;
+            dataGridViewKeys.AllowUserToResizeRows = false;
+            dataGridViewKeys.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridViewKeys.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewKeys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewKeys.ColumnHeadersVisible = false;
+            tableLayoutPanel3.SetColumnSpan(dataGridViewKeys, 2);
+            dataGridViewKeys.ContextMenuStrip = contextMenuStripDG;
+            resources.ApplyResources(dataGridViewKeys, "dataGridViewKeys");
+            dataGridViewKeys.MultiSelect = false;
+            dataGridViewKeys.Name = "dataGridViewKeys";
+            dataGridViewKeys.ReadOnly = true;
+            dataGridViewKeys.RowHeadersVisible = false;
+            dataGridViewKeys.CellContentClick += dataGridViewKeys_CellContentClick_1;
             // 
             // buttonGetDRMToken
             // 
-            resources.ApplyResources(this.buttonGetDRMToken, "buttonGetDRMToken");
-            this.buttonGetDRMToken.Name = "buttonGetDRMToken";
-            this.toolTip1.SetToolTip(this.buttonGetDRMToken, resources.GetString("buttonGetDRMToken.ToolTip"));
-            this.buttonGetDRMToken.UseVisualStyleBackColor = true;
-            this.buttonGetDRMToken.Click += new System.EventHandler(this.buttonGetDRMToken_Click_1);
+            resources.ApplyResources(buttonGetDRMToken, "buttonGetDRMToken");
+            buttonGetDRMToken.Name = "buttonGetDRMToken";
+            buttonGetDRMToken.UseVisualStyleBackColor = true;
+            buttonGetDRMToken.Click += buttonGetDRMToken_Click_1;
             // 
             // label9
             // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            this.toolTip1.SetToolTip(this.label9, resources.GetString("label9.ToolTip"));
+            resources.ApplyResources(label9, "label9");
+            label9.Name = "label9";
             // 
             // label10
             // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            this.toolTip1.SetToolTip(this.label10, resources.GetString("label10.ToolTip"));
+            resources.ApplyResources(label10, "label10");
+            label10.Name = "label10";
             // 
             // comboBoxOptions
             // 
-            resources.ApplyResources(this.comboBoxOptions, "comboBoxOptions");
-            this.comboBoxOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOptions.FormattingEnabled = true;
-            this.comboBoxOptions.Name = "comboBoxOptions";
-            this.toolTip1.SetToolTip(this.comboBoxOptions, resources.GetString("comboBoxOptions.ToolTip"));
+            resources.ApplyResources(comboBoxOptions, "comboBoxOptions");
+            comboBoxOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBoxOptions.FormattingEnabled = true;
+            comboBoxOptions.Name = "comboBoxOptions";
             // 
             // label11
             // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            this.toolTip1.SetToolTip(this.label11, resources.GetString("label11.ToolTip"));
+            resources.ApplyResources(label11, "label11");
+            label11.Name = "label11";
             // 
             // comboBoxPolicyLocators
             // 
-            resources.ApplyResources(this.comboBoxPolicyLocators, "comboBoxPolicyLocators");
-            this.comboBoxPolicyLocators.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPolicyLocators.FormattingEnabled = true;
-            this.comboBoxPolicyLocators.Name = "comboBoxPolicyLocators";
-            this.toolTip1.SetToolTip(this.comboBoxPolicyLocators, resources.GetString("comboBoxPolicyLocators.ToolTip"));
-            this.comboBoxPolicyLocators.SelectedIndexChanged += new System.EventHandler(this.comboBoxPolicyLocators_SelectedIndexChanged);
+            resources.ApplyResources(comboBoxPolicyLocators, "comboBoxPolicyLocators");
+            comboBoxPolicyLocators.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBoxPolicyLocators.FormattingEnabled = true;
+            comboBoxPolicyLocators.Name = "comboBoxPolicyLocators";
+            comboBoxPolicyLocators.SelectedIndexChanged += comboBoxPolicyLocators_SelectedIndexChanged;
             // 
             // tabPage3
             // 
-            resources.ApplyResources(this.tabPage3, "tabPage3");
-            this.tabPage3.Controls.Add(this.buttonAdvancedTestPlayer);
-            this.tabPage3.Controls.Add(this.checkBoxHttps);
-            this.tabPage3.Controls.Add(this.label2);
-            this.tabPage3.Controls.Add(this.comboBoxStreamingEndpoint);
-            this.tabPage3.Controls.Add(this.buttonOpen);
-            this.tabPage3.Controls.Add(this.buttonDel);
-            this.tabPage3.Controls.Add(this.buttonAzureMediaPlayer);
-            this.tabPage3.Controls.Add(this.buttonDASH);
-            this.tabPage3.Controls.Add(this.label1);
-            this.tabPage3.Controls.Add(this.TreeViewLocators);
-            this.tabPage3.Name = "tabPage3";
-            this.toolTip1.SetToolTip(this.tabPage3, resources.GetString("tabPage3.ToolTip"));
-            this.tabPage3.UseVisualStyleBackColor = true;
-            this.tabPage3.Enter += new System.EventHandler(this.tabPage3_Enter);
+            tabPage3.Controls.Add(buttonAdvancedTestPlayer);
+            tabPage3.Controls.Add(checkBoxHttps);
+            tabPage3.Controls.Add(label2);
+            tabPage3.Controls.Add(comboBoxStreamingEndpoint);
+            tabPage3.Controls.Add(buttonOpen);
+            tabPage3.Controls.Add(buttonDel);
+            tabPage3.Controls.Add(buttonAzureMediaPlayer);
+            tabPage3.Controls.Add(buttonDASH);
+            tabPage3.Controls.Add(label1);
+            tabPage3.Controls.Add(TreeViewLocators);
+            resources.ApplyResources(tabPage3, "tabPage3");
+            tabPage3.Name = "tabPage3";
+            tabPage3.UseVisualStyleBackColor = true;
+            tabPage3.Enter += tabPage3_Enter;
             // 
             // buttonAdvancedTestPlayer
             // 
-            resources.ApplyResources(this.buttonAdvancedTestPlayer, "buttonAdvancedTestPlayer");
-            this.buttonAdvancedTestPlayer.Name = "buttonAdvancedTestPlayer";
-            this.toolTip1.SetToolTip(this.buttonAdvancedTestPlayer, resources.GetString("buttonAdvancedTestPlayer.ToolTip"));
-            this.buttonAdvancedTestPlayer.UseVisualStyleBackColor = true;
-            this.buttonAdvancedTestPlayer.Click += new System.EventHandler(this.Button1_Click_2);
+            resources.ApplyResources(buttonAdvancedTestPlayer, "buttonAdvancedTestPlayer");
+            buttonAdvancedTestPlayer.Name = "buttonAdvancedTestPlayer";
+            buttonAdvancedTestPlayer.UseVisualStyleBackColor = true;
+            buttonAdvancedTestPlayer.Click += Button1_Click_2;
             // 
             // checkBoxHttps
             // 
-            resources.ApplyResources(this.checkBoxHttps, "checkBoxHttps");
-            this.checkBoxHttps.Checked = true;
-            this.checkBoxHttps.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxHttps.Name = "checkBoxHttps";
-            this.toolTip1.SetToolTip(this.checkBoxHttps, resources.GetString("checkBoxHttps.ToolTip"));
-            this.checkBoxHttps.UseVisualStyleBackColor = true;
-            this.checkBoxHttps.CheckedChanged += new System.EventHandler(this.checkBoxHttps_CheckedChanged);
+            resources.ApplyResources(checkBoxHttps, "checkBoxHttps");
+            checkBoxHttps.Checked = true;
+            checkBoxHttps.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkBoxHttps.Name = "checkBoxHttps";
+            checkBoxHttps.UseVisualStyleBackColor = true;
+            checkBoxHttps.CheckedChanged += checkBoxHttps_CheckedChanged;
             // 
             // label2
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
+            resources.ApplyResources(label2, "label2");
+            label2.Name = "label2";
             // 
             // comboBoxStreamingEndpoint
             // 
-            resources.ApplyResources(this.comboBoxStreamingEndpoint, "comboBoxStreamingEndpoint");
-            this.comboBoxStreamingEndpoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStreamingEndpoint.FormattingEnabled = true;
-            this.comboBoxStreamingEndpoint.Name = "comboBoxStreamingEndpoint";
-            this.toolTip1.SetToolTip(this.comboBoxStreamingEndpoint, resources.GetString("comboBoxStreamingEndpoint.ToolTip"));
-            this.comboBoxStreamingEndpoint.SelectedIndexChanged += new System.EventHandler(this.comboBoxStreamingEndpoint_SelectedIndexChanged);
+            resources.ApplyResources(comboBoxStreamingEndpoint, "comboBoxStreamingEndpoint");
+            comboBoxStreamingEndpoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBoxStreamingEndpoint.FormattingEnabled = true;
+            comboBoxStreamingEndpoint.Name = "comboBoxStreamingEndpoint";
+            comboBoxStreamingEndpoint.SelectedIndexChanged += comboBoxStreamingEndpoint_SelectedIndexChanged;
             // 
             // buttonOpen
             // 
-            resources.ApplyResources(this.buttonOpen, "buttonOpen");
-            this.buttonOpen.Name = "buttonOpen";
-            this.toolTip1.SetToolTip(this.buttonOpen, resources.GetString("buttonOpen.ToolTip"));
-            this.buttonOpen.UseVisualStyleBackColor = true;
-            this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
+            resources.ApplyResources(buttonOpen, "buttonOpen");
+            buttonOpen.Name = "buttonOpen";
+            buttonOpen.UseVisualStyleBackColor = true;
+            buttonOpen.Click += buttonOpen_Click;
             // 
             // buttonDel
             // 
-            resources.ApplyResources(this.buttonDel, "buttonDel");
-            this.buttonDel.Name = "buttonDel";
-            this.toolTip1.SetToolTip(this.buttonDel, resources.GetString("buttonDel.ToolTip"));
-            this.buttonDel.UseVisualStyleBackColor = true;
-            this.buttonDel.Click += new System.EventHandler(this.buttonDel_Click);
+            resources.ApplyResources(buttonDel, "buttonDel");
+            buttonDel.Name = "buttonDel";
+            buttonDel.UseVisualStyleBackColor = true;
+            buttonDel.Click += buttonDel_Click;
             // 
             // buttonAzureMediaPlayer
             // 
-            resources.ApplyResources(this.buttonAzureMediaPlayer, "buttonAzureMediaPlayer");
-            this.buttonAzureMediaPlayer.Name = "buttonAzureMediaPlayer";
-            this.toolTip1.SetToolTip(this.buttonAzureMediaPlayer, resources.GetString("buttonAzureMediaPlayer.ToolTip"));
-            this.buttonAzureMediaPlayer.UseVisualStyleBackColor = true;
-            this.buttonAzureMediaPlayer.Click += new System.EventHandler(this.Button1_Click);
+            resources.ApplyResources(buttonAzureMediaPlayer, "buttonAzureMediaPlayer");
+            buttonAzureMediaPlayer.Name = "buttonAzureMediaPlayer";
+            buttonAzureMediaPlayer.UseVisualStyleBackColor = true;
+            buttonAzureMediaPlayer.Click += Button1_Click;
             // 
             // buttonDASH
             // 
-            resources.ApplyResources(this.buttonDASH, "buttonDASH");
-            this.buttonDASH.Name = "buttonDASH";
-            this.toolTip1.SetToolTip(this.buttonDASH, resources.GetString("buttonDASH.ToolTip"));
-            this.buttonDASH.UseVisualStyleBackColor = true;
-            this.buttonDASH.Click += new System.EventHandler(this.button3_Click);
+            resources.ApplyResources(buttonDASH, "buttonDASH");
+            buttonDASH.Name = "buttonDASH";
+            buttonDASH.UseVisualStyleBackColor = true;
+            buttonDASH.Click += button3_Click;
             // 
             // label1
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
+            resources.ApplyResources(label1, "label1");
+            label1.Name = "label1";
             // 
             // contextMenuStripKey
             // 
-            resources.ApplyResources(this.contextMenuStripKey, "contextMenuStripKey");
-            this.contextMenuStripKey.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeKeyToolStripMenuItem});
-            this.contextMenuStripKey.Name = "contextMenuStripKey";
-            this.toolTip1.SetToolTip(this.contextMenuStripKey, resources.GetString("contextMenuStripKey.ToolTip"));
-            this.contextMenuStripKey.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripKey_Opening);
+            contextMenuStripKey.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { removeKeyToolStripMenuItem });
+            contextMenuStripKey.Name = "contextMenuStripKey";
+            resources.ApplyResources(contextMenuStripKey, "contextMenuStripKey");
+            contextMenuStripKey.Opening += contextMenuStripKey_Opening;
             // 
             // removeKeyToolStripMenuItem
             // 
-            resources.ApplyResources(this.removeKeyToolStripMenuItem, "removeKeyToolStripMenuItem");
-            this.removeKeyToolStripMenuItem.Name = "removeKeyToolStripMenuItem";
-            this.removeKeyToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            removeKeyToolStripMenuItem.Name = "removeKeyToolStripMenuItem";
+            resources.ApplyResources(removeKeyToolStripMenuItem, "removeKeyToolStripMenuItem");
+            removeKeyToolStripMenuItem.Click += removeToolStripMenuItem_Click;
             // 
             // labelAssetNameTitle
             // 
-            resources.ApplyResources(this.labelAssetNameTitle, "labelAssetNameTitle");
-            this.labelAssetNameTitle.Name = "labelAssetNameTitle";
-            this.toolTip1.SetToolTip(this.labelAssetNameTitle, resources.GetString("labelAssetNameTitle.ToolTip"));
+            resources.ApplyResources(labelAssetNameTitle, "labelAssetNameTitle");
+            labelAssetNameTitle.Name = "labelAssetNameTitle";
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.buttonClose);
-            this.panel1.Name = "panel1";
-            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
+            panel1.BackColor = System.Drawing.SystemColors.Control;
+            panel1.Controls.Add(buttonClose);
+            resources.ApplyResources(panel1, "panel1");
+            panel1.Name = "panel1";
             // 
             // contextMenuStrip1
             // 
-            resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem3,
-            this.toolStripMenuItem4,
-            this.toolStripMenuItem5,
-            this.toolStripMenuItem6,
-            this.toolStripMenuItem7});
-            this.contextMenuStrip1.Name = "contextMenuStripFiles";
-            this.toolTip1.SetToolTip(this.contextMenuStrip1, resources.GetString("contextMenuStrip1.ToolTip"));
+            contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem1, toolStripMenuItem2, toolStripMenuItem3, toolStripMenuItem4, toolStripMenuItem5, toolStripMenuItem6, toolStripMenuItem7 });
+            contextMenuStrip1.Name = "contextMenuStripFiles";
+            resources.ApplyResources(contextMenuStrip1, "contextMenuStrip1");
             // 
             // toolStripMenuItem1
             // 
-            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            resources.ApplyResources(toolStripMenuItem1, "toolStripMenuItem1");
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
             // 
             // toolStripMenuItem2
             // 
-            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            resources.ApplyResources(toolStripMenuItem2, "toolStripMenuItem2");
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
             // 
             // toolStripMenuItem3
             // 
-            resources.ApplyResources(this.toolStripMenuItem3, "toolStripMenuItem3");
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            resources.ApplyResources(toolStripMenuItem3, "toolStripMenuItem3");
+            toolStripMenuItem3.Name = "toolStripMenuItem3";
             // 
             // toolStripMenuItem4
             // 
-            resources.ApplyResources(this.toolStripMenuItem4, "toolStripMenuItem4");
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            resources.ApplyResources(toolStripMenuItem4, "toolStripMenuItem4");
+            toolStripMenuItem4.Name = "toolStripMenuItem4";
             // 
             // toolStripMenuItem5
             // 
-            resources.ApplyResources(this.toolStripMenuItem5, "toolStripMenuItem5");
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            resources.ApplyResources(toolStripMenuItem5, "toolStripMenuItem5");
+            toolStripMenuItem5.Name = "toolStripMenuItem5";
             // 
             // toolStripMenuItem6
             // 
-            resources.ApplyResources(this.toolStripMenuItem6, "toolStripMenuItem6");
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            resources.ApplyResources(toolStripMenuItem6, "toolStripMenuItem6");
+            toolStripMenuItem6.Name = "toolStripMenuItem6";
             // 
             // toolStripMenuItem7
             // 
-            resources.ApplyResources(this.toolStripMenuItem7, "toolStripMenuItem7");
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            resources.ApplyResources(toolStripMenuItem7, "toolStripMenuItem7");
+            toolStripMenuItem7.Name = "toolStripMenuItem7";
             // 
             // contextMenuStrip2
             // 
-            resources.ApplyResources(this.contextMenuStrip2, "contextMenuStrip2");
-            this.contextMenuStrip2.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem8,
-            this.toolStripMenuItem9,
-            this.toolStripMenuItem10,
-            this.toolStripMenuItem11,
-            this.toolStripMenuItem12,
-            this.toolStripMenuItem13,
-            this.toolStripMenuItem14});
-            this.contextMenuStrip2.Name = "contextMenuStripFiles";
-            this.toolTip1.SetToolTip(this.contextMenuStrip2, resources.GetString("contextMenuStrip2.ToolTip"));
+            contextMenuStrip2.ImageScalingSize = new System.Drawing.Size(32, 32);
+            contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem8, toolStripMenuItem9, toolStripMenuItem10, toolStripMenuItem11, toolStripMenuItem12, toolStripMenuItem13, toolStripMenuItem14 });
+            contextMenuStrip2.Name = "contextMenuStripFiles";
+            resources.ApplyResources(contextMenuStrip2, "contextMenuStrip2");
             // 
             // toolStripMenuItem8
             // 
-            resources.ApplyResources(this.toolStripMenuItem8, "toolStripMenuItem8");
-            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
+            resources.ApplyResources(toolStripMenuItem8, "toolStripMenuItem8");
+            toolStripMenuItem8.Name = "toolStripMenuItem8";
             // 
             // toolStripMenuItem9
             // 
-            resources.ApplyResources(this.toolStripMenuItem9, "toolStripMenuItem9");
-            this.toolStripMenuItem9.Name = "toolStripMenuItem9";
+            resources.ApplyResources(toolStripMenuItem9, "toolStripMenuItem9");
+            toolStripMenuItem9.Name = "toolStripMenuItem9";
             // 
             // toolStripMenuItem10
             // 
-            resources.ApplyResources(this.toolStripMenuItem10, "toolStripMenuItem10");
-            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
+            resources.ApplyResources(toolStripMenuItem10, "toolStripMenuItem10");
+            toolStripMenuItem10.Name = "toolStripMenuItem10";
             // 
             // toolStripMenuItem11
             // 
-            resources.ApplyResources(this.toolStripMenuItem11, "toolStripMenuItem11");
-            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
+            resources.ApplyResources(toolStripMenuItem11, "toolStripMenuItem11");
+            toolStripMenuItem11.Name = "toolStripMenuItem11";
             // 
             // toolStripMenuItem12
             // 
-            resources.ApplyResources(this.toolStripMenuItem12, "toolStripMenuItem12");
-            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
+            resources.ApplyResources(toolStripMenuItem12, "toolStripMenuItem12");
+            toolStripMenuItem12.Name = "toolStripMenuItem12";
             // 
             // toolStripMenuItem13
             // 
-            resources.ApplyResources(this.toolStripMenuItem13, "toolStripMenuItem13");
-            this.toolStripMenuItem13.Name = "toolStripMenuItem13";
+            resources.ApplyResources(toolStripMenuItem13, "toolStripMenuItem13");
+            toolStripMenuItem13.Name = "toolStripMenuItem13";
             // 
             // toolStripMenuItem14
             // 
-            resources.ApplyResources(this.toolStripMenuItem14, "toolStripMenuItem14");
-            this.toolStripMenuItem14.Name = "toolStripMenuItem14";
+            resources.ApplyResources(toolStripMenuItem14, "toolStripMenuItem14");
+            toolStripMenuItem14.Name = "toolStripMenuItem14";
             // 
             // AssetInformation
             // 
-            this.AcceptButton = this.buttonClose;
+            AcceptButton = buttonClose;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.SystemColors.Window;
-            this.CancelButton = this.buttonClose;
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.labelAssetNameTitle);
-            this.Controls.Add(this.tabControl1);
-            this.Name = "AssetInformation";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AssetInformation_FormClosed);
-            this.Load += new System.EventHandler(this.AssetInformation_Load);
-            this.Shown += new System.EventHandler(this.AssetInformation_Shown);
-            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AssetInformation_DpiChanged);
-            ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).EndInit();
-            this.contextMenuStripDG.ResumeLayout(false);
-            this.contextMenuStripLocators.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DGFiles)).EndInit();
-            this.contextMenuStripBlobs.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.tabPage8.ResumeLayout(false);
-            this.tabPage8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dGTracks)).EndInit();
-            this.contextMenuStripTracks.ResumeLayout(false);
-            this.tabPage6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).EndInit();
-            this.contextMenuStripFilter.ResumeLayout(false);
-            this.tabPagePolicy.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
-            this.tabControl2.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.tabPage7.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.contextMenuStripKey.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.contextMenuStrip1.ResumeLayout(false);
-            this.contextMenuStrip2.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            BackColor = System.Drawing.SystemColors.Window;
+            CancelButton = buttonClose;
+            Controls.Add(panel1);
+            Controls.Add(labelAssetNameTitle);
+            Controls.Add(tabControl1);
+            Name = "AssetInformation";
+            SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            FormClosed += AssetInformation_FormClosed;
+            Load += AssetInformation_Load;
+            Shown += AssetInformation_Shown;
+            DpiChanged += AssetInformation_DpiChanged;
+            ((System.ComponentModel.ISupportInitialize)DGAsset).EndInit();
+            contextMenuStripDG.ResumeLayout(false);
+            contextMenuStripLocators.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)DGFiles).EndInit();
+            contextMenuStripBlobs.ResumeLayout(false);
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tableLayoutPanel5.ResumeLayout(false);
+            tableLayoutPanel5.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
+            tabPage8.ResumeLayout(false);
+            tabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dGTracks).EndInit();
+            contextMenuStripTracks.ResumeLayout(false);
+            tabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewFilters).EndInit();
+            contextMenuStripFilter.ResumeLayout(false);
+            tabPagePolicy.ResumeLayout(false);
+            tableLayoutPanel4.ResumeLayout(false);
+            tableLayoutPanel4.PerformLayout();
+            tabControl2.ResumeLayout(false);
+            tabPage5.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            tabPage4.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            tabPage7.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewKeys).EndInit();
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
+            contextMenuStripKey.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            contextMenuStrip1.ResumeLayout(false);
+            contextMenuStrip2.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -1319,11 +1214,12 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTracks;
         private System.Windows.Forms.ToolStripMenuItem deleteTrackToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showInPlayerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hideFromPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createTextTrackFromThisBlobToolStripMenuItem;
         private System.Windows.Forms.DataGridView dGTracks;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ToolStripMenuItem addTrackToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createAnAudioTrackFromThisBlobToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editSettingsToolStripMenuItem;
     }
 }

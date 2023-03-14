@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +25,7 @@ namespace AMSExplorer
 {
     public partial class DownloadToLocal : Form
     {
-        private readonly IEnumerable<Asset> _selassets;
+        private readonly IEnumerable<MediaAssetResource> _selassets;
         private readonly string _backupfolder;
 
         public string FolderPath
@@ -38,7 +38,7 @@ namespace AMSExplorer
 
         public bool OpenFolderAfterDownload => checkBoxOpenFileAfterExport.Checked;
 
-        public DownloadToLocal(IEnumerable<Asset> selassets, string backupfolder)
+        public DownloadToLocal(IEnumerable<MediaAssetResource> selassets, string backupfolder)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;

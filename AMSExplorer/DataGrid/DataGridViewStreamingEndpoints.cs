@@ -15,8 +15,8 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -30,7 +30,7 @@ namespace AMSExplorer
     {
         private readonly List<StatusInfo> ListStatus = new();
         private static SortableBindingList<StreamingEndpointEntry> _MyObservStreamingEndpoints;
-        private static IEnumerable<StreamingEndpoint> streamingendpoints;
+        //private static IEnumerable<StreamingEndpointResource> streamingendpoints;
         private static bool _initialized = false;
         private static string _filterstreamingendpointsstate = "All";
         private static string _searchinname = string.Empty;
@@ -55,14 +55,14 @@ namespace AMSExplorer
             set => _timefilter = value;
         }
         public int DisplayedCount => _MyObservStreamingEndpoints.Count;
-        public List<StreamingEndpoint> GetDisplayedStreamingEndpoints(AMSClientV3 amsClient)
+        public List<StreamingEndpointResource> GetDisplayedStreamingEndpoints(AMSClientV3 amsClient)
         {
-            List<StreamingEndpoint> list = new();
+            List<StreamingEndpointResource> list = new();
             foreach (StreamingEndpointEntry se in _MyObservStreamingEndpoints)
             {
                 try
                 {
-                    StreamingEndpoint detailedSE = Task.Run(() => amsClient.GetStreamingEndpointAsync(se.Name)).GetAwaiter().GetResult();
+                    StreamingEndpointResource detailedSE = Task.Run(() => amsClient.GetStreamingEndpointAsync(se.Name)).GetAwaiter().GetResult();
                     list.Add(detailedSE);
                 }
                 catch
@@ -77,20 +77,23 @@ namespace AMSExplorer
         {
             IEnumerable<StreamingEndpointEntry> originquery;
 
-            Microsoft.Rest.Azure.IPage<StreamingEndpoint> ses = await amsClient.AMSclient.StreamingEndpoints.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
+            var sesQuery = amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync();
+            //Microsoft.Rest.Azure.IPage<StreamingEndpointResource> ses = await amsClient.AMSclient.StreamingEndpoints.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
 
-            originquery = ses.Select(o => new
+
+            originquery = (await sesQuery.AsPages(null).FirstAsync()).Values.Take(0)
+                .Select(o => new
                           StreamingEndpointEntry
-            {
-                Name = o.Name,
-                Id = o.Id,
-                Description = o.Description,
-                CDN = ((bool)o.CdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(o.CdnProvider) ?? "CDN" : string.Empty,
-                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : o.ScaleUnits.ToString(),
-                Type = StreamingEndpointInformation.ReturnTypeSE(o),
-                State = (StreamingEndpointResourceState)o.ResourceState,
-                LastModified = ((DateTime)o.LastModified).ToLocalTime()
-            });
+                {
+                    Name = o.Data.Name,
+                    Id = o.Data.Id,
+                    Description = o.Data.Description,
+                    CDN = ((bool)o.Data.IsCdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(o.Data.CdnProvider) ?? "CDN" : string.Empty,
+                    ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : o.Data.ScaleUnits.ToString(),
+                    Type = StreamingEndpointInformation.ReturnTypeSE(o),
+                    State = (StreamingEndpointResourceState)o.Data.ResourceState,
+                    LastModifiedOn = o.Data?.LastModifiedOn?.DateTime.ToLocalTime()
+                });
 
             SortableBindingList<StreamingEndpointEntry> MyObservOriginInPage = new(originquery.Take(0).ToList());
             DataSource = MyObservOriginInPage;
@@ -101,14 +104,14 @@ namespace AMSExplorer
             Columns["Description"].Width = 230;
             Columns["ScaleUnits"].Width = 100;
             Columns["ScaleUnits"].HeaderText = "Streaming Units";
-            Columns["LastModified"].Width = 150;
-            Columns["LastModified"].HeaderText = "Last Modified";
+            Columns["LastModifiedOn"].Width = 150;
+            Columns["LastModifiedOn"].HeaderText = "Last Modified";
 
             _initialized = true;
         }
 
 
-        public async Task RefreshStreamingEndpointAsync(StreamingEndpoint streamingEndpoint, AMSClientV3 amsClient)
+        public async Task RefreshStreamingEndpointAsync(StreamingEndpointResource streamingEndpoint, AMSClientV3 amsClient)
         {
             int index = -1;
             foreach (StreamingEndpointEntry CE in _MyObservStreamingEndpoints) // let's search for index
@@ -125,14 +128,14 @@ namespace AMSExplorer
 
                 try
                 {
-                    streamingEndpoint = await amsClient.GetStreamingEndpointAsync(streamingEndpoint.Name); //refresh
-                    _MyObservStreamingEndpoints[index].State = (StreamingEndpointResourceState)streamingEndpoint.ResourceState;
-                    _MyObservStreamingEndpoints[index].Description = streamingEndpoint.Description;
-                    _MyObservStreamingEndpoints[index].LastModified = ((DateTime)streamingEndpoint.LastModified).ToLocalTime();
+                    streamingEndpoint = await amsClient.GetStreamingEndpointAsync(streamingEndpoint.Data.Name); //refresh
+                    _MyObservStreamingEndpoints[index].State = (StreamingEndpointResourceState)streamingEndpoint.Data.ResourceState;
+                    _MyObservStreamingEndpoints[index].Description = streamingEndpoint.Data.Description;
+                    _MyObservStreamingEndpoints[index].LastModifiedOn = streamingEndpoint.Data.LastModifiedOn?.DateTime.ToLocalTime();
                     _MyObservStreamingEndpoints[index].Type = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint);
-                    _MyObservStreamingEndpoints[index].CDN = ((bool)streamingEndpoint.CdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(streamingEndpoint.CdnProvider) ?? "CDN" : string.Empty;
-                    _MyObservStreamingEndpoints[index].ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : streamingEndpoint.ScaleUnits.ToString();
-                    BeginInvoke(new Action(() => Refresh()));
+                    _MyObservStreamingEndpoints[index].CDN = ((bool)streamingEndpoint.Data.IsCdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(streamingEndpoint.Data.CdnProvider) ?? "CDN" : string.Empty;
+                    _MyObservStreamingEndpoints[index].ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : streamingEndpoint.Data.ScaleUnits.ToString();
+                    BeginInvoke(new Action(Refresh));
                 }
                 catch
                 {
@@ -153,12 +156,18 @@ namespace AMSExplorer
 
             IEnumerable<StreamingEndpointEntry> endpointquery;
 
+            var streamingendpointsPage = amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync();
+            List<StreamingEndpointResource> streamingEndpointResources = new();
 
-            streamingendpoints = await amsClient.AMSclient.StreamingEndpoints.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
+            await foreach (var se in streamingendpointsPage)
+            {
+                streamingEndpointResources.Add(se);
+            }
+            //streamingendpoints = await amsClient.AMSclient.StreamingEndpoints.ListAsync(amsClient.credentialsEntry.ResourceGroup, amsClient.credentialsEntry.AccountName);
 
             try
             {
-                int c = streamingendpoints.Count();
+                int c = streamingEndpointResources.Count();
             }
             catch (Exception e)
             {
@@ -166,16 +175,16 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-            endpointquery = from c in streamingendpoints
+            endpointquery = from c in streamingEndpointResources
                             select new StreamingEndpointEntry
                             {
-                                Name = c.Name,
-                                Id = c.Id,
-                                Description = c.Description,
-                                CDN = (bool)c.CdnEnabled ? StreamingEndpointInformation.ReturnDisplayedProvider(c.CdnProvider) ?? "CDN" : string.Empty,
-                                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(c) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : c.ScaleUnits.ToString(),
-                                State = (StreamingEndpointResourceState)c.ResourceState,
-                                LastModified = ((DateTime)c.LastModified).ToLocalTime(),
+                                Name = c.Data.Name,
+                                Id = c.Data.Id,
+                                Description = c.Data.Description,
+                                CDN = (bool)c.Data.IsCdnEnabled ? StreamingEndpointInformation.ReturnDisplayedProvider(c.Data.CdnProvider) ?? "CDN" : string.Empty,
+                                ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(c) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : c.Data.ScaleUnits.ToString(),
+                                State = (StreamingEndpointResourceState)c.Data.ResourceState,
+                                LastModifiedOn = c.Data.LastModifiedOn?.DateTime.ToLocalTime(),
                                 Type = StreamingEndpointInformation.ReturnTypeSE(c)
                             };
 

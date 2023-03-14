@@ -16,21 +16,20 @@
 
 
 using Azure.ResourceManager.Media.Models;
+using DocumentFormat.OpenXml.Office2013.Drawing.Chart;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class AssetInfoTextTrackCreation : Form
+    public partial class AssetInfoAudioTrackCreation : Form
     {
-        private const string stringTranscribesSpokenDialog = "public.accessibility.transcribes-spoken-dialog";
-        private const string stringDescribesMusicSound = "public.accessibility.describes-music-and-sound";
-        private const string stringEasyToRead = "public.easy-to-read";
         private bool _editMode;
-        private TextTrack _textTrack;
+        private AudioTrack _audioTrack;
 
         public string LanguageDisplayName
         {
@@ -56,6 +55,14 @@ namespace AMSExplorer
             }
         }
 
+        public string DashRole
+        {
+            get
+            {
+                return ((Item)comboBoxDashRole.SelectedItem).Value;
+            }
+        }
+
         public bool HLSDefaultTrack
         {
             get
@@ -64,64 +71,65 @@ namespace AMSExplorer
             }
         }
 
-        public bool HLSSetForced
+        public bool HLSIsDescriptiveAudio
         {
             get
             {
-                return checkBoxIsHLSSetForced.Checked;
+                return checkBoxIsHLSDescriptiveAudio.Checked;
             }
         }
 
-        public bool VisibleInPlayer
+        public int? Mp4TrackId
         {
             get
             {
-                return checkBoxPlayerVisible.Checked;
-            }
-        }
+                int? result = null;
 
-        public string HLSAccessibilityCharacteristics
-        {
-            get
-            {
-                List<string> tabS = new();
-                if (checkBoxAccessTranscribe.Checked)
+                if (!string.IsNullOrEmpty(textBoxTrackId.Text))
                 {
-                    tabS.Add(stringTranscribesSpokenDialog);
+                    int res;
+                    if (int.TryParse(textBoxTrackId.Text, out res))
+                    {
+                        result = res;
+                    }
                 }
-                if (checkBoxAccessMusicSound.Checked)
-                {
-                    tabS.Add(stringDescribesMusicSound);
-                }
-                if (checkBoxAccessEditedEaseReading.Checked)
-                {
-                    tabS.Add(stringEasyToRead);
-                }
-                return tabS.Count == 0 ? null : string.Join(",", tabS);
+                return result;
             }
         }
 
 
-        public AssetInfoTextTrackCreation(string blobName, string trackName, TextTrack textTrack = null)
+        public AssetInfoAudioTrackCreation(string blobName, string trackName, AudioTrack audioTrack = null)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
-            _editMode = textTrack != null;
+            _editMode = audioTrack != null;
 
             List<CultureInfo> cultures = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
 
             foreach (CultureInfo culture in cultures)
             {
                 comboBoxTexttrackLanguage.Items.Add(new Item(culture.EnglishName, culture.Name));
-                if (culture.Name == "en-US")
+                if (!_editMode && culture.Name == "en-US")
                 {
                     comboBoxTexttrackLanguage.SelectedIndex = comboBoxTexttrackLanguage.Items.Count - 1;
                 }
             }
 
+
+            comboBoxDashRole.Items.Add(new Item("", null));
+            comboBoxDashRole.Items.Add(new Item("main", "main"));
+            comboBoxDashRole.Items.Add(new Item("alternate", "alternate"));
+            comboBoxDashRole.Items.Add(new Item("supplementary", "supplementary"));
+            comboBoxDashRole.Items.Add(new Item("commentary", "commentary"));
+            comboBoxDashRole.Items.Add(new Item("dub", "dub"));
+            comboBoxDashRole.Items.Add(new Item("emergency", "emergency"));
+            comboBoxDashRole.SelectedIndex = 0;
+
             labelBlobName.Text = blobName;
             textBoxTrackName.Text = trackName;
-            _textTrack = textTrack;
+
+            _audioTrack = audioTrack;
+
         }
 
         private void AssetInfoTextTrackCreation_Load(object sender, EventArgs e)
@@ -130,40 +138,34 @@ namespace AMSExplorer
             {
                 buttonUpdate.Text = (string)buttonUpdate.Tag;
                 textBoxTrackName.Enabled = false;
-                
-                if (_textTrack.LanguageCode != null)
+                textBoxTrackId.Text = _audioTrack.Mpeg4TrackId?.ToString();
+                textBoxTrackId.Enabled = false; // Track Id cannot be edited after creation
+
+                if (_audioTrack.LanguageCode != null)
                 {
                     checkBoxLanguage.Checked = true;
-                    comboBoxTexttrackLanguage.Items.Add(new Item(_textTrack.LanguageCode, _textTrack.LanguageCode));
+                    comboBoxTexttrackLanguage.Items.Add(new Item(_audioTrack.LanguageCode, _audioTrack.LanguageCode));
                     comboBoxTexttrackLanguage.SelectedIndex = comboBoxTexttrackLanguage.Items.Count - 1;
                 }
                 checkBoxLanguage.Enabled = false;
                 comboBoxTexttrackLanguage.Enabled = false;
 
-                textBoxDisplayName.Text = _textTrack.DisplayName;
-
-                if (_textTrack.PlayerVisibility != null)
+                textBoxDisplayName.Text = _audioTrack.DisplayName;
+                if (_audioTrack.DashRole != null)
                 {
-                    checkBoxPlayerVisible.Checked = _textTrack.PlayerVisibility == PlayerVisibility.Visible ? true : false;
+                    comboBoxDashRole.Items.Add(new Item(_audioTrack.DashRole, _audioTrack.DashRole));
+                    comboBoxDashRole.SelectedIndex = comboBoxDashRole.Items.Count - 1;
                 }
-
-                if (_textTrack.HlsSettings != null)
+                if (_audioTrack.HlsSettings != null)
                 {
-                    if (_textTrack.HlsSettings.IsDefault != null)
+                    if (_audioTrack.HlsSettings.IsDefault != null)
                     {
-                        checkBoxHLSSetAsDefault.Checked = (bool)_textTrack.HlsSettings.IsDefault;
+                        checkBoxHLSSetAsDefault.Checked = (bool)_audioTrack.HlsSettings.IsDefault;
                     }
-                    if (_textTrack.HlsSettings.IsForced != null)
+                    if (_audioTrack.HlsSettings.Characteristics == "public.accessibility.describes-video")
                     {
-                        checkBoxIsHLSSetForced.Checked = (bool)_textTrack.HlsSettings.IsForced;
+                        checkBoxIsHLSDescriptiveAudio.Checked = true;
                     }
-                }
-
-                if (_textTrack.HlsSettings.Characteristics != null)
-                {
-                    checkBoxAccessTranscribe.Checked = _textTrack.HlsSettings.Characteristics.Contains(stringTranscribesSpokenDialog);
-                    checkBoxAccessEditedEaseReading.Checked = _textTrack.HlsSettings.Characteristics.Contains(stringEasyToRead);
-                    checkBoxAccessMusicSound.Checked = _textTrack.HlsSettings.Characteristics.Contains(stringDescribesMusicSound);
                 }
             }
         }

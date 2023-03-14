@@ -14,7 +14,7 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using Microsoft.Azure.Management.Media.Models;
+using Azure.ResourceManager.Media;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Win32;
@@ -136,11 +136,14 @@ namespace AMSExplorer
 
             while (e != null)
             {
+                // TODO2023 updater this code
+                /*
                 if (e is ErrorResponseException eApi)
                 {
                     s = eApi.Body?.Error?.Message;
                 }
                 else
+                */
                 {
                     s = e.Message;
                 }
@@ -437,7 +440,7 @@ namespace AMSExplorer
 
         public class LiveOutputExt
         {
-            public LiveOutput LiveOutputItem { get; set; }
+            public MediaLiveOutputResource LiveOutputItem { get; set; }
             public string LiveEventName { get; set; }
         }
     }

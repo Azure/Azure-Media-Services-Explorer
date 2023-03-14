@@ -21,7 +21,13 @@ namespace AMSExplorer
     public class ListCredentialsRPv3
     {
         public decimal Version = 3;
-        public List<CredentialsEntryV3> MediaServicesAccounts = new();
+        public List<CredentialsEntryV4> MediaServicesAccounts = new();
+    }
+
+    public class ListCredentialsRPv4
+    {
+        public decimal Version = 4;
+        public List<CredentialsEntryV4> MediaServicesAccounts = new();
     }
 
 }

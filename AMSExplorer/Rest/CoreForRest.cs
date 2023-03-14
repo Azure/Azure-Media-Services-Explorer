@@ -20,6 +20,7 @@ using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace AMSExplorer.Rest
@@ -37,8 +38,8 @@ namespace AMSExplorer.Rest
         {
             return _amsClient.environment.ArmEndpoint
                                        + string.Format(url,
-                                                          _amsClient.credentialsEntry.AzureSubscriptionId,
-                                                          _amsClient.credentialsEntry.ResourceGroup,
+                                                          _amsClient.credentialsEntry.SubscriptionId,
+                                                          _amsClient.credentialsEntry.ResourceGroupName,
                                                           _amsClient.credentialsEntry.AccountName,
                                                           objectName
                                                   );
@@ -55,15 +56,40 @@ namespace AMSExplorer.Rest
 
         private HttpClient GetHttpClient()
         {
+            return new HttpClient();
+            // TODO2023
+            /* 
+            The transport is configured with a delegating handler that adds the product name to the UserAgent header:
+
+            class RequestHeaderHandler : DelegatingHandler
+            {
+            public RequestHeaderHandler(HttpMessageHandler innerHandler) : base(innerHandler)
+            {
+            }
+
+            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+            {
+            request.Headers.UserAgent.Add(new ProductInfoHeaderValue("MySuperApp", "v1"));
+            return base.SendAsync(request, cancellationToken);
+            }
+            }
+            */
+
+            /*
             HttpClient client = _amsClient.AMSclient.HttpClient;
             client.DefaultRequestHeaders.Remove("Authorization");
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetToken());
             return client;
+            */
         }
 
         private async Task<string> GetObjectContentAsync(string url)
         {
             HttpClient client = GetHttpClient();
+
+            // Request headers
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _amsClient.authResult.AccessToken);
 
             HttpResponseMessage amsRequestResult = await client.GetAsync(url).ConfigureAwait(false);
 
@@ -81,6 +107,10 @@ namespace AMSExplorer.Rest
         private async Task<string> CreateObjectAsync(string url, string amsJSONObject)
         {
             HttpClient client = GetHttpClient();
+
+            // Request headers
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _amsClient.authResult.AccessToken);
 
             string _requestContent = amsJSONObject;
             StringContent httpContent = new(_requestContent, System.Text.Encoding.UTF8);
