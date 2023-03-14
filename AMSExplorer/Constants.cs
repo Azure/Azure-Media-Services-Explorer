@@ -27,9 +27,9 @@ namespace AMSExplorer
         public const string Webview2RegPath32 = "SOFTWARE\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
         public const string Webview2MinVersion = "110.0.1587.40";
 
-        public const string GitHubAMSEVersionPrimaryV3 = "https://amsexplorer.azureedge.net/release/versionv3.json";
-        public const string GitHubAMSEVersionSecondaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/main/versionv3.json";
-
+        public const string GitHubAMSEVersionPrimaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/main/versionv3.json";
+        public const string GitHubAMSEVersionSecondaryV3 = "https://amsexplorer.azureedge.net/release/versionv3.json";
+        
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
         public const string GitHubAMSELink = "http://aka.ms/amse";
 
