@@ -535,33 +535,40 @@ namespace AMSExplorer
                         }
                         else // creation mode
                         {
-                            SubscriptionResource subscription = subscriptions.Where(s => s.Data.SubscriptionId == addaccount2.SelectedSubscription.Data.SubscriptionId).First();
+                            var subscription = addaccount2.SelectedSubscription;
                             var myLocations = subscription.GetLocations().AsEnumerable();
-
-                            //var myLocations = subscriptionClient.Subscriptions.ListLocations(addaccount2.SelectedSubscription.SubscriptionId).Where(l => l.Metadata.RegionType == "Physical").OrderBy(l => l.RegionalDisplayName);
+                            var accessTokenToUse = addaccount2.AccessTokenForTenants[subscription.Data.TenantId.ToString()];
+                            var armClientToUse = addaccount2.ArmClientForTenants[subscription.Data.TenantId.ToString()];
 
                             // Getting Media Services accounts...
                             var listMediaServices = subscription.GetMediaServicesAccounts().ToList();
 
-                            // let's get the list of avaibility zones
+                            // let's get the list of availability zones
                             AzureProviders aP = new(environment.ArmEndpoint);
 
-                            var list = await aP.GetProvidersAsync(addaccount2.SelectedSubscription.Data.SubscriptionId, "Microsoft.Network", accessToken.AccessToken);
+                            var list = await aP.GetProvidersAsync(subscription.Data.SubscriptionId, "Microsoft.Network", addaccount2.AccessTokenForTenants[subscription.Data.TenantId.ToString()]);
+                            // we cannot use yet the ARM client as we need REST 2020-06-01
+                            // var list = await armClientToUse.GetTenantResourceProviderAsync("Microsoft.Network");
+
+                            // we cannot use yet the ARM client as we need REST 2020-06-01
+                            // var listNatGateways = list.Value.ResourceTypes.Where(r => r.ResourceType == "natGateways").FirstOrDefault();
                             var listNatGateways = list.ResourceTypes.Where(r => r.ResourceType == "natGateways").FirstOrDefault();
+
                             List<string> listRegionWithAvailabilityZone = new();
                             if (listNatGateways != null)
                             {
                                 listRegionWithAvailabilityZone = listNatGateways.ZoneMappings.Where(z => z.Zones.Count >= 3).Select(z => z.Location).ToList();
                             }
 
-                            // let's get the list of Media Services
-                            var listMediaServicesLocations = listMediaServices.FirstOrDefault().GetAvailableLocations().Value;
+                            //var listMediaServicesLocations = listMediaServices.First().GetAvailableLocations().Value;
+                            //var myLocationsWithMS = myLocations.Where(l => listMediaServicesLocations.Contains(l.DisplayName)).ToList();
 
-                            // var myLocationsWithMS = myLocations.Where(l => listMediaServices.Contains(l.DisplayName)).ToList();
-                            var myLocationsWithMS = myLocations.Where(l => listMediaServicesLocations.Contains(l.DisplayName)).ToList();
 
-                            CreateAccount createAccount = new(myLocationsWithMS, credentials, listRegionWithAvailabilityZone, subscription);
+                            var listAMS = await armClientToUse.GetTenantResourceProviderAsync("Microsoft.Media");
+                            // var listAMS = await aP.GetProvidersAsync(subscription.Data.SubscriptionId, "Microsoft.Media", addaccount2.AccessTokenForTenants[subscription.Data.TenantId.ToString()]);
+                            var myLocationsWithMS = listAMS.Value.ResourceTypes.Where(r => r.ResourceType == "mediaservices").First().Locations.ToList();
 
+                            CreateAccount createAccount = new(myLocationsWithMS, new TokenCredentials(accessTokenToUse, "Bearer"), listRegionWithAvailabilityZone, subscription);
                             if (createAccount.ShowDialog() == DialogResult.OK)
                             {
                                 // Add account to list

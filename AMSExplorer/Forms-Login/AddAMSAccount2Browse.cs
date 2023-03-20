@@ -49,6 +49,8 @@ namespace AMSExplorer
 
         public bool SelectMode;
         public SubscriptionResource SelectedSubscription;
+        public Dictionary<string, string> AccessTokenForTenants = new();
+        public Dictionary<string, ArmClient> ArmClientForTenants = new();
 
         public AddAMSAccount2Browse(TokenCredentials credentials, List<SubscriptionResource> subscriptions, AzureEnvironment environment, List<TenantResource> myTenants, Prompt prompt, IPublicClientApplication app, AuthenticationResult accessToken)
         {
@@ -146,6 +148,11 @@ namespace AMSExplorer
             {
                 return;
             }
+            else
+            {
+                // let's save the token as may need it later for AMS account creation
+                AccessTokenForTenants[selectedTenantId] = accessToken.AccessToken;
+            }
 
             // used later by the form for AMS listing
             credentials = new TokenCredentials(accessToken.AccessToken, "Bearer");
@@ -153,6 +160,9 @@ namespace AMSExplorer
             var autoCode = new BearerTokenCredential(accessToken.AccessToken);
 
             ArmClient armClient = new(autoCode);
+
+            // let's save the token as may need it later for AMS account creation
+            ArmClientForTenants[selectedTenantId] = armClient;
 
             subscriptions = armClient.GetSubscriptions().ToList();
 
@@ -301,7 +311,7 @@ namespace AMSExplorer
             }
             treeViewAzureSub.EndUpdate();
             Cursor = Cursors.Arrow;
-            buttonNext.Enabled = false;
+            //buttonNext.Enabled = false;
         }
 
         private void TreeViewAzureSub_AfterSelect(object sender, TreeViewEventArgs e)
