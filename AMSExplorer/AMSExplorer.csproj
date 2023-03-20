@@ -100,8 +100,7 @@
     <PackageReference Include="Microsoft.Azure.Storage.DataMovement" Version="2.0.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Identity.Client.Broker" Version="4.50.0-preview" />
-    <PackageReference Include="Microsoft.Identity.Client.NativeInterop" Version="0.13.6" />
+    <PackageReference Include="Microsoft.Identity.Client.Broker" Version="4.51.0-preview" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.24" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.1" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1587.40" />
