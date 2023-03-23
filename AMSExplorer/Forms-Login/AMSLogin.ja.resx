@@ -210,13 +210,13 @@
   <data name="radioButtonAADInteractive.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="textBoxAMSResourceId.Error" xml:space="preserve">
+  <data name="textBoxResourceGroup.Error" xml:space="preserve">
     <value />
   </data>
-  <data name="textBoxAMSResourceId.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+  <data name="textBoxResourceGroup.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
-  <data name="textBoxAMSResourceId.IconPadding" type="System.Int32, mscorlib">
+  <data name="textBoxResourceGroup.IconPadding" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="textBoxAADtenantId.Error" xml:space="preserve">
@@ -339,7 +339,7 @@
   <data name="pictureBoxJob.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAS4AAAA8CAYAAADYKVdnAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wAAADsABataJCQAAD85JREFUeF7tnW9MXWcZwO8HXfxmot/4Yozfzf3Ah6Zhq11XtlUwoiVrlbVsra2u
+        vwAADr8BOAVTJAAAD85JREFUeF7tnW9MXWcZwO8HXfxmot/4Yozfzf3Ah6Zhq11XtlUwoiVrlbVsra2u
         SsZwtGOlK4OtrDgZRSsyu65aKzoFtAO0EcwUNE0gWQK6rI0hkKwKDuc1rd5kMY/Pc855z3nPe57z73Jv
         Oy7PTX7Jdu/58/47v/d5/xyauXXrFgiCIGwkRFyCIGw4RFyCIGw4RFyCIGw4RFyCIGw4SiquzM5OyNz3
         LNIBmR3EScjcSzwDme0nHNoh85njNtuehlfeAfZagiAIiqKLK1P9HNJlS6sAcVkcW7Dgri8IglA0cWXu
@@ -488,6 +488,30 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxSubscription.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBoxSubscription.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="textBoxSubscription.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxSubscription.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label2.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label2.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label2.ToolTip" xml:space="preserve">
     <value />
   </data>
 </root>

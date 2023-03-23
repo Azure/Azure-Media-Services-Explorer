@@ -18,7 +18,6 @@
 using Azure;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
-using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.OData;
 using System;
 using System.Collections.Generic;
@@ -64,7 +63,6 @@ namespace AMSExplorer
         private static readonly Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
         private static readonly Bitmap BitmapCancel = Program.MakeRed(Bitmaps.cancel);
         private static BindingList<AssetEntry> _MyObservAssetV3;
-        private IPage<MediaAssetResource> firstpage;
         private SynchronizationContext _syncontext;
 
         public int CurrentPage => _currentPageNumber;
@@ -82,7 +80,6 @@ namespace AMSExplorer
             get => _searchinname;
             set => _searchinname = value;
         }
-
 
         public string StateFilter
         {
@@ -617,8 +614,6 @@ Properties/StorageId
 
             BeginInvoke(new Action(() => FindForm().Cursor = Cursors.Default));
         }
-
-
 
         /// <summary>
         /// Returns a bitmap for publication
