@@ -49,6 +49,24 @@ namespace AMSExplorer
             }
         }
 
+        public TimeSpan? RewindWindowLength
+        {
+            get => checkBoxRewind.Checked ? new((int)numericUpDownRewindHours.Value, (int)numericUpDownRewindMinutes.Value, 0) : null;
+            set
+            {
+                if (value != null)
+                {
+                    numericUpDownRewindHours.Value = ((TimeSpan)value).Hours;
+                    numericUpDownRewindMinutes.Value = ((TimeSpan)value).Minutes;
+                    checkBoxRewind.Checked = true;
+                }
+                else
+                {
+                    checkBoxRewind.Checked = false;
+                }
+            }
+        }
+
         public string ManifestName
         {
             get
@@ -217,6 +235,36 @@ namespace AMSExplorer
         private void LiveOutputCreation_Shown(object sender, EventArgs e)
         {
             Telemetry.TrackPageView(this.Name);
+        }
+
+        private void checkBoxRewind_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownRewindHours.Enabled = numericUpDownRewindMinutes.Enabled = checkBoxRewind.Checked;
+        }
+
+        private void numericUpDownArchiveHours_ValueChanged(object sender, EventArgs e)
+        {
+            CheckRewindValue();
+        }
+
+        private void numericUpDownArchiveMinutes_ValueChanged(object sender, EventArgs e)
+        {
+            CheckRewindValue();
+        }
+
+        private void CheckRewindValue()
+        {
+            if (checkBoxRewind.Checked)
+            {
+                if (RewindWindowLength > ArchiveWindowLength)
+                {
+                    errorProvider1.SetError(numericUpDownRewindMinutes, "Error. Rewind window length should not be more than archive window length");
+                }
+                else
+                {
+                    errorProvider1.SetError(numericUpDownRewindMinutes, string.Empty);
+                }
+            }
         }
     }
 }
