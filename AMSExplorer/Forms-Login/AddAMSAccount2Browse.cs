@@ -107,7 +107,7 @@ namespace AMSExplorer
                 _clientApplications[selectedTenantId] = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
                 .WithAuthority(environment.AADSettings.AuthenticationEndpoint + selectedTenantId)
                 .WithDefaultRedirectUri()
-                .WithBrokerPreview(true)
+                .WithBroker(true)
                 //.WithRedirectUri("http://localhost")
                 .Build();
             }

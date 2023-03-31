@@ -459,7 +459,7 @@ namespace AMSExplorer
                         .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "common")
                         .WithDefaultRedirectUri()
                         //.WithRedirectUri("http://localhost")
-                        .WithBrokerPreview(true)
+                        .WithBroker(true)
                         .Build();
 
                     AuthenticationResult accessToken = null;

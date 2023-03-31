@@ -63,7 +63,7 @@ namespace AMSExplorer
                   .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"))
                   .WithDefaultRedirectUri()
                   //.WithRedirectUri("http://localhost")
-                  .WithBrokerPreview(true)
+                  .WithBroker(true)
                   .Build();
             }
             else // SP
