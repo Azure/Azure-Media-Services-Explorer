@@ -9226,7 +9226,6 @@ namespace AMSExplorer
                         default: throw new ArgumentOutOfRangeException();
                     }
 
-
                     if (useRest) // We use REST for custom preset
                     {
                         TransformRestObject existingT = null;
@@ -9291,7 +9290,7 @@ namespace AMSExplorer
                             DoRefreshGridTransformV(false);
                         }
                     }
-                    else if (transformInfo != null) // We use the SDK
+                    else if (transformInfo != null && transformInfo.Item1 != null && transformInfo.Item2 != null) // We use the SDK
                     {
                         var data = new MediaTransformData()
                         {
