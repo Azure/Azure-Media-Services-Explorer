@@ -1,1 +1,1 @@
-wingetcreate update --urls https://github.com/Azure/Azure-Media-Services-Explorer/releases/download/v5.7.0.0/AMSExplorerSetup_v5.7.0.msi --version 5.7.0 Microsoft.AzureMediaServicesExplorer
+wingetcreate update --urls https://github.com/Azure/Azure-Media-Services-Explorer/releases/download/v5.7.1.0/AMSExplorerSetup_v5.7.1.msi --version 5.7.1 Microsoft.AzureMediaServicesExplorer
