@@ -5,13 +5,13 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>AMSExplorer.Program</StartupObject>
-    <Version>5.5.2.0</Version>
+    <Version>5.7.1.0</Version>
     <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
     <Description></Description>
     <Copyright>Copyright © 2023</Copyright>
     <Company>$(Authors)Microsoft</Company>
-    <AssemblyVersion>5.7.0.0</AssemblyVersion>
-    <FileVersion>5.7.0.0</FileVersion>
+    <AssemblyVersion>5.7.1.0</AssemblyVersion>
+    <FileVersion>5.7.1.0</FileVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <PackageIcon>Azure Explorer.png</PackageIcon>
     <PackageIconUrl />
@@ -90,7 +90,7 @@
   <ItemGroup>
     <PackageReference Include="Azure.Monitor.Query" Version="1.1.0" />
     <PackageReference Include="Azure.ResourceManager" Version="1.4.0" />
-    <PackageReference Include="Azure.ResourceManager.Media" Version="1.1.0" />
+    <PackageReference Include="Azure.ResourceManager.Media" Version="1.2.0" />
     <PackageReference Include="Azure.ResourceManager.Resources" Version="1.4.0" />
     <PackageReference Include="Azure.ResourceManager.Storage" Version="1.1.1" />
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.19.0" />
@@ -100,11 +100,10 @@
     <PackageReference Include="Microsoft.Azure.Storage.DataMovement" Version="2.0.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Identity.Client.Broker" Version="4.50.0-preview" />
-    <PackageReference Include="Microsoft.Identity.Client.NativeInterop" Version="0.13.6" />
+    <PackageReference Include="Microsoft.Identity.Client.Broker" Version="4.52.0" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.24" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.1" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1587.40" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1661.34" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0" />
     <PackageReference Include="System.Linq.Async.Queryable" Version="6.0.1" />
   </ItemGroup>

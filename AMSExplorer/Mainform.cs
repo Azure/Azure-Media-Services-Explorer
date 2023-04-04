@@ -5575,13 +5575,14 @@ namespace AMSExplorer
                 LiveOutputCreation form = new(_amsClient)
                 {
                     LiveEventName = liveEvent.Data.Name,
-                    ArchiveWindowLength = new TimeSpan(0, 5, 0),
+                    ArchiveWindowLength = new TimeSpan(6, 0, 0),
+                    RewindWindowLength = liveEvent.Data.StreamOptions.Contains(StreamOptionsFlag.LowLatencyV2) ? new TimeSpan(0, 30, 0) : null,
                     CreateLocator = true,
                     AssetName = Constants.NameconvLiveEvent + "-" + Constants.NameconvLiveOutput,
                     LiveOutputName = "LiveOutput-" + uniqueness,
                     HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment,
                     ManifestName = uniqueness,
-                    MaxArchiveHours = isBasic ? 8 : 25
+                    MaxArchiveHours = isBasic ? 8 : 25,
                 };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -5602,6 +5603,7 @@ namespace AMSExplorer
                         {
                             AssetName = asset.Data.Name,
                             ArchiveWindowLength = form.ArchiveWindowLength,
+                            RewindWindowLength = form.RewindWindowLength,
                             Description = form.ProgramDescription,
                             ManifestName = form.ManifestName ?? uniqueness,
                             HlsFragmentsPerTsSegment = form.HLSFragmentPerSegment,
@@ -9226,7 +9228,6 @@ namespace AMSExplorer
                         default: throw new ArgumentOutOfRangeException();
                     }
 
-
                     if (useRest) // We use REST for custom preset
                     {
                         TransformRestObject existingT = null;
@@ -9291,7 +9292,7 @@ namespace AMSExplorer
                             DoRefreshGridTransformV(false);
                         }
                     }
-                    else if (transformInfo != null) // We use the SDK
+                    else if (transformInfo != null && transformInfo.Item1 != null && transformInfo.Item2 != null) // We use the SDK
                     {
                         var data = new MediaTransformData()
                         {

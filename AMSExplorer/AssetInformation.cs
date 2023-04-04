@@ -2629,7 +2629,7 @@ namespace AMSExplorer
                                     {
                                         // TODO2023
                                         // this properties should be written but v1 of the SDK has this constraint
-                                        //LanguageCode = form.LanguageCode,
+                                        // LanguageCode = form.LanguageCode,
                                         DisplayName = form.LanguageDisplayName,
                                         FileName = bl.Name,
                                         PlayerVisibility = form.VisibleInPlayer ? PlayerVisibility.Visible : PlayerVisibility.Hidden,

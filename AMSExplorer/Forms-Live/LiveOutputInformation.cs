@@ -107,6 +107,7 @@ namespace AMSExplorer
                 DGLiveEvent.Rows.Add("Last Modified", _liveOutput.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
                 DGLiveEvent.Rows.Add("Description", _liveOutput.Data.Description);
                 DGLiveEvent.Rows.Add("Archive Window Length", _liveOutput.Data.ArchiveWindowLength);
+                DGLiveEvent.Rows.Add("Rewind Window Length", _liveOutput.Data.RewindWindowLength);
                 DGLiveEvent.Rows.Add("Manifest Name", _liveOutput.Data.ManifestName);
                 DGLiveEvent.Rows.Add("Asset Name", _liveOutput.Data.AssetName);
                 DGLiveEvent.Rows.Add("Output snap time", _liveOutput.Data.OutputSnapTime);

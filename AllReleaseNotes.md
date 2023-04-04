@@ -1,5 +1,11 @@
 # AMSE release notes history
 
+## Version 5.7.1.0 (April 4th, 2023) brings the following features and improvements
+
+* Adds Rewind window setting for live output
+* Fixes a few bugs
+* Nugget packages and documentation update
+
 ## Version 5.7.0.0 (March 14th, 2023) brings the following features and improvements
 
 * Code refactoring - now uses the new [Azure.ResourceManager.Media](https://github.com/Azure/azure-sdk-for-net/blob/Azure.ResourceManager.Media_1.1.0/sdk/mediaservices/Azure.ResourceManager.Media/README.md) nugget package (AMS SDK)

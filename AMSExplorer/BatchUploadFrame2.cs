@@ -119,7 +119,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void BathUploadFrame2_LoadAsync(object sender, EventArgs e)
+        private void BathUploadFrame2_Load(object sender, EventArgs e)
         {
             // DpiUtils.InitPerMonitorDpi(this);
 

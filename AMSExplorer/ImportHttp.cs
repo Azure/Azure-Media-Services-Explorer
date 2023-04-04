@@ -62,7 +62,7 @@ namespace AMSExplorer
         }
 
 
-        private async void ImportHttp_Load(object sender, EventArgs e)
+        private void ImportHttp_Load(object sender, EventArgs e)
         {
             // DpiUtils.InitPerMonitorDpi(this);
             labelURLFileNameWarning.Text = string.Empty;

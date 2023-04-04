@@ -36,7 +36,7 @@ namespace AMSExplorer
 {
     public partial class CreateAccount : Form
     {
-        private List<LocationExpanded> _locations;
+        private List<string> _locations;
         private TokenCredentials _tokenCredentials;
         private List<string> _listRegionWithAvailabilityZone;
         private SubscriptionResource _subscription;
@@ -52,8 +52,7 @@ namespace AMSExplorer
 
         public string SelectedLocationDisplayName => (comboBoxAzureLocations.SelectedItem as Item).Value;
 
-        public string SelectedLocationName => _locations.Where(l => l.DisplayName == (comboBoxAzureLocations.SelectedItem as Item).Value).First().Name;
-        public AzureLocation SelectedLocation => _locations.Where(l => l.DisplayName == (comboBoxAzureLocations.SelectedItem as Item).Value).First();
+        public string SelectedLocationName => _locations.First(l => l == (comboBoxAzureLocations.SelectedItem as Item).Value);
 
 
         public string AccountName => textBoxAccountName.Text;
@@ -63,7 +62,7 @@ namespace AMSExplorer
         public MediaServicesAccountResource MediaServiceCreated { get; private set; }
 
 
-        public CreateAccount(List<LocationExpanded> locations, TokenCredentials tokenCredentials, List<string> listRegionWithAvailabilityZone, SubscriptionResource subscription)
+        public CreateAccount(List<string> locations, TokenCredentials tokenCredentials, List<string> listRegionWithAvailabilityZone, SubscriptionResource subscription)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -86,9 +85,9 @@ namespace AMSExplorer
             int index = 0;
             foreach (var loc in _locations)
             {
-                comboBoxAzureLocations.Items.Add(new Item(loc.DisplayName, loc.DisplayName));
+                comboBoxAzureLocations.Items.Add(new Item(loc, loc));
                 //    comboBoxAzureLocations.Items.Add(new Item(loc.RegionalDisplayName, loc.DisplayName));
-                if (loc.DisplayName == "East US")
+                if (loc == "East US")
                 {
                     index = comboBoxAzureLocations.Items.Count - 1;
                 }

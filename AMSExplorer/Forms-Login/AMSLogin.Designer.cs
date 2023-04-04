@@ -28,268 +28,368 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AmsLogin));
-            this.buttonLogin = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonDeleteAccountEntry = new System.Windows.Forms.Button();
-            this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.linkLabelAADAut = new System.Windows.Forms.LinkLabel();
-            this.groupBoxAADAutMode = new System.Windows.Forms.GroupBox();
-            this.radioButtonAADServicePrincipal = new System.Windows.Forms.RadioButton();
-            this.radioButtonAADInteractive = new System.Windows.Forms.RadioButton();
-            this.textBoxResourceGroup = new System.Windows.Forms.TextBox();
-            this.textBoxAADtenantId = new System.Windows.Forms.TextBox();
-            this.labelADTenant = new System.Windows.Forms.Label();
-            this.labelE2 = new System.Windows.Forms.Label();
-            this.labelenteramsacct = new System.Windows.Forms.Label();
-            this.buttonExport = new System.Windows.Forms.Button();
-            this.buttonImportAll = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.pictureBoxJob = new System.Windows.Forms.PictureBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.labelVersion = new System.Windows.Forms.Label();
-            this.buttonPickupAccount = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.listViewAccounts = new System.Windows.Forms.ListView();
-            this.linkLabelAMSOfflineDoc = new System.Windows.Forms.LinkLabel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBoxSubscription = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.groupBoxAADAutMode.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.SuspendLayout();
+            buttonLogin = new System.Windows.Forms.Button();
+            buttonCancel = new System.Windows.Forms.Button();
+            buttonDeleteAccountEntry = new System.Windows.Forms.Button();
+            textBoxDescription = new System.Windows.Forms.TextBox();
+            label1 = new System.Windows.Forms.Label();
+            linkLabelAADAut = new System.Windows.Forms.LinkLabel();
+            groupBoxAADAutMode = new System.Windows.Forms.GroupBox();
+            radioButtonAADServicePrincipal = new System.Windows.Forms.RadioButton();
+            radioButtonAADInteractive = new System.Windows.Forms.RadioButton();
+            textBoxResourceGroup = new System.Windows.Forms.TextBox();
+            textBoxAADtenantId = new System.Windows.Forms.TextBox();
+            labelADTenant = new System.Windows.Forms.Label();
+            labelE2 = new System.Windows.Forms.Label();
+            labelenteramsacct = new System.Windows.Forms.Label();
+            buttonExport = new System.Windows.Forms.Button();
+            buttonImportAll = new System.Windows.Forms.Button();
+            openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            pictureBoxJob = new System.Windows.Forms.PictureBox();
+            panel1 = new System.Windows.Forms.Panel();
+            labelVersion = new System.Windows.Forms.Label();
+            buttonPickupAccount = new System.Windows.Forms.Button();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            listViewAccounts = new System.Windows.Forms.ListView();
+            linkLabelAMSOfflineDoc = new System.Windows.Forms.LinkLabel();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            textBoxSubscription = new System.Windows.Forms.TextBox();
+            label2 = new System.Windows.Forms.Label();
+            errorProvider1 = new System.Windows.Forms.ErrorProvider(components);
+            groupBoxAADAutMode.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxJob).BeginInit();
+            panel1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
+            SuspendLayout();
             // 
             // buttonLogin
             // 
-            resources.ApplyResources(this.buttonLogin, "buttonLogin");
-            this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.UseVisualStyleBackColor = true;
-            this.buttonLogin.Click += new System.EventHandler(this.ButtonLogin_Click);
+            resources.ApplyResources(buttonLogin, "buttonLogin");
+            errorProvider1.SetError(buttonLogin, resources.GetString("buttonLogin.Error"));
+            errorProvider1.SetIconAlignment(buttonLogin, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("buttonLogin.IconAlignment"));
+            errorProvider1.SetIconPadding(buttonLogin, (int)resources.GetObject("buttonLogin.IconPadding"));
+            buttonLogin.Name = "buttonLogin";
+            toolTip1.SetToolTip(buttonLogin, resources.GetString("buttonLogin.ToolTip"));
+            buttonLogin.UseVisualStyleBackColor = true;
+            buttonLogin.Click += ButtonLogin_Click;
             // 
             // buttonCancel
             // 
-            resources.ApplyResources(this.buttonCancel, "buttonCancel");
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
+            resources.ApplyResources(buttonCancel, "buttonCancel");
+            buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            errorProvider1.SetError(buttonCancel, resources.GetString("buttonCancel.Error"));
+            errorProvider1.SetIconAlignment(buttonCancel, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("buttonCancel.IconAlignment"));
+            errorProvider1.SetIconPadding(buttonCancel, (int)resources.GetObject("buttonCancel.IconPadding"));
+            buttonCancel.Name = "buttonCancel";
+            toolTip1.SetToolTip(buttonCancel, resources.GetString("buttonCancel.ToolTip"));
+            buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonDeleteAccountEntry
             // 
-            resources.ApplyResources(this.buttonDeleteAccountEntry, "buttonDeleteAccountEntry");
-            this.buttonDeleteAccountEntry.Name = "buttonDeleteAccountEntry";
-            this.buttonDeleteAccountEntry.UseVisualStyleBackColor = true;
-            this.buttonDeleteAccountEntry.Click += new System.EventHandler(this.ButtonDeleteAccount_Click);
+            resources.ApplyResources(buttonDeleteAccountEntry, "buttonDeleteAccountEntry");
+            errorProvider1.SetError(buttonDeleteAccountEntry, resources.GetString("buttonDeleteAccountEntry.Error"));
+            errorProvider1.SetIconAlignment(buttonDeleteAccountEntry, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("buttonDeleteAccountEntry.IconAlignment"));
+            errorProvider1.SetIconPadding(buttonDeleteAccountEntry, (int)resources.GetObject("buttonDeleteAccountEntry.IconPadding"));
+            buttonDeleteAccountEntry.Name = "buttonDeleteAccountEntry";
+            toolTip1.SetToolTip(buttonDeleteAccountEntry, resources.GetString("buttonDeleteAccountEntry.ToolTip"));
+            buttonDeleteAccountEntry.UseVisualStyleBackColor = true;
+            buttonDeleteAccountEntry.Click += ButtonDeleteAccount_Click;
             // 
             // textBoxDescription
             // 
-            resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
-            this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.TextChanged += new System.EventHandler(this.textBoxDescription_TextChanged);
+            resources.ApplyResources(textBoxDescription, "textBoxDescription");
+            errorProvider1.SetError(textBoxDescription, resources.GetString("textBoxDescription.Error"));
+            errorProvider1.SetIconAlignment(textBoxDescription, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("textBoxDescription.IconAlignment"));
+            errorProvider1.SetIconPadding(textBoxDescription, (int)resources.GetObject("textBoxDescription.IconPadding"));
+            textBoxDescription.Name = "textBoxDescription";
+            toolTip1.SetToolTip(textBoxDescription, resources.GetString("textBoxDescription.ToolTip"));
+            textBoxDescription.TextChanged += textBoxDescription_TextChanged;
             // 
             // label1
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(label1, "label1");
+            errorProvider1.SetError(label1, resources.GetString("label1.Error"));
+            errorProvider1.SetIconAlignment(label1, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("label1.IconAlignment"));
+            errorProvider1.SetIconPadding(label1, (int)resources.GetObject("label1.IconPadding"));
+            label1.Name = "label1";
+            toolTip1.SetToolTip(label1, resources.GetString("label1.ToolTip"));
             // 
             // linkLabelAADAut
             // 
-            resources.ApplyResources(this.linkLabelAADAut, "linkLabelAADAut");
-            this.linkLabelAADAut.Name = "linkLabelAADAut";
-            this.linkLabelAADAut.TabStop = true;
-            this.linkLabelAADAut.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Accountmgtlink_LinkClicked);
+            resources.ApplyResources(linkLabelAADAut, "linkLabelAADAut");
+            errorProvider1.SetError(linkLabelAADAut, resources.GetString("linkLabelAADAut.Error"));
+            errorProvider1.SetIconAlignment(linkLabelAADAut, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("linkLabelAADAut.IconAlignment"));
+            errorProvider1.SetIconPadding(linkLabelAADAut, (int)resources.GetObject("linkLabelAADAut.IconPadding"));
+            linkLabelAADAut.Name = "linkLabelAADAut";
+            linkLabelAADAut.TabStop = true;
+            toolTip1.SetToolTip(linkLabelAADAut, resources.GetString("linkLabelAADAut.ToolTip"));
+            linkLabelAADAut.LinkClicked += Accountmgtlink_LinkClicked;
             // 
             // groupBoxAADAutMode
             // 
-            this.groupBoxAADAutMode.Controls.Add(this.radioButtonAADServicePrincipal);
-            this.groupBoxAADAutMode.Controls.Add(this.radioButtonAADInteractive);
-            resources.ApplyResources(this.groupBoxAADAutMode, "groupBoxAADAutMode");
-            this.groupBoxAADAutMode.Name = "groupBoxAADAutMode";
-            this.groupBoxAADAutMode.TabStop = false;
+            resources.ApplyResources(groupBoxAADAutMode, "groupBoxAADAutMode");
+            groupBoxAADAutMode.Controls.Add(radioButtonAADServicePrincipal);
+            groupBoxAADAutMode.Controls.Add(radioButtonAADInteractive);
+            errorProvider1.SetError(groupBoxAADAutMode, resources.GetString("groupBoxAADAutMode.Error"));
+            errorProvider1.SetIconAlignment(groupBoxAADAutMode, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("groupBoxAADAutMode.IconAlignment"));
+            errorProvider1.SetIconPadding(groupBoxAADAutMode, (int)resources.GetObject("groupBoxAADAutMode.IconPadding"));
+            groupBoxAADAutMode.Name = "groupBoxAADAutMode";
+            groupBoxAADAutMode.TabStop = false;
+            toolTip1.SetToolTip(groupBoxAADAutMode, resources.GetString("groupBoxAADAutMode.ToolTip"));
             // 
             // radioButtonAADServicePrincipal
             // 
-            resources.ApplyResources(this.radioButtonAADServicePrincipal, "radioButtonAADServicePrincipal");
-            this.radioButtonAADServicePrincipal.Name = "radioButtonAADServicePrincipal";
-            this.radioButtonAADServicePrincipal.UseVisualStyleBackColor = true;
+            resources.ApplyResources(radioButtonAADServicePrincipal, "radioButtonAADServicePrincipal");
+            errorProvider1.SetError(radioButtonAADServicePrincipal, resources.GetString("radioButtonAADServicePrincipal.Error"));
+            errorProvider1.SetIconAlignment(radioButtonAADServicePrincipal, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("radioButtonAADServicePrincipal.IconAlignment"));
+            errorProvider1.SetIconPadding(radioButtonAADServicePrincipal, (int)resources.GetObject("radioButtonAADServicePrincipal.IconPadding"));
+            radioButtonAADServicePrincipal.Name = "radioButtonAADServicePrincipal";
+            toolTip1.SetToolTip(radioButtonAADServicePrincipal, resources.GetString("radioButtonAADServicePrincipal.ToolTip"));
+            radioButtonAADServicePrincipal.UseVisualStyleBackColor = true;
             // 
             // radioButtonAADInteractive
             // 
-            resources.ApplyResources(this.radioButtonAADInteractive, "radioButtonAADInteractive");
-            this.radioButtonAADInteractive.Checked = true;
-            this.radioButtonAADInteractive.Name = "radioButtonAADInteractive";
-            this.radioButtonAADInteractive.TabStop = true;
-            this.radioButtonAADInteractive.UseVisualStyleBackColor = true;
+            resources.ApplyResources(radioButtonAADInteractive, "radioButtonAADInteractive");
+            radioButtonAADInteractive.Checked = true;
+            errorProvider1.SetError(radioButtonAADInteractive, resources.GetString("radioButtonAADInteractive.Error"));
+            errorProvider1.SetIconAlignment(radioButtonAADInteractive, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("radioButtonAADInteractive.IconAlignment"));
+            errorProvider1.SetIconPadding(radioButtonAADInteractive, (int)resources.GetObject("radioButtonAADInteractive.IconPadding"));
+            radioButtonAADInteractive.Name = "radioButtonAADInteractive";
+            radioButtonAADInteractive.TabStop = true;
+            toolTip1.SetToolTip(radioButtonAADInteractive, resources.GetString("radioButtonAADInteractive.ToolTip"));
+            radioButtonAADInteractive.UseVisualStyleBackColor = true;
             // 
             // textBoxResourceGroup
             // 
-            resources.ApplyResources(this.textBoxResourceGroup, "textBoxResourceGroup");
-            this.textBoxResourceGroup.Name = "textBoxResourceGroup";
-            this.toolTip1.SetToolTip(this.textBoxResourceGroup, resources.GetString("textBoxResourceGroup.ToolTip"));
+            resources.ApplyResources(textBoxResourceGroup, "textBoxResourceGroup");
+            errorProvider1.SetError(textBoxResourceGroup, resources.GetString("textBoxResourceGroup.Error"));
+            errorProvider1.SetIconAlignment(textBoxResourceGroup, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("textBoxResourceGroup.IconAlignment"));
+            errorProvider1.SetIconPadding(textBoxResourceGroup, (int)resources.GetObject("textBoxResourceGroup.IconPadding"));
+            textBoxResourceGroup.Name = "textBoxResourceGroup";
+            toolTip1.SetToolTip(textBoxResourceGroup, resources.GetString("textBoxResourceGroup.ToolTip"));
             // 
             // textBoxAADtenantId
             // 
-            resources.ApplyResources(this.textBoxAADtenantId, "textBoxAADtenantId");
-            this.textBoxAADtenantId.Name = "textBoxAADtenantId";
+            resources.ApplyResources(textBoxAADtenantId, "textBoxAADtenantId");
+            errorProvider1.SetError(textBoxAADtenantId, resources.GetString("textBoxAADtenantId.Error"));
+            errorProvider1.SetIconAlignment(textBoxAADtenantId, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("textBoxAADtenantId.IconAlignment"));
+            errorProvider1.SetIconPadding(textBoxAADtenantId, (int)resources.GetObject("textBoxAADtenantId.IconPadding"));
+            textBoxAADtenantId.Name = "textBoxAADtenantId";
+            toolTip1.SetToolTip(textBoxAADtenantId, resources.GetString("textBoxAADtenantId.ToolTip"));
             // 
             // labelADTenant
             // 
-            resources.ApplyResources(this.labelADTenant, "labelADTenant");
-            this.labelADTenant.Name = "labelADTenant";
+            resources.ApplyResources(labelADTenant, "labelADTenant");
+            errorProvider1.SetError(labelADTenant, resources.GetString("labelADTenant.Error"));
+            errorProvider1.SetIconAlignment(labelADTenant, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("labelADTenant.IconAlignment"));
+            errorProvider1.SetIconPadding(labelADTenant, (int)resources.GetObject("labelADTenant.IconPadding"));
+            labelADTenant.Name = "labelADTenant";
+            toolTip1.SetToolTip(labelADTenant, resources.GetString("labelADTenant.ToolTip"));
             // 
             // labelE2
             // 
-            resources.ApplyResources(this.labelE2, "labelE2");
-            this.labelE2.Name = "labelE2";
+            resources.ApplyResources(labelE2, "labelE2");
+            errorProvider1.SetError(labelE2, resources.GetString("labelE2.Error"));
+            errorProvider1.SetIconAlignment(labelE2, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("labelE2.IconAlignment"));
+            errorProvider1.SetIconPadding(labelE2, (int)resources.GetObject("labelE2.IconPadding"));
+            labelE2.Name = "labelE2";
+            toolTip1.SetToolTip(labelE2, resources.GetString("labelE2.ToolTip"));
             // 
             // labelenteramsacct
             // 
-            resources.ApplyResources(this.labelenteramsacct, "labelenteramsacct");
-            this.labelenteramsacct.ForeColor = System.Drawing.Color.DarkBlue;
-            this.labelenteramsacct.Name = "labelenteramsacct";
+            resources.ApplyResources(labelenteramsacct, "labelenteramsacct");
+            errorProvider1.SetError(labelenteramsacct, resources.GetString("labelenteramsacct.Error"));
+            labelenteramsacct.ForeColor = System.Drawing.Color.DarkBlue;
+            errorProvider1.SetIconAlignment(labelenteramsacct, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("labelenteramsacct.IconAlignment"));
+            errorProvider1.SetIconPadding(labelenteramsacct, (int)resources.GetObject("labelenteramsacct.IconPadding"));
+            labelenteramsacct.Name = "labelenteramsacct";
+            toolTip1.SetToolTip(labelenteramsacct, resources.GetString("labelenteramsacct.ToolTip"));
             // 
             // buttonExport
             // 
-            resources.ApplyResources(this.buttonExport, "buttonExport");
-            this.buttonExport.Name = "buttonExport";
-            this.buttonExport.UseVisualStyleBackColor = true;
-            this.buttonExport.Click += new System.EventHandler(this.ButtonExport_Click);
+            resources.ApplyResources(buttonExport, "buttonExport");
+            errorProvider1.SetError(buttonExport, resources.GetString("buttonExport.Error"));
+            errorProvider1.SetIconAlignment(buttonExport, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("buttonExport.IconAlignment"));
+            errorProvider1.SetIconPadding(buttonExport, (int)resources.GetObject("buttonExport.IconPadding"));
+            buttonExport.Name = "buttonExport";
+            toolTip1.SetToolTip(buttonExport, resources.GetString("buttonExport.ToolTip"));
+            buttonExport.UseVisualStyleBackColor = true;
+            buttonExport.Click += ButtonExport_Click;
             // 
             // buttonImportAll
             // 
-            resources.ApplyResources(this.buttonImportAll, "buttonImportAll");
-            this.buttonImportAll.Name = "buttonImportAll";
-            this.buttonImportAll.UseVisualStyleBackColor = true;
-            this.buttonImportAll.Click += new System.EventHandler(this.ButtonImportAll_Click);
+            resources.ApplyResources(buttonImportAll, "buttonImportAll");
+            errorProvider1.SetError(buttonImportAll, resources.GetString("buttonImportAll.Error"));
+            errorProvider1.SetIconAlignment(buttonImportAll, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("buttonImportAll.IconAlignment"));
+            errorProvider1.SetIconPadding(buttonImportAll, (int)resources.GetObject("buttonImportAll.IconPadding"));
+            buttonImportAll.Name = "buttonImportAll";
+            toolTip1.SetToolTip(buttonImportAll, resources.GetString("buttonImportAll.ToolTip"));
+            buttonImportAll.UseVisualStyleBackColor = true;
+            buttonImportAll.Click += ButtonImportAll_Click;
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.DefaultExt = "json";
-            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
+            openFileDialog1.DefaultExt = "json";
+            resources.ApplyResources(openFileDialog1, "openFileDialog1");
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "json";
-            resources.ApplyResources(this.saveFileDialog1, "saveFileDialog1");
+            saveFileDialog1.DefaultExt = "json";
+            resources.ApplyResources(saveFileDialog1, "saveFileDialog1");
             // 
             // pictureBoxJob
             // 
-            resources.ApplyResources(this.pictureBoxJob, "pictureBoxJob");
-            this.pictureBoxJob.Name = "pictureBoxJob";
-            this.pictureBoxJob.TabStop = false;
+            resources.ApplyResources(pictureBoxJob, "pictureBoxJob");
+            errorProvider1.SetError(pictureBoxJob, resources.GetString("pictureBoxJob.Error"));
+            errorProvider1.SetIconAlignment(pictureBoxJob, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("pictureBoxJob.IconAlignment"));
+            errorProvider1.SetIconPadding(pictureBoxJob, (int)resources.GetObject("pictureBoxJob.IconPadding"));
+            pictureBoxJob.Name = "pictureBoxJob";
+            pictureBoxJob.TabStop = false;
+            toolTip1.SetToolTip(pictureBoxJob, resources.GetString("pictureBoxJob.ToolTip"));
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.labelVersion);
-            this.panel1.Controls.Add(this.buttonLogin);
-            this.panel1.Controls.Add(this.buttonCancel);
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Name = "panel1";
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel1_Paint);
+            resources.ApplyResources(panel1, "panel1");
+            panel1.BackColor = System.Drawing.SystemColors.Control;
+            panel1.Controls.Add(labelVersion);
+            panel1.Controls.Add(buttonLogin);
+            panel1.Controls.Add(buttonCancel);
+            errorProvider1.SetError(panel1, resources.GetString("panel1.Error"));
+            errorProvider1.SetIconAlignment(panel1, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("panel1.IconAlignment"));
+            errorProvider1.SetIconPadding(panel1, (int)resources.GetObject("panel1.IconPadding"));
+            panel1.Name = "panel1";
+            toolTip1.SetToolTip(panel1, resources.GetString("panel1.ToolTip"));
+            panel1.Paint += Panel1_Paint;
             // 
             // labelVersion
             // 
-            resources.ApplyResources(this.labelVersion, "labelVersion");
-            this.labelVersion.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.labelVersion.Name = "labelVersion";
+            resources.ApplyResources(labelVersion, "labelVersion");
+            errorProvider1.SetError(labelVersion, resources.GetString("labelVersion.Error"));
+            labelVersion.ForeColor = System.Drawing.SystemColors.ControlText;
+            errorProvider1.SetIconAlignment(labelVersion, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("labelVersion.IconAlignment"));
+            errorProvider1.SetIconPadding(labelVersion, (int)resources.GetObject("labelVersion.IconPadding"));
+            labelVersion.Name = "labelVersion";
+            toolTip1.SetToolTip(labelVersion, resources.GetString("labelVersion.ToolTip"));
             // 
             // buttonPickupAccount
             // 
-            resources.ApplyResources(this.buttonPickupAccount, "buttonPickupAccount");
-            this.buttonPickupAccount.Name = "buttonPickupAccount";
-            this.buttonPickupAccount.UseVisualStyleBackColor = true;
-            this.buttonPickupAccount.Click += new System.EventHandler(this.buttonPickupAccount_Click);
+            resources.ApplyResources(buttonPickupAccount, "buttonPickupAccount");
+            errorProvider1.SetError(buttonPickupAccount, resources.GetString("buttonPickupAccount.Error"));
+            errorProvider1.SetIconAlignment(buttonPickupAccount, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("buttonPickupAccount.IconAlignment"));
+            errorProvider1.SetIconPadding(buttonPickupAccount, (int)resources.GetObject("buttonPickupAccount.IconPadding"));
+            buttonPickupAccount.Name = "buttonPickupAccount";
+            toolTip1.SetToolTip(buttonPickupAccount, resources.GetString("buttonPickupAccount.ToolTip"));
+            buttonPickupAccount.UseVisualStyleBackColor = true;
+            buttonPickupAccount.Click += buttonPickupAccount_Click;
             // 
             // listViewAccounts
             // 
-            resources.ApplyResources(this.listViewAccounts, "listViewAccounts");
-            this.listViewAccounts.FullRowSelect = true;
-            this.listViewAccounts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listViewAccounts.Name = "listViewAccounts";
-            this.listViewAccounts.ShowItemToolTips = true;
-            this.listViewAccounts.UseCompatibleStateImageBehavior = false;
-            this.listViewAccounts.View = System.Windows.Forms.View.List;
-            this.listViewAccounts.SelectedIndexChanged += new System.EventHandler(this.ListViewAccounts_SelectedIndexChanged);
-            this.listViewAccounts.DoubleClick += new System.EventHandler(this.ListBoxAcounts_DoubleClick);
-            this.listViewAccounts.DpiChangedAfterParent += new System.EventHandler(this.AmsLogin_DpiChangedAfterParent);
+            resources.ApplyResources(listViewAccounts, "listViewAccounts");
+            errorProvider1.SetError(listViewAccounts, resources.GetString("listViewAccounts.Error"));
+            listViewAccounts.FullRowSelect = true;
+            listViewAccounts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            errorProvider1.SetIconAlignment(listViewAccounts, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("listViewAccounts.IconAlignment"));
+            errorProvider1.SetIconPadding(listViewAccounts, (int)resources.GetObject("listViewAccounts.IconPadding"));
+            listViewAccounts.Name = "listViewAccounts";
+            listViewAccounts.ShowItemToolTips = true;
+            toolTip1.SetToolTip(listViewAccounts, resources.GetString("listViewAccounts.ToolTip"));
+            listViewAccounts.UseCompatibleStateImageBehavior = false;
+            listViewAccounts.View = System.Windows.Forms.View.List;
+            listViewAccounts.SelectedIndexChanged += ListViewAccounts_SelectedIndexChanged;
+            listViewAccounts.DoubleClick += ListBoxAcounts_DoubleClick;
+            listViewAccounts.DpiChangedAfterParent += AmsLogin_DpiChangedAfterParent;
             // 
             // linkLabelAMSOfflineDoc
             // 
-            resources.ApplyResources(this.linkLabelAMSOfflineDoc, "linkLabelAMSOfflineDoc");
-            this.linkLabelAMSOfflineDoc.Name = "linkLabelAMSOfflineDoc";
-            this.linkLabelAMSOfflineDoc.TabStop = true;
-            this.linkLabelAMSOfflineDoc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAMSOfflineDoc_LinkClicked);
+            resources.ApplyResources(linkLabelAMSOfflineDoc, "linkLabelAMSOfflineDoc");
+            errorProvider1.SetError(linkLabelAMSOfflineDoc, resources.GetString("linkLabelAMSOfflineDoc.Error"));
+            errorProvider1.SetIconAlignment(linkLabelAMSOfflineDoc, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("linkLabelAMSOfflineDoc.IconAlignment"));
+            errorProvider1.SetIconPadding(linkLabelAMSOfflineDoc, (int)resources.GetObject("linkLabelAMSOfflineDoc.IconPadding"));
+            linkLabelAMSOfflineDoc.Name = "linkLabelAMSOfflineDoc";
+            linkLabelAMSOfflineDoc.TabStop = true;
+            toolTip1.SetToolTip(linkLabelAMSOfflineDoc, resources.GetString("linkLabelAMSOfflineDoc.ToolTip"));
+            linkLabelAMSOfflineDoc.LinkClicked += linkLabelAMSOfflineDoc_LinkClicked;
             // 
             // tableLayoutPanel1
             // 
-            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.textBoxSubscription, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxDescription, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxResourceGroup, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.labelE2, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.labelADTenant, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxAADtenantId, 0, 1);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            resources.ApplyResources(tableLayoutPanel1, "tableLayoutPanel1");
+            tableLayoutPanel1.Controls.Add(textBoxSubscription, 0, 3);
+            tableLayoutPanel1.Controls.Add(label2, 0, 2);
+            tableLayoutPanel1.Controls.Add(textBoxDescription, 0, 7);
+            tableLayoutPanel1.Controls.Add(label1, 0, 6);
+            tableLayoutPanel1.Controls.Add(textBoxResourceGroup, 0, 5);
+            tableLayoutPanel1.Controls.Add(labelE2, 0, 4);
+            tableLayoutPanel1.Controls.Add(labelADTenant, 0, 0);
+            tableLayoutPanel1.Controls.Add(textBoxAADtenantId, 0, 1);
+            errorProvider1.SetError(tableLayoutPanel1, resources.GetString("tableLayoutPanel1.Error"));
+            errorProvider1.SetIconAlignment(tableLayoutPanel1, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("tableLayoutPanel1.IconAlignment"));
+            errorProvider1.SetIconPadding(tableLayoutPanel1, (int)resources.GetObject("tableLayoutPanel1.IconPadding"));
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            toolTip1.SetToolTip(tableLayoutPanel1, resources.GetString("tableLayoutPanel1.ToolTip"));
             // 
             // textBoxSubscription
             // 
-            resources.ApplyResources(this.textBoxSubscription, "textBoxSubscription");
-            this.textBoxSubscription.Name = "textBoxSubscription";
+            resources.ApplyResources(textBoxSubscription, "textBoxSubscription");
+            errorProvider1.SetError(textBoxSubscription, resources.GetString("textBoxSubscription.Error"));
+            errorProvider1.SetIconAlignment(textBoxSubscription, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("textBoxSubscription.IconAlignment"));
+            errorProvider1.SetIconPadding(textBoxSubscription, (int)resources.GetObject("textBoxSubscription.IconPadding"));
+            textBoxSubscription.Name = "textBoxSubscription";
+            toolTip1.SetToolTip(textBoxSubscription, resources.GetString("textBoxSubscription.ToolTip"));
             // 
             // label2
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            resources.ApplyResources(label2, "label2");
+            errorProvider1.SetError(label2, resources.GetString("label2.Error"));
+            errorProvider1.SetIconAlignment(label2, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("label2.IconAlignment"));
+            errorProvider1.SetIconPadding(label2, (int)resources.GetObject("label2.IconPadding"));
+            label2.Name = "label2";
+            toolTip1.SetToolTip(label2, resources.GetString("label2.ToolTip"));
             // 
             // errorProvider1
             // 
-            this.errorProvider1.ContainerControl = this;
+            errorProvider1.ContainerControl = this;
+            resources.ApplyResources(errorProvider1, "errorProvider1");
             // 
             // AmsLogin
             // 
-            this.AcceptButton = this.buttonLogin;
+            AcceptButton = buttonLogin;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.linkLabelAMSOfflineDoc);
-            this.Controls.Add(this.listViewAccounts);
-            this.Controls.Add(this.linkLabelAADAut);
-            this.Controls.Add(this.groupBoxAADAutMode);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.buttonPickupAccount);
-            this.Controls.Add(this.pictureBoxJob);
-            this.Controls.Add(this.buttonImportAll);
-            this.Controls.Add(this.buttonExport);
-            this.Controls.Add(this.labelenteramsacct);
-            this.Controls.Add(this.buttonDeleteAccountEntry);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "AmsLogin";
-            this.Load += new System.EventHandler(this.AMSLogin_Load);
-            this.Shown += new System.EventHandler(this.AMSLogin_ShownAsync);
-            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.AmsLogin_DpiChanged);
-            this.groupBoxAADAutMode.ResumeLayout(false);
-            this.groupBoxAADAutMode.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            BackColor = System.Drawing.Color.WhiteSmoke;
+            CancelButton = buttonCancel;
+            Controls.Add(tableLayoutPanel1);
+            Controls.Add(linkLabelAMSOfflineDoc);
+            Controls.Add(listViewAccounts);
+            Controls.Add(linkLabelAADAut);
+            Controls.Add(groupBoxAADAutMode);
+            Controls.Add(panel1);
+            Controls.Add(buttonPickupAccount);
+            Controls.Add(pictureBoxJob);
+            Controls.Add(buttonImportAll);
+            Controls.Add(buttonExport);
+            Controls.Add(labelenteramsacct);
+            Controls.Add(buttonDeleteAccountEntry);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "AmsLogin";
+            toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
+            Load += AMSLogin_Load;
+            Shown += AMSLogin_ShownAsync;
+            DpiChanged += AmsLogin_DpiChanged;
+            groupBoxAADAutMode.ResumeLayout(false);
+            groupBoxAADAutMode.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxJob).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

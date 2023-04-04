@@ -206,7 +206,7 @@
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.splitContainer1);
             this.Name = "BatchUploadFrame2";
-            this.Load += new System.EventHandler(this.BathUploadFrame2_LoadAsync);
+            this.Load += new System.EventHandler(this.BathUploadFrame2_Load);
             this.Shown += new System.EventHandler(this.BatchUploadFrame2_Shown);
             this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.BatchUploadFrame2_DpiChanged);
             this.splitContainer1.Panel1.ResumeLayout(false);

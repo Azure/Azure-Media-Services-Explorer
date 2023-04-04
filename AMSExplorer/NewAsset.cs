@@ -69,27 +69,23 @@ namespace AMSExplorer
             }
             else
             {
-                Task.Run(async () => await ControlsResetToDefaultAsync());
+                Task.Run(() => ControlsResetToDefault());
             }
         }
 
-        private async Task ControlsResetToDefaultAsync()
+        private void ControlsResetToDefault()
         {
             IList<MediaServicesStorageAccount> storAccounts = _amsClientV3.AMSclient.Data.StorageAccounts;
-
             comboBoxStorage.Invoke(c => c.Items.Clear());
-
-            //comboBoxStorage.Items.Clear();
+            
             foreach (var storage in storAccounts)
             {
                 string sname = AMSClientV3.GetStorageName(storage.Id);
                 bool primary = (storage.AccountType == MediaServicesStorageAccountType.Primary);
                 comboBoxStorage.Invoke(c => c.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : string.Empty), sname)));
-                //comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", sname, primary ? "(primary)" : string.Empty), sname));
                 if (primary)
                 {
                     comboBoxStorage.Invoke(c => c.SelectedIndex = comboBoxStorage.Items.Count - 1);
-                    //comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
                 }
             }
         }
