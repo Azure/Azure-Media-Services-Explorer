@@ -1,5 +1,4 @@
-# Version 5.7.1.0 (April 4th, 2023) brings the following features and improvements
+# Version 5.7.2.0 (July 25th, 2023) brings the following features and improvements
 
-* Adds Rewind window setting for live output
-* Fixes a few bugs
+* Displays the AMS Retirement notice and a link to the retirement guide
 * Nugget packages and documentation update

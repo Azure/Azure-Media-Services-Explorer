@@ -25,7 +25,7 @@ namespace AMSExplorer
         public const string Webview2Installer = "https://go.microsoft.com/fwlink/p/?LinkId=2124703";
         public const string Webview2RegPath64 = "SOFTWARE\\WOW6432Node\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
         public const string Webview2RegPath32 = "SOFTWARE\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
-        public const string Webview2MinVersion = "111.0.1661.34";
+        public const string Webview2MinVersion = "114.0.1823.32";
 
         public const string GitHubAMSEVersionPrimaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/main/versionv3.json";
         public const string GitHubAMSEVersionSecondaryV3 = "https://amsexplorer.azureedge.net/release/versionv3.json";
@@ -135,6 +135,7 @@ namespace AMSExplorer
         public const string LinkPlayReadyCompliance = "https://www.microsoft.com/playready/licensing/compliance/";
         public const string LinkWidevineTemplateInfo = "https://learn.microsoft.com/en-us/azure/media-services/latest/drm-widevine-license-template-concept";
 
+        public const string LinkAMSRetirement = "https://aka.ms/ams-retirement";
         public const string LinkAMSCreateAccount = "https://learn.microsoft.com/en-us/azure/media-services/latest/account-create-how-to";
         public const string LinkAMSAzCli = "https://learn.microsoft.com/en-us/azure/media-services/latest/access-api-howto";
         public const string LinkAMSAvailabilityZones = "https://learn.microsoft.com/en-us/azure/media-services/latest/concept-availability-zones";

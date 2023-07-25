@@ -16,6 +16,7 @@
 
 
 using AMSClient;
+using AMSExplorer.Properties;
 using AMSExplorer.Rest;
 using Azure.Core;
 using Azure.ResourceManager;
@@ -95,6 +96,7 @@ namespace AMSExplorer
             buttonExport.Enabled = (listViewAccounts.Items.Count > 0);
 
             linkLabelAADAut.Links.Add(new LinkLabel.Link(0, linkLabelAADAut.Text.Length, Constants.LinkAMSCreateAccount));
+            linkLabelAMSRetire.Links.Add(new LinkLabel.Link(0, linkLabelAMSRetire.Text.Length, Constants.LinkAMSRetirement));
 
             // version
             labelVersion.Text = string.Format(labelVersion.Text, Assembly.GetExecutingAssembly().GetName().Version);
@@ -362,9 +364,22 @@ namespace AMSExplorer
             Telemetry.TrackPageView(this.Name);
 
             //await Task.Run(() => Program.CheckAMSEVersionAsync()).ConfigureAwait(false); //let not wait for this task - no need
+            DisplayAMSRetirementNotice();
+
             ScaleListViewColumns(listViewAccounts);
             await Program.CheckWebView2VersionAsync();
             await Program.CheckAMSEVersionAsync();
+        }
+
+        private void DisplayAMSRetirementNotice()
+        {
+            int days = (new DateTime(2024, 6, 30).Subtract(DateTime.Now)).Days;
+            if (Settings.Default.RetirementNotifDays != days)
+            {
+                MessageBox.Show("Azure Media Services will be retired on 30 June 2024.\r\n\r\nYou can continue to use Azure Media Services without any disruptions. After 30 June 2024, Azure Media Services won’t be supported, and customers won’t have access to their Azure Media Services accounts.\r\n\r\nTo avoid any service disruptions, you’ll need to transition to Azure Video Indexer for on-demand video and audio analysis workflows or to a Microsoft partner solution for all other media services workflows before 30 June 2024\r\n\r\nSome features may be added in the future to this tool to help your migration.", $"Retirement notice - {days} days left", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Settings.Default.RetirementNotifDays = days;
+                Settings.Default.Save();
+            }
         }
 
         private void Panel1_Paint(object sender, PaintEventArgs e)
