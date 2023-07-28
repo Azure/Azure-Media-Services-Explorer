@@ -184,7 +184,16 @@ namespace AMSExplorer
 
             // test MKIO
             var MKclient = new MKIOClientRest("mkiosubscriptionname", "mkiotoken");
-            migratedAssetsToMKIO = MKIOClient.ListAssets();
+
+            try
+            {
+                migratedAssetsToMKIO = MKIOClient.ListAssets();
+            }
+            catch
+            {
+
+            }
+            
             //var mkasset = MKIOClient.GetAsset("test2");
 
             //var newasset = MKIOClient.CreateOrUpdateAsset("copy-33adc1873f", new MKIO.Models.MKIOAsset("asset-67c25a02-a672-40cd-a4da-dcc48b89acae", "ma super desc", "amsxpfrstorage"));
