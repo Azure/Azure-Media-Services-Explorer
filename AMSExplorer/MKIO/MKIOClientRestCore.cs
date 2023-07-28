@@ -24,6 +24,11 @@ using System.Threading.Tasks;
 
 namespace AMSExplorer.MKIO
 {
+    /// <summary>
+    /// REST Base Client for MKIO
+    /// https://io.mediakind.com
+    /// 
+    /// </summary>
     public partial class MKIOClientRest
     {
         private string baseUrl = "https://api.io.mediakind.com/";

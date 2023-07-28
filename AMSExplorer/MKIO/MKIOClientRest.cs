@@ -23,8 +23,8 @@ using AMSExplorer.Rest;
 namespace AMSExplorer.MKIO
 {
     /// <summary>
-    /// Rest call for live transcription preview
-    /// https://learn.microsoft.com/en-us/azure/media-services/latest/live-event-live-transcription-how-to
+    /// REST Client for MKIO
+    /// https://io.mediakind.com
     /// 
     /// </summary>
     public partial class MKIOClientRest
@@ -63,7 +63,7 @@ namespace AMSExplorer.MKIO
 
 
         //
-        // streaming endpoint
+        // streaming endpoints
         //
         private const string streamingEndpointsApiUrl = "api/ams/{0}/streamingEndpoints";
         private const string streamingEndpointApiUrl = streamingEndpointsApiUrl + "/{1}";
