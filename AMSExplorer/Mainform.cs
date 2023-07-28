@@ -18,6 +18,7 @@
 
 
 using AMSExplorer.MKIO;
+using AMSExplorer.MKIO.Models;
 using AMSExplorer.Rest;
 using AMSExplorer.Utils.JobInfo;
 using AMSExplorer.Utils.TransformInfo;
@@ -88,7 +89,8 @@ namespace AMSExplorer
 
         private record QuotaMetrics(string Name, string CountMetric, string QuotaMetric);
         private Dictionary<string, double?> QuotasValues;
-
+        public MKIOClientRest MKIOClient;
+        public List<MKIOAsset> migratedAssetsToMKIO;
 
         public Mainform(string[] args)
         {
@@ -182,13 +184,18 @@ namespace AMSExplorer
 
             // test MKIO
             var MKclient = new MKIOClientRest("mkiosubscriptionname", "mkiotoken");
-            var mkassets = MKclient.ListAssets();
-            var mkasset = MKclient.GetAsset("test2");
-            var mkse = MKclient.GetStreamingEndpoint("xpouyatse1");
-            var mkses = MKclient.ListStreamingEndpoints();
+            migratedAssetsToMKIO = MKIOClient.ListAssets();
+            //var mkasset = MKIOClient.GetAsset("test2");
+
+            //var newasset = MKIOClient.CreateOrUpdateAsset("copy-33adc1873f", new MKIO.Models.MKIOAsset("asset-67c25a02-a672-40cd-a4da-dcc48b89acae", "ma super desc", "amsxpfrstorage"));
+            //MKclient.DeleteAsset("copy-33adc1873f");
+
+            //var mkse = MKIOClient.GetStreamingEndpoint("xpouyatse1");
+            //var mkses = MKIOClient.ListStreamingEndpoints();
             //var newSe = MKclient.CreateStreamingEndpoint("xpouyatse2", new MKIO.Models.MKIOStreamingEndpoint("francecentral", "my description", new MKIO.Models.MKIOStreamingEndpointSku("Standard", 600), 0, false), true);
-            MKclient.StartStreamingEndpoint("xpouyatse1");
-            MKclient.StopStreamingEndpoint("xpouyatse1");
+            //MKclient.StartStreamingEndpoint("xpouyatse1");
+            //MKclient.StopStreamingEndpoint("xpouyatse1");
+            //MKclient.DeleteStreamingEndpoint("seprem");
 
             // mainform title
             toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to {1} ({2})", Assembly.GetExecutingAssembly().GetName().Version, _accountname, _amsClient.AMSclient.Data.Location.DisplayName);
@@ -479,6 +486,7 @@ namespace AMSExplorer
                 try
                 {
                     dataGridViewAssetsV.Init(_amsClient, SynchronizationContext.Current);
+                    dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
                 }
                 catch (Exception ex)
                 {
@@ -9783,6 +9791,33 @@ namespace AMSExplorer
         private async void displayOutputUrlsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await DoDisplayOutputURLAssetOrProgramToWindowAsync();
+        }
+
+        private async void createAssetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await MKIOCreateAssetAsync();
+        }
+
+        private async Task MKIOCreateAssetAsync()
+        {
+            var assets = await ReturnSelectedAssetsAsync();
+            if (assets.Count == 0) return;
+            foreach (var asset in assets)
+            {
+                try
+                {
+                    await MKIOClient.CreateOrUpdateAssetAsync(asset.Data.Name, new MKIO.Models.MKIOAsset(asset.Data.Container, asset.Data.Description, asset.Data.StorageAccountName));
+                    TextBoxLogWriteLine($"Asset '{asset.Data.Name}' created in MK.IO");
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine($"Error when creating asset '{asset.Data.Name}' in MK.IO", true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+            migratedAssetsToMKIO = await MKIOClient.ListAssetsAsync();
+            dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
+            DoRefreshGridAssetV(false);
         }
     }
 }

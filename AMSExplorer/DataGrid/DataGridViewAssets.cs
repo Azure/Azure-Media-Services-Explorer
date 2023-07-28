@@ -15,6 +15,7 @@
 //--------------------------------------------------------------------------------------------- 
 
 
+using AMSExplorer.MKIO.Models;
 using Azure;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
@@ -98,6 +99,7 @@ namespace AMSExplorer
         }
         public int? DisplayedCount => _MyObservAssetV3 != null ? _MyObservAssetV3.Count : null;
 
+        public List<MKIOAsset> ListMKIOAssets;
 
         public void Init(AMSClientV3 client, SynchronizationContext syncontext)
         {
@@ -171,6 +173,7 @@ namespace AMSExplorer
             Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetAltIDinGrid;
             Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
             Columns["StorageAccountName"].HeaderText = "Storage account";
+            Columns["MKIOMigrated"].HeaderText = "In MK/IO";
             Columns["SizeLong"].Visible = false;
             Columns["LastModifiedOn"].Visible = false;
             Columns[_filter].DisplayIndex = lastColumn_sIndex;
@@ -295,6 +298,7 @@ namespace AMSExplorer
                             AE.SizeLong = data.Size;
                             AE.Size = AssetTools.FormatByteSize(AE.SizeLong);
                             AE.AssetWarning = (AE.SizeLong == 0);
+                            AE.MKIOMigrated = ListMKIOAssets.Where(a => asset.Data.StorageAccountName == a.Properties.StorageAccountName && asset.Data.Container == a.Properties.Container).Any();
                         }
 
                         assetBitmapAndText = await BuildBitmapDynEncryptionAsync(asset, amsClient, locators);

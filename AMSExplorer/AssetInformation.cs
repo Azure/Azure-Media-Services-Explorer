@@ -453,6 +453,20 @@ namespace AMSExplorer
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _asset.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"));
             DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _asset.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
 
+            if (myMainForm.migratedAssetsToMKIO != null)
+            {
+                var mkioasset = myMainForm.migratedAssetsToMKIO.FirstOrDefault(a => a.Properties.StorageAccountName == _asset.Data.StorageAccountName && a.Properties.Container == _asset.Data.Container);
+
+                if (mkioasset != null)
+                {
+                    DGAsset.Rows.Add("MK/IO Name", mkioasset.Name);
+                    DGAsset.Rows.Add("MK/IO Description", mkioasset.Properties.Description);
+                    DGAsset.Rows.Add("MK/IO Created", DateTime.Parse(mkioasset.Properties.Created).ToLocalTime().ToString("G"));
+                    DGAsset.Rows.Add("MK/IO Last modified", DateTime.Parse(mkioasset.Properties.LastModified).ToLocalTime().ToString("G"));
+                }
+            }
+
+
             if (_streamingEndpoints == null)
             {
                 _streamingEndpoints = await _amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync().ToListAsync();
