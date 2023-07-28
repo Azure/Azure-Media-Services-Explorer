@@ -32,11 +32,9 @@ namespace AMSExplorer.MKIO.Models
             return JsonConvert.SerializeObject(this, ConverterLE.Settings);
         }
 
-        public MKIOAsset(string name, string id, string assetId, string created, string lastModified, string description, string container, string storageAccountName, string storageEncryptionFormat, string encryptionScope)
+        public MKIOAsset(string container, string description, string storageAccountName)
         {
-            Name = name;
-            Id = id;
-            Properties = new MKIOAssetProperties { AssetId = assetId, Created = created, LastModified = lastModified, Description = description, Container = container, StorageAccountName = storageAccountName, StorageEncryptionFormat = storageEncryptionFormat, EncryptionScope = encryptionScope };
+            Properties = new MKIOAssetProperties { Description = description, Container = container, StorageAccountName = storageAccountName };
         }
 
         [JsonProperty("name")]

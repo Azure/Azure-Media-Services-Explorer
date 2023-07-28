@@ -24,7 +24,7 @@ namespace AMSExplorer.MKIO.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name">Standard or</param>
+        /// <param name="name">Standard or Premium</param>
         /// <param name="capacity">600</param>
         public MKIOStreamingEndpointSku(string name, int capacity)
         {

@@ -15,119 +15,125 @@
 //---------------------------------------------------------------------------------------------
 
 
-using System.Collections.Generic;
+using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using AMSExplorer.MKIO.Models;
-using AMSExplorer.Rest;
 
 namespace AMSExplorer.MKIO
 {
     /// <summary>
-    /// REST Client for MKIO
+    /// REST Base Client for MKIO
     /// https://io.mediakind.com
     /// 
     /// </summary>
     public partial class MKIOClientRest
     {
-        //
-        // assets
-        //
-        private const string assetsApiUrl = "api/ams/{0}/assets";
-        private const string assetApiUrl = assetsApiUrl + "/{1}";
+        private string baseUrl = "https://api.io.mediakind.com/";
+        private string _MKIOSubscriptionName;
+        private string _MKIOtoken;
+        private HttpClient _httpClient;
 
-        public List<MKIOAsset> ListAssets()
+        public MKIOClientRest(string MKIOSubscriptionName, string MKIOtoken)
         {
-            Task<List<MKIOAsset>> task = Task.Run<List<MKIOAsset>>(async () => await ListAssetsAsync());
-            return task.GetAwaiter().GetResult();
+            _MKIOSubscriptionName = MKIOSubscriptionName;
+            _MKIOtoken = MKIOtoken;
+
+            _httpClient = new HttpClient();
+            // Request headers
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<List<MKIOAsset>> ListAssetsAsync()
+        private string GenerateApiUrl(string urlPath, string objectName)
         {
-            string URL = GenerateApiUrl(assetsApiUrl);
-            string responseContent = await GetObjectContentAsync(URL);
-            return MKIOListAssets.FromJson(responseContent).Value;
+            return baseUrl + string.Format(urlPath, _MKIOSubscriptionName, objectName);
         }
-
-        public MKIOAsset GetAsset(string assetName)
+        private string GenerateApiUrl(string urlPath)
         {
-            Task<MKIOAsset> task = Task.Run<MKIOAsset>(async () => await GetAssetAsync(assetName));
-            return task.GetAwaiter().GetResult();
-        }
-
-        public async Task<MKIOAsset> GetAssetAsync(string assetName)
-        {
-            string URL = GenerateApiUrl(assetApiUrl, assetName);
-            string responseContent = await GetObjectContentAsync(URL);
-            return MKIOAsset.FromJson(responseContent);
+            return baseUrl + string.Format(urlPath, _MKIOSubscriptionName);
         }
 
 
-        //
-        // streaming endpoints
-        //
-        private const string streamingEndpointsApiUrl = "api/ams/{0}/streamingEndpoints";
-        private const string streamingEndpointApiUrl = streamingEndpointsApiUrl + "/{1}";
-
-        public List<MKIOStreamingEndpoint> ListStreamingEndpoints()
+        private async Task<string> GetObjectContentAsync(string url)
         {
-            Task<List<MKIOStreamingEndpoint>> task = Task.Run<List<MKIOStreamingEndpoint>>(async () => await ListStreamingEndpointsAsync());
-            return task.GetAwaiter().GetResult();
+            var request = new HttpRequestMessage()
+            {
+                RequestUri = new Uri(url),
+                Method = HttpMethod.Get,
+            };
+            request.Headers.Add("x-mkio-token", _MKIOtoken);
+
+            HttpResponseMessage amsRequestResult = await _httpClient.SendAsync(request).ConfigureAwait(false);
+
+            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            if (!amsRequestResult.IsSuccessStatusCode)
+            {
+                var error = JsonConvert.DeserializeObject<dynamic>(responseContent);
+                throw new Exception((string)error.error.detail);
+            }
+            return responseContent;
         }
 
-        public async Task<List<MKIOStreamingEndpoint>> ListStreamingEndpointsAsync()
+        private async Task<string> ObjectContentAsync(string url, HttpMethod httpMethod)
         {
-            string URL = GenerateApiUrl(streamingEndpointsApiUrl);
-            string responseContent = await GetObjectContentAsync(URL);
-            return MKIOListStreamingEndpoint.FromJson(responseContent).Value;
+            var request = new HttpRequestMessage()
+            {
+                RequestUri = new Uri(url),
+                Method = httpMethod,
+            };
+            request.Headers.Add("x-mkio-token", _MKIOtoken);
+
+            HttpResponseMessage amsRequestResult = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead).ConfigureAwait(false);
+            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            if (!amsRequestResult.IsSuccessStatusCode)
+            {
+                var error = JsonConvert.DeserializeObject<dynamic>(responseContent);
+                throw new Exception((string)error.error.detail);
+            }
+
+            return responseContent;
         }
 
-        public MKIOStreamingEndpoint GetStreamingEndpoint(string streamingEndpointName)
-        {
-            Task<MKIOStreamingEndpoint> task = Task.Run<MKIOStreamingEndpoint>(async () => await GetStreamingEndpointAsync(streamingEndpointName));
-            return task.GetAwaiter().GetResult();
-        }
 
-        public async Task<MKIOStreamingEndpoint> GetStreamingEndpointAsync(string streamingEndpointName)
+        private async Task<string> CreateObjectAsync(string url, string amsJSONObject)
         {
-            string URL = GenerateApiUrl(streamingEndpointApiUrl, streamingEndpointName);
-            string responseContent = await GetObjectContentAsync(URL);
-            return MKIOStreamingEndpoint.FromJson(responseContent);
-        }
+            var request = new HttpRequestMessage()
+            {
+                RequestUri = new Uri(url),
+                Method = HttpMethod.Put,
+            };
+            request.Headers.Add("x-mkio-token", _MKIOtoken);
+            request.Content = new StringContent(amsJSONObject, System.Text.Encoding.UTF8, "application/json");
+            HttpResponseMessage amsRequestResult = await _httpClient.SendAsync(request).ConfigureAwait(false);
+            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
 
+            if (!amsRequestResult.IsSuccessStatusCode)
+            {
+                var error = JsonConvert.DeserializeObject<dynamic>(responseContent);
+                throw new Exception((string)error.error.detail);
+            }
 
-        public MKIOStreamingEndpoint CreateStreamingEndpoint(string streamingEndpointName, MKIOStreamingEndpoint content, bool autoStart = true)
-        {
-            Task<MKIOStreamingEndpoint> task = Task.Run<MKIOStreamingEndpoint>(async () => await CreateStreamingEndpointAsync(streamingEndpointName, content, autoStart));
-            return task.GetAwaiter().GetResult();
-        }
-
-        public async Task<MKIOStreamingEndpoint> CreateStreamingEndpointAsync(string streamingEndpointName, MKIOStreamingEndpoint content, bool autoStart = true)
-        {
-            string URL = GenerateApiUrl(streamingEndpointApiUrl + "?autoStart=" + autoStart.ToString(), streamingEndpointName);
-            string responseContent = await CreateObjectAsync(URL, content.ToJson());
-            return MKIOStreamingEndpoint.FromJson(responseContent);
-        }
-
-        public void StopStreamingEndpoint(string streamingEndpointName)
-        {
-            Task task = Task.Run(async () => await StopStreamingEndpointAsync(streamingEndpointName));
-        }
-
-        public async Task StopStreamingEndpointAsync(string streamingEndpointName)
-        {
-            string URL = GenerateApiUrl(streamingEndpointApiUrl + "/stop", streamingEndpointName);
-            string responseContent = await PostObjectContentAsync(URL);
-        }
-
-        public void StartStreamingEndpoint(string streamingEndpointName)
-        {
-            Task task = Task.Run(async () => await StartStreamingEndpointAsync(streamingEndpointName));
-        }
-
-        public async Task StartStreamingEndpointAsync(string streamingEndpointName)
-        {
-            string URL = GenerateApiUrl(streamingEndpointApiUrl + "/start", streamingEndpointName);
-            string responseContent = await PostObjectContentAsync(URL);
+            if (amsRequestResult.StatusCode == System.Net.HttpStatusCode.Accepted)
+            {
+                // let's wait for the operation to complete
+                var monitorUrl = amsRequestResult.Headers.Where(h => h.Key == "Azure-AsyncOperation").FirstOrDefault().Value.FirstOrDefault();
+                int monitorDelay = 1000 * int.Parse(amsRequestResult.Headers.Where(h => h.Key == "Retry-After").FirstOrDefault().Value.FirstOrDefault());
+                bool notComplete = true;
+                do
+                {
+                    await Task.Delay(monitorDelay);
+                    HttpResponseMessage amsRequestResultWait = await _httpClient.GetAsync(monitorUrl).ConfigureAwait(false);
+                    string responseContentWait = await amsRequestResultWait.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    dynamic data = JsonConvert.DeserializeObject(responseContentWait);
+                    notComplete = data.status == "InProgress";
+                }
+                while (notComplete);
+            }
+            return responseContent;
         }
     }
 }
