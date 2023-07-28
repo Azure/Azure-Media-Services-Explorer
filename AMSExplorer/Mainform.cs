@@ -17,6 +17,7 @@
 // Azure Management dependencies
 
 
+using AMSExplorer.MKIO;
 using AMSExplorer.Rest;
 using AMSExplorer.Utils.JobInfo;
 using AMSExplorer.Utils.TransformInfo;
@@ -178,6 +179,16 @@ namespace AMSExplorer
                     splashForm.Close();
                 }
             });
+
+            // test MKIO
+            var MKclient = new MKIOClientRest("mkiosubscriptionname", "mkiotoken");
+            var mkassets = MKclient.ListAssets();
+            var mkasset = MKclient.GetAsset("test2");
+            var mkse = MKclient.GetStreamingEndpoint("xpouyatse1");
+            var mkses = MKclient.ListStreamingEndpoints();
+            //var newSe = MKclient.CreateStreamingEndpoint("xpouyatse2", new MKIO.Models.MKIOStreamingEndpoint("francecentral", "my description", new MKIO.Models.MKIOStreamingEndpointSku("Standard", 600), 0, false), true);
+            MKclient.StartStreamingEndpoint("xpouyatse1");
+            MKclient.StopStreamingEndpoint("xpouyatse1");
 
             // mainform title
             toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to {1} ({2})", Assembly.GetExecutingAssembly().GetName().Version, _accountname, _amsClient.AMSclient.Data.Location.DisplayName);
