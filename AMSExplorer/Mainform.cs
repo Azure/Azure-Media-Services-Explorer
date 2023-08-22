@@ -183,7 +183,7 @@ namespace AMSExplorer
             });
 
             // test MKIO
-            var MKclient = new MKIOClientRest("mkiosubscriptionname", "mkiotoken");
+            MKIOClient = new MKIOClientRest("mkiosubscriptionname", "mkiotoken");
 
             try
             {
