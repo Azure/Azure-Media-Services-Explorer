@@ -193,7 +193,7 @@ namespace AMSExplorer
             {
 
             }
-            
+
             //var mkasset = MKIOClient.GetAsset("test2");
 
             //var newasset = MKIOClient.CreateOrUpdateAsset("copy-33adc1873f", new MKIO.Models.MKIOAsset("asset-67c25a02-a672-40cd-a4da-dcc48b89acae", "ma super desc", "amsxpfrstorage"));
@@ -9813,6 +9813,28 @@ namespace AMSExplorer
             if (assets.Count == 0) return;
             foreach (var asset in assets)
             {
+                var formAsset = new AssetCreationUpdate()
+                {
+                    AssetName = asset.Data.Name,
+                    AssetDescription = asset.Data.Description,
+                    AssetContainer = asset.Data.Container,
+                    AssetStorage = asset.Data.StorageAccountName
+                };
+
+                if (formAsset.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        await MKIOClient.CreateOrUpdateAssetAsync(formAsset.AssetName, new MKIO.Models.MKIOAsset(asset.Data.Container, formAsset.AssetDescription, asset.Data.StorageAccountName));
+                        TextBoxLogWriteLine($"Asset '{formAsset.AssetName}' created in MK.IO");
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine($"Error when creating asset '{formAsset.AssetName}' in MK.IO", true);
+                        TextBoxLogWriteLine(ex);
+                    }
+                }
+
                 try
                 {
                     await MKIOClient.CreateOrUpdateAssetAsync(asset.Data.Name, new MKIO.Models.MKIOAsset(asset.Data.Container, asset.Data.Description, asset.Data.StorageAccountName));
