@@ -9811,39 +9811,33 @@ namespace AMSExplorer
         {
             var assets = await ReturnSelectedAssetsAsync();
             if (assets.Count == 0) return;
-            foreach (var asset in assets)
-            {
-                var formAsset = new AssetCreationUpdate()
-                {
-                    AssetName = asset.Data.Name,
-                    AssetDescription = asset.Data.Description,
-                    AssetContainer = asset.Data.Container,
-                    AssetStorage = asset.Data.StorageAccountName
-                };
 
-                if (formAsset.ShowDialog() == DialogResult.OK)
+            var formAsset = new AssetCreationUpdate()
+            {
+                AssetName = assets.Count == 1 ? assets.First().Data.Name : Constants.NameconvAsset,
+                AssetDescription = assets.Count == 1 ? assets.First().Data.Description : string.Empty,
+                AssetContainer = assets.Count == 1 ? assets.First().Data.Container : string.Empty,
+                AssetStorage = assets.Count == 1 ? assets.First().Data.StorageAccountName : string.Empty
+            };
+
+            formAsset.labelNewAsset.Text = assets.Count == 1 ? formAsset.labelNewAsset.Text : "Create these assets in MK/IO";
+
+
+            if (formAsset.ShowDialog() == DialogResult.OK)
+            {
+                foreach (var asset in assets)
                 {
+                    string assetName = formAsset.AssetName.Replace(Constants.NameconvAsset, asset.Data.Name);
                     try
                     {
-                        await MKIOClient.CreateOrUpdateAssetAsync(formAsset.AssetName, new MKIO.Models.MKIOAsset(asset.Data.Container, formAsset.AssetDescription, asset.Data.StorageAccountName));
-                        TextBoxLogWriteLine($"Asset '{formAsset.AssetName}' created in MK.IO");
+                        await MKIOClient.CreateOrUpdateAssetAsync(assetName, new MKIO.Models.MKIOAsset(asset.Data.Container, formAsset.AssetDescription, asset.Data.StorageAccountName));
+                        TextBoxLogWriteLine($"Asset '{assetName}' created in MK.IO");
                     }
                     catch (Exception ex)
                     {
-                        TextBoxLogWriteLine($"Error when creating asset '{formAsset.AssetName}' in MK.IO", true);
+                        TextBoxLogWriteLine($"Error when creating asset '{assetName}' in MK.IO", true);
                         TextBoxLogWriteLine(ex);
                     }
-                }
-
-                try
-                {
-                    await MKIOClient.CreateOrUpdateAssetAsync(asset.Data.Name, new MKIO.Models.MKIOAsset(asset.Data.Container, asset.Data.Description, asset.Data.StorageAccountName));
-                    TextBoxLogWriteLine($"Asset '{asset.Data.Name}' created in MK.IO");
-                }
-                catch (Exception ex)
-                {
-                    TextBoxLogWriteLine($"Error when creating asset '{asset.Data.Name}' in MK.IO", true);
-                    TextBoxLogWriteLine(ex);
                 }
             }
             migratedAssetsToMKIO = await MKIOClient.ListAssetsAsync();

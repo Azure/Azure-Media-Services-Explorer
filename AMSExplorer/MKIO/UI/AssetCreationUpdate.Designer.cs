@@ -186,7 +186,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label labelNewAsset;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxAssetName;
         private System.Windows.Forms.TextBox textBoxDescription;
@@ -198,5 +197,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox textBoxStorage;
         private System.Windows.Forms.Label label5;
+        public System.Windows.Forms.Label labelNewAsset;
     }
 }
