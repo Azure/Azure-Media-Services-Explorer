@@ -17,8 +17,8 @@
 // Azure Management dependencies
 
 
-using AMSExplorer.MKIO;
-using AMSExplorer.MKIO.Models;
+using MK.IO;
+using MK.IO.Models;
 using AMSExplorer.Rest;
 using AMSExplorer.Utils.JobInfo;
 using AMSExplorer.Utils.TransformInfo;
@@ -9830,7 +9830,7 @@ namespace AMSExplorer
                     string assetName = formAsset.AssetName.Replace(Constants.NameconvAsset, asset.Data.Name);
                     try
                     {
-                        await MKIOClient.CreateOrUpdateAssetAsync(assetName, new MKIO.Models.MKIOAsset(asset.Data.Container, formAsset.AssetDescription, asset.Data.StorageAccountName));
+                        await MKIOClient.CreateOrUpdateAssetAsync(assetName, new MK.IO.Models.MKIOAsset(asset.Data.Container, formAsset.AssetDescription, asset.Data.StorageAccountName));
                         TextBoxLogWriteLine($"Asset '{assetName}' created in MK.IO");
                     }
                     catch (Exception ex)
