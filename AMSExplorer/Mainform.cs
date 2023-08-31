@@ -89,7 +89,7 @@ namespace AMSExplorer
 
         private record QuotaMetrics(string Name, string CountMetric, string QuotaMetric);
         private Dictionary<string, double?> QuotasValues;
-        public MKIOClientRest MKIOClient;
+        public MKIOClient MKIOClient;
         public List<MKIOAsset> migratedAssetsToMKIO;
 
         public Mainform(string[] args)
@@ -183,7 +183,7 @@ namespace AMSExplorer
             });
 
             // test MKIO
-            MKIOClient = new MKIOClientRest("mkiosubscriptionname", "mkiotoken");
+            MKIOClient = new MKIOClient("mkiosubscriptionname", "mkiotoken");
 
             try
             {
@@ -2563,7 +2563,7 @@ namespace AMSExplorer
                             sbuilder.AppendLine(string.Format("Locator name : {0}", loc.LocatorName));
                             sbuilder.AppendLine(string.Empty);
 
-                            foreach (StreamingPath path in paths.StreamingPaths)
+                            foreach (Azure.ResourceManager.Media.Models.StreamingPath path in paths.StreamingPaths)
                             {
                                 string appendExtension = string.Empty;
 

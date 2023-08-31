@@ -461,8 +461,8 @@ namespace AMSExplorer
                 {
                     DGAsset.Rows.Add("MK/IO Name", mkioasset.Name);
                     DGAsset.Rows.Add("MK/IO Description", mkioasset.Properties.Description);
-                    DGAsset.Rows.Add("MK/IO Created", DateTime.Parse(mkioasset.Properties.Created).ToLocalTime().ToString("G"));
-                    DGAsset.Rows.Add("MK/IO Last modified", DateTime.Parse(mkioasset.Properties.LastModified).ToLocalTime().ToString("G"));
+                    DGAsset.Rows.Add("MK/IO Created", mkioasset.Properties.Created?.ToLocalTime().ToString("G"));
+                    DGAsset.Rows.Add("MK/IO Last modified", mkioasset.Properties.LastModified?.ToLocalTime().ToString("G"));
                 }
             }
 
