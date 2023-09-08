@@ -99,7 +99,7 @@ namespace AMSExplorer
         }
         public int? DisplayedCount => _MyObservAssetV3 != null ? _MyObservAssetV3.Count : null;
 
-        public List<MKIOAsset> ListMKIOAssets;
+        public List<Asset> ListMKIOAssets;
 
         public void Init(AMSClientV3 client, SynchronizationContext syncontext)
         {

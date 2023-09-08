@@ -90,7 +90,7 @@ namespace AMSExplorer
         private record QuotaMetrics(string Name, string CountMetric, string QuotaMetric);
         private Dictionary<string, double?> QuotasValues;
         public MKIOClient MKIOClient;
-        public List<MKIOAsset> migratedAssetsToMKIO;
+        public List<Asset> migratedAssetsToMKIO;
 
         public Mainform(string[] args)
         {
@@ -9830,7 +9830,7 @@ namespace AMSExplorer
                     string assetName = formAsset.AssetName.Replace(Constants.NameconvAsset, asset.Data.Name);
                     try
                     {
-                        await MKIOClient.CreateOrUpdateAssetAsync(assetName, new MK.IO.Models.MKIOAsset(asset.Data.Container, formAsset.AssetDescription, asset.Data.StorageAccountName));
+                        await MKIOClient.CreateOrUpdateAssetAsync(assetName, new MK.IO.Models.Asset(asset.Data.Container, formAsset.AssetDescription, asset.Data.StorageAccountName));
                         TextBoxLogWriteLine($"Asset '{assetName}' created in MK.IO");
                     }
                     catch (Exception ex)
