@@ -183,10 +183,9 @@ namespace AMSExplorer
             });
 
             // test MKIO
-            MKIOClient = new MKIOClient("mkiosubscriptionname", "mkiotoken");
-
             try
             {
+                MKIOClient = new MKIOClient("mkiosubscriptionname", "mkiotoken");
                 migratedAssetsToMKIO = MKIOClient.ListAssets();
             }
             catch
