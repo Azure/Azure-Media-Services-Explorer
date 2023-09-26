@@ -90,7 +90,7 @@ namespace AMSExplorer
         private record QuotaMetrics(string Name, string CountMetric, string QuotaMetric);
         private Dictionary<string, double?> QuotasValues;
         public MKIOClient MKIOClient;
-        public List<Asset> migratedAssetsToMKIO;
+        public List<AssetSchema> migratedAssetsToMKIO;
 
         public Mainform(string[] args)
         {
@@ -186,7 +186,7 @@ namespace AMSExplorer
             try
             {
                 MKIOClient = new MKIOClient("mkiosubscriptionname", "mkiotoken");
-                migratedAssetsToMKIO = MKIOClient.ListAssets();
+                migratedAssetsToMKIO = MKIOClient.Assets.List();
             }
             catch
             {
@@ -2392,7 +2392,7 @@ namespace AMSExplorer
                                     SavePositionOfForm(formPlayready[i], out left, out top);
 
                                     contentKeyPolicyData.Options.Add(
-                                                   new ContentKeyPolicyOption(
+                                                   new Azure.ResourceManager.Media.Models.ContentKeyPolicyOption(
                                                        configuration: formPlayready[i].GetPlayReadyConfiguration,
                                                        restriction: formPlayreadyTokenClaims[i].GetContentKeyPolicyRestriction
                                                        )
@@ -2426,7 +2426,7 @@ namespace AMSExplorer
                                     SavePositionOfForm(formWidevine[i], out left, out top);
 
                                     contentKeyPolicyData.Options.Add(
-                                                new ContentKeyPolicyOption(
+                                                new Azure.ResourceManager.Media.Models.ContentKeyPolicyOption(
                                                     configuration: formWidevine[i].GetWidevineConfiguration,
                                                     restriction: formWidevineTokenClaims[i].GetContentKeyPolicyRestriction
                                                     )
@@ -2461,7 +2461,7 @@ namespace AMSExplorer
                                     SavePositionOfForm(formFairPlay[i], out left, out top);
 
                                     contentKeyPolicyData.Options.Add(
-                                                new ContentKeyPolicyOption(
+                                                new Azure.ResourceManager.Media.Models.ContentKeyPolicyOption(
                                                 configuration: new ContentKeyPolicyFairPlayConfiguration
                                                 (
                                                     applicationSecretKey: formCencDelivery.FairPlayASK,
@@ -2492,9 +2492,9 @@ namespace AMSExplorer
                                     return;
                                 }
 
-                                contentKeyPolicyData.Options.Add(new ContentKeyPolicyOption
+                                contentKeyPolicyData.Options.Add(new Azure.ResourceManager.Media.Models.ContentKeyPolicyOption
                                     (
-                                    configuration: new ContentKeyPolicyClearKeyConfiguration(),
+                                    configuration: new Azure.ResourceManager.Media.Models.ContentKeyPolicyClearKeyConfiguration(),
                                     restriction: formClearKeyTokenClaims[0].GetContentKeyPolicyRestriction
                                     )
                                     );
@@ -4615,7 +4615,7 @@ namespace AMSExplorer
                 if (ckPolicy.Data.Options != null && ckPolicy.Data.Options.Count > 0)
                 {
                     List<string> listTypeConfig = new();
-                    foreach (ContentKeyPolicyOption option in ckPolicy.Data.Options)
+                    foreach (Azure.ResourceManager.Media.Models.ContentKeyPolicyOption option in ckPolicy.Data.Options)
                     {
                         Type typeConfig = option.Configuration.GetType();
                         if (typeConfig == typeof(ContentKeyPolicyPlayReadyConfiguration))
@@ -4847,8 +4847,8 @@ namespace AMSExplorer
                         UseStaticHostname = form.LiveEventUseStaticHostname,
                         HostnamePrefix = form.LiveEventUseStaticHostname ? form.LiveEventHostnamePrefix : null,
                         Encoding = form.Encoding,
-                        Preview = new LiveEventPreview { },
-                        Input = new LiveEventInput(form.Protocol)
+                        Preview = new Azure.ResourceManager.Media.Models.LiveEventPreview { },
+                        Input = new Azure.ResourceManager.Media.Models.LiveEventInput(form.Protocol)
                         {
                             StreamingProtocol = form.Protocol,
                             AccessToken = form.InputID,
@@ -5021,7 +5021,7 @@ namespace AMSExplorer
                             {
                                 if (data.CrossSiteAccessPolicies == null)
                                 {
-                                    data.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                    data.CrossSiteAccessPolicies = new Azure.ResourceManager.Media.Models.CrossSiteAccessPolicies();
                                 }
                                 data.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetLiveEventClientPolicy;
                             }
@@ -5041,7 +5041,7 @@ namespace AMSExplorer
                             {
                                 if (data.CrossSiteAccessPolicies == null)
                                 {
-                                    data.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                    data.CrossSiteAccessPolicies = new Azure.ResourceManager.Media.Models.CrossSiteAccessPolicies();
                                 }
                                 data.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetLiveEventCrossdomainPolicy;
                             }
@@ -5830,7 +5830,7 @@ namespace AMSExplorer
                         {
                             if (data.CrossSiteAccessPolicies == null)
                             {
-                                data.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                data.CrossSiteAccessPolicies = new Azure.ResourceManager.Media.Models.CrossSiteAccessPolicies();
                             }
                             data.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetOriginClientPolicy;
 
@@ -5851,7 +5851,7 @@ namespace AMSExplorer
                         {
                             if (data.CrossSiteAccessPolicies == null)
                             {
-                                data.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                data.CrossSiteAccessPolicies = new Azure.ResourceManager.Media.Models.CrossSiteAccessPolicies();
                             }
                             data.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetOriginCrossdomaintPolicy;
 
@@ -7001,7 +7001,7 @@ namespace AMSExplorer
             sbuilder.AppendLine(string.Format("Input URLs for live event name : {0}", liveEvent.Data.Name));
             sbuilder.AppendLine("=================================" + new string('=', liveEvent.Data.Name.Length));
 
-            foreach (LiveEventEndpoint endpoint in liveEvent.Data.Input.Endpoints)
+            foreach (Azure.ResourceManager.Media.Models.LiveEventEndpoint endpoint in liveEvent.Data.Input.Endpoints)
             {
                 sbuilder.AppendLine(string.Empty);
                 sbuilder.AppendLine(endpoint.Uri.ToString());
@@ -8377,7 +8377,7 @@ namespace AMSExplorer
                         Description = form.TransformDescription,
                         Outputs = {
                         new MediaTransformOutput(
-                            new BuiltInStandardEncoderPreset(form.BuiltInPreset) {
+                            new Azure.ResourceManager.Media.Models.BuiltInStandardEncoderPreset(form.BuiltInPreset) {
                                 Configurations = form.CAEConfigurations
                             }
                            )
@@ -8407,7 +8407,7 @@ namespace AMSExplorer
 
         public async Task<MediaTransformResource> CreateAndGetCopyAllBitrateNonInterleavedTransformIfNeededAsync()
         {
-            return await CreateAndGetSpecialTransformIfNeededAsync(new BuiltInStandardEncoderPreset(EncoderNamedPreset.CopyAllBitrateNonInterleaved) { PresetName = EncoderNamedPreset.CopyAllBitrateNonInterleaved }, PresetStandardEncoder.CopyAllBitrateNonInterleavedTransformName);
+            return await CreateAndGetSpecialTransformIfNeededAsync(new Azure.ResourceManager.Media.Models.BuiltInStandardEncoderPreset(Azure.ResourceManager.Media.Models.EncoderNamedPreset.CopyAllBitrateNonInterleaved) { PresetName = Azure.ResourceManager.Media.Models.EncoderNamedPreset.CopyAllBitrateNonInterleaved }, PresetStandardEncoder.CopyAllBitrateNonInterleavedTransformName);
         }
 
         /// <summary>
@@ -9829,7 +9829,7 @@ namespace AMSExplorer
                     string assetName = formAsset.AssetName.Replace(Constants.NameconvAsset, asset.Data.Name);
                     try
                     {
-                        await MKIOClient.CreateOrUpdateAssetAsync(assetName, new MK.IO.Models.Asset(asset.Data.Container, formAsset.AssetDescription, asset.Data.StorageAccountName));
+                        await MKIOClient.Assets.CreateOrUpdateAsync(assetName, asset.Data.Container, asset.Data.StorageAccountName, formAsset.AssetDescription);
                         TextBoxLogWriteLine($"Asset '{assetName}' created in MK.IO");
                     }
                     catch (Exception ex)
@@ -9839,7 +9839,7 @@ namespace AMSExplorer
                     }
                 }
             }
-            migratedAssetsToMKIO = await MKIOClient.ListAssetsAsync();
+            migratedAssetsToMKIO = await MKIOClient.Assets.ListAsync();
             dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
             DoRefreshGridAssetV(false);
         }
