@@ -133,6 +133,9 @@
     <Compile Update="AssetInfoTextTrackCreation.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MKIO\UI\MKIOConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="MKIO\UI\AssetCreationUpdate.cs">
       <SubType>Form</SubType>
     </Compile>

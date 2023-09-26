@@ -89,7 +89,11 @@ namespace AMSExplorer
 
         private record QuotaMetrics(string Name, string CountMetric, string QuotaMetric);
         private Dictionary<string, double?> QuotasValues;
+
         public MKIOClient MKIOClient;
+        public string MKIOSubscriptionName;
+        public string MKIOToken;
+
         public List<AssetSchema> migratedAssetsToMKIO;
 
         public Mainform(string[] args)
@@ -182,28 +186,31 @@ namespace AMSExplorer
                 }
             });
 
-            // test MKIO
-            try
+            // MKIO Connection            
+            MKIOClient = null;
+
+            MKIOConnection mkioConnectionForm = new MKIOConnection(MKIOSubscriptionName, MKIOToken);
+
+            if (mkioConnectionForm.ShowDialog() == DialogResult.OK)
             {
-                MKIOClient = new MKIOClient("mkiosubscriptionname", "mkiotoken");
-                migratedAssetsToMKIO = MKIOClient.Assets.List();
-            }
-            catch
+                MKIOSubscriptionName = mkioConnectionForm.MKIOSubscriptionName;
+                MKIOToken = mkioConnectionForm.MKIOToken;
+
+                try
+                {
+                    MKIOClient = new MKIOClient(MKIOSubscriptionName, MKIOToken);
+                    migratedAssetsToMKIO = MKIOClient.Assets.List();
+                }
+                catch
+                { 
+                    MKIOClient = null;
+                    MessageBox.Show("Connection to MediaKind I/O failed. Restart the application to try again.", "No MKIO Connection");
+                }
+            } 
+            else
             {
-
-            }
-
-            //var mkasset = MKIOClient.GetAsset("test2");
-
-            //var newasset = MKIOClient.CreateOrUpdateAsset("copy-33adc1873f", new MKIO.Models.MKIOAsset("asset-67c25a02-a672-40cd-a4da-dcc48b89acae", "ma super desc", "amsxpfrstorage"));
-            //MKclient.DeleteAsset("copy-33adc1873f");
-
-            //var mkse = MKIOClient.GetStreamingEndpoint("xpouyatse1");
-            //var mkses = MKIOClient.ListStreamingEndpoints();
-            //var newSe = MKclient.CreateStreamingEndpoint("xpouyatse2", new MKIO.Models.MKIOStreamingEndpoint("francecentral", "my description", new MKIO.Models.MKIOStreamingEndpointSku("Standard", 600), 0, false), true);
-            //MKclient.StartStreamingEndpoint("xpouyatse1");
-            //MKclient.StopStreamingEndpoint("xpouyatse1");
-            //MKclient.DeleteStreamingEndpoint("seprem");
+                MessageBox.Show("You will not be able to run any operations with MediaKind I/O unless connected. Restart the application to provide MediaKind connection information.", "No MKIO Connection");
+            }            
 
             // mainform title
             toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to {1} ({2})", Assembly.GetExecutingAssembly().GetName().Version, _accountname, _amsClient.AMSclient.Data.Location.DisplayName);
