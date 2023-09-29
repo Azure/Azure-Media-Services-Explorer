@@ -518,18 +518,25 @@ namespace AMSExplorer
 
 
             Task.Run(async () =>
-        {
-            try
             {
-                await dataGridViewAssetsV.RefreshAssetsAsync(page, _amsClient);
-            }
-            catch (Exception ex)
-            {
-                TextBoxLogWriteLine(ex);
-                Telemetry.TrackException(ex);
-            }
+                try
+                {
+                    if (!firstime)
+                    {
+                        //Refresh MK/IO Assets
+                        migratedAssetsToMKIO = await MKIOClient.Assets.ListAsync();
+                        dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
+                    }
 
-        });
+                    await dataGridViewAssetsV.RefreshAssetsAsync(page, _amsClient);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
+                }
+
+            });
 
             // quota is null...
             // tabPageAssets.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, QuotasValues["AssetCount"]));
@@ -9848,8 +9855,6 @@ namespace AMSExplorer
                     }
                 }
             }
-            migratedAssetsToMKIO = await MKIOClient.Assets.ListAsync();
-            dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
             DoRefreshGridAssetV(false);
         }
     }
