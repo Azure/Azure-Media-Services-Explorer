@@ -5,6 +5,7 @@ languages:
 products:
 - azure
 - azure-media-services
+- mediakind-io
 ---
 
 # Azure Media Services Explorer (for AMS v3)
@@ -38,6 +39,25 @@ This solution has been developed using [Visual Studio 2022](https://visualstudio
 You need to install the [Microsoft Visual Studio Installer Projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2022InstallerProjects) in order to open and build the Setup project in Visual Studio.
 
 This solution requires [.NET SDK 7.0](https://dotnet.microsoft.com/download/dotnet/7.0) to compile.
+
+## MediaKind I/O
+
+This version of the Azure Media Services Explorer supports creating assets in MediaKind I/O (MK I/O) from existing AMS assets. 
+
+You must have an active MediaKind I/O subscription and access to the MediaKind I/O portal:
+https://io.mediakind.com
+
+You must have the Azure storage account configured in MK I/O for the existing assets and this will be used for the new MK I/O assets. NOTE: This storage account's name must exactly match the Azure resource name, including case.
+
+To connect with MK I/O you will need:
+- Subscription Name
+- MK I/O Token
+
+The subscription name is also called the resource name and is available in the portal.
+
+An MK I/O token can be obtained by following the directions contained in this article:
+https://support.mediakind.com/portal/en/kb/articles/how-to-use-mkio-apis-step-by-step
+
 
 ## Notes
 
