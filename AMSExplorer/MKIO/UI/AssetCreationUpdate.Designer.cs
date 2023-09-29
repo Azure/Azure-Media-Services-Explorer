@@ -37,16 +37,17 @@
             label1 = new System.Windows.Forms.Label();
             textBoxAssetName = new System.Windows.Forms.TextBox();
             textBoxDescription = new System.Windows.Forms.TextBox();
-            label2 = new System.Windows.Forms.Label();
+            lblDescription = new System.Windows.Forms.Label();
             textBoxContainer = new System.Windows.Forms.TextBox();
-            label4 = new System.Windows.Forms.Label();
-            label7 = new System.Windows.Forms.Label();
+            lblContainer = new System.Windows.Forms.Label();
+            lblOptional = new System.Windows.Forms.Label();
             errorProvider1 = new System.Windows.Forms.ErrorProvider(components);
             pictureBox1 = new System.Windows.Forms.PictureBox();
             textBoxStorage = new System.Windows.Forms.TextBox();
-            label5 = new System.Windows.Forms.Label();
+            lblStorage = new System.Windows.Forms.Label();
             dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            textBoxInstructions = new System.Windows.Forms.TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -65,6 +66,7 @@
             buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             buttonOk.Name = "buttonOk";
             buttonOk.UseVisualStyleBackColor = true;
+            buttonOk.Click += buttonOk_Click;
             // 
             // panel1
             // 
@@ -96,10 +98,10 @@
             resources.ApplyResources(textBoxDescription, "textBoxDescription");
             textBoxDescription.Name = "textBoxDescription";
             // 
-            // label2
+            // lblDescription
             // 
-            resources.ApplyResources(label2, "label2");
-            label2.Name = "label2";
+            resources.ApplyResources(lblDescription, "lblDescription");
+            lblDescription.Name = "lblDescription";
             // 
             // textBoxContainer
             // 
@@ -107,16 +109,16 @@
             textBoxContainer.Name = "textBoxContainer";
             textBoxContainer.TextChanged += TextBoxContainer_TextChanged;
             // 
-            // label4
+            // lblContainer
             // 
-            resources.ApplyResources(label4, "label4");
-            label4.Name = "label4";
+            resources.ApplyResources(lblContainer, "lblContainer");
+            lblContainer.Name = "lblContainer";
             // 
-            // label7
+            // lblOptional
             // 
-            resources.ApplyResources(label7, "label7");
-            label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            label7.Name = "label7";
+            resources.ApplyResources(lblOptional, "lblOptional");
+            lblOptional.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            lblOptional.Name = "lblOptional";
             // 
             // errorProvider1
             // 
@@ -134,10 +136,10 @@
             resources.ApplyResources(textBoxStorage, "textBoxStorage");
             textBoxStorage.Name = "textBoxStorage";
             // 
-            // label5
+            // lblStorage
             // 
-            resources.ApplyResources(label5, "label5");
-            label5.Name = "label5";
+            resources.ApplyResources(lblStorage, "lblStorage");
+            lblStorage.Name = "lblStorage";
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -149,6 +151,13 @@
             resources.ApplyResources(dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
+            // textBoxInstructions
+            // 
+            textBoxInstructions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(textBoxInstructions, "textBoxInstructions");
+            textBoxInstructions.Name = "textBoxInstructions";
+            textBoxInstructions.ReadOnly = true;
+            // 
             // AssetCreationUpdate
             // 
             AcceptButton = buttonOk;
@@ -157,21 +166,21 @@
             BackColor = System.Drawing.SystemColors.Window;
             CancelButton = buttonCancel;
             Controls.Add(textBoxStorage);
-            Controls.Add(label5);
+            Controls.Add(lblStorage);
             Controls.Add(pictureBox1);
-            Controls.Add(label7);
+            Controls.Add(lblOptional);
             Controls.Add(textBoxContainer);
-            Controls.Add(label4);
+            Controls.Add(lblContainer);
             Controls.Add(textBoxDescription);
-            Controls.Add(label2);
+            Controls.Add(lblDescription);
             Controls.Add(textBoxAssetName);
             Controls.Add(label1);
             Controls.Add(labelNewAsset);
             Controls.Add(panel1);
+            Controls.Add(textBoxInstructions);
             Name = "AssetCreationUpdate";
             Load += AssetCreationUpdate_Load;
             Shown += AssetCreationUpdate_Shown;
-            DpiChanged += AssetCreationUpdate_DpiChanged;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -189,14 +198,15 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxAssetName;
         private System.Windows.Forms.TextBox textBoxDescription;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.TextBox textBoxContainer;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblContainer;
+        private System.Windows.Forms.Label lblOptional;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox textBoxStorage;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblStorage;
         public System.Windows.Forms.Label labelNewAsset;
+        private System.Windows.Forms.TextBox textBoxInstructions;
     }
 }

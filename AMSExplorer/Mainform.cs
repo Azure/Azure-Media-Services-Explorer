@@ -9815,19 +9815,21 @@ namespace AMSExplorer
 
         private async Task MKIOCreateAssetAsync()
         {
+            if (MKIOClient == null)
+            {
+                MessageBox.Show("Can't Create", "MKIO is not connected. Restart the application to connect.");
+            }
+
             var assets = await ReturnSelectedAssetsAsync();
             if (assets.Count == 0) return;
 
-            var formAsset = new AssetCreationUpdate()
+            var formAsset = new AssetCreationUpdate(assets.Count == 1 ? AssetCreationUpdate.AssetCreationMode.Single : AssetCreationUpdate.AssetCreationMode.Multiple)
             {
                 AssetName = assets.Count == 1 ? assets.First().Data.Name : Constants.NameconvAsset,
                 AssetDescription = assets.Count == 1 ? assets.First().Data.Description : string.Empty,
                 AssetContainer = assets.Count == 1 ? assets.First().Data.Container : string.Empty,
                 AssetStorage = assets.Count == 1 ? assets.First().Data.StorageAccountName : string.Empty
             };
-
-            formAsset.labelNewAsset.Text = assets.Count == 1 ? formAsset.labelNewAsset.Text : "Create these assets in MK/IO";
-
 
             if (formAsset.ShowDialog() == DialogResult.OK)
             {
