@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class AssetCreationUpdate
+    partial class MKIOConnection
     {
         /// <summary>
         /// Required designer variable.
@@ -29,25 +29,20 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetCreationUpdate));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MKIOConnection));
             buttonCancel = new System.Windows.Forms.Button();
             buttonOk = new System.Windows.Forms.Button();
             panel1 = new System.Windows.Forms.Panel();
             labelNewAsset = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
-            textBoxAssetName = new System.Windows.Forms.TextBox();
-            textBoxDescription = new System.Windows.Forms.TextBox();
-            lblDescription = new System.Windows.Forms.Label();
-            textBoxContainer = new System.Windows.Forms.TextBox();
-            lblContainer = new System.Windows.Forms.Label();
-            lblOptional = new System.Windows.Forms.Label();
+            textSubscriptionName = new System.Windows.Forms.TextBox();
+            textMKToken = new System.Windows.Forms.TextBox();
+            label2 = new System.Windows.Forms.Label();
             errorProvider1 = new System.Windows.Forms.ErrorProvider(components);
             pictureBox1 = new System.Windows.Forms.PictureBox();
-            textBoxStorage = new System.Windows.Forms.TextBox();
-            lblStorage = new System.Windows.Forms.Label();
             dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            textBoxInstructions = new System.Windows.Forms.TextBox();
+            textInstructions = new System.Windows.Forms.TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -87,38 +82,20 @@
             resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
             // 
-            // textBoxAssetName
+            // textSubscriptionName
             // 
-            resources.ApplyResources(textBoxAssetName, "textBoxAssetName");
-            textBoxAssetName.Name = "textBoxAssetName";
-            textBoxAssetName.TextChanged += TextBoxAssetName_TextChanged;
+            resources.ApplyResources(textSubscriptionName, "textSubscriptionName");
+            textSubscriptionName.Name = "textSubscriptionName";
             // 
-            // textBoxDescription
+            // textMKToken
             // 
-            resources.ApplyResources(textBoxDescription, "textBoxDescription");
-            textBoxDescription.Name = "textBoxDescription";
+            resources.ApplyResources(textMKToken, "textMKToken");
+            textMKToken.Name = "textMKToken";
             // 
-            // lblDescription
+            // label2
             // 
-            resources.ApplyResources(lblDescription, "lblDescription");
-            lblDescription.Name = "lblDescription";
-            // 
-            // textBoxContainer
-            // 
-            resources.ApplyResources(textBoxContainer, "textBoxContainer");
-            textBoxContainer.Name = "textBoxContainer";
-            textBoxContainer.TextChanged += TextBoxContainer_TextChanged;
-            // 
-            // lblContainer
-            // 
-            resources.ApplyResources(lblContainer, "lblContainer");
-            lblContainer.Name = "lblContainer";
-            // 
-            // lblOptional
-            // 
-            resources.ApplyResources(lblOptional, "lblOptional");
-            lblOptional.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            lblOptional.Name = "lblOptional";
+            resources.ApplyResources(label2, "label2");
+            label2.Name = "label2";
             // 
             // errorProvider1
             // 
@@ -131,16 +108,6 @@
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
             // 
-            // textBoxStorage
-            // 
-            resources.ApplyResources(textBoxStorage, "textBoxStorage");
-            textBoxStorage.Name = "textBoxStorage";
-            // 
-            // lblStorage
-            // 
-            resources.ApplyResources(lblStorage, "lblStorage");
-            lblStorage.Name = "lblStorage";
-            // 
             // dataGridViewTextBoxColumn1
             // 
             resources.ApplyResources(dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
@@ -151,36 +118,31 @@
             resources.ApplyResources(dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
-            // textBoxInstructions
+            // textInstructions
             // 
-            textBoxInstructions.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(textBoxInstructions, "textBoxInstructions");
-            textBoxInstructions.Name = "textBoxInstructions";
-            textBoxInstructions.ReadOnly = true;
+            textInstructions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(textInstructions, "textInstructions");
+            textInstructions.Name = "textInstructions";
+            textInstructions.ReadOnly = true;
             // 
-            // AssetCreationUpdate
+            // MKIOConnection
             // 
             AcceptButton = buttonOk;
             resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.SystemColors.Window;
             CancelButton = buttonCancel;
-            Controls.Add(textBoxStorage);
-            Controls.Add(lblStorage);
+            Controls.Add(textInstructions);
             Controls.Add(pictureBox1);
-            Controls.Add(lblOptional);
-            Controls.Add(textBoxContainer);
-            Controls.Add(lblContainer);
-            Controls.Add(textBoxDescription);
-            Controls.Add(lblDescription);
-            Controls.Add(textBoxAssetName);
+            Controls.Add(textMKToken);
+            Controls.Add(label2);
+            Controls.Add(textSubscriptionName);
             Controls.Add(label1);
             Controls.Add(labelNewAsset);
             Controls.Add(panel1);
-            Controls.Add(textBoxInstructions);
-            Name = "AssetCreationUpdate";
-            Load += AssetCreationUpdate_Load;
-            Shown += AssetCreationUpdate_Shown;
+            Name = "MKIOConnection";
+            Load += MKIOConnection_Load;
+            Shown += MKIOConnection_Shown;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -196,17 +158,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxAssetName;
-        private System.Windows.Forms.TextBox textBoxDescription;
-        private System.Windows.Forms.Label lblDescription;
-        private System.Windows.Forms.TextBox textBoxContainer;
-        private System.Windows.Forms.Label lblContainer;
-        private System.Windows.Forms.Label lblOptional;
+        private System.Windows.Forms.TextBox textSubscriptionName;
+        private System.Windows.Forms.TextBox textMKToken;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox textBoxStorage;
-        private System.Windows.Forms.Label lblStorage;
         public System.Windows.Forms.Label labelNewAsset;
-        private System.Windows.Forms.TextBox textBoxInstructions;
+        private System.Windows.Forms.TextBox textInstructions;
     }
 }
