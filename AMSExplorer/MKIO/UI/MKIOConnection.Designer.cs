@@ -91,6 +91,7 @@
             // 
             resources.ApplyResources(textMKToken, "textMKToken");
             textMKToken.Name = "textMKToken";
+            textMKToken.UseSystemPasswordChar = true;
             // 
             // label2
             // 

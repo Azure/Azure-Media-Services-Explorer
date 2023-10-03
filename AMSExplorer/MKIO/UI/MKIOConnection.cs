@@ -38,6 +38,7 @@ namespace AMSExplorer
         public MKIOConnection(string subscriptionName, string token)
         {
             InitializeComponent();
+            Icon = Bitmaps.Azure_Explorer_ico;
 
             MKIOSubscriptionName = subscriptionName;
             MKIOToken = token;

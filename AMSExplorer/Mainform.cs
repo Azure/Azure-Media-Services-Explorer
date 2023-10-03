@@ -209,7 +209,7 @@ namespace AMSExplorer
             } 
             else
             {
-                MessageBox.Show("You will not be able to run any operations with MediaKind I/O unless connected. Restart the application to provide MediaKind connection information.", "No MKIO Connection");
+                // MessageBox.Show("You will not be able to run any operations with MediaKind I/O unless connected. Restart the application to provide MediaKind connection information.", "No MKIO Connection");
             }            
 
             // mainform title
