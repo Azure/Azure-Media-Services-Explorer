@@ -45,13 +45,11 @@ namespace AMSExplorer
 
             textInstructions.Text = @"Instructions:
 
-You must have a MediaKind I/O subscription set up and use the MediaKind I/O portal:
+You must have a MediaKind I/O subscription set up and use the MediaKind MK/IO portal:
 https://io.mediakind.com
-- Set up a storage account in MKIO that has existing assets.
-- This storage account's name must exactly match the Azure resource name, including case.
-- The Subscription Name is the resource name in the MediaKind I/O portal.
+The Subscription Name is the resource name in the MK/IO portal.
 
-To get a MKIO Token:
+To get a MK/IO Token:
 1) Log into https://io.mediakind.com with Microsoft SSO
 2) Then use the URL: https://api.io.mediakind.com/auth/token/
 3) Copy the token";

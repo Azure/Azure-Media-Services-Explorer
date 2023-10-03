@@ -133,7 +133,7 @@
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Do not connect</value>
@@ -166,7 +166,7 @@
     <value>128, 27</value>
   </data>
   <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="buttonOk.Text" xml:space="preserve">
     <value>Connect to MK/IO</value>

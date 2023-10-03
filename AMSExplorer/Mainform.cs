@@ -204,11 +204,16 @@ namespace AMSExplorer
                     MKIOClient = new MKIOClient(MKIOSubscriptionName, MKIOToken);
                     migratedAssetsToMKIO = MKIOClient.Assets.List();
                     migratedStorageAccountsToMKIO = MKIOClient.StorageAccounts.List();
+
+                    if (migratedStorageAccountsToMKIO.Count == 0)
+                    {
+                        MessageBox.Show($"No storage account found in MK/IO.{Constants.endline}Please add the storage account(s) of this AMS account to MK/IO by going to the Storage tab, right click and select 'MediaKind MK/IO' / 'Add Storage...'", "No MK/IO Storage Account");
+                    }
                 }
                 catch
                 {
                     MKIOClient = null;
-                    MessageBox.Show("Connection to MediaKind I/O failed. Restart the application to try again.", "No MKIO Connection");
+                    MessageBox.Show("Connection to MediaKind MK/IO failed. Restart the application to try again.", "No MK/IO Connection");
                 }
             }
             else
@@ -9883,10 +9888,29 @@ namespace AMSExplorer
             var assets = await ReturnSelectedAssetsAsync();
             if (assets.Count == 0) return;
 
+
+            //let's verify that storage account is in MK/IO !
+            var storageNames = assets.Select(a => a.Data.StorageAccountName).Distinct().ToList();
+            var storageMKIONames = migratedStorageAccountsToMKIO.Select(s => s.Spec.Name);
+            if (!(storageNames.Intersect(storageMKIONames).Count() == storageNames.Count()))
+            {
+                var nonintersect = storageNames.Except(storageMKIONames);
+
+                if (nonintersect.Count() == 1)
+                {
+                    MessageBox.Show($"Storage account {nonintersect.First()} has not be added to MK/IO. Please do it before creating the asset(s) in MK/IO.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show($"Storage accounts {string.Join(",", nonintersect.ToArray())} have not be added to MK/IO. Please do it before creating the assets in MK/IO.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return;
+            }
+
             var formAsset = new AssetCreationUpdate(assets.Count == 1 ? AssetCreationUpdate.AssetCreationMode.Single : AssetCreationUpdate.AssetCreationMode.Multiple)
             {
                 AssetName = assets.Count == 1 ? assets.First().Data.Name : Constants.NameconvAsset,
-                AssetDescription = assets.Count == 1 ? assets.First().Data.Description : string.Empty,
+                AssetDescription = assets.Count == 1 ? assets.First().Data.Description : Constants.NameconvAssetDesc,
                 AssetContainer = assets.Count == 1 ? assets.First().Data.Container : string.Empty,
                 AssetStorage = assets.Count == 1 ? assets.First().Data.StorageAccountName : string.Empty
             };
@@ -9896,9 +9920,10 @@ namespace AMSExplorer
                 foreach (var asset in assets)
                 {
                     string assetName = formAsset.AssetName.Replace(Constants.NameconvAsset, asset.Data.Name);
+                    string assetDescription = formAsset.AssetDescription.Replace(Constants.NameconvAssetDesc, asset.Data.Description);
                     try
                     {
-                        await MKIOClient.Assets.CreateOrUpdateAsync(assetName, asset.Data.Container, asset.Data.StorageAccountName, formAsset.AssetDescription);
+                        await MKIOClient.Assets.CreateOrUpdateAsync(assetName, asset.Data.Container, asset.Data.StorageAccountName, assetDescription);
                         TextBoxLogWriteLine($"Asset '{assetName}' created in MK/IO");
                     }
                     catch (Exception ex)
@@ -9977,27 +10002,26 @@ namespace AMSExplorer
                 return;
             }
 
-            string valuekey = null;
-            bool Error = false;
-
-            if (Program.InputBox("Storage Account Key Needed", $"A SAS token valid 5 years will be created and provided to MK/IO.{Constants.endline}{Constants.endline}Please enter the Access Key for {storName} :", ref valuekey, true) != DialogResult.OK)
+            StorageCreation formStorageCreation = new()
             {
-                Error = true;
-            }
+                SASDurationInMonths = 120,
+                StorageName = storName,
+                StorageRegion = _amsClient.AMSclient.Get().Value.Data.Location.Name
+            };
 
-            if (!Error)
+            if (formStorageCreation.ShowDialog() == DialogResult.OK)
             {
                 string sasSig = string.Empty;
                 Uri blobEndpoint = null;
 
                 try
                 {
-                    CloudStorageAccount storageAccount = new(new StorageCredentials(storName, valuekey), _amsClient.environment.ReturnStorageSuffix(), true);
+                    CloudStorageAccount storageAccount = new(new StorageCredentials(storName, formStorageCreation.AccessKey), _amsClient.environment.ReturnStorageSuffix(), true);
 
                     SharedAccessAccountPolicy pol = new SharedAccessAccountPolicy()
                     {
                         Permissions = SharedAccessAccountPermissions.Read | SharedAccessAccountPermissions.Write | SharedAccessAccountPermissions.Delete | SharedAccessAccountPermissions.List | SharedAccessAccountPermissions.Add | SharedAccessAccountPermissions.Create | SharedAccessAccountPermissions.Update | SharedAccessAccountPermissions.ProcessMessages,
-                        SharedAccessExpiryTime = DateTimeOffset.UtcNow.AddYears(5),
+                        SharedAccessExpiryTime = DateTimeOffset.UtcNow.AddMonths(formStorageCreation.SASDurationInMonths),
                         Services = SharedAccessAccountServices.Blob,
                         ResourceTypes = SharedAccessAccountResourceTypes.Object | SharedAccessAccountResourceTypes.Container
                     };
@@ -10007,7 +10031,7 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    Error = true;
+
                     MessageBox.Show(ex.Message, "Error accessing the storage account", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     TextBoxLogWriteLine(ex);
                     Telemetry.TrackException(ex);
@@ -10023,7 +10047,7 @@ namespace AMSExplorer
                         {
                             Name = storName,
                             Location = _amsClient.AMSclient.Get().Value.Data.Location.Name,
-                            Description = "my description",
+                            Description = formStorageCreation.StorageDescription,
                             AzureStorageConfiguration = new BlobStorageAzureProperties
                             {
                                 Url = blobEndpoint.ToString() + sasSig
@@ -10037,7 +10061,6 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    Error = true;
                     MessageBox.Show(ex.Message, "Error adding storage account to MK/IO", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     TextBoxLogWriteLine(ex);
                     Telemetry.TrackException(ex);

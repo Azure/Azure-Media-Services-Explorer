@@ -71,9 +71,6 @@ namespace AMSExplorer
                     this.Text = "Create New Assets";
                     labelNewAsset.Text = "Create these assets in MK/IO";
 
-                    lblDescription.Visible = false;
-                    textBoxDescription.Visible = false;
-                    lblOptional.Visible = false;
                     lblContainer.Visible = false;
                     textBoxContainer.Visible = false;
                     lblStorage.Visible = false;
@@ -83,7 +80,9 @@ namespace AMSExplorer
 
 The tag, {Asset Name}, must be included and allows you to add a prefix or suffix to the new asset names in MK/IO. 
 
-Leave just the tag to keep the same name.";
+Leave just the tag to keep the same name.
+
+Same behavior for {Asset Description}.";
                     textBoxInstructions.Visible = true;
 
                     break;
@@ -118,7 +117,7 @@ Leave just the tag to keep the same name.";
 
         private void buttonOk_Click(object sender, System.EventArgs e)
         {
-            if (_mode == AssetCreationMode.Multiple && (AssetName.IsNullOrEmpty() || !AssetName.Contains("{Asset Name}"))) 
+            if (_mode == AssetCreationMode.Multiple && (AssetName.IsNullOrEmpty() || !AssetName.Contains("{Asset Name}")))
             {
                 MessageBox.Show("Asset Name must contain the {Asset Name} tag for multiple asset creation.", "Creation Failed");
                 this.DialogResult = DialogResult.None;
