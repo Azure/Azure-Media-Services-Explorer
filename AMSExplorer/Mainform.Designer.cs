@@ -30,9 +30,9 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
+            SearchObject searchObject4 = new SearchObject();
             SearchObject searchObject1 = new SearchObject();
             SearchObject searchObject2 = new SearchObject();
-            SearchObject searchObject3 = new SearchObject();
             splitContainerMain = new System.Windows.Forms.SplitContainer();
             tabControlMain = new System.Windows.Forms.TabControl();
             tabPageAssets = new System.Windows.Forms.TabPage();
@@ -87,7 +87,7 @@
             ContextMenuItemPlaybackWithMPEGDASHIFReference = new System.Windows.Forms.ToolStripMenuItem();
             withCustomPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
-            toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuMKIOGeneral = new System.Windows.Forms.ToolStripMenuItem();
             createAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             textBoxAssetsPageNumber = new System.Windows.Forms.TextBox();
             butNextPageAsset = new System.Windows.Forms.Button();
@@ -467,9 +467,9 @@
             dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             dataGridViewAssetsV.ReadOnly = true;
             dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject1.SearchType = SearchIn.AssetNameEquals;
-            searchObject1.Text = "";
-            dataGridViewAssetsV.SearchInName = searchObject1;
+            searchObject4.SearchType = SearchIn.AssetNameEquals;
+            searchObject4.Text = "";
+            dataGridViewAssetsV.SearchInName = searchObject4;
             dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dataGridViewAssetsV.StateFilter = "";
             dataGridViewAssetsV.TimeFilter = "Last week";
@@ -485,7 +485,7 @@
             // 
             // contextMenuStripAssets
             // 
-            contextMenuStripAssets.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { refreshToolStripMenuItem1, toolStripSeparator9, ContextMenuItemAssetDisplayInfo, displayAssetReportToolStripMenuItem, ContextMenuItemAssetEditDescription, editAlternateIdToolStripMenuItem, ContextMenuItemAssetDelete, toolsToolStripMenuItem, toolStripSeparator36, newAssetToolStripMenuItem, toolStripMenuItem17, importToolStripMenuItem1, exportToolStripMenuItem, toolStripMenuItem37, toolStripSeparator5, toolStripMenuItem32, subclipToolStripMenuItem, toolStripSeparator6, publishToolStripMenuItem1, displayOutputUrlsToolStripMenuItem, ContextMenuItemAssetPlayback, toolStripSeparator11, toolStripMenuItem3 });
+            contextMenuStripAssets.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { refreshToolStripMenuItem1, toolStripSeparator9, ContextMenuItemAssetDisplayInfo, displayAssetReportToolStripMenuItem, ContextMenuItemAssetEditDescription, editAlternateIdToolStripMenuItem, ContextMenuItemAssetDelete, toolsToolStripMenuItem, toolStripSeparator36, newAssetToolStripMenuItem, toolStripMenuItem17, importToolStripMenuItem1, exportToolStripMenuItem, toolStripMenuItem37, toolStripSeparator5, toolStripMenuItem32, subclipToolStripMenuItem, toolStripSeparator6, publishToolStripMenuItem1, displayOutputUrlsToolStripMenuItem, ContextMenuItemAssetPlayback, toolStripSeparator11, toolStripMenuMKIOGeneral });
             contextMenuStripAssets.Name = "contextMenuStripAssets";
             resources.ApplyResources(contextMenuStripAssets, "contextMenuStripAssets");
             contextMenuStripAssets.Opening += contextMenuStripAssets_Opening;
@@ -767,11 +767,11 @@
             toolStripSeparator11.Name = "toolStripSeparator11";
             resources.ApplyResources(toolStripSeparator11, "toolStripSeparator11");
             // 
-            // toolStripMenuItem3
+            // toolStripMenuMKIOGeneral
             // 
-            toolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { createAssetToolStripMenuItem });
-            toolStripMenuItem3.Name = "toolStripMenuItem3";
-            resources.ApplyResources(toolStripMenuItem3, "toolStripMenuItem3");
+            toolStripMenuMKIOGeneral.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { createAssetToolStripMenuItem });
+            toolStripMenuMKIOGeneral.Name = "toolStripMenuMKIOGeneral";
+            resources.ApplyResources(toolStripMenuMKIOGeneral, "toolStripMenuMKIOGeneral");
             // 
             // createAssetToolStripMenuItem
             // 
@@ -1464,9 +1464,9 @@
             dataGridViewLiveEventsV.Name = "dataGridViewLiveEventsV";
             dataGridViewLiveEventsV.ReadOnly = true;
             dataGridViewLiveEventsV.RowHeadersVisible = false;
-            searchObject2.SearchType = SearchIn.LiveEventName;
-            searchObject2.Text = "";
-            dataGridViewLiveEventsV.SearchInName = searchObject2;
+            searchObject1.SearchType = SearchIn.LiveEventName;
+            searchObject1.Text = "";
+            dataGridViewLiveEventsV.SearchInName = searchObject1;
             dataGridViewLiveEventsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dataGridViewLiveEventsV.TimeFilter = "Last week";
             dataGridViewLiveEventsV.CellDoubleClick += dataGridViewLiveV_CellDoubleClick;
@@ -1652,9 +1652,9 @@
             dataGridViewLiveOutputV.Name = "dataGridViewLiveOutputV";
             dataGridViewLiveOutputV.ReadOnly = true;
             dataGridViewLiveOutputV.RowHeadersVisible = false;
-            searchObject3.SearchType = SearchIn.LiveOutputName;
-            searchObject3.Text = "";
-            dataGridViewLiveOutputV.SearchInName = searchObject3;
+            searchObject2.SearchType = SearchIn.LiveOutputName;
+            searchObject2.Text = "";
+            dataGridViewLiveOutputV.SearchInName = searchObject2;
             dataGridViewLiveOutputV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dataGridViewLiveOutputV.TimeFilter = "Last week";
             dataGridViewLiveOutputV.CellDoubleClick += dataGridViewProgramV_CellDoubleClick;
@@ -2847,7 +2847,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem displayOutputUrlsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuMKIOGeneral;
         private System.Windows.Forms.ToolStripMenuItem createAssetToolStripMenuItem;
     }
 }

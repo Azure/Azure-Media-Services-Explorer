@@ -202,15 +202,15 @@ namespace AMSExplorer
                     migratedAssetsToMKIO = MKIOClient.Assets.List();
                 }
                 catch
-                { 
+                {
                     MKIOClient = null;
                     MessageBox.Show("Connection to MediaKind I/O failed. Restart the application to try again.", "No MKIO Connection");
                 }
-            } 
+            }
             else
             {
                 // MessageBox.Show("You will not be able to run any operations with MediaKind I/O unless connected. Restart the application to provide MediaKind connection information.", "No MKIO Connection");
-            }            
+            }
 
             // mainform title
             toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to {1} ({2})", Assembly.GetExecutingAssembly().GetName().Version, _accountname, _amsClient.AMSclient.Data.Location.DisplayName);
@@ -500,7 +500,7 @@ namespace AMSExplorer
 
                 try
                 {
-                    dataGridViewAssetsV.Init(_amsClient, SynchronizationContext.Current);
+                    dataGridViewAssetsV.Init(_amsClient, SynchronizationContext.Current, MKIOClient != null);
                     dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
                 }
                 catch (Exception ex)
@@ -3716,6 +3716,8 @@ namespace AMSExplorer
             ContextMenuItemAssetEditDescription.Enabled =
             editAlternateIdToolStripMenuItem.Enabled =
             createAnAssetFilterToolStripMenuItem.Enabled = singleitem;
+
+            toolStripMenuMKIOGeneral.Enabled = MKIOClient != null;
         }
 
 

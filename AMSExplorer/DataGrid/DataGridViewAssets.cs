@@ -101,7 +101,7 @@ namespace AMSExplorer
 
         public List<AssetSchema> ListMKIOAssets;
 
-        public void Init(AMSClientV3 client, SynchronizationContext syncontext)
+        public void Init(AMSClientV3 client, SynchronizationContext syncontext, bool enableMKIOInfo)
         {
             Debug.WriteLine("AssetsInit");
 
@@ -174,6 +174,7 @@ namespace AMSExplorer
             Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
             Columns["StorageAccountName"].HeaderText = "Storage account";
             Columns["MKIOMigrated"].HeaderText = "In MK/IO";
+            Columns["MKIOMigrated"].Visible = enableMKIOInfo;
             Columns["SizeLong"].Visible = false;
             Columns["LastModifiedOn"].Visible = false;
             Columns[_filter].DisplayIndex = lastColumn_sIndex;
