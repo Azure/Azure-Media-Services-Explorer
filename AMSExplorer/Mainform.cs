@@ -95,6 +95,7 @@ namespace AMSExplorer
         public string MKIOToken;
 
         public List<AssetSchema> migratedAssetsToMKIO;
+        public List<StorageResponseSchema> migratedStorageAccountsToMKIO;
 
         public Mainform(string[] args)
         {
@@ -200,6 +201,7 @@ namespace AMSExplorer
                 {
                     MKIOClient = new MKIOClient(MKIOSubscriptionName, MKIOToken);
                     migratedAssetsToMKIO = MKIOClient.Assets.List();
+                    migratedStorageAccountsToMKIO = MKIOClient.StorageAccounts.List();
                 }
                 catch
                 {
@@ -4479,6 +4481,7 @@ namespace AMSExplorer
                 dataGridViewStorage.Columns[1].HeaderText = "Id";
                 dataGridViewStorage.Columns[1].Width = 700;
 
+                // MK/IO column
                 dataGridViewStorage.Columns.RemoveAt(2);
                 var c = new DataGridViewCheckBoxColumn();
                 c.ValueType = typeof(bool);
@@ -4487,15 +4490,9 @@ namespace AMSExplorer
                 c.Visible = MKIOClient != null;
                 c.Width = 700;
                 dataGridViewStorage.Columns.Insert(2, c);
-
             }
+
             dataGridViewStorage.Rows.Clear();
-
-            List<StorageResponseSchema> storageMKIOList = new();
-            if (MKIOClient != null)
-            {
-                storageMKIOList = await MKIOClient.StorageAccounts.ListAsync();
-            }
 
             foreach (var storage in amsaccount.StorageAccounts)
             {
@@ -4513,8 +4510,8 @@ namespace AMSExplorer
                     dataGridViewStorage.Rows[rowi].Cells[0].ToolTipText = "Primary storage account";
                 }
 
-
-                if (MKIOClient != null && storageMKIOList.Select(s => s.Spec.Name).ToList().Contains(name))
+                // MK/IO flag storage display
+                if (MKIOClient != null && migratedStorageAccountsToMKIO.Select(s => s.Spec.Name).ToList().Contains(name))
                 {
                     dataGridViewStorage.Rows[rowi].Cells[2].Value = true;
                 }
