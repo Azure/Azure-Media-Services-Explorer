@@ -48,6 +48,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
+using Azure.ResourceManager.Storage.Models;
 
 namespace AMSExplorer
 {
@@ -3512,6 +3514,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
         }
@@ -4494,6 +4497,11 @@ namespace AMSExplorer
 
             dataGridViewStorage.Rows.Clear();
 
+            if (MKIOClient != null)
+            {
+                migratedStorageAccountsToMKIO = await MKIOClient.StorageAccounts.ListAsync();
+            }
+
             foreach (var storage in amsaccount.StorageAccounts)
             {
                 string name = AMSClientV3.GetStorageName(storage.Id);
@@ -4511,15 +4519,17 @@ namespace AMSExplorer
                 }
 
                 // MK/IO flag storage display
-                if (MKIOClient != null && migratedStorageAccountsToMKIO.Select(s => s.Spec.Name).ToList().Contains(name))
+                if (MKIOClient != null)
                 {
-                    dataGridViewStorage.Rows[rowi].Cells[2].Value = true;
+                    if (migratedStorageAccountsToMKIO.Select(s => s.Spec.Name).ToList().Contains(name))
+                    {
+                        dataGridViewStorage.Rows[rowi].Cells[2].Value = true;
+                    }
+                    else
+                    {
+                        dataGridViewStorage.Rows[rowi].Cells[2].Value = false;
+                    }
                 }
-                else
-                {
-                    dataGridViewStorage.Rows[rowi].Cells[2].Value = false;
-                }
-
             }
             tabPageStorage.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabStorage + " ({0})", amsaccount.StorageAccounts.Count));
         }
@@ -5195,6 +5205,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                         }
                         await Task.Delay(2000);
@@ -5250,6 +5261,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                         }
                         await Task.Delay(2000);
@@ -5308,6 +5320,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
 
                         }
@@ -5387,6 +5400,7 @@ namespace AMSExplorer
                         catch (Exception ex)
                         {
                             TextBoxLogWriteLine(ex);
+                            Telemetry.TrackException(ex);
                         }
                     }
                     await Task.Delay(2000);
@@ -5468,6 +5482,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
 
                         }
@@ -5556,6 +5571,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                         }
                         await Task.Delay(2000);
@@ -5607,6 +5623,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                         }
                         await Task.Delay(2000);
@@ -8336,6 +8353,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
 
                 finally
@@ -9444,6 +9462,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -9476,6 +9495,7 @@ namespace AMSExplorer
                 {
                     // connection error ?
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -9499,6 +9519,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -9520,6 +9541,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
             return SelectedTransforms;
@@ -9568,6 +9590,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -9598,6 +9621,7 @@ namespace AMSExplorer
                     catch (Exception ex)
                     {
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
                 }
 
@@ -9647,6 +9671,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
             SelectedOrigins.Reverse();
@@ -9684,6 +9709,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
             SelectedLiveOutputs.Reverse();
@@ -9848,9 +9874,10 @@ namespace AMSExplorer
 
         private async Task MKIOCreateAssetAsync()
         {
+            Telemetry.TrackEvent("MKIOCreateAssetAsync");
             if (MKIOClient == null)
             {
-                MessageBox.Show("Can't Create", "MKIO is not connected. Restart the application to connect.");
+                MessageBox.Show("Can't Create", "MK/IO is not connected. Restart the application to connect.");
             }
 
             var assets = await ReturnSelectedAssetsAsync();
@@ -9872,16 +9899,156 @@ namespace AMSExplorer
                     try
                     {
                         await MKIOClient.Assets.CreateOrUpdateAsync(assetName, asset.Data.Container, asset.Data.StorageAccountName, formAsset.AssetDescription);
-                        TextBoxLogWriteLine($"Asset '{assetName}' created in MK.IO");
+                        TextBoxLogWriteLine($"Asset '{assetName}' created in MK/IO");
                     }
                     catch (Exception ex)
                     {
-                        TextBoxLogWriteLine($"Error when creating asset '{assetName}' in MK.IO", true);
+                        TextBoxLogWriteLine($"Error when creating asset '{assetName}' in MK/IO", true);
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
                 }
             }
             DoRefreshGridAssetV(false);
+        }
+
+        private async void toolStripMenuItemRemoveStorageMKIO_Click(object sender, EventArgs e)
+        {
+            await DoMKIOStorageRemoveAsync();
+        }
+
+        private async Task DoMKIOStorageRemoveAsync()
+        {
+            Telemetry.TrackEvent("DoMKIOStorageRemoveAsync");
+
+            var storage = ReturnSelectedStorage();
+            if (storage == null || migratedStorageAccountsToMKIO.Count == 0) return;
+
+            string storName = AMSClientV3.GetStorageName(storage.Id);
+
+            var storageMKIOName = migratedStorageAccountsToMKIO.Where(s => s.Spec.Name == storName).FirstOrDefault();
+
+            if (storageMKIOName == null)
+            {
+                MessageBox.Show($"Storage account {storName} is not migrated to MK/IO", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // dialogbox to ask if user wants to remove the storage account
+            if (DialogResult.Yes == MessageBox.Show(string.Format("Are you sure you want to remove the storage account '{0}' ?", storName), "Storage account removal", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+            {
+                Cursor = Cursors.WaitCursor;
+                try
+                {
+                    await MKIOClient.StorageAccounts.DeleteAsync((Guid)storageMKIOName.Metadata.Id);
+                    TextBoxLogWriteLine($"Storage account '{storName}' removed from MK/IO");
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine($"Error when removing storage account '{storName}' from MK/IO", true);
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
+                }
+                await DoRefreshGridStorageVAsync(false);
+                Cursor = Cursors.Arrow;
+            }
+        }
+
+        private async void toolStripMenuItemAddStorageMKIO_Click(object sender, EventArgs e)
+        {
+            await DoMKIOStorageAddAsync();
+        }
+
+        private async Task DoMKIOStorageAddAsync()
+        {
+            Telemetry.TrackEvent("DoMKIOStorageAddAsync");
+
+            var storage = ReturnSelectedStorage();
+            if (storage == null) return;
+
+            string storName = AMSClientV3.GetStorageName(storage.Id);
+
+            migratedStorageAccountsToMKIO = await MKIOClient.StorageAccounts.ListAsync();
+            var storageMKIOName = migratedStorageAccountsToMKIO.Where(s => s.Spec.Name == storName).FirstOrDefault();
+
+            if (storageMKIOName != null && storageMKIOName.Spec.Name == storName)
+            {
+                MessageBox.Show($"Storage account {storName} is already migrated to MK/IO", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string valuekey = null;
+            bool Error = false;
+
+            if (Program.InputBox("Storage Account Key Needed", $"A SAS token valid 5 years will be created and provided to MK/IO.{Constants.endline}{Constants.endline}Please enter the Access Key for {storName} :", ref valuekey, true) != DialogResult.OK)
+            {
+                Error = true;
+            }
+
+            if (!Error)
+            {
+                string sasSig = string.Empty;
+                Uri blobEndpoint = null;
+
+                try
+                {
+                    CloudStorageAccount storageAccount = new(new StorageCredentials(storName, valuekey), _amsClient.environment.ReturnStorageSuffix(), true);
+
+                    SharedAccessAccountPolicy pol = new SharedAccessAccountPolicy()
+                    {
+                        Permissions = SharedAccessAccountPermissions.Read | SharedAccessAccountPermissions.Write | SharedAccessAccountPermissions.Delete | SharedAccessAccountPermissions.List | SharedAccessAccountPermissions.Add | SharedAccessAccountPermissions.Create | SharedAccessAccountPermissions.Update | SharedAccessAccountPermissions.ProcessMessages,
+                        SharedAccessExpiryTime = DateTimeOffset.UtcNow.AddYears(5),
+                        Services = SharedAccessAccountServices.Blob,
+                        ResourceTypes = SharedAccessAccountResourceTypes.Object | SharedAccessAccountResourceTypes.Container
+                    };
+                    Cursor = Cursors.WaitCursor;
+                    sasSig = storageAccount.GetSharedAccessSignature(pol);
+                    blobEndpoint = storageAccount.BlobEndpoint;
+                }
+                catch (Exception ex)
+                {
+                    Error = true;
+                    MessageBox.Show(ex.Message, "Error accessing the storage account", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
+                    Cursor = Cursors.Arrow;
+                    return;
+                }
+
+                try
+                {
+                    var storageMKIO = await MKIOClient.StorageAccounts.CreateAsync(new StorageRequestSchema
+                    {
+                        Spec = new StorageSchema
+                        {
+                            Name = storName,
+                            Location = _amsClient.AMSclient.Get().Value.Data.Location.Name,
+                            Description = "my description",
+                            AzureStorageConfiguration = new BlobStorageAzureProperties
+                            {
+                                Url = blobEndpoint.ToString() + sasSig
+                            }
+                        }
+                    }
+                    );
+
+                    TextBoxLogWriteLine($"Storage account '{storName}' added to MK/IO");
+
+                }
+                catch (Exception ex)
+                {
+                    Error = true;
+                    MessageBox.Show(ex.Message, "Error adding storage account to MK/IO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
+                    Cursor = Cursors.Arrow;
+                    return;
+                }
+            }
+
+            await DoRefreshGridStorageVAsync(false);
+            Cursor = Cursors.Arrow;
+
         }
     }
 }

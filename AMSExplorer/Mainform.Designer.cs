@@ -30,9 +30,9 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
-            SearchObject searchObject4 = new SearchObject();
             SearchObject searchObject1 = new SearchObject();
             SearchObject searchObject2 = new SearchObject();
+            SearchObject searchObject3 = new SearchObject();
             splitContainerMain = new System.Windows.Forms.SplitContainer();
             tabControlMain = new System.Windows.Forms.TabControl();
             tabPageAssets = new System.Windows.Forms.TabPage();
@@ -247,6 +247,10 @@
             toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             attachAnotherStorageAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             storageSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
+            mediaKindMKIOToolStripMenuItemStor = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemAddStorageMKIO = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemRemoveStorageMKIO = new System.Windows.Forms.ToolStripMenuItem();
             richTextBoxLog = new System.Windows.Forms.RichTextBox();
             contextMenuStripLog = new System.Windows.Forms.ContextMenuStrip(components);
             copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -467,9 +471,9 @@
             dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             dataGridViewAssetsV.ReadOnly = true;
             dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject4.SearchType = SearchIn.AssetNameEquals;
-            searchObject4.Text = "";
-            dataGridViewAssetsV.SearchInName = searchObject4;
+            searchObject1.SearchType = SearchIn.AssetNameEquals;
+            searchObject1.Text = "";
+            dataGridViewAssetsV.SearchInName = searchObject1;
             dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dataGridViewAssetsV.StateFilter = "";
             dataGridViewAssetsV.TimeFilter = "Last week";
@@ -1464,9 +1468,9 @@
             dataGridViewLiveEventsV.Name = "dataGridViewLiveEventsV";
             dataGridViewLiveEventsV.ReadOnly = true;
             dataGridViewLiveEventsV.RowHeadersVisible = false;
-            searchObject1.SearchType = SearchIn.LiveEventName;
-            searchObject1.Text = "";
-            dataGridViewLiveEventsV.SearchInName = searchObject1;
+            searchObject2.SearchType = SearchIn.LiveEventName;
+            searchObject2.Text = "";
+            dataGridViewLiveEventsV.SearchInName = searchObject2;
             dataGridViewLiveEventsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dataGridViewLiveEventsV.TimeFilter = "Last week";
             dataGridViewLiveEventsV.CellDoubleClick += dataGridViewLiveV_CellDoubleClick;
@@ -1652,9 +1656,9 @@
             dataGridViewLiveOutputV.Name = "dataGridViewLiveOutputV";
             dataGridViewLiveOutputV.ReadOnly = true;
             dataGridViewLiveOutputV.RowHeadersVisible = false;
-            searchObject2.SearchType = SearchIn.LiveOutputName;
-            searchObject2.Text = "";
-            dataGridViewLiveOutputV.SearchInName = searchObject2;
+            searchObject3.SearchType = SearchIn.LiveOutputName;
+            searchObject3.Text = "";
+            dataGridViewLiveOutputV.SearchInName = searchObject3;
             dataGridViewLiveOutputV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dataGridViewLiveOutputV.TimeFilter = "Last week";
             dataGridViewLiveOutputV.CellDoubleClick += dataGridViewProgramV_CellDoubleClick;
@@ -1929,7 +1933,7 @@
             // 
             // contextMenuStripStorage
             // 
-            contextMenuStripStorage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem2, attachAnotherStorageAccountToolStripMenuItem, storageSettingsToolStripMenuItem });
+            contextMenuStripStorage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem2, attachAnotherStorageAccountToolStripMenuItem, storageSettingsToolStripMenuItem, toolStripSeparator17, mediaKindMKIOToolStripMenuItemStor });
             contextMenuStripStorage.Name = "contextMenuStripStreamingEndpoints";
             resources.ApplyResources(contextMenuStripStorage, "contextMenuStripStorage");
             contextMenuStripStorage.Opening += contextMenuStripStorage_Opening;
@@ -1951,6 +1955,29 @@
             storageSettingsToolStripMenuItem.Name = "storageSettingsToolStripMenuItem";
             resources.ApplyResources(storageSettingsToolStripMenuItem, "storageSettingsToolStripMenuItem");
             storageSettingsToolStripMenuItem.Click += storageSettingsToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator17
+            // 
+            toolStripSeparator17.Name = "toolStripSeparator17";
+            resources.ApplyResources(toolStripSeparator17, "toolStripSeparator17");
+            // 
+            // mediaKindMKIOToolStripMenuItemStor
+            // 
+            mediaKindMKIOToolStripMenuItemStor.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemAddStorageMKIO, toolStripMenuItemRemoveStorageMKIO });
+            mediaKindMKIOToolStripMenuItemStor.Name = "mediaKindMKIOToolStripMenuItemStor";
+            resources.ApplyResources(mediaKindMKIOToolStripMenuItemStor, "mediaKindMKIOToolStripMenuItemStor");
+            // 
+            // toolStripMenuItemAddStorageMKIO
+            // 
+            toolStripMenuItemAddStorageMKIO.Name = "toolStripMenuItemAddStorageMKIO";
+            resources.ApplyResources(toolStripMenuItemAddStorageMKIO, "toolStripMenuItemAddStorageMKIO");
+            toolStripMenuItemAddStorageMKIO.Click += toolStripMenuItemAddStorageMKIO_Click;
+            // 
+            // toolStripMenuItemRemoveStorageMKIO
+            // 
+            toolStripMenuItemRemoveStorageMKIO.Name = "toolStripMenuItemRemoveStorageMKIO";
+            resources.ApplyResources(toolStripMenuItemRemoveStorageMKIO, "toolStripMenuItemRemoveStorageMKIO");
+            toolStripMenuItemRemoveStorageMKIO.Click += toolStripMenuItemRemoveStorageMKIO_Click;
             // 
             // richTextBoxLog
             // 
@@ -2849,6 +2876,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuMKIOGeneral;
         private System.Windows.Forms.ToolStripMenuItem createAssetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
+        private System.Windows.Forms.ToolStripMenuItem mediaKindMKIOToolStripMenuItemStor;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddStorageMKIO;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRemoveStorageMKIO;
     }
 }
 
