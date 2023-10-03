@@ -4469,7 +4469,7 @@ namespace AMSExplorer
             if (firstime)
             {
                 // Storage tab
-                dataGridViewStorage.ColumnCount = 2;
+                dataGridViewStorage.ColumnCount = 3;
 
                 dataGridViewStorage.Columns[0].Name = "Name";
                 dataGridViewStorage.Columns[0].HeaderText = "Name";
@@ -4478,8 +4478,24 @@ namespace AMSExplorer
                 dataGridViewStorage.Columns[1].Visible = false;
                 dataGridViewStorage.Columns[1].HeaderText = "Id";
                 dataGridViewStorage.Columns[1].Width = 700;
+
+                dataGridViewStorage.Columns.RemoveAt(2);
+                var c = new DataGridViewCheckBoxColumn();
+                c.ValueType = typeof(bool);
+                c.HeaderText = "in MK/IO";
+                c.Name = "MKIOMigrated";
+                c.Visible = MKIOClient != null;
+                c.Width = 700;
+                dataGridViewStorage.Columns.Insert(2, c);
+
             }
             dataGridViewStorage.Rows.Clear();
+
+            List<StorageResponseSchema> storageMKIOList = new();
+            if (MKIOClient != null)
+            {
+                storageMKIOList = await MKIOClient.StorageAccounts.ListAsync();
+            }
 
             foreach (var storage in amsaccount.StorageAccounts)
             {
@@ -4496,6 +4512,17 @@ namespace AMSExplorer
                     dataGridViewStorage.Rows[rowi].Cells[0].Style.ForeColor = Color.Blue;
                     dataGridViewStorage.Rows[rowi].Cells[0].ToolTipText = "Primary storage account";
                 }
+
+
+                if (MKIOClient != null && storageMKIOList.Select(s => s.Spec.Name).ToList().Contains(name))
+                {
+                    dataGridViewStorage.Rows[rowi].Cells[2].Value = true;
+                }
+                else
+                {
+                    dataGridViewStorage.Rows[rowi].Cells[2].Value = false;
+                }
+
             }
             tabPageStorage.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabStorage + " ({0})", amsaccount.StorageAccounts.Count));
         }
