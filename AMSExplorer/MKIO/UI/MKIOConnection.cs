@@ -17,7 +17,6 @@
 
 using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -51,7 +50,7 @@ namespace AMSExplorer
 
 You must have a MediaKind I/O subscription set up and use the MK/IO portal:
 https://io.mediakind.com
-The Subscription Name is the resource name in the MK/IO portal.
+The Subscription name is the resource name in the MK/IO portal.
 
 To get a MK/IO Token:
 1) Log into https://io.mediakind.com with Microsoft SSO

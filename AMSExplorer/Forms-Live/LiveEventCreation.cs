@@ -137,7 +137,7 @@ namespace AMSExplorer
         }
 
 
-        public LiveEventInputProtocol Protocol => new LiveEventInputProtocol((comboBoxProtocolInput.SelectedItem as Item).Value);
+        public LiveEventInputProtocol Protocol => new((comboBoxProtocolInput.SelectedItem as Item).Value);
 
         public TimeSpan? InputKeyframeIntervalSerialized
         {

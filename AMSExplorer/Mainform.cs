@@ -17,8 +17,6 @@
 // Azure Management dependencies
 
 
-using MK.IO;
-using MK.IO.Models;
 using AMSExplorer.Rest;
 using AMSExplorer.Utils.JobInfo;
 using AMSExplorer.Utils.TransformInfo;
@@ -31,6 +29,8 @@ using Microsoft.Azure.Storage.Auth;
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.Storage.DataMovement;
 using Microsoft.Azure.Storage.Shared.Protocol;
+using MK.IO;
+using MK.IO.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -48,8 +48,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
-using Microsoft.VisualBasic;
-using Azure.ResourceManager.Storage.Models;
 
 namespace AMSExplorer
 {
@@ -10009,7 +10007,7 @@ namespace AMSExplorer
                 {
                     CloudStorageAccount storageAccount = new(new StorageCredentials(storName, formStorageCreation.AccessKey), _amsClient.environment.ReturnStorageSuffix(), true);
 
-                    SharedAccessAccountPolicy pol = new SharedAccessAccountPolicy()
+                    SharedAccessAccountPolicy pol = new()
                     {
                         Permissions = SharedAccessAccountPermissions.Read | SharedAccessAccountPermissions.Write | SharedAccessAccountPermissions.Delete | SharedAccessAccountPermissions.List | SharedAccessAccountPermissions.Add | SharedAccessAccountPermissions.Create | SharedAccessAccountPermissions.Update | SharedAccessAccountPermissions.ProcessMessages,
                         SharedAccessExpiryTime = DateTimeOffset.UtcNow.AddMonths(formStorageCreation.SASDurationInMonths),

@@ -18,9 +18,7 @@ using AMSClient;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
 using Microsoft.Identity.Client;
-using Microsoft.Identity.Client.Broker;
 using Microsoft.Rest;
-using MK.IO;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -183,7 +181,7 @@ namespace AMSExplorer
 
 
             // form for MK/IO
-            MKIOConnection mkioConnectionForm = new MKIOConnection(credentialsEntry.MKIOSubscriptionName, credentialsEntry.MKIOClearToken);
+            MKIOConnection mkioConnectionForm = new(credentialsEntry.MKIOSubscriptionName, credentialsEntry.MKIOClearToken);
 
             if (mkioConnectionForm.ShowDialog() == DialogResult.OK)
             {

@@ -29,7 +29,7 @@ namespace AMSExplorer
 
         public const string GitHubAMSEVersionPrimaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/main/versionv3.json";
         public const string GitHubAMSEVersionSecondaryV3 = "https://amsexplorer.azureedge.net/release/versionv3.json";
-        
+
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
         public const string GitHubAMSELink = "http://aka.ms/amse";
 
