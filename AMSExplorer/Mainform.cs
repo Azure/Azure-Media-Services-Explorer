@@ -9909,7 +9909,13 @@ namespace AMSExplorer
                 foreach (var asset in assets)
                 {
                     string assetName = formAsset.AssetName.Replace(Constants.NameconvAsset, asset.Data.Name);
-                    string assetDescription = formAsset.AssetDescription.Replace(Constants.NameconvAssetDesc, asset.Data.Description);
+
+                    string assetDescription = null;
+                    if (formAsset.AssetDescription != null)
+                    {
+                        assetDescription = formAsset.AssetDescription.Replace(Constants.NameconvAssetDesc, asset.Data.Description);
+                    }
+
                     try
                     {
                         await MKIOClient.Assets.CreateOrUpdateAsync(assetName, asset.Data.Container, asset.Data.StorageAccountName, assetDescription);
