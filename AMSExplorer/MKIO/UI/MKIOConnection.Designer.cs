@@ -43,6 +43,8 @@
             dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             textInstructions = new System.Windows.Forms.TextBox();
+            linkLabelMKIO = new System.Windows.Forms.LinkLabel();
+            linkLabelMigration = new System.Windows.Forms.LinkLabel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -104,8 +106,8 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Bitmaps.mk_io_blue;
             resources.ApplyResources(pictureBox1, "pictureBox1");
+            pictureBox1.Image = Bitmaps.mk_io_blue;
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
             // 
@@ -121,10 +123,24 @@
             // 
             // textInstructions
             // 
-            textInstructions.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(textInstructions, "textInstructions");
+            textInstructions.BorderStyle = System.Windows.Forms.BorderStyle.None;
             textInstructions.Name = "textInstructions";
             textInstructions.ReadOnly = true;
+            // 
+            // linkLabelMKIO
+            // 
+            resources.ApplyResources(linkLabelMKIO, "linkLabelMKIO");
+            linkLabelMKIO.Name = "linkLabelMKIO";
+            linkLabelMKIO.TabStop = true;
+            linkLabelMKIO.LinkClicked += linkLabelMKIO_LinkClicked;
+            // 
+            // linkLabelMigration
+            // 
+            resources.ApplyResources(linkLabelMigration, "linkLabelMigration");
+            linkLabelMigration.Name = "linkLabelMigration";
+            linkLabelMigration.TabStop = true;
+            linkLabelMigration.LinkClicked += linkLabelMKIO_LinkClicked;
             // 
             // MKIOConnection
             // 
@@ -133,6 +149,8 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.SystemColors.Window;
             CancelButton = buttonCancel;
+            Controls.Add(linkLabelMigration);
+            Controls.Add(linkLabelMKIO);
             Controls.Add(textInstructions);
             Controls.Add(pictureBox1);
             Controls.Add(textMKToken);
@@ -166,5 +184,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Label labelNewAsset;
         private System.Windows.Forms.TextBox textInstructions;
+        private System.Windows.Forms.LinkLabel linkLabelMKIO;
+        private System.Windows.Forms.LinkLabel linkLabelMigration;
     }
 }

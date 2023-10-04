@@ -16,6 +16,7 @@
 
 
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -43,9 +44,12 @@ namespace AMSExplorer
             MKIOSubscriptionName = subscriptionName;
             MKIOToken = token;
 
+            linkLabelMKIO.Links.Add(new LinkLabel.Link(0, linkLabelMKIO.Text.Length, Constants.LinkMKIOPortal));
+            linkLabelMigration.Links.Add(new LinkLabel.Link(0, linkLabelMigration.Text.Length, Constants.LinkMKIOMigrationDoc));
+
             textInstructions.Text = @"Instructions:
 
-You must have a MediaKind I/O subscription set up and use the MediaKind MK/IO portal:
+You must have a MediaKind I/O subscription set up and use the MK/IO portal:
 https://io.mediakind.com
 The Subscription Name is the resource name in the MK/IO portal.
 
@@ -70,6 +74,19 @@ To get a MK/IO Token:
             {
                 this.DialogResult = DialogResult.None;
             }
+        }
+
+        private void linkLabelMKIO_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = e.Link.LinkData as string,
+                    UseShellExecute = true
+                }
+            };
+            p.Start();
         }
     }
 }

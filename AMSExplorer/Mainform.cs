@@ -192,16 +192,11 @@ namespace AMSExplorer
             // MKIO Connection            
             MKIOClient = null;
 
-            MKIOConnection mkioConnectionForm = new MKIOConnection(MKIOSubscriptionName, MKIOToken);
-
-            if (mkioConnectionForm.ShowDialog() == DialogResult.OK)
+            if (_amsClient.useMKIOConnection)
             {
-                MKIOSubscriptionName = mkioConnectionForm.MKIOSubscriptionName;
-                MKIOToken = mkioConnectionForm.MKIOToken;
-
                 try
                 {
-                    MKIOClient = new MKIOClient(MKIOSubscriptionName, MKIOToken);
+                    MKIOClient = new MKIOClient(_amsClient.credentialsEntry.MKIOSubscriptionName, _amsClient.credentialsEntry.MKIOClearToken);
                     migratedAssetsToMKIO = MKIOClient.Assets.List();
                     migratedStorageAccountsToMKIO = MKIOClient.StorageAccounts.List();
 
@@ -215,10 +210,6 @@ namespace AMSExplorer
                     MKIOClient = null;
                     MessageBox.Show("Connection to MediaKind MK/IO failed. Restart the application to try again.", "No MK/IO Connection");
                 }
-            }
-            else
-            {
-                // MessageBox.Show("You will not be able to run any operations with MediaKind I/O unless connected. Restart the application to provide MediaKind connection information.", "No MKIO Connection");
             }
 
             // mainform title

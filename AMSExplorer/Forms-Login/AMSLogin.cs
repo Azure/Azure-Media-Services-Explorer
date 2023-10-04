@@ -164,7 +164,7 @@ namespace AMSExplorer
                 return;
             }
 
-            // let's save the credentials (SP) They may be updated by the user when connecting
+            // let's save the credentials (SP) and MK/IO settings. They may be updated by the user when connecting
             CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]] = AmsClient.credentialsEntry;
             SaveCredentialsToSettings();
 
@@ -241,6 +241,7 @@ namespace AMSExplorer
                 if (!exportSPSecrets)
                 {
                     properties.Add("ClearADSPClientSecret");
+                    properties.Add("MKIOClearToken");
                 }
 
                 jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), properties.ToArray()); // let's not export encrypted secret and may be clear secret
@@ -341,6 +342,7 @@ namespace AMSExplorer
         {
             PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new();
             jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), "ClearADSPClientSecret"); // let's not save the clear SP secret
+            jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), "MKIOClearToken"); // let's not save the MK/IO token secret
             JsonSerializerSettings settings = new() { ContractResolver = jsonResolver };
             Properties.Settings.Default.LoginListRPv4JSON = JsonConvert.SerializeObject(CredentialList, settings);
             Program.SaveAndProtectUserConfig();
