@@ -21,7 +21,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class AssetCreationUpdate : Form
+    public partial class MKIOAssetCreationUpdate : Form
     {
         public enum AssetCreationMode
         {
@@ -54,7 +54,7 @@ namespace AMSExplorer
             set => textBoxStorage.Text = value;
         }
 
-        public AssetCreationUpdate(AssetCreationMode mode)
+        public MKIOAssetCreationUpdate(AssetCreationMode mode)
         {
             _mode = mode;
 

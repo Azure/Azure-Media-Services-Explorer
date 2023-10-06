@@ -17,6 +17,7 @@
 
 using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace AMSExplorer
@@ -56,12 +57,22 @@ To get a MK/IO Token:
 1) Log into https://io.mediakind.com with Microsoft SSO
 2) Then use the URL: https://api.io.mediakind.com/auth/token/
 3) Copy the token";
+
+            if (string.IsNullOrEmpty(subscriptionName))
+            {
+                this.AcceptButton = buttonDoNotConnectMKIO;
+            }
+            else
+            {
+                this.AcceptButton = buttonConnectMKIO;
+            }
         }
 
         private void MKIOConnection_Load(object sender, System.EventArgs e)
         {
 
         }
+
         private void MKIOConnection_Shown(object sender, System.EventArgs e)
         {
             Telemetry.TrackPageView(this.Name);
@@ -86,6 +97,20 @@ To get a MK/IO Token:
                 }
             };
             p.Start();
+        }
+
+        private void textSubscriptionName_TextChanged(object sender, System.EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textSubscriptionName.Text))
+            {
+                this.AcceptButton = buttonDoNotConnectMKIO;
+                buttonConnectMKIO.Enabled = false;
+            }
+            else
+            {
+                this.AcceptButton = buttonConnectMKIO;
+                buttonConnectMKIO.Enabled = true;
+            }
         }
     }
 }

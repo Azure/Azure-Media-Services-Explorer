@@ -30,8 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MKIOConnection));
-            buttonCancel = new System.Windows.Forms.Button();
-            buttonOk = new System.Windows.Forms.Button();
+            buttonDoNotConnectMKIO = new System.Windows.Forms.Button();
+            buttonConnectMKIO = new System.Windows.Forms.Button();
             panel1 = new System.Windows.Forms.Panel();
             labelNewAsset = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
@@ -39,7 +39,7 @@
             textMKToken = new System.Windows.Forms.TextBox();
             label2 = new System.Windows.Forms.Label();
             errorProvider1 = new System.Windows.Forms.ErrorProvider(components);
-            pictureBox1 = new System.Windows.Forms.PictureBox();
+            pictureBoxMKIO = new System.Windows.Forms.PictureBox();
             dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             textInstructions = new System.Windows.Forms.TextBox();
@@ -47,29 +47,29 @@
             linkLabelMigration = new System.Windows.Forms.LinkLabel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxMKIO).BeginInit();
             SuspendLayout();
             // 
-            // buttonCancel
+            // buttonDoNotConnectMKIO
             // 
-            resources.ApplyResources(buttonCancel, "buttonCancel");
-            buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            buttonCancel.Name = "buttonCancel";
-            buttonCancel.UseVisualStyleBackColor = true;
+            resources.ApplyResources(buttonDoNotConnectMKIO, "buttonDoNotConnectMKIO");
+            buttonDoNotConnectMKIO.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            buttonDoNotConnectMKIO.Name = "buttonDoNotConnectMKIO";
+            buttonDoNotConnectMKIO.UseVisualStyleBackColor = true;
             // 
-            // buttonOk
+            // buttonConnectMKIO
             // 
-            resources.ApplyResources(buttonOk, "buttonOk");
-            buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            buttonOk.Name = "buttonOk";
-            buttonOk.UseVisualStyleBackColor = true;
-            buttonOk.Click += buttonOk_Click;
+            resources.ApplyResources(buttonConnectMKIO, "buttonConnectMKIO");
+            buttonConnectMKIO.DialogResult = System.Windows.Forms.DialogResult.OK;
+            buttonConnectMKIO.Name = "buttonConnectMKIO";
+            buttonConnectMKIO.UseVisualStyleBackColor = true;
+            buttonConnectMKIO.Click += buttonOk_Click;
             // 
             // panel1
             // 
             panel1.BackColor = System.Drawing.SystemColors.Control;
-            panel1.Controls.Add(buttonCancel);
-            panel1.Controls.Add(buttonOk);
+            panel1.Controls.Add(buttonDoNotConnectMKIO);
+            panel1.Controls.Add(buttonConnectMKIO);
             resources.ApplyResources(panel1, "panel1");
             panel1.Name = "panel1";
             // 
@@ -88,6 +88,7 @@
             // 
             resources.ApplyResources(textSubscriptionName, "textSubscriptionName");
             textSubscriptionName.Name = "textSubscriptionName";
+            textSubscriptionName.TextChanged += textSubscriptionName_TextChanged;
             // 
             // textMKToken
             // 
@@ -104,12 +105,12 @@
             // 
             errorProvider1.ContainerControl = this;
             // 
-            // pictureBox1
+            // pictureBoxMKIO
             // 
-            resources.ApplyResources(pictureBox1, "pictureBox1");
-            pictureBox1.Image = Bitmaps.mk_io_blue;
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.TabStop = false;
+            resources.ApplyResources(pictureBoxMKIO, "pictureBoxMKIO");
+            pictureBoxMKIO.Image = Bitmaps.mk_io_blue;
+            pictureBoxMKIO.Name = "pictureBoxMKIO";
+            pictureBoxMKIO.TabStop = false;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -144,15 +145,15 @@
             // 
             // MKIOConnection
             // 
-            AcceptButton = buttonOk;
+            AcceptButton = buttonConnectMKIO;
             resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.SystemColors.Window;
-            CancelButton = buttonCancel;
+            CancelButton = buttonDoNotConnectMKIO;
             Controls.Add(linkLabelMigration);
             Controls.Add(linkLabelMKIO);
             Controls.Add(textInstructions);
-            Controls.Add(pictureBox1);
+            Controls.Add(pictureBoxMKIO);
             Controls.Add(textMKToken);
             Controls.Add(label2);
             Controls.Add(textSubscriptionName);
@@ -164,15 +165,15 @@
             Shown += MKIOConnection_Shown;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxMKIO).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        public System.Windows.Forms.Button buttonOk;
-        public System.Windows.Forms.Button buttonCancel;
+        public System.Windows.Forms.Button buttonConnectMKIO;
+        public System.Windows.Forms.Button buttonDoNotConnectMKIO;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.Panel panel1;
@@ -181,7 +182,7 @@
         private System.Windows.Forms.TextBox textMKToken;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxMKIO;
         public System.Windows.Forms.Label labelNewAsset;
         private System.Windows.Forms.TextBox textInstructions;
         private System.Windows.Forms.LinkLabel linkLabelMKIO;

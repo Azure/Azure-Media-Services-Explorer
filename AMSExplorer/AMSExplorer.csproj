@@ -133,13 +133,13 @@
     <Compile Update="AssetInfoTextTrackCreation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="MKIO\UI\StorageCreation.cs">
+    <Compile Update="MKIO\UI\MKIOStorageCreation.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="MKIO\UI\MKIOConnection.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="MKIO\UI\AssetCreationUpdate.cs">
+    <Compile Update="MKIO\UI\MKIOAssetCreationUpdate.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">

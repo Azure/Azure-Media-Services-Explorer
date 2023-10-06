@@ -339,6 +339,7 @@
             buttonRefreshTab = new System.Windows.Forms.Button();
             panelButtons = new System.Windows.Forms.Panel();
             notifyIcon1 = new System.Windows.Forms.NotifyIcon(components);
+            pictureBoxMKIO = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)splitContainerMain).BeginInit();
             splitContainerMain.Panel1.SuspendLayout();
             splitContainerMain.Panel2.SuspendLayout();
@@ -391,6 +392,7 @@
             menuStripMain.SuspendLayout();
             statusStrip1.SuspendLayout();
             panelButtons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxMKIO).BeginInit();
             SuspendLayout();
             // 
             // splitContainerMain
@@ -2493,11 +2495,19 @@
             notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             resources.ApplyResources(notifyIcon1, "notifyIcon1");
             // 
+            // pictureBoxMKIO
+            // 
+            resources.ApplyResources(pictureBoxMKIO, "pictureBoxMKIO");
+            pictureBoxMKIO.Image = Bitmaps.mk_io_blue;
+            pictureBoxMKIO.Name = "pictureBoxMKIO";
+            pictureBoxMKIO.TabStop = false;
+            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.WhiteSmoke;
+            Controls.Add(pictureBoxMKIO);
             Controls.Add(panelButtons);
             Controls.Add(splitContainerMain);
             Controls.Add(statusStrip1);
@@ -2569,6 +2579,7 @@
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             panelButtons.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBoxMKIO).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2880,6 +2891,7 @@
         private System.Windows.Forms.ToolStripMenuItem mediaKindMKIOToolStripMenuItemStor;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddStorageMKIO;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRemoveStorageMKIO;
+        private System.Windows.Forms.PictureBox pictureBoxMKIO;
     }
 }
 

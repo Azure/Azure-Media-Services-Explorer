@@ -19,7 +19,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class StorageCreation : Form
+    public partial class MKIOStorageCreation : Form
     {
         public string AccessKey
         {
@@ -48,7 +48,7 @@ namespace AMSExplorer
             set => textBoxRegion.Text = value;
         }
 
-        public StorageCreation()
+        public MKIOStorageCreation()
         {
             InitializeComponent();
         }

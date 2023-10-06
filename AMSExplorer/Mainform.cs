@@ -211,7 +211,13 @@ namespace AMSExplorer
             }
 
             // mainform title
-            toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to {1} ({2})", Assembly.GetExecutingAssembly().GetName().Version, _accountname, _amsClient.AMSclient.Data.Location.DisplayName);
+            toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to '{1}' ({2})", Assembly.GetExecutingAssembly().GetName().Version, _accountname, _amsClient.AMSclient.Data.Location.DisplayName);
+
+            if (MKIOClient != null)
+            {
+                toolStripStatusLabelConnection.Text += $" and '{_amsClient.credentialsEntry.MKIOSubscriptionName}' (MK/IO)";
+                pictureBoxMKIO.Visible = true;
+            }
 
             // notification title
             notifyIcon1.Text = string.Format(notifyIcon1.Text, _accountname);
@@ -5009,9 +5015,9 @@ namespace AMSExplorer
                         if (data.Encoding.EncodingType == firstLiveEvent.Data.Encoding.EncodingType)
                         {
 
-                            if (data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughStandard 
-                                && data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughBasic 
-                                && data.Encoding != null 
+                            if (data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughStandard
+                                && data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughBasic
+                                && data.Encoding != null
                                 && (data.ResourceState == LiveEventResourceState.Stopped || data.ResourceState == LiveEventResourceState.StandBy))
                             {
                                 if (modifications.SystemPreset)
@@ -9901,7 +9907,7 @@ namespace AMSExplorer
                 return;
             }
 
-            var formAsset = new AssetCreationUpdate(assets.Count == 1 ? AssetCreationUpdate.AssetCreationMode.Single : AssetCreationUpdate.AssetCreationMode.Multiple)
+            var formAsset = new MKIOAssetCreationUpdate(assets.Count == 1 ? MKIOAssetCreationUpdate.AssetCreationMode.Single : MKIOAssetCreationUpdate.AssetCreationMode.Multiple)
             {
                 AssetName = assets.Count == 1 ? assets.First().Data.Name : Constants.NameconvAsset,
                 AssetDescription = assets.Count == 1 ? assets.First().Data.Description : Constants.NameconvAssetDesc,
@@ -10002,7 +10008,7 @@ namespace AMSExplorer
                 return;
             }
 
-            StorageCreation formStorageCreation = new()
+            MKIOStorageCreation formStorageCreation = new()
             {
                 SASDurationInMonths = 120,
                 StorageName = storName,
