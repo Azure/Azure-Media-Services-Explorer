@@ -616,15 +616,6 @@
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>332, 6</value>
   </data>
-  <data name="withAdvancedTestPlayerToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Alt+Shift+P</value>
-  </data>
-  <data name="withAdvancedTestPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>335, 22</value>
-  </data>
-  <data name="withAdvancedTestPlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>with Avanced Test Player</value>
-  </data>
   <data name="ContextMenuItemPlaybackWithMPEGDASHIFReference.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Alt+D</value>
   </data>
@@ -3206,25 +3197,16 @@
     <value>Alt+P</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>307, 22</value>
+    <value>246, 22</value>
   </data>
   <data name="withAzureMediaPlayerToolStripMenuItem2.Text" xml:space="preserve">
     <value>with Azure Media Player</value>
-  </data>
-  <data name="withAdvancedTestPlayerToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Alt+Shift+P</value>
-  </data>
-  <data name="withAdvancedTestPlayerToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>307, 22</value>
-  </data>
-  <data name="withAdvancedTestPlayerToolStripMenuItem1.Text" xml:space="preserve">
-    <value>with Advanced Test Player</value>
   </data>
   <data name="withCustomPlayerToolStripMenuItem2.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Alt+Shift+P</value>
   </data>
   <data name="withCustomPlayerToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>307, 22</value>
+    <value>246, 22</value>
   </data>
   <data name="withCustomPlayerToolStripMenuItem2.Text" xml:space="preserve">
     <value>with Custom Player</value>
@@ -3246,7 +3228,7 @@
     <value>Playback the live output(s)</value>
   </data>
   <data name="contextMenuStripLiveOutputs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 192</value>
+    <value>277, 214</value>
   </data>
   <data name="&gt;&gt;contextMenuStripLiveOutputs.Name" xml:space="preserve">
     <value>contextMenuStripLiveOutputs</value>
@@ -4325,7 +4307,7 @@
     <value>F5</value>
   </data>
   <data name="refreshToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="refreshToolStripMenuItem.Text" xml:space="preserve">
     <value>Refresh all</value>
@@ -4339,7 +4321,7 @@
 </value>
   </data>
   <data name="optionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
     <value>Options...</value>
@@ -4394,20 +4376,6 @@
   </data>
   <data name="azureMediaServicesPlayerPageToolStripMenuItem.Text" xml:space="preserve">
     <value>Azure Media Player</value>
-  </data>
-  <data name="advancedTestPlayerToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAB/SURBVDhPzZBLDoAgDEThCrryhi48kS70RK69TZ1G
-        SJVvNSyc5BGSMo+AISJTiQUL4IMxThAPBA5LZhDPlQIOS1bwnAeCUjqwAykzSsG9fIDN7VWCsDwA+ZOK
-        IFX2uSQFQQ9yZR9bEowgV5bzlSdMIHWzWpDLjwVvwdpC8B0yJ5DUzNnliX0KAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="advancedTestPlayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 22</value>
-  </data>
-  <data name="advancedTestPlayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Advanced Test Player</value>
   </data>
   <data name="dASHIFHTML5ReferencePlayerToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4481,6 +4449,12 @@
   </data>
   <data name="hTML5CaptionMakerToolStripMenuItem.Text" xml:space="preserve">
     <value>HTML5 Caption Maker</value>
+  </data>
+  <data name="mKIOPortalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>250, 22</value>
+  </data>
+  <data name="mKIOPortalToolStripMenuItem.Text" xml:space="preserve">
+    <value>MK/IO Portal</value>
   </data>
   <data name="samplePlayersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 20</value>
@@ -4918,7 +4892,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBoxMKIO.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>11</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -5198,12 +5172,6 @@
   </data>
   <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;withAdvancedTestPlayerToolStripMenuItem.Name" xml:space="preserve">
-    <value>withAdvancedTestPlayerToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;withAdvancedTestPlayerToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ContextMenuItemPlaybackWithMPEGDASHIFReference.Name" xml:space="preserve">
     <value>ContextMenuItemPlaybackWithMPEGDASHIFReference</value>
@@ -5649,12 +5617,6 @@
   <data name="&gt;&gt;withAzureMediaPlayerToolStripMenuItem2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;withAdvancedTestPlayerToolStripMenuItem1.Name" xml:space="preserve">
-    <value>withAdvancedTestPlayerToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;withAdvancedTestPlayerToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;withCustomPlayerToolStripMenuItem2.Name" xml:space="preserve">
     <value>withCustomPlayerToolStripMenuItem2</value>
   </data>
@@ -6057,12 +6019,6 @@
   <data name="&gt;&gt;azureMediaServicesPlayerPageToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;advancedTestPlayerToolStripMenuItem.Name" xml:space="preserve">
-    <value>advancedTestPlayerToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;advancedTestPlayerToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;dASHIFHTML5ReferencePlayerToolStripMenuItem.Name" xml:space="preserve">
     <value>dASHIFHTML5ReferencePlayerToolStripMenuItem</value>
   </data>
@@ -6097,6 +6053,12 @@
     <value>hTML5CaptionMakerToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;hTML5CaptionMakerToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mKIOPortalToolStripMenuItem.Name" xml:space="preserve">
+    <value>mKIOPortalToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;mKIOPortalToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;helpToolStripMenuItem.Name" xml:space="preserve">

@@ -17,7 +17,6 @@
 
 using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace AMSExplorer

@@ -113,32 +113,32 @@ namespace AMSExplorer
             {
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = false;
+                    toolStripMenuItemAzureMediaPlayer.Enabled = false;
                     toolStripMenuItemDASHIF.Enabled = false;
                     toolStripMenuItemOpen.Enabled = false;
                     deleteLocatorToolStripMenuItem.Enabled = false;
 
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._smooth) || TreeViewLocators.SelectedNode.Parent.Text.Contains(AssetTools._smooth_legacy))
                     {
-                        toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = true;
+                        toolStripMenuItemAzureMediaPlayer.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemOpen.Enabled = false;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._dash_csf) || (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._dash_cmaf)))
                     {
-                        toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = true;
+                        toolStripMenuItemAzureMediaPlayer.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = true;
                         toolStripMenuItemOpen.Enabled = false;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._prog_down_https_SAS))
                     {
-                        toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
+                        toolStripMenuItemAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemOpen.Enabled = true;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._prog_down_http_streaming))
                     {
-                        toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
+                        toolStripMenuItemAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemOpen.Enabled = !(TreeViewLocators.SelectedNode.Text.ToLower().Contains(".ism"));
                     }
@@ -150,22 +150,6 @@ namespace AMSExplorer
             }
         }
 
-        private async void ToolStripMenuItemPlaybackMP4_Click(object sender, EventArgs e)
-        {
-            await DoAdvcTestPlayerAsync();
-        }
-
-        private async Task DoAdvcTestPlayerAsync()
-        {
-            if (TreeViewLocators.SelectedNode != null)
-            {
-                // Root node's Parent property is null, so do check
-                if (TreeViewLocators.SelectedNode.Parent != null)
-                {
-                    await AssetTools.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AdvancedTestPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
-                }
-            }
-        }
 
         private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
         {
@@ -1137,20 +1121,19 @@ namespace AMSExplorer
                         case "SmoothStreaming":
                         case "Hls":
                             buttonDASH.Enabled = false;
-                            buttonAzureMediaPlayer.Enabled = buttonAdvancedTestPlayer.Enabled = true;
+                            buttonAzureMediaPlayer.Enabled = true;
                             buttonOpen.Enabled = false;
                             break;
 
                         case "Dash":
                             buttonDASH.Enabled = true;
                             buttonAzureMediaPlayer.Enabled = true;
-                            buttonAdvancedTestPlayer.Enabled = true;
                             buttonOpen.Enabled = false;
                             break;
 
                         case "Download":
                             buttonDASH.Enabled = false;
-                            buttonAzureMediaPlayer.Enabled = buttonAdvancedTestPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
+                            buttonAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
                             buttonOpen.Enabled = true;
                             break;
                         /*
@@ -2384,11 +2367,6 @@ namespace AMSExplorer
             // for controls which are not using the default font
             // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator, contextMenuStripLocators, contextMenuStripDG, contextMenuStripBlobs, contextMenuStripKey, contextMenuStripFilter }, e, this);
             //DpiUtils.UpdatedSizeFontAfterDPIChangeV8(new List<Control> { textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator }, e, this);
-        }
-
-        private async void Button1_Click_2(object sender, EventArgs e)
-        {
-            await DoAzureMediaPlayerAsync(PlayerType.AdvancedTestPlayer);
         }
 
         private void ListViewFiles_DragEnter(object sender, DragEventArgs e)

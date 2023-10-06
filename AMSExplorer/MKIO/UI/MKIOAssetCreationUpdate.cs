@@ -95,7 +95,7 @@ Same behavior for {Asset Description}.";
 
         private void TextBoxAssetName_TextChanged(object sender, System.EventArgs e)
         {
-  
+
         }
 
         internal static bool IsAssetNameValid(string name)

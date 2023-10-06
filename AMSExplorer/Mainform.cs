@@ -8974,29 +8974,6 @@ namespace AMSExplorer
             p.Start();
         }
 
-        private async void WithAdvancedTestPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AdvancedTestPlayer);
-        }
-
-        private async void WithAdvancedTestPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AdvancedTestPlayer);
-        }
-
-        private void AdvancedTestPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var p = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = Constants.AdvancedTestPlayerRoot,
-                    UseShellExecute = true
-                }
-            };
-            p.Start();
-        }
-
         private async void NewAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await DoNewAssetAsync();
@@ -10078,6 +10055,19 @@ namespace AMSExplorer
             await DoRefreshGridStorageVAsync(false);
             Cursor = Cursors.Arrow;
 
+        }
+
+        private void mKIOPortalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.DemoCaptionMaker,
+                    UseShellExecute = true
+                }
+            };
+            p.Start();
         }
     }
 }

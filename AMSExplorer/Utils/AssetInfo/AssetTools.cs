@@ -1247,24 +1247,6 @@ namespace AMSExplorer
                     break;
 
 
-                case PlayerType.AdvancedTestPlayer:
-                    string playerurlAd = string.Empty;
-                    if (subtitleLanguageCode != null) // let's add the subtitle syntax to AMP
-                    {
-                        try
-                        {
-                            CultureInfo culture = CultureInfo.GetCultureInfo(subtitleLanguageCode);
-                            string trackName = WebUtility.HtmlEncode(culture.DisplayName);
-                            playerurlAd += $"&imsc1CaptionsSettings={trackName},{subtitleLanguageCode}";
-                        }
-                        catch
-                        {
-
-                        }
-                    }
-                    FullPlayBackLink = string.Format(Constants.AdvancedTestPlayer, HttpUtility.UrlEncode(path)) + playerurlAd;
-                    break;
-
                 case PlayerType.CustomPlayer:
                     string myurl = Properties.Settings.Default.CustomPlayerUrl;
                     FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, HttpUtility.UrlEncode(path)).Replace(Constants.NameconvToken, string.Empty /*tokenresult.TokenString*/);

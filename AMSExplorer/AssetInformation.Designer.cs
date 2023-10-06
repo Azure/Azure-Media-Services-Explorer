@@ -42,7 +42,6 @@
             deleteLocatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItemAzureMediaPlayer = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItemAdvPlayer = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItemDASHIF = new System.Windows.Forms.ToolStripMenuItem();
             TreeViewLocators = new System.Windows.Forms.TreeView();
             DGFiles = new System.Windows.Forms.DataGridView();
@@ -120,7 +119,6 @@
             label11 = new System.Windows.Forms.Label();
             comboBoxPolicyLocators = new System.Windows.Forms.ComboBox();
             tabPage3 = new System.Windows.Forms.TabPage();
-            buttonAdvancedTestPlayer = new System.Windows.Forms.Button();
             checkBoxHttps = new System.Windows.Forms.CheckBox();
             label2 = new System.Windows.Forms.Label();
             comboBoxStreamingEndpoint = new System.Windows.Forms.ComboBox();
@@ -222,7 +220,7 @@
             // 
             // contextMenuStripLocators
             // 
-            contextMenuStripLocators.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemCopy, deleteLocatorToolStripMenuItem, toolStripMenuItemOpen, toolStripMenuItemAzureMediaPlayer, toolStripMenuItemAdvPlayer, toolStripMenuItemDASHIF });
+            contextMenuStripLocators.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemCopy, deleteLocatorToolStripMenuItem, toolStripMenuItemOpen, toolStripMenuItemAzureMediaPlayer, toolStripMenuItemDASHIF });
             contextMenuStripLocators.Name = "contextMenuStripLocators";
             resources.ApplyResources(contextMenuStripLocators, "contextMenuStripLocators");
             contextMenuStripLocators.Opening += ContextMenuStripLocators_Opening;
@@ -250,12 +248,6 @@
             resources.ApplyResources(toolStripMenuItemAzureMediaPlayer, "toolStripMenuItemAzureMediaPlayer");
             toolStripMenuItemAzureMediaPlayer.Name = "toolStripMenuItemAzureMediaPlayer";
             toolStripMenuItemAzureMediaPlayer.Click += playbackWithToolStripMenuItem_Click;
-            // 
-            // toolStripMenuItemAdvPlayer
-            // 
-            resources.ApplyResources(toolStripMenuItemAdvPlayer, "toolStripMenuItemAdvPlayer");
-            toolStripMenuItemAdvPlayer.Name = "toolStripMenuItemAdvPlayer";
-            toolStripMenuItemAdvPlayer.Click += ToolStripMenuItemPlaybackMP4_Click;
             // 
             // toolStripMenuItemDASHIF
             // 
@@ -858,7 +850,6 @@
             // 
             // tabPage3
             // 
-            tabPage3.Controls.Add(buttonAdvancedTestPlayer);
             tabPage3.Controls.Add(checkBoxHttps);
             tabPage3.Controls.Add(label2);
             tabPage3.Controls.Add(comboBoxStreamingEndpoint);
@@ -872,13 +863,6 @@
             tabPage3.Name = "tabPage3";
             tabPage3.UseVisualStyleBackColor = true;
             tabPage3.Enter += tabPage3_Enter;
-            // 
-            // buttonAdvancedTestPlayer
-            // 
-            resources.ApplyResources(buttonAdvancedTestPlayer, "buttonAdvancedTestPlayer");
-            buttonAdvancedTestPlayer.Name = "buttonAdvancedTestPlayer";
-            buttonAdvancedTestPlayer.UseVisualStyleBackColor = true;
-            buttonAdvancedTestPlayer.Click += Button1_Click_2;
             // 
             // checkBoxHttps
             // 
@@ -1113,7 +1097,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDG;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDASHIF;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAdvPlayer;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpen;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripBlobs;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenFile;
@@ -1180,7 +1163,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Button buttonAdvancedTestPlayer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.CheckBox checkBoxListBlobsDirectories;

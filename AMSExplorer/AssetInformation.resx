@@ -1,4 +1,64 @@
-﻿<root>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema 
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -311,25 +371,6 @@
   <data name="toolStripMenuItemAzureMediaPlayer.Text" xml:space="preserve">
     <value>Playback with Azure Media Player</value>
   </data>
-  <data name="toolStripMenuItemAdvPlayer.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripMenuItemAdvPlayer.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADMSURBVDhPpZNNCsIwEIXjxjMonsKjeBbxB8GjiAcR
-        0WuIC72BC124EX1fSGUaJ63QBx+UyXtpZ5oER0MxFztxSvC8EKwV1RME7+JdgDU8eGuisBVeyANvbRN2
-        9YxN0FIUfT1EbpiIc1azkIkzWadCDuqLmSjNhWw4moLFijdtxEtYD9lwNQWLp7E4iMpzEd03+KeFgSi2
-        0DbEqbgJzxOHOBLPVLC0/UYyZKOWwjM1sRJfdT7KiAJf0naZ8PyErTg0nPO9qK4zz851DuED6SWnRpjU
-        o+4AAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="toolStripMenuItemAdvPlayer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>322, 22</value>
-  </data>
-  <data name="toolStripMenuItemAdvPlayer.Text" xml:space="preserve">
-    <value>Playback with Advanced Test Player</value>
-  </data>
   <data name="toolStripMenuItemDASHIF.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -380,7 +421,7 @@
     <value>tabPage3</value>
   </data>
   <data name="&gt;&gt;TreeViewLocators.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="DGFiles.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Right</value>
@@ -898,25 +939,25 @@
     <value>193, 56</value>
   </metadata>
   <data name="deleteTrackToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>147, 22</value>
   </data>
   <data name="deleteTrackToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete track...</value>
   </data>
   <data name="addTrackToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>147, 22</value>
   </data>
   <data name="addTrackToolStripMenuItem.Text" xml:space="preserve">
     <value>Add track...</value>
   </data>
   <data name="editSettingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>147, 22</value>
   </data>
   <data name="editSettingsToolStripMenuItem.Text" xml:space="preserve">
     <value>Edit settings...</value>
   </data>
   <data name="contextMenuStripTracks.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 92</value>
+    <value>148, 70</value>
   </data>
   <data name="&gt;&gt;contextMenuStripTracks.Name" xml:space="preserve">
     <value>contextMenuStripTracks</value>
@@ -1997,39 +2038,6 @@
   <data name="&gt;&gt;tabPagePolicy.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="buttonAdvancedTestPlayer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonAdvancedTestPlayer.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonAdvancedTestPlayer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonAdvancedTestPlayer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>247, 472</value>
-  </data>
-  <data name="buttonAdvancedTestPlayer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 27</value>
-  </data>
-  <data name="buttonAdvancedTestPlayer.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
-  </data>
-  <data name="buttonAdvancedTestPlayer.Text" xml:space="preserve">
-    <value>Advanced Test Player</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvancedTestPlayer.Name" xml:space="preserve">
-    <value>buttonAdvancedTestPlayer</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvancedTestPlayer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvancedTestPlayer.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvancedTestPlayer.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="checkBoxHttps.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -2058,7 +2066,7 @@
     <value>tabPage3</value>
   </data>
   <data name="&gt;&gt;checkBoxHttps.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2085,7 +2093,7 @@
     <value>tabPage3</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="comboBoxStreamingEndpoint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -2112,7 +2120,7 @@
     <value>tabPage3</value>
   </data>
   <data name="&gt;&gt;comboBoxStreamingEndpoint.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="buttonOpen.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -2142,7 +2150,7 @@
     <value>tabPage3</value>
   </data>
   <data name="&gt;&gt;buttonOpen.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="buttonDel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -2172,7 +2180,7 @@
     <value>tabPage3</value>
   </data>
   <data name="&gt;&gt;buttonDel.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="buttonAzureMediaPlayer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -2202,7 +2210,7 @@
     <value>tabPage3</value>
   </data>
   <data name="&gt;&gt;buttonAzureMediaPlayer.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="buttonDASH.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -2211,7 +2219,7 @@
     <value>False</value>
   </data>
   <data name="buttonDASH.Location" type="System.Drawing.Point, System.Drawing">
-    <value>384, 472</value>
+    <value>247, 472</value>
   </data>
   <data name="buttonDASH.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 27</value>
@@ -2232,7 +2240,7 @@
     <value>tabPage3</value>
   </data>
   <data name="&gt;&gt;buttonDASH.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -2262,7 +2270,7 @@
     <value>tabPage3</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -2656,12 +2664,6 @@
     <value>toolStripMenuItemAzureMediaPlayer</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItemAzureMediaPlayer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemAdvPlayer.Name" xml:space="preserve">
-    <value>toolStripMenuItemAdvPlayer</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemAdvPlayer.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItemDASHIF.Name" xml:space="preserve">

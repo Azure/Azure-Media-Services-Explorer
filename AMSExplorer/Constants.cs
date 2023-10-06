@@ -85,14 +85,14 @@ namespace AMSExplorer
         public const string PlayerDASHIFToLaunch = @"https://reference.dashif.org/dash.js/latest/samples/dash-if-reference-player/index.html?url={0}";
 
         public const string PlayerMP4AzurePage = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
-        public const string AdvancedTestPlayerRoot = @"https://openidconnectweb.azurewebsites.net/AMTestPlayer";
-        public const string AdvancedTestPlayer = AdvancedTestPlayerRoot + @"?url={0}";
 
         public const string PlayerInfoHTML5Video = @"https://www.w3schools.com/html/html5_video.asp";
         public const string PlayerJWPlayerPartnership = @"https://www.jwplayer.com/";
         public const string PlayerTHEOplayerPartnership = @"https://www.theoplayer.com/partners/azure";
 
         public const string DemoCaptionMaker = @"https://testdrive-archive.azurewebsites.net/Graphics/CaptionMaker/Default.html";
+
+        public const string MKIOPortal = @"https://io.mediakind.com";
 
         public const string LinkFeedbackAMS = "https://aka.ms/amsvoice";
 
