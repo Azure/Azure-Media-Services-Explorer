@@ -5009,7 +5009,10 @@ namespace AMSExplorer
                         if (data.Encoding.EncodingType == firstLiveEvent.Data.Encoding.EncodingType)
                         {
 
-                            if (data.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && data.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic && data.Encoding != null && (data.ResourceState == LiveEventResourceState.Stopped || data.ResourceState == LiveEventResourceState.StandBy))
+                            if (data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughStandard 
+                                && data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughBasic 
+                                && data.Encoding != null 
+                                && (data.ResourceState == LiveEventResourceState.Stopped || data.ResourceState == LiveEventResourceState.StandBy))
                             {
                                 if (modifications.SystemPreset)
                                 {
@@ -5026,7 +5029,9 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine("Live event '{0}' : must be stopped or in standbye to update the encoding settings", liveEvent.Name);
                             }
                             */
-                            else if (data.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && liveEvent.Data.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic && data.Encoding == null)
+                            else if (data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughStandard
+                                && liveEvent.Data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughBasic
+                                && data.Encoding == null)
                             {
                                 TextBoxLogWriteLine("Live event '{0}' : configured as encoding live event but settings are null", data.Name, true);
                             }
@@ -5648,7 +5653,7 @@ namespace AMSExplorer
             {
                 string uniqueness = Program.GetUniqueness();
 
-                bool isBasic = liveEvent.Data.Encoding.EncodingType != null ? liveEvent.Data.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic : false;
+                bool isBasic = liveEvent.Data.Encoding.EncodingType != null ? liveEvent.Data.Encoding.EncodingType == Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughBasic : false;
 
                 LiveOutputCreation form = new(_amsClient)
                 {
@@ -7056,7 +7061,7 @@ namespace AMSExplorer
             {
                 sbuilder.AppendLine(string.Empty);
                 sbuilder.AppendLine(endpoint.Uri.ToString());
-                if (liveEvent.Data.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMp4)
+                if (liveEvent.Data.Input.StreamingProtocol == Azure.ResourceManager.Media.Models.LiveEventInputProtocol.FragmentedMp4)
                 {
                     sbuilder.AppendLine(string.Empty);
                     sbuilder.AppendLine(endpoint.Uri.ToString().Replace("http://", "https://"));
