@@ -391,7 +391,7 @@
     <value>Playback with MPEG-DASH-IF Reference Player</value>
   </data>
   <data name="contextMenuStripLocators.Size" type="System.Drawing.Size, System.Drawing">
-    <value>323, 136</value>
+    <value>323, 114</value>
   </data>
   <data name="&gt;&gt;contextMenuStripLocators.Name" xml:space="preserve">
     <value>contextMenuStripLocators</value>
@@ -2105,7 +2105,7 @@
     <value>136, 7</value>
   </data>
   <data name="comboBoxStreamingEndpoint.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 23</value>
+    <value>430, 23</value>
   </data>
   <data name="comboBoxStreamingEndpoint.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
@@ -2298,6 +2298,231 @@
   </data>
   <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="pictureBoxMKIO.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="pictureBoxMKIO.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pictureBoxMKIO.Location" type="System.Drawing.Point, System.Drawing">
+    <value>791, 6</value>
+  </data>
+  <data name="pictureBoxMKIO.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 27</value>
+  </data>
+  <data name="pictureBoxMKIO.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>AutoSize</value>
+  </data>
+  <data name="pictureBoxMKIO.TabIndex" type="System.Int32, mscorlib">
+    <value>90</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxMKIO.Name" xml:space="preserve">
+    <value>pictureBoxMKIO</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxMKIO.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxMKIO.Parent" xml:space="preserve">
+    <value>tabPageMKIO</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxMKIO.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label16.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 236</value>
+  </data>
+  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 15</value>
+  </data>
+  <data name="label16.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>Locators and streaming Urls :</value>
+  </data>
+  <data name="&gt;&gt;label16.Name" xml:space="preserve">
+    <value>label16</value>
+  </data>
+  <data name="&gt;&gt;label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
+    <value>tabPageMKIO</value>
+  </data>
+  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label15.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 21</value>
+  </data>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 15</value>
+  </data>
+  <data name="label15.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>Asset information :</value>
+  </data>
+  <data name="&gt;&gt;label15.Name" xml:space="preserve">
+    <value>label15</value>
+  </data>
+  <data name="&gt;&gt;label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
+    <value>tabPageMKIO</value>
+  </data>
+  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="TreeViewLocatorsMKIO.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="TreeViewLocatorsMKIO.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 254</value>
+  </data>
+  <data name="TreeViewLocatorsMKIO.Size" type="System.Drawing.Size, System.Drawing">
+    <value>863, 247</value>
+  </data>
+  <data name="TreeViewLocatorsMKIO.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="&gt;&gt;TreeViewLocatorsMKIO.Name" xml:space="preserve">
+    <value>TreeViewLocatorsMKIO</value>
+  </data>
+  <data name="&gt;&gt;TreeViewLocatorsMKIO.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TreeViewLocatorsMKIO.Parent" xml:space="preserve">
+    <value>tabPageMKIO</value>
+  </data>
+  <data name="&gt;&gt;TreeViewLocatorsMKIO.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label14.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 207</value>
+  </data>
+  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 15</value>
+  </data>
+  <data name="label14.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>Streaming endpoint :</value>
+  </data>
+  <data name="&gt;&gt;label14.Name" xml:space="preserve">
+    <value>label14</value>
+  </data>
+  <data name="&gt;&gt;label14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label14.Parent" xml:space="preserve">
+    <value>tabPageMKIO</value>
+  </data>
+  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="comboBoxSEMKIO.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="comboBoxSEMKIO.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>System</value>
+  </data>
+  <data name="comboBoxSEMKIO.Location" type="System.Drawing.Point, System.Drawing">
+    <value>132, 204</value>
+  </data>
+  <data name="comboBoxSEMKIO.Size" type="System.Drawing.Size, System.Drawing">
+    <value>460, 23</value>
+  </data>
+  <data name="comboBoxSEMKIO.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSEMKIO.Name" xml:space="preserve">
+    <value>comboBoxSEMKIO</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSEMKIO.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSEMKIO.Parent" xml:space="preserve">
+    <value>tabPageMKIO</value>
+  </data>
+  <data name="&gt;&gt;comboBoxSEMKIO.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="DGMKIOInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="DGMKIOInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 39</value>
+  </data>
+  <data name="DGMKIOInfo.RowHeadersWidth" type="System.Int32, mscorlib">
+    <value>82</value>
+  </data>
+  <data name="DGMKIOInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>867, 153</value>
+  </data>
+  <data name="DGMKIOInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;DGMKIOInfo.Name" xml:space="preserve">
+    <value>DGMKIOInfo</value>
+  </data>
+  <data name="&gt;&gt;DGMKIOInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DGMKIOInfo.Parent" xml:space="preserve">
+    <value>tabPageMKIO</value>
+  </data>
+  <data name="&gt;&gt;DGMKIOInfo.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="tabPageMKIO.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tabPageMKIO.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageMKIO.Size" type="System.Drawing.Size, System.Drawing">
+    <value>879, 507</value>
+  </data>
+  <data name="tabPageMKIO.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="tabPageMKIO.Text" xml:space="preserve">
+    <value>MK/IO</value>
+  </data>
+  <data name="&gt;&gt;tabPageMKIO.Name" xml:space="preserve">
+    <value>tabPageMKIO</value>
+  </data>
+  <data name="&gt;&gt;tabPageMKIO.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageMKIO.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPageMKIO.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 51</value>

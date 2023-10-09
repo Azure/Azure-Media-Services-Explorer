@@ -90,7 +90,7 @@ namespace AMSExplorer
         private record QuotaMetrics(string Name, string CountMetric, string QuotaMetric);
         private Dictionary<string, double?> QuotasValues;
 
-        public MKIOClient MKIOClient;
+        public MKIOClient MKIOclient;
         public string MKIOSubscriptionName;
         public string MKIOToken;
 
@@ -188,15 +188,15 @@ namespace AMSExplorer
             });
 
             // MKIO Connection            
-            MKIOClient = null;
+            MKIOclient = null;
 
             if (_amsClient.useMKIOConnection)
             {
                 try
                 {
-                    MKIOClient = new MKIOClient(_amsClient.credentialsEntry.MKIOSubscriptionName, _amsClient.credentialsEntry.MKIOClearToken);
-                    migratedAssetsToMKIO = MKIOClient.Assets.List();
-                    migratedStorageAccountsToMKIO = MKIOClient.StorageAccounts.List();
+                    MKIOclient = new MKIOClient(_amsClient.credentialsEntry.MKIOSubscriptionName, _amsClient.credentialsEntry.MKIOClearToken);
+                    migratedAssetsToMKIO = MKIOclient.Assets.List();
+                    migratedStorageAccountsToMKIO = MKIOclient.StorageAccounts.List();
 
                     if (migratedStorageAccountsToMKIO.Count == 0)
                     {
@@ -205,7 +205,7 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    MKIOClient = null;
+                    MKIOclient = null;
                     MessageBox.Show("Connection to MediaKind MK/IO failed. Restart the application to try again.", "No MK/IO Connection");
                 }
             }
@@ -213,7 +213,7 @@ namespace AMSExplorer
             // mainform title
             toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to '{1}' ({2})", Assembly.GetExecutingAssembly().GetName().Version, _accountname, _amsClient.AMSclient.Data.Location.DisplayName);
 
-            if (MKIOClient != null)
+            if (MKIOclient != null)
             {
                 toolStripStatusLabelConnection.Text += $" and '{_amsClient.credentialsEntry.MKIOSubscriptionName}' (MK/IO)";
                 pictureBoxMKIO.Visible = true;
@@ -504,7 +504,7 @@ namespace AMSExplorer
 
                 try
                 {
-                    dataGridViewAssetsV.Init(_amsClient, SynchronizationContext.Current, MKIOClient != null);
+                    dataGridViewAssetsV.Init(_amsClient, SynchronizationContext.Current, MKIOclient != null);
                     dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
                 }
                 catch (Exception ex)
@@ -528,7 +528,7 @@ namespace AMSExplorer
                     if (!firstime)
                     {
                         //Refresh MK/IO Assets
-                        migratedAssetsToMKIO = await MKIOClient.Assets.ListAsync();
+                        migratedAssetsToMKIO = await MKIOclient.Assets.ListAsync();
                         dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
                     }
 
@@ -1934,7 +1934,8 @@ namespace AMSExplorer
                             this,
                             _amsClient,
                             asset,
-                            dataGridViewStreamingEndpointsV.GetDisplayedStreamingEndpoints(_amsClient) // we want to keep the same sorting
+                            dataGridViewStreamingEndpointsV.GetDisplayedStreamingEndpoints(_amsClient), // we want to keep the same sorting
+                            MKIOclient
                         );
 
                         dialogResult = form.ShowDialog(this);
@@ -3722,7 +3723,7 @@ namespace AMSExplorer
             editAlternateIdToolStripMenuItem.Enabled =
             createAnAssetFilterToolStripMenuItem.Enabled = singleitem;
 
-            toolStripMenuMKIOGeneral.Enabled = MKIOClient != null;
+            toolStripMenuMKIOGeneral.Enabled = MKIOclient != null;
         }
 
 
@@ -4490,16 +4491,16 @@ namespace AMSExplorer
                 c.ValueType = typeof(bool);
                 c.HeaderText = "in MK/IO";
                 c.Name = "MKIOMigrated";
-                c.Visible = MKIOClient != null;
+                c.Visible = MKIOclient != null;
                 c.Width = 700;
                 dataGridViewStorage.Columns.Insert(2, c);
             }
 
             dataGridViewStorage.Rows.Clear();
 
-            if (MKIOClient != null)
+            if (MKIOclient != null)
             {
-                migratedStorageAccountsToMKIO = await MKIOClient.StorageAccounts.ListAsync();
+                migratedStorageAccountsToMKIO = await MKIOclient.StorageAccounts.ListAsync();
             }
 
             foreach (var storage in amsaccount.StorageAccounts)
@@ -4519,7 +4520,7 @@ namespace AMSExplorer
                 }
 
                 // MK/IO flag storage display
-                if (MKIOClient != null)
+                if (MKIOclient != null)
                 {
                     if (migratedStorageAccountsToMKIO.Select(s => s.Spec.Name).ToList().Contains(name))
                     {
@@ -9857,7 +9858,7 @@ namespace AMSExplorer
         private async Task MKIOCreateAssetAsync()
         {
             Telemetry.TrackEvent("MKIOCreateAssetAsync");
-            if (MKIOClient == null)
+            if (MKIOclient == null)
             {
                 MessageBox.Show("Can't Create", "MK/IO is not connected. Restart the application to connect.");
             }
@@ -9906,7 +9907,7 @@ namespace AMSExplorer
 
                     try
                     {
-                        await MKIOClient.Assets.CreateOrUpdateAsync(assetName, asset.Data.Container, asset.Data.StorageAccountName, assetDescription);
+                        await MKIOclient.Assets.CreateOrUpdateAsync(assetName, asset.Data.Container, asset.Data.StorageAccountName, assetDescription);
                         TextBoxLogWriteLine($"Asset '{assetName}' created in MK/IO");
                     }
                     catch (Exception ex)
@@ -9915,6 +9916,36 @@ namespace AMSExplorer
                         TextBoxLogWriteLine(ex);
                         Telemetry.TrackException(ex);
                     }
+
+                    try
+                    {
+                        var amsLocators = await asset.GetStreamingLocatorsAsync().ToListAsync();
+                        foreach (var locator in amsLocators)
+                        {
+                            if (locator.StreamingPolicyName == PredefinedStreamingPolicy.ClearStreamingOnly)
+                            {
+                                var locatorRes = (await _amsClient.AMSclient.GetStreamingLocatorAsync(locator.Name)).Value;
+                                // easy
+                                await MKIOclient.StreamingLocators.CreateAsync(locator.Name, new StreamingLocatorProperties
+                                {
+                                    AssetName = assetName,
+                                    StartTime = locator.StartOn?.UtcDateTime.ToString("s") + "Z",
+                                    EndTime = locator.EndOn?.UtcDateTime.ToString("s") + "Z",
+                                    StreamingPolicyName = locator.StreamingPolicyName,
+                                    StreamingLocatorId = locator.StreamingLocatorId.ToString(),
+                                    Filters = locatorRes.Data.Filters?.ToList()
+                                }
+                                );
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine($"Error when duplicating locators for asset '{assetName}' in MK/IO.", true);
+                        TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
+                    }
+
                 }
             }
             DoRefreshGridAssetV(false);
@@ -9948,7 +9979,7 @@ namespace AMSExplorer
                 Cursor = Cursors.WaitCursor;
                 try
                 {
-                    await MKIOClient.StorageAccounts.DeleteAsync((Guid)storageMKIOName.Metadata.Id);
+                    await MKIOclient.StorageAccounts.DeleteAsync((Guid)storageMKIOName.Metadata.Id);
                     TextBoxLogWriteLine($"Storage account '{storName}' removed from MK/IO");
                 }
                 catch (Exception ex)
@@ -9976,7 +10007,7 @@ namespace AMSExplorer
 
             string storName = AMSClientV3.GetStorageName(storage.Id);
 
-            migratedStorageAccountsToMKIO = await MKIOClient.StorageAccounts.ListAsync();
+            migratedStorageAccountsToMKIO = await MKIOclient.StorageAccounts.ListAsync();
             var storageMKIOName = migratedStorageAccountsToMKIO.Where(s => s.Spec.Name == storName).FirstOrDefault();
 
             if (storageMKIOName != null && storageMKIOName.Spec.Name == storName)
@@ -10024,7 +10055,7 @@ namespace AMSExplorer
 
                 try
                 {
-                    var storageMKIO = await MKIOClient.StorageAccounts.CreateAsync(new StorageRequestSchema
+                    var storageMKIO = await MKIOclient.StorageAccounts.CreateAsync(new StorageRequestSchema
                     {
                         Spec = new StorageSchema
                         {

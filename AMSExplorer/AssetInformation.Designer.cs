@@ -33,6 +33,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             DGAsset = new System.Windows.Forms.DataGridView();
             contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(components);
             toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
@@ -127,6 +130,14 @@
             buttonAzureMediaPlayer = new System.Windows.Forms.Button();
             buttonDASH = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
+            tabPageMKIO = new System.Windows.Forms.TabPage();
+            pictureBoxMKIO = new System.Windows.Forms.PictureBox();
+            label16 = new System.Windows.Forms.Label();
+            label15 = new System.Windows.Forms.Label();
+            TreeViewLocatorsMKIO = new System.Windows.Forms.TreeView();
+            label14 = new System.Windows.Forms.Label();
+            comboBoxSEMKIO = new System.Windows.Forms.ComboBox();
+            DGMKIOInfo = new System.Windows.Forms.DataGridView();
             contextMenuStripKey = new System.Windows.Forms.ContextMenuStrip(components);
             removeKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             labelAssetNameTitle = new System.Windows.Forms.Label();
@@ -174,6 +185,9 @@
             tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewKeys).BeginInit();
             tabPage3.SuspendLayout();
+            tabPageMKIO.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxMKIO).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DGMKIOInfo).BeginInit();
             contextMenuStripKey.SuspendLayout();
             panel1.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
@@ -371,6 +385,7 @@
             tabControl1.Controls.Add(tabPage6);
             tabControl1.Controls.Add(tabPagePolicy);
             tabControl1.Controls.Add(tabPage3);
+            tabControl1.Controls.Add(tabPageMKIO);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Selected += tabControl1_Selected;
@@ -919,6 +934,96 @@
             resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
             // 
+            // tabPageMKIO
+            // 
+            tabPageMKIO.Controls.Add(pictureBoxMKIO);
+            tabPageMKIO.Controls.Add(label16);
+            tabPageMKIO.Controls.Add(label15);
+            tabPageMKIO.Controls.Add(TreeViewLocatorsMKIO);
+            tabPageMKIO.Controls.Add(label14);
+            tabPageMKIO.Controls.Add(comboBoxSEMKIO);
+            tabPageMKIO.Controls.Add(DGMKIOInfo);
+            resources.ApplyResources(tabPageMKIO, "tabPageMKIO");
+            tabPageMKIO.Name = "tabPageMKIO";
+            tabPageMKIO.UseVisualStyleBackColor = true;
+            tabPageMKIO.Enter += tabPageMKIO_Enter;
+            // 
+            // pictureBoxMKIO
+            // 
+            resources.ApplyResources(pictureBoxMKIO, "pictureBoxMKIO");
+            pictureBoxMKIO.Image = Bitmaps.mk_io_blue;
+            pictureBoxMKIO.Name = "pictureBoxMKIO";
+            pictureBoxMKIO.TabStop = false;
+            // 
+            // label16
+            // 
+            resources.ApplyResources(label16, "label16");
+            label16.Name = "label16";
+            // 
+            // label15
+            // 
+            resources.ApplyResources(label15, "label15");
+            label15.Name = "label15";
+            // 
+            // TreeViewLocatorsMKIO
+            // 
+            resources.ApplyResources(TreeViewLocatorsMKIO, "TreeViewLocatorsMKIO");
+            TreeViewLocatorsMKIO.ContextMenuStrip = contextMenuStripLocators;
+            TreeViewLocatorsMKIO.Name = "TreeViewLocatorsMKIO";
+            // 
+            // label14
+            // 
+            resources.ApplyResources(label14, "label14");
+            label14.Name = "label14";
+            // 
+            // comboBoxSEMKIO
+            // 
+            resources.ApplyResources(comboBoxSEMKIO, "comboBoxSEMKIO");
+            comboBoxSEMKIO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBoxSEMKIO.FormattingEnabled = true;
+            comboBoxSEMKIO.Name = "comboBoxSEMKIO";
+            comboBoxSEMKIO.SelectedIndexChanged += comboBoxSEMKIO_SelectedIndexChanged;
+            // 
+            // DGMKIOInfo
+            // 
+            DGMKIOInfo.AllowUserToAddRows = false;
+            DGMKIOInfo.AllowUserToDeleteRows = false;
+            DGMKIOInfo.AllowUserToResizeRows = false;
+            resources.ApplyResources(DGMKIOInfo, "DGMKIOInfo");
+            DGMKIOInfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            DGMKIOInfo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            DGMKIOInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            DGMKIOInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DGMKIOInfo.ColumnHeadersVisible = false;
+            DGMKIOInfo.ContextMenuStrip = contextMenuStripDG;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            DGMKIOInfo.DefaultCellStyle = dataGridViewCellStyle5;
+            DGMKIOInfo.MultiSelect = false;
+            DGMKIOInfo.Name = "DGMKIOInfo";
+            DGMKIOInfo.ReadOnly = true;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            DGMKIOInfo.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            DGMKIOInfo.RowHeadersVisible = false;
+            // 
             // contextMenuStripKey
             // 
             contextMenuStripKey.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { removeKeyToolStripMenuItem });
@@ -1078,6 +1183,10 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewKeys).EndInit();
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
+            tabPageMKIO.ResumeLayout(false);
+            tabPageMKIO.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxMKIO).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DGMKIOInfo).EndInit();
             contextMenuStripKey.ResumeLayout(false);
             panel1.ResumeLayout(false);
             contextMenuStrip1.ResumeLayout(false);
@@ -1203,5 +1312,13 @@
         private System.Windows.Forms.ToolStripMenuItem addTrackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createAnAudioTrackFromThisBlobToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editSettingsToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPageMKIO;
+        private System.Windows.Forms.TreeView TreeViewLocatorsMKIO;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox comboBoxSEMKIO;
+        private System.Windows.Forms.DataGridView DGMKIOInfo;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.PictureBox pictureBoxMKIO;
     }
 }
