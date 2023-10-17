@@ -115,6 +115,8 @@
             toolStripMenuItemCKDelete = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             keyDeliveryConfigurationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            mediaKindMKIOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemCreateCKInMKIO = new System.Windows.Forms.ToolStripMenuItem();
             tabPageTransfers = new System.Windows.Forms.TabPage();
             tableLayoutPanelTransfers = new System.Windows.Forms.TableLayoutPanel();
             label8 = new System.Windows.Forms.Label();
@@ -929,7 +931,7 @@
             // 
             // contextMenuStripCKPolicies
             // 
-            contextMenuStripCKPolicies.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemCKRefresh, toolStripMenuItemCKInfo, toolStripMenuItemCKCreate, toolStripMenuItemCKDelete, toolStripSeparator7, keyDeliveryConfigurationToolStripMenuItem1 });
+            contextMenuStripCKPolicies.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemCKRefresh, toolStripMenuItemCKInfo, toolStripMenuItemCKCreate, toolStripMenuItemCKDelete, toolStripSeparator7, keyDeliveryConfigurationToolStripMenuItem1, mediaKindMKIOToolStripMenuItem });
             contextMenuStripCKPolicies.Name = "contextMenuStripStreamingEndpoints";
             resources.ApplyResources(contextMenuStripCKPolicies, "contextMenuStripCKPolicies");
             // 
@@ -967,6 +969,19 @@
             keyDeliveryConfigurationToolStripMenuItem1.Name = "keyDeliveryConfigurationToolStripMenuItem1";
             resources.ApplyResources(keyDeliveryConfigurationToolStripMenuItem1, "keyDeliveryConfigurationToolStripMenuItem1");
             keyDeliveryConfigurationToolStripMenuItem1.Click += keyDeliveryConfigurationToolStripMenuItem1_Click;
+            // 
+            // mediaKindMKIOToolStripMenuItem
+            // 
+            mediaKindMKIOToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemCreateCKInMKIO });
+            mediaKindMKIOToolStripMenuItem.Name = "mediaKindMKIOToolStripMenuItem";
+            resources.ApplyResources(mediaKindMKIOToolStripMenuItem, "mediaKindMKIOToolStripMenuItem");
+            // 
+            // toolStripMenuItemCreateCKInMKIO
+            // 
+            resources.ApplyResources(toolStripMenuItemCreateCKInMKIO, "toolStripMenuItemCreateCKInMKIO");
+            toolStripMenuItemCreateCKInMKIO.Image = Bitmaps.create;
+            toolStripMenuItemCreateCKInMKIO.Name = "toolStripMenuItemCreateCKInMKIO";
+            toolStripMenuItemCreateCKInMKIO.Click += toolStripMenuItemCreateCKInMKIO_Click;
             // 
             // tabPageTransfers
             // 
@@ -2877,6 +2892,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRemoveStorageMKIO;
         private System.Windows.Forms.PictureBox pictureBoxMKIO;
         private System.Windows.Forms.ToolStripMenuItem mKIOPortalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mediaKindMKIOToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCreateCKInMKIO;
     }
 }
 

@@ -48,6 +48,9 @@
             dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             textBoxInstructions = new System.Windows.Forms.TextBox();
+            checkBoxCloneClearLocator = new System.Windows.Forms.CheckBox();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            checkBoxRecreateKeys = new System.Windows.Forms.CheckBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -91,12 +94,14 @@
             // 
             resources.ApplyResources(textBoxAssetName, "textBoxAssetName");
             textBoxAssetName.Name = "textBoxAssetName";
+            toolTip1.SetToolTip(textBoxAssetName, resources.GetString("textBoxAssetName.ToolTip"));
             textBoxAssetName.TextChanged += TextBoxAssetName_TextChanged;
             // 
             // textBoxDescription
             // 
             resources.ApplyResources(textBoxDescription, "textBoxDescription");
             textBoxDescription.Name = "textBoxDescription";
+            toolTip1.SetToolTip(textBoxDescription, resources.GetString("textBoxDescription.ToolTip"));
             // 
             // lblDescription
             // 
@@ -158,13 +163,31 @@
             textBoxInstructions.Name = "textBoxInstructions";
             textBoxInstructions.ReadOnly = true;
             // 
-            // AssetCreationUpdate
+            // checkBoxCloneClearLocator
+            // 
+            resources.ApplyResources(checkBoxCloneClearLocator, "checkBoxCloneClearLocator");
+            checkBoxCloneClearLocator.Checked = true;
+            checkBoxCloneClearLocator.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkBoxCloneClearLocator.Name = "checkBoxCloneClearLocator";
+            toolTip1.SetToolTip(checkBoxCloneClearLocator, resources.GetString("checkBoxCloneClearLocator.ToolTip"));
+            checkBoxCloneClearLocator.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRecreateKeys
+            // 
+            resources.ApplyResources(checkBoxRecreateKeys, "checkBoxRecreateKeys");
+            checkBoxRecreateKeys.Name = "checkBoxRecreateKeys";
+            toolTip1.SetToolTip(checkBoxRecreateKeys, resources.GetString("checkBoxRecreateKeys.ToolTip"));
+            checkBoxRecreateKeys.UseVisualStyleBackColor = true;
+            // 
+            // MKIOAssetCreationUpdate
             // 
             AcceptButton = buttonOk;
             resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.SystemColors.Window;
             CancelButton = buttonCancel;
+            Controls.Add(checkBoxRecreateKeys);
+            Controls.Add(checkBoxCloneClearLocator);
             Controls.Add(textBoxStorage);
             Controls.Add(lblStorage);
             Controls.Add(pictureBox1);
@@ -178,7 +201,7 @@
             Controls.Add(labelNewAsset);
             Controls.Add(panel1);
             Controls.Add(textBoxInstructions);
-            Name = "AssetCreationUpdate";
+            Name = "MKIOAssetCreationUpdate";
             Load += AssetCreationUpdate_Load;
             Shown += AssetCreationUpdate_Shown;
             panel1.ResumeLayout(false);
@@ -208,5 +231,8 @@
         private System.Windows.Forms.Label lblStorage;
         public System.Windows.Forms.Label labelNewAsset;
         private System.Windows.Forms.TextBox textBoxInstructions;
+        private System.Windows.Forms.CheckBox checkBoxCloneClearLocator;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox checkBoxRecreateKeys;
     }
 }

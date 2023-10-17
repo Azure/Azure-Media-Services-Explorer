@@ -9855,238 +9855,18 @@ namespace AMSExplorer
             await MKIOCreateAssetAsync();
         }
 
-        private async Task MKIOCreateAssetAsync()
-        {
-            Telemetry.TrackEvent("MKIOCreateAssetAsync");
-            if (MKIOclient == null)
-            {
-                MessageBox.Show("Can't Create", "MK/IO is not connected. Restart the application to connect.");
-            }
-
-            var assets = await ReturnSelectedAssetsAsync();
-            if (assets.Count == 0) return;
-
-
-            //let's verify that storage account is in MK/IO !
-            var storageNames = assets.Select(a => a.Data.StorageAccountName).Distinct().ToList();
-            var storageMKIONames = migratedStorageAccountsToMKIO.Select(s => s.Spec.Name);
-            if (!(storageNames.Intersect(storageMKIONames).Count() == storageNames.Count()))
-            {
-                var nonintersect = storageNames.Except(storageMKIONames);
-
-                if (nonintersect.Count() == 1)
-                {
-                    MessageBox.Show($"Storage account {nonintersect.First()} has not be added to MK/IO. Please do it before creating the asset(s) in MK/IO.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    MessageBox.Show($"Storage accounts {string.Join(",", nonintersect.ToArray())} have not be added to MK/IO. Please do it before creating the assets in MK/IO.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                return;
-            }
-
-            var formAsset = new MKIOAssetCreationUpdate(assets.Count == 1 ? MKIOAssetCreationUpdate.AssetCreationMode.Single : MKIOAssetCreationUpdate.AssetCreationMode.Multiple)
-            {
-                AssetName = assets.Count == 1 ? assets.First().Data.Name : Constants.NameconvAsset,
-                AssetDescription = assets.Count == 1 ? assets.First().Data.Description : Constants.NameconvAssetDesc,
-                AssetContainer = assets.Count == 1 ? assets.First().Data.Container : string.Empty,
-                AssetStorage = assets.Count == 1 ? assets.First().Data.StorageAccountName : string.Empty
-            };
-
-            if (formAsset.ShowDialog() == DialogResult.OK)
-            {
-                foreach (var asset in assets)
-                {
-                    string assetName = formAsset.AssetName.Replace(Constants.NameconvAsset, asset.Data.Name);
-
-                    string assetDescription = null;
-                    if (formAsset.AssetDescription != null)
-                    {
-                        assetDescription = formAsset.AssetDescription.Replace(Constants.NameconvAssetDesc, asset.Data.Description);
-                    }
-
-                    try
-                    {
-                        await MKIOclient.Assets.CreateOrUpdateAsync(assetName, asset.Data.Container, asset.Data.StorageAccountName, assetDescription);
-                        TextBoxLogWriteLine($"Asset '{assetName}' created in MK/IO");
-                    }
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine($"Error when creating asset '{assetName}' in MK/IO", true);
-                        TextBoxLogWriteLine(ex);
-                        Telemetry.TrackException(ex);
-                    }
-
-                    try
-                    {
-                        var amsLocators = await asset.GetStreamingLocatorsAsync().ToListAsync();
-                        foreach (var locator in amsLocators)
-                        {
-                            if (locator.StreamingPolicyName == PredefinedStreamingPolicy.ClearStreamingOnly)
-                            {
-                                var locatorRes = (await _amsClient.AMSclient.GetStreamingLocatorAsync(locator.Name)).Value;
-                                // easy
-                                await MKIOclient.StreamingLocators.CreateAsync(locator.Name, new StreamingLocatorProperties
-                                {
-                                    AssetName = assetName,
-                                    StartTime = locator.StartOn?.UtcDateTime.ToString("s") + "Z",
-                                    EndTime = locator.EndOn?.UtcDateTime.ToString("s") + "Z",
-                                    StreamingPolicyName = locator.StreamingPolicyName,
-                                    StreamingLocatorId = locator.StreamingLocatorId.ToString(),
-                                    Filters = locatorRes.Data.Filters?.ToList()
-                                }
-                                );
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine($"Error when duplicating locators for asset '{assetName}' in MK/IO.", true);
-                        TextBoxLogWriteLine(ex);
-                        Telemetry.TrackException(ex);
-                    }
-
-                }
-            }
-            DoRefreshGridAssetV(false);
-        }
 
         private async void toolStripMenuItemRemoveStorageMKIO_Click(object sender, EventArgs e)
         {
             await DoMKIOStorageRemoveAsync();
         }
 
-        private async Task DoMKIOStorageRemoveAsync()
-        {
-            Telemetry.TrackEvent("DoMKIOStorageRemoveAsync");
-
-            var storage = ReturnSelectedStorage();
-            if (storage == null || migratedStorageAccountsToMKIO.Count == 0) return;
-
-            string storName = AMSClientV3.GetStorageName(storage.Id);
-
-            var storageMKIOName = migratedStorageAccountsToMKIO.Where(s => s.Spec.Name == storName).FirstOrDefault();
-
-            if (storageMKIOName == null)
-            {
-                MessageBox.Show($"Storage account {storName} is not migrated to MK/IO", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // dialogbox to ask if user wants to remove the storage account
-            if (DialogResult.Yes == MessageBox.Show(string.Format("Are you sure you want to remove the storage account '{0}' ?", storName), "Storage account removal", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
-            {
-                Cursor = Cursors.WaitCursor;
-                try
-                {
-                    await MKIOclient.StorageAccounts.DeleteAsync((Guid)storageMKIOName.Metadata.Id);
-                    TextBoxLogWriteLine($"Storage account '{storName}' removed from MK/IO");
-                }
-                catch (Exception ex)
-                {
-                    TextBoxLogWriteLine($"Error when removing storage account '{storName}' from MK/IO", true);
-                    TextBoxLogWriteLine(ex);
-                    Telemetry.TrackException(ex);
-                }
-                await DoRefreshGridStorageVAsync(false);
-                Cursor = Cursors.Arrow;
-            }
-        }
 
         private async void toolStripMenuItemAddStorageMKIO_Click(object sender, EventArgs e)
         {
             await DoMKIOStorageAddAsync();
         }
 
-        private async Task DoMKIOStorageAddAsync()
-        {
-            Telemetry.TrackEvent("DoMKIOStorageAddAsync");
-
-            var storage = ReturnSelectedStorage();
-            if (storage == null) return;
-
-            string storName = AMSClientV3.GetStorageName(storage.Id);
-
-            migratedStorageAccountsToMKIO = await MKIOclient.StorageAccounts.ListAsync();
-            var storageMKIOName = migratedStorageAccountsToMKIO.Where(s => s.Spec.Name == storName).FirstOrDefault();
-
-            if (storageMKIOName != null && storageMKIOName.Spec.Name == storName)
-            {
-                MessageBox.Show($"Storage account {storName} is already migrated to MK/IO", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            MKIOStorageCreation formStorageCreation = new()
-            {
-                SASDurationInMonths = 120,
-                StorageName = storName,
-                StorageRegion = _amsClient.AMSclient.Get().Value.Data.Location.Name
-            };
-
-            if (formStorageCreation.ShowDialog() == DialogResult.OK)
-            {
-                string sasSig = string.Empty;
-                Uri blobEndpoint = null;
-
-                try
-                {
-                    CloudStorageAccount storageAccount = new(new StorageCredentials(storName, formStorageCreation.AccessKey), _amsClient.environment.ReturnStorageSuffix(), true);
-
-                    SharedAccessAccountPolicy pol = new()
-                    {
-                        Permissions = SharedAccessAccountPermissions.Read | SharedAccessAccountPermissions.Write | SharedAccessAccountPermissions.Delete | SharedAccessAccountPermissions.List | SharedAccessAccountPermissions.Add | SharedAccessAccountPermissions.Create | SharedAccessAccountPermissions.Update | SharedAccessAccountPermissions.ProcessMessages,
-                        SharedAccessExpiryTime = DateTimeOffset.UtcNow.AddMonths(formStorageCreation.SASDurationInMonths),
-                        Services = SharedAccessAccountServices.Blob,
-                        ResourceTypes = SharedAccessAccountResourceTypes.Object | SharedAccessAccountResourceTypes.Container
-                    };
-                    Cursor = Cursors.WaitCursor;
-                    sasSig = storageAccount.GetSharedAccessSignature(pol);
-                    blobEndpoint = storageAccount.BlobEndpoint;
-                }
-                catch (Exception ex)
-                {
-
-                    MessageBox.Show(ex.Message, "Error accessing the storage account", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    TextBoxLogWriteLine(ex);
-                    Telemetry.TrackException(ex);
-                    Cursor = Cursors.Arrow;
-                    return;
-                }
-
-                try
-                {
-                    var storageMKIO = await MKIOclient.StorageAccounts.CreateAsync(new StorageRequestSchema
-                    {
-                        Spec = new StorageSchema
-                        {
-                            Name = storName,
-                            Location = _amsClient.AMSclient.Get().Value.Data.Location.Name,
-                            Description = formStorageCreation.StorageDescription,
-                            AzureStorageConfiguration = new BlobStorageAzureProperties
-                            {
-                                Url = blobEndpoint.ToString() + sasSig
-                            }
-                        }
-                    }
-                    );
-
-                    TextBoxLogWriteLine($"Storage account '{storName}' added to MK/IO");
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error adding storage account to MK/IO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    TextBoxLogWriteLine(ex);
-                    Telemetry.TrackException(ex);
-                    Cursor = Cursors.Arrow;
-                    return;
-                }
-            }
-
-            await DoRefreshGridStorageVAsync(false);
-            Cursor = Cursors.Arrow;
-
-        }
 
         private void mKIOPortalToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -10099,6 +9879,11 @@ namespace AMSExplorer
                 }
             };
             p.Start();
+        }
+
+        private async void toolStripMenuItemCreateCKInMKIO_Click(object sender, EventArgs e)
+        {
+            await DoMKIOCreateContentKeyPolicyAsync();
         }
     }
 }

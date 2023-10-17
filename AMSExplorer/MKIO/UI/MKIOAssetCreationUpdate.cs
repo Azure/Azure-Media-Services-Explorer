@@ -54,6 +54,18 @@ namespace AMSExplorer
             set => textBoxStorage.Text = value;
         }
 
+        public bool CloneClearStreamingLocators
+        {
+            get => checkBoxCloneClearLocator.Checked;
+            set => checkBoxCloneClearLocator.Checked = value;
+        }
+
+        public bool CloneKeys
+        {
+            get => checkBoxRecreateKeys.Checked;
+            set => checkBoxRecreateKeys.Checked = value;
+        }
+
         public MKIOAssetCreationUpdate(AssetCreationMode mode)
         {
             _mode = mode;

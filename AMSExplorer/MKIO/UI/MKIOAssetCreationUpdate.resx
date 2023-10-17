@@ -187,7 +187,7 @@
     <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 368</value>
+    <value>0, 437</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>400, 55</value>
@@ -205,7 +205,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="labelNewAsset.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -238,7 +238,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelNewAsset.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -268,8 +268,11 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>146, 17</value>
+  </metadata>
   <data name="textBoxAssetName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -282,6 +285,9 @@
   <data name="textBoxAssetName.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="textBoxAssetName.ToolTip" xml:space="preserve">
+    <value>Asset name in MK/IO. It could be different from the AMS asset name</value>
+  </data>
   <data name="&gt;&gt;textBoxAssetName.Name" xml:space="preserve">
     <value>textBoxAssetName</value>
   </data>
@@ -292,7 +298,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxAssetName.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="textBoxDescription.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -306,6 +312,9 @@
   <data name="textBoxDescription.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
+  <data name="textBoxDescription.ToolTip" xml:space="preserve">
+    <value>Asset description in MK/IO</value>
+  </data>
   <data name="&gt;&gt;textBoxDescription.Name" xml:space="preserve">
     <value>textBoxDescription</value>
   </data>
@@ -316,7 +325,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxDescription.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="lblDescription.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -346,7 +355,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblDescription.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="textBoxContainer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -373,7 +382,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxContainer.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="lblContainer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -406,7 +415,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblContainer.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="lblOptional.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -439,7 +448,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblOptional.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -451,7 +460,76 @@
     <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>400, 423</value>
+    <value>400, 492</value>
+  </data>
+  <data name="checkBoxRecreateKeys.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxRecreateKeys.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="checkBoxRecreateKeys.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxRecreateKeys.Location" type="System.Drawing.Point, System.Drawing">
+    <value>61, 390</value>
+  </data>
+  <data name="checkBoxRecreateKeys.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 19</value>
+  </data>
+  <data name="checkBoxRecreateKeys.TabIndex" type="System.Int32, mscorlib">
+    <value>93</value>
+  </data>
+  <data name="checkBoxRecreateKeys.Text" xml:space="preserve">
+    <value>Recreate existing keys</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>146, 17</value>
+  </metadata>
+  <data name="checkBoxRecreateKeys.ToolTip" xml:space="preserve">
+    <value>Copy the existing keys of the AMS locator to the new MK/IO locator. Key properties to be copied : id, policy name, label ref in streaming policy, type, value, tracks.</value>
+  </data>
+  <data name="&gt;&gt;checkBoxRecreateKeys.Name" xml:space="preserve">
+    <value>checkBoxRecreateKeys</value>
+  </data>
+  <data name="&gt;&gt;checkBoxRecreateKeys.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxRecreateKeys.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxRecreateKeys.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="checkBoxCloneClearLocator.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxCloneClearLocator.Location" type="System.Drawing.Point, System.Drawing">
+    <value>43, 365</value>
+  </data>
+  <data name="checkBoxCloneClearLocator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 19</value>
+  </data>
+  <data name="checkBoxCloneClearLocator.TabIndex" type="System.Int32, mscorlib">
+    <value>92</value>
+  </data>
+  <data name="checkBoxCloneClearLocator.Text" xml:space="preserve">
+    <value>Recreate existing streaming locators</value>
+  </data>
+  <data name="checkBoxCloneClearLocator.ToolTip" xml:space="preserve">
+    <value>Copy the existing locators of the AMS asset to the new MK/IO asset. Locator properties will be copied : name, id, start time, end time, content key policy name, filters.</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCloneClearLocator.Name" xml:space="preserve">
+    <value>checkBoxCloneClearLocator</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCloneClearLocator.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCloneClearLocator.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCloneClearLocator.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="textBoxStorage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -478,7 +556,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxStorage.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="lblStorage.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -511,7 +589,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblStorage.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>287, 22</value>
@@ -535,7 +613,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="textBoxInstructions.Location" type="System.Drawing.Point, System.Drawing">
     <value>43, 193</value>
@@ -565,7 +643,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxInstructions.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -594,8 +672,14 @@
   <data name="&gt;&gt;dataGridViewTextBoxColumn2.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>AssetCreationUpdate</value>
+    <value>MKIOAssetCreationUpdate</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
