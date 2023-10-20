@@ -45,6 +45,8 @@ You can force the English or Japanese language by using /language:en-US or /lang
 
 AMSE uses Application Insights for Telemetry. This feature can be turned off in the Options of AMSE.
 
+A branch for the support of **MediaKind MK/IO** is available (here)[https://github.com/Azure/Azure-Media-Services-Explorer/tree/mkio-with-mkiolib].
+
 ## Contacts
 
 Contact: amse@microsoft.com
