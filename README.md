@@ -28,6 +28,7 @@ winget install Microsoft.AzureMediaServicesExplorer
 **The latest binary for Windows (with a MSI installer) is available in the [releases section](https://github.com/Azure/Azure-Media-Services-Explorer/releases)**.
 
 This application requires the installation of
+
 - [.NET **Desktop** Runtime 7.0](https://dotnet.microsoft.com/download/dotnet/7.0)
 - [Microsoft Edge Webview2 runtime](https://developer.microsoft.com/microsoft-edge/webview2/)
 
@@ -38,6 +39,24 @@ This solution has been developed using [Visual Studio 2022](https://visualstudio
 You need to install the [Microsoft Visual Studio Installer Projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2022InstallerProjects) in order to open and build the Setup project in Visual Studio.
 
 This solution requires [.NET SDK 7.0](https://dotnet.microsoft.com/download/dotnet/7.0) to compile.
+
+## MediaKind MK/IO
+
+This version of the Azure Media Services Explorer supports creating assets in MediaKind MK/IO from existing AMS assets.
+
+You must have an active MediaKind MK/IO subscription and access to the MediaKind I/O portal:
+[https://io.mediakind.com](https://io.mediakind.com)
+
+You must have the Azure storage account configured in MK/IO for the existing assets and this will be used for the new MK/IO assets. NOTE: This storage account's name must exactly match the Azure resource name, including case.
+
+To connect with MK I/O you will need:
+
+- Subscription Name
+- MK/IO Token
+
+The subscription name is also called the resource name and is available in the portal.
+
+An MK/IO token can be obtained by following the directions contained in this [article](https://support.mediakind.com/portal/en/kb/articles/how-to-use-mkio-apis-step-by-step).
 
 ## Notes
 
@@ -66,4 +85,5 @@ This project has adopted the [Microsoft Open Source Code of Conduct](CODE_OF_CON
 The software may collect information about you and your use of the software and send it to Microsoft. Microsoft may use this information to provide services and improve our products and services. You may turn off the telemetry as described in the repository. There are also some features in the software that may enable you and Microsoft to collect data from users of your applications. If you use these features, you must comply with applicable law, including providing appropriate notices to users of your applications together with a copy of Microsoft's privacy statement. Our privacy statement is located at <https://go.microsoft.com/fwlink/?LinkID=824704>. You can learn more about data collection and use in the help documentation and our privacy statement. Your use of the software operates as your consent to these practices.
 
 ## Security
+
 Please read our [security policy](SECURITY.md) to learn how to report security issues.

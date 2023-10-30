@@ -35,7 +35,6 @@
             buttonDeleteAccountEntry = new System.Windows.Forms.Button();
             textBoxDescription = new System.Windows.Forms.TextBox();
             label1 = new System.Windows.Forms.Label();
-            linkLabelAADAut = new System.Windows.Forms.LinkLabel();
             groupBoxAADAutMode = new System.Windows.Forms.GroupBox();
             radioButtonAADServicePrincipal = new System.Windows.Forms.RadioButton();
             radioButtonAADInteractive = new System.Windows.Forms.RadioButton();
@@ -60,11 +59,14 @@
             textBoxSubscription = new System.Windows.Forms.TextBox();
             label2 = new System.Windows.Forms.Label();
             errorProvider1 = new System.Windows.Forms.ErrorProvider(components);
+            pictureBoxMKIO = new System.Windows.Forms.PictureBox();
+            label3 = new System.Windows.Forms.Label();
             groupBoxAADAutMode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxJob).BeginInit();
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxMKIO).BeginInit();
             SuspendLayout();
             // 
             // buttonLogin
@@ -98,13 +100,6 @@
             // 
             resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
-            // 
-            // linkLabelAADAut
-            // 
-            resources.ApplyResources(linkLabelAADAut, "linkLabelAADAut");
-            linkLabelAADAut.Name = "linkLabelAADAut";
-            linkLabelAADAut.TabStop = true;
-            linkLabelAADAut.LinkClicked += Accountmgtlink_LinkClicked;
             // 
             // groupBoxAADAutMode
             // 
@@ -264,6 +259,19 @@
             // 
             errorProvider1.ContainerControl = this;
             // 
+            // pictureBoxMKIO
+            // 
+            resources.ApplyResources(pictureBoxMKIO, "pictureBoxMKIO");
+            pictureBoxMKIO.Image = Bitmaps.mk_io_blue;
+            pictureBoxMKIO.Name = "pictureBoxMKIO";
+            pictureBoxMKIO.TabStop = false;
+            // 
+            // label3
+            // 
+            resources.ApplyResources(label3, "label3");
+            label3.ForeColor = System.Drawing.SystemColors.ControlText;
+            label3.Name = "label3";
+            // 
             // AmsLogin
             // 
             AcceptButton = buttonLogin;
@@ -271,10 +279,11 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.WhiteSmoke;
             CancelButton = buttonCancel;
+            Controls.Add(label3);
+            Controls.Add(pictureBoxMKIO);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(linkLabelAMSOfflineDoc);
             Controls.Add(listViewAccounts);
-            Controls.Add(linkLabelAADAut);
             Controls.Add(groupBoxAADAutMode);
             Controls.Add(panel1);
             Controls.Add(buttonPickupAccount);
@@ -297,6 +306,7 @@
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxMKIO).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -323,7 +333,6 @@
         private System.Windows.Forms.GroupBox groupBoxAADAutMode;
         private System.Windows.Forms.RadioButton radioButtonAADServicePrincipal;
         private System.Windows.Forms.RadioButton radioButtonAADInteractive;
-        private System.Windows.Forms.LinkLabel linkLabelAADAut;
         private System.Windows.Forms.ListView listViewAccounts;
         private System.Windows.Forms.Button buttonPickupAccount;
         private System.Windows.Forms.TextBox textBoxDescription;
@@ -333,5 +342,7 @@
         private System.Windows.Forms.TextBox textBoxSubscription;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel linkLabelAMSRetire;
+        private System.Windows.Forms.PictureBox pictureBoxMKIO;
+        private System.Windows.Forms.Label label3;
     }
 }

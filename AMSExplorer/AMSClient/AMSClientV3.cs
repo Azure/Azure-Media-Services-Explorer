@@ -18,7 +18,6 @@ using AMSClient;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
 using Microsoft.Identity.Client;
-using Microsoft.Identity.Client.Broker;
 using Microsoft.Rest;
 using System;
 using System.Diagnostics;
@@ -46,6 +45,7 @@ namespace AMSExplorer
         private readonly string[] scopes, scopes2, scopes3;
         private bool firstTimeAuth = true;
         private readonly System.Timers.Timer TimerAutoRefreshAuthToken;
+        public bool useMKIOConnection = false;
 
 
         public AMSClientV3(AzureEnvironment myEnvironment, string azureSubscriptionId, CredentialsEntryV4 myCredentialsEntry, Form form)
@@ -178,6 +178,18 @@ namespace AMSExplorer
                                                          .ConfigureAwait(false);
 
             }
+
+
+            // form for MK/IO
+            MKIOConnection mkioConnectionForm = new(credentialsEntry.MKIOSubscriptionName, credentialsEntry.MKIOClearToken);
+
+            if (mkioConnectionForm.ShowDialog() == DialogResult.OK)
+            {
+                useMKIOConnection = true;
+                credentialsEntry.MKIOSubscriptionName = mkioConnectionForm.MKIOSubscriptionName;
+                credentialsEntry.MKIOClearToken = mkioConnectionForm.MKIOToken;
+            }
+
             credentials = new TokenCredentials(authResult.AccessToken, "Bearer");
             credentialForArmClient = new BearerTokenCredential(authResult.AccessToken);
 
@@ -189,7 +201,6 @@ namespace AMSExplorer
                 );
             //var credential = new DefaultAzureCredential(includeInteractiveCredentials: true);
             var armClient = new ArmClient(credentialForArmClient);
-
 
             var amsClient = armClient.GetMediaServicesAccountResource(MediaServiceAccount);
 

@@ -100,11 +100,12 @@
     <PackageReference Include="Microsoft.Azure.Storage.DataMovement" Version="2.0.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Identity.Client.Broker" Version="4.54.1" />
+    <PackageReference Include="Microsoft.Identity.Client.Broker" Version="4.56.0" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.24" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.1" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1823.32" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.0" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2045.28" />
+    <PackageReference Include="MK.IO" Version="1.0.4" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.2" />
     <PackageReference Include="System.Linq.Async.Queryable" Version="6.0.1" />
   </ItemGroup>
 
@@ -130,6 +131,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="AssetInfoTextTrackCreation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MKIO\UI\MKIOStorageCreation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MKIO\UI\MKIOConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MKIO\UI\MKIOAssetCreationUpdate.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">

@@ -29,83 +29,82 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExportSettings));
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonImport = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.radioButtonCurrentEntry = new System.Windows.Forms.RadioButton();
-            this.radioButtonAllEntries = new System.Windows.Forms.RadioButton();
-            this.checkBoxIncludeSPSecrets = new System.Windows.Forms.CheckBox();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            buttonCancel = new System.Windows.Forms.Button();
+            panel1 = new System.Windows.Forms.Panel();
+            buttonImport = new System.Windows.Forms.Button();
+            label2 = new System.Windows.Forms.Label();
+            radioButtonCurrentEntry = new System.Windows.Forms.RadioButton();
+            radioButtonAllEntries = new System.Windows.Forms.RadioButton();
+            checkBoxIncludeSPSecrets = new System.Windows.Forms.CheckBox();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // buttonCancel
             // 
-            resources.ApplyResources(this.buttonCancel, "buttonCancel");
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
+            resources.ApplyResources(buttonCancel, "buttonCancel");
+            buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.buttonImport);
-            this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Name = "panel1";
+            panel1.BackColor = System.Drawing.SystemColors.Control;
+            panel1.Controls.Add(buttonImport);
+            panel1.Controls.Add(buttonCancel);
+            resources.ApplyResources(panel1, "panel1");
+            panel1.Name = "panel1";
             // 
             // buttonImport
             // 
-            resources.ApplyResources(this.buttonImport, "buttonImport");
-            this.buttonImport.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonImport.Name = "buttonImport";
-            this.buttonImport.UseVisualStyleBackColor = true;
+            resources.ApplyResources(buttonImport, "buttonImport");
+            buttonImport.DialogResult = System.Windows.Forms.DialogResult.OK;
+            buttonImport.Name = "buttonImport";
+            buttonImport.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label2.Name = "label2";
+            resources.ApplyResources(label2, "label2");
+            label2.ForeColor = System.Drawing.Color.DarkBlue;
+            label2.Name = "label2";
             // 
             // radioButtonCurrentEntry
             // 
-            resources.ApplyResources(this.radioButtonCurrentEntry, "radioButtonCurrentEntry");
-            this.radioButtonCurrentEntry.Checked = true;
-            this.radioButtonCurrentEntry.Name = "radioButtonCurrentEntry";
-            this.radioButtonCurrentEntry.TabStop = true;
-            this.radioButtonCurrentEntry.UseVisualStyleBackColor = true;
+            resources.ApplyResources(radioButtonCurrentEntry, "radioButtonCurrentEntry");
+            radioButtonCurrentEntry.Checked = true;
+            radioButtonCurrentEntry.Name = "radioButtonCurrentEntry";
+            radioButtonCurrentEntry.TabStop = true;
+            radioButtonCurrentEntry.UseVisualStyleBackColor = true;
             // 
             // radioButtonAllEntries
             // 
-            resources.ApplyResources(this.radioButtonAllEntries, "radioButtonAllEntries");
-            this.radioButtonAllEntries.Name = "radioButtonAllEntries";
-            this.radioButtonAllEntries.UseVisualStyleBackColor = true;
+            resources.ApplyResources(radioButtonAllEntries, "radioButtonAllEntries");
+            radioButtonAllEntries.Name = "radioButtonAllEntries";
+            radioButtonAllEntries.UseVisualStyleBackColor = true;
             // 
             // checkBoxIncludeSPSecrets
             // 
-            resources.ApplyResources(this.checkBoxIncludeSPSecrets, "checkBoxIncludeSPSecrets");
-            this.checkBoxIncludeSPSecrets.Name = "checkBoxIncludeSPSecrets";
-            this.checkBoxIncludeSPSecrets.UseVisualStyleBackColor = true;
+            resources.ApplyResources(checkBoxIncludeSPSecrets, "checkBoxIncludeSPSecrets");
+            checkBoxIncludeSPSecrets.Name = "checkBoxIncludeSPSecrets";
+            checkBoxIncludeSPSecrets.UseVisualStyleBackColor = true;
             // 
             // ExportSettings
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.SystemColors.Window;
-            this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.checkBoxIncludeSPSecrets);
-            this.Controls.Add(this.radioButtonAllEntries);
-            this.Controls.Add(this.radioButtonCurrentEntry);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.panel1);
-            this.Name = "ExportSettings";
-            this.Load += new System.EventHandler(this.ExportSettings_Load);
-            this.Shown += new System.EventHandler(this.ExportSettings_Shown);
-            this.DpiChanged += new System.Windows.Forms.DpiChangedEventHandler(this.ExportSettings_DpiChanged);
-            this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            BackColor = System.Drawing.SystemColors.Window;
+            CancelButton = buttonCancel;
+            Controls.Add(checkBoxIncludeSPSecrets);
+            Controls.Add(radioButtonAllEntries);
+            Controls.Add(radioButtonCurrentEntry);
+            Controls.Add(label2);
+            Controls.Add(panel1);
+            Name = "ExportSettings";
+            Load += ExportSettings_Load;
+            Shown += ExportSettings_Shown;
+            DpiChanged += ExportSettings_DpiChanged;
+            panel1.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

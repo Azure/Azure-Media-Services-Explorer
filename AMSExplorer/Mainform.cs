@@ -29,6 +29,8 @@ using Microsoft.Azure.Storage.Auth;
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.Storage.DataMovement;
 using Microsoft.Azure.Storage.Shared.Protocol;
+using MK.IO;
+using MK.IO.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -88,6 +90,12 @@ namespace AMSExplorer
         private record QuotaMetrics(string Name, string CountMetric, string QuotaMetric);
         private Dictionary<string, double?> QuotasValues;
 
+        public MKIOClient MKIOclient;
+        public string MKIOSubscriptionName;
+        public string MKIOToken;
+
+        public List<AssetSchema> migratedAssetsToMKIO;
+        public List<StorageResponseSchema> migratedStorageAccountsToMKIO;
 
         public Mainform(string[] args)
         {
@@ -179,8 +187,37 @@ namespace AMSExplorer
                 }
             });
 
+            // MKIO Connection            
+            MKIOclient = null;
+
+            if (_amsClient.useMKIOConnection)
+            {
+                try
+                {
+                    MKIOclient = new MKIOClient(_amsClient.credentialsEntry.MKIOSubscriptionName, _amsClient.credentialsEntry.MKIOClearToken);
+                    migratedAssetsToMKIO = MKIOclient.Assets.List();
+                    migratedStorageAccountsToMKIO = MKIOclient.StorageAccounts.List();
+
+                    if (migratedStorageAccountsToMKIO.Count == 0)
+                    {
+                        MessageBox.Show($"No storage account found in MK/IO.{Constants.endline}Please add the storage account(s) of this AMS account to MK/IO by going to the Storage tab, right click and select 'MediaKind MK/IO' / 'Add Storage...'", "No MK/IO Storage Account");
+                    }
+                }
+                catch
+                {
+                    MKIOclient = null;
+                    MessageBox.Show("Connection to MediaKind MK/IO failed. Restart the application to try again.", "No MK/IO Connection");
+                }
+            }
+
             // mainform title
-            toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to {1} ({2})", Assembly.GetExecutingAssembly().GetName().Version, _accountname, _amsClient.AMSclient.Data.Location.DisplayName);
+            toolStripStatusLabelConnection.Text = string.Format("Version {0} for Media Services v3 - Connected to '{1}' ({2})", Assembly.GetExecutingAssembly().GetName().Version, _accountname, _amsClient.AMSclient.Data.Location.DisplayName);
+
+            if (MKIOclient != null)
+            {
+                toolStripStatusLabelConnection.Text += $" and '{_amsClient.credentialsEntry.MKIOSubscriptionName}' (MK/IO)";
+                pictureBoxMKIO.Visible = true;
+            }
 
             // notification title
             notifyIcon1.Text = string.Format(notifyIcon1.Text, _accountname);
@@ -467,7 +504,8 @@ namespace AMSExplorer
 
                 try
                 {
-                    dataGridViewAssetsV.Init(_amsClient, SynchronizationContext.Current);
+                    dataGridViewAssetsV.Init(_amsClient, SynchronizationContext.Current, MKIOclient != null);
+                    dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
                 }
                 catch (Exception ex)
                 {
@@ -484,18 +522,25 @@ namespace AMSExplorer
 
 
             Task.Run(async () =>
-        {
-            try
             {
-                await dataGridViewAssetsV.RefreshAssetsAsync(page, _amsClient);
-            }
-            catch (Exception ex)
-            {
-                TextBoxLogWriteLine(ex);
-                Telemetry.TrackException(ex);
-            }
+                try
+                {
+                    if (!firstime)
+                    {
+                        //Refresh MK/IO Assets
+                        migratedAssetsToMKIO = await MKIOclient.Assets.ListAsync();
+                        dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
+                    }
 
-        });
+                    await dataGridViewAssetsV.RefreshAssetsAsync(page, _amsClient);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
+                }
+
+            });
 
             // quota is null...
             // tabPageAssets.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, QuotasValues["AssetCount"]));
@@ -1889,7 +1934,8 @@ namespace AMSExplorer
                             this,
                             _amsClient,
                             asset,
-                            dataGridViewStreamingEndpointsV.GetDisplayedStreamingEndpoints(_amsClient) // we want to keep the same sorting
+                            dataGridViewStreamingEndpointsV.GetDisplayedStreamingEndpoints(_amsClient), // we want to keep the same sorting
+                            MKIOclient
                         );
 
                         dialogResult = form.ShowDialog(this);
@@ -2365,7 +2411,7 @@ namespace AMSExplorer
                                     SavePositionOfForm(formPlayready[i], out left, out top);
 
                                     contentKeyPolicyData.Options.Add(
-                                                   new ContentKeyPolicyOption(
+                                                   new Azure.ResourceManager.Media.Models.ContentKeyPolicyOption(
                                                        configuration: formPlayready[i].GetPlayReadyConfiguration,
                                                        restriction: formPlayreadyTokenClaims[i].GetContentKeyPolicyRestriction
                                                        )
@@ -2399,7 +2445,7 @@ namespace AMSExplorer
                                     SavePositionOfForm(formWidevine[i], out left, out top);
 
                                     contentKeyPolicyData.Options.Add(
-                                                new ContentKeyPolicyOption(
+                                                new Azure.ResourceManager.Media.Models.ContentKeyPolicyOption(
                                                     configuration: formWidevine[i].GetWidevineConfiguration,
                                                     restriction: formWidevineTokenClaims[i].GetContentKeyPolicyRestriction
                                                     )
@@ -2434,7 +2480,7 @@ namespace AMSExplorer
                                     SavePositionOfForm(formFairPlay[i], out left, out top);
 
                                     contentKeyPolicyData.Options.Add(
-                                                new ContentKeyPolicyOption(
+                                                new Azure.ResourceManager.Media.Models.ContentKeyPolicyOption(
                                                 configuration: new ContentKeyPolicyFairPlayConfiguration
                                                 (
                                                     applicationSecretKey: formCencDelivery.FairPlayASK,
@@ -2465,9 +2511,9 @@ namespace AMSExplorer
                                     return;
                                 }
 
-                                contentKeyPolicyData.Options.Add(new ContentKeyPolicyOption
+                                contentKeyPolicyData.Options.Add(new Azure.ResourceManager.Media.Models.ContentKeyPolicyOption
                                     (
-                                    configuration: new ContentKeyPolicyClearKeyConfiguration(),
+                                    configuration: new Azure.ResourceManager.Media.Models.ContentKeyPolicyClearKeyConfiguration(),
                                     restriction: formClearKeyTokenClaims[0].GetContentKeyPolicyRestriction
                                     )
                                     );
@@ -2535,7 +2581,7 @@ namespace AMSExplorer
                             sbuilder.AppendLine(string.Format("Locator name : {0}", loc.LocatorName));
                             sbuilder.AppendLine(string.Empty);
 
-                            foreach (StreamingPath path in paths.StreamingPaths)
+                            foreach (Azure.ResourceManager.Media.Models.StreamingPath path in paths.StreamingPaths)
                             {
                                 string appendExtension = string.Empty;
 
@@ -3469,6 +3515,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
         }
@@ -3675,6 +3722,8 @@ namespace AMSExplorer
             ContextMenuItemAssetEditDescription.Enabled =
             editAlternateIdToolStripMenuItem.Enabled =
             createAnAssetFilterToolStripMenuItem.Enabled = singleitem;
+
+            toolStripMenuMKIOGeneral.Enabled = MKIOclient != null;
         }
 
 
@@ -4426,7 +4475,7 @@ namespace AMSExplorer
             if (firstime)
             {
                 // Storage tab
-                dataGridViewStorage.ColumnCount = 2;
+                dataGridViewStorage.ColumnCount = 3;
 
                 dataGridViewStorage.Columns[0].Name = "Name";
                 dataGridViewStorage.Columns[0].HeaderText = "Name";
@@ -4435,8 +4484,24 @@ namespace AMSExplorer
                 dataGridViewStorage.Columns[1].Visible = false;
                 dataGridViewStorage.Columns[1].HeaderText = "Id";
                 dataGridViewStorage.Columns[1].Width = 700;
+
+                // MK/IO column
+                dataGridViewStorage.Columns.RemoveAt(2);
+                var c = new DataGridViewCheckBoxColumn();
+                c.ValueType = typeof(bool);
+                c.HeaderText = "in MK/IO";
+                c.Name = "MKIOMigrated";
+                c.Visible = MKIOclient != null;
+                c.Width = 700;
+                dataGridViewStorage.Columns.Insert(2, c);
             }
+
             dataGridViewStorage.Rows.Clear();
+
+            if (MKIOclient != null)
+            {
+                migratedStorageAccountsToMKIO = await MKIOclient.StorageAccounts.ListAsync();
+            }
 
             foreach (var storage in amsaccount.StorageAccounts)
             {
@@ -4452,6 +4517,19 @@ namespace AMSExplorer
                 {
                     dataGridViewStorage.Rows[rowi].Cells[0].Style.ForeColor = Color.Blue;
                     dataGridViewStorage.Rows[rowi].Cells[0].ToolTipText = "Primary storage account";
+                }
+
+                // MK/IO flag storage display
+                if (MKIOclient != null)
+                {
+                    if (migratedStorageAccountsToMKIO.Select(s => s.Spec.Name).ToList().Contains(name))
+                    {
+                        dataGridViewStorage.Rows[rowi].Cells[2].Value = true;
+                    }
+                    else
+                    {
+                        dataGridViewStorage.Rows[rowi].Cells[2].Value = false;
+                    }
                 }
             }
             tabPageStorage.Invoke(t => t.Text = string.Format(AMSExplorer.Properties.Resources.TabStorage + " ({0})", amsaccount.StorageAccounts.Count));
@@ -4588,7 +4666,7 @@ namespace AMSExplorer
                 if (ckPolicy.Data.Options != null && ckPolicy.Data.Options.Count > 0)
                 {
                     List<string> listTypeConfig = new();
-                    foreach (ContentKeyPolicyOption option in ckPolicy.Data.Options)
+                    foreach (Azure.ResourceManager.Media.Models.ContentKeyPolicyOption option in ckPolicy.Data.Options)
                     {
                         Type typeConfig = option.Configuration.GetType();
                         if (typeConfig == typeof(ContentKeyPolicyPlayReadyConfiguration))
@@ -4820,8 +4898,8 @@ namespace AMSExplorer
                         UseStaticHostname = form.LiveEventUseStaticHostname,
                         HostnamePrefix = form.LiveEventUseStaticHostname ? form.LiveEventHostnamePrefix : null,
                         Encoding = form.Encoding,
-                        Preview = new LiveEventPreview { },
-                        Input = new LiveEventInput(form.Protocol)
+                        Preview = new Azure.ResourceManager.Media.Models.LiveEventPreview { },
+                        Input = new Azure.ResourceManager.Media.Models.LiveEventInput(form.Protocol)
                         {
                             StreamingProtocol = form.Protocol,
                             AccessToken = form.InputID,
@@ -4938,7 +5016,10 @@ namespace AMSExplorer
                         if (data.Encoding.EncodingType == firstLiveEvent.Data.Encoding.EncodingType)
                         {
 
-                            if (data.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && data.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic && data.Encoding != null && (data.ResourceState == LiveEventResourceState.Stopped || data.ResourceState == LiveEventResourceState.StandBy))
+                            if (data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughStandard
+                                && data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughBasic
+                                && data.Encoding != null
+                                && (data.ResourceState == LiveEventResourceState.Stopped || data.ResourceState == LiveEventResourceState.StandBy))
                             {
                                 if (modifications.SystemPreset)
                                 {
@@ -4955,7 +5036,9 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine("Live event '{0}' : must be stopped or in standbye to update the encoding settings", liveEvent.Name);
                             }
                             */
-                            else if (data.Encoding.EncodingType != LiveEventEncodingType.PassthroughStandard && liveEvent.Data.Encoding.EncodingType != LiveEventEncodingType.PassthroughBasic && data.Encoding == null)
+                            else if (data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughStandard
+                                && liveEvent.Data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughBasic
+                                && data.Encoding == null)
                             {
                                 TextBoxLogWriteLine("Live event '{0}' : configured as encoding live event but settings are null", data.Name, true);
                             }
@@ -4994,7 +5077,7 @@ namespace AMSExplorer
                             {
                                 if (data.CrossSiteAccessPolicies == null)
                                 {
-                                    data.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                    data.CrossSiteAccessPolicies = new Azure.ResourceManager.Media.Models.CrossSiteAccessPolicies();
                                 }
                                 data.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetLiveEventClientPolicy;
                             }
@@ -5014,7 +5097,7 @@ namespace AMSExplorer
                             {
                                 if (data.CrossSiteAccessPolicies == null)
                                 {
-                                    data.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                    data.CrossSiteAccessPolicies = new Azure.ResourceManager.Media.Models.CrossSiteAccessPolicies();
                                 }
                                 data.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetLiveEventCrossdomainPolicy;
                             }
@@ -5128,6 +5211,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                         }
                         await Task.Delay(2000);
@@ -5183,6 +5267,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                         }
                         await Task.Delay(2000);
@@ -5241,6 +5326,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
 
                         }
@@ -5320,6 +5406,7 @@ namespace AMSExplorer
                         catch (Exception ex)
                         {
                             TextBoxLogWriteLine(ex);
+                            Telemetry.TrackException(ex);
                         }
                     }
                     await Task.Delay(2000);
@@ -5401,6 +5488,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
 
                         }
@@ -5489,6 +5577,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                         }
                         await Task.Delay(2000);
@@ -5540,6 +5629,7 @@ namespace AMSExplorer
                             catch (Exception ex)
                             {
                                 TextBoxLogWriteLine(ex);
+                                Telemetry.TrackException(ex);
                             }
                         }
                         await Task.Delay(2000);
@@ -5570,7 +5660,7 @@ namespace AMSExplorer
             {
                 string uniqueness = Program.GetUniqueness();
 
-                bool isBasic = liveEvent.Data.Encoding.EncodingType != null ? liveEvent.Data.Encoding.EncodingType == LiveEventEncodingType.PassthroughBasic : false;
+                bool isBasic = liveEvent.Data.Encoding.EncodingType != null ? liveEvent.Data.Encoding.EncodingType == Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughBasic : false;
 
                 LiveOutputCreation form = new(_amsClient)
                 {
@@ -5803,7 +5893,7 @@ namespace AMSExplorer
                         {
                             if (data.CrossSiteAccessPolicies == null)
                             {
-                                data.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                data.CrossSiteAccessPolicies = new Azure.ResourceManager.Media.Models.CrossSiteAccessPolicies();
                             }
                             data.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetOriginClientPolicy;
 
@@ -5824,7 +5914,7 @@ namespace AMSExplorer
                         {
                             if (data.CrossSiteAccessPolicies == null)
                             {
-                                data.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                                data.CrossSiteAccessPolicies = new Azure.ResourceManager.Media.Models.CrossSiteAccessPolicies();
                             }
                             data.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetOriginCrossdomaintPolicy;
 
@@ -6974,11 +7064,11 @@ namespace AMSExplorer
             sbuilder.AppendLine(string.Format("Input URLs for live event name : {0}", liveEvent.Data.Name));
             sbuilder.AppendLine("=================================" + new string('=', liveEvent.Data.Name.Length));
 
-            foreach (LiveEventEndpoint endpoint in liveEvent.Data.Input.Endpoints)
+            foreach (Azure.ResourceManager.Media.Models.LiveEventEndpoint endpoint in liveEvent.Data.Input.Endpoints)
             {
                 sbuilder.AppendLine(string.Empty);
                 sbuilder.AppendLine(endpoint.Uri.ToString());
-                if (liveEvent.Data.Input.StreamingProtocol == LiveEventInputProtocol.FragmentedMp4)
+                if (liveEvent.Data.Input.StreamingProtocol == Azure.ResourceManager.Media.Models.LiveEventInputProtocol.FragmentedMp4)
                 {
                     sbuilder.AppendLine(string.Empty);
                     sbuilder.AppendLine(endpoint.Uri.ToString().Replace("http://", "https://"));
@@ -8269,6 +8359,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
 
                 finally
@@ -8350,7 +8441,7 @@ namespace AMSExplorer
                         Description = form.TransformDescription,
                         Outputs = {
                         new MediaTransformOutput(
-                            new BuiltInStandardEncoderPreset(form.BuiltInPreset) {
+                            new Azure.ResourceManager.Media.Models.BuiltInStandardEncoderPreset(form.BuiltInPreset) {
                                 Configurations = form.CAEConfigurations
                             }
                            )
@@ -8380,7 +8471,7 @@ namespace AMSExplorer
 
         public async Task<MediaTransformResource> CreateAndGetCopyAllBitrateNonInterleavedTransformIfNeededAsync()
         {
-            return await CreateAndGetSpecialTransformIfNeededAsync(new BuiltInStandardEncoderPreset(EncoderNamedPreset.CopyAllBitrateNonInterleaved) { PresetName = EncoderNamedPreset.CopyAllBitrateNonInterleaved }, PresetStandardEncoder.CopyAllBitrateNonInterleavedTransformName);
+            return await CreateAndGetSpecialTransformIfNeededAsync(new Azure.ResourceManager.Media.Models.BuiltInStandardEncoderPreset(Azure.ResourceManager.Media.Models.EncoderNamedPreset.CopyAllBitrateNonInterleaved) { PresetName = Azure.ResourceManager.Media.Models.EncoderNamedPreset.CopyAllBitrateNonInterleaved }, PresetStandardEncoder.CopyAllBitrateNonInterleavedTransformName);
         }
 
         /// <summary>
@@ -8884,29 +8975,6 @@ namespace AMSExplorer
             p.Start();
         }
 
-        private async void WithAdvancedTestPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AdvancedTestPlayer);
-        }
-
-        private async void WithAdvancedTestPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AdvancedTestPlayer);
-        }
-
-        private void AdvancedTestPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var p = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = Constants.AdvancedTestPlayerRoot,
-                    UseShellExecute = true
-                }
-            };
-            p.Start();
-        }
-
         private async void NewAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await DoNewAssetAsync();
@@ -9377,6 +9445,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -9409,6 +9478,7 @@ namespace AMSExplorer
                 {
                     // connection error ?
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -9432,6 +9502,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -9453,6 +9524,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
             return SelectedTransforms;
@@ -9501,6 +9573,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
 
@@ -9531,6 +9604,7 @@ namespace AMSExplorer
                     catch (Exception ex)
                     {
                         TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
                     }
                 }
 
@@ -9580,6 +9654,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
             SelectedOrigins.Reverse();
@@ -9617,6 +9692,7 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     TextBoxLogWriteLine(ex);
+                    Telemetry.TrackException(ex);
                 }
             }
             SelectedLiveOutputs.Reverse();
@@ -9772,6 +9848,42 @@ namespace AMSExplorer
         private async void displayOutputUrlsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await DoDisplayOutputURLAssetOrProgramToWindowAsync();
+        }
+
+        private async void createAssetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await MKIOCreateAssetAsync();
+        }
+
+
+        private async void toolStripMenuItemRemoveStorageMKIO_Click(object sender, EventArgs e)
+        {
+            await DoMKIOStorageRemoveAsync();
+        }
+
+
+        private async void toolStripMenuItemAddStorageMKIO_Click(object sender, EventArgs e)
+        {
+            await DoMKIOStorageAddAsync();
+        }
+
+
+        private void mKIOPortalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.DemoCaptionMaker,
+                    UseShellExecute = true
+                }
+            };
+            p.Start();
+        }
+
+        private async void toolStripMenuItemCreateCKInMKIO_Click(object sender, EventArgs e)
+        {
+            await DoMKIOCreateContentKeyPolicyAsync();
         }
     }
 }
