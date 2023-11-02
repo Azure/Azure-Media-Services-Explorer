@@ -24,6 +24,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MK.IO;
+using Newtonsoft.Json.Serialization;
 
 namespace AMSExplorer
 {
@@ -48,54 +49,75 @@ namespace AMSExplorer
 
                 foreach (var option in ck.Data.Options)
                 {
-                    MK.IO.ContentKeyPolicyConfiguration configNew;
+                    try
+                    {
+                        MK.IO.ContentKeyPolicyConfiguration configNew;
 
-                    if (option.Configuration.GetType() == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyClearKeyConfiguration))
+                        if (option.Configuration.GetType() == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyClearKeyConfiguration))
+                        {
+                            configNew = new MK.IO.ContentKeyPolicyClearKeyConfiguration();
+                        }
+                        else if (option.Configuration.GetType() == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyFairPlayConfiguration))
+                        {
+                            var config = option.Configuration as Azure.ResourceManager.Media.Models.ContentKeyPolicyFairPlayConfiguration;
+                            configNew = new MK.IO.ContentKeyPolicyConfigurationFairPlay(Convert.ToBase64String(config.ApplicationSecretKey), config.FairPlayPfx, config.FairPlayPfxPassword, (int)config.RentalDuration, config.RentalAndLeaseKeyType.ToString());
+                        }
+                        else if (option.Configuration.GetType() == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyPlayReadyConfiguration))
+                        {
+
+                            var config = option.Configuration as Azure.ResourceManager.Media.Models.ContentKeyPolicyPlayReadyConfiguration;
+                            string licensesJson = JsonConvert.SerializeObject(
+                                config.Licenses,
+                                new JsonSerializerSettings
+                                {
+                                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                                });
+                            var Licenses = JsonConvert.DeserializeObject<List<MK.IO.ContentKeyPolicyPlayReadyLicense>>(licensesJson);
+                            configNew = new MK.IO.ContentKeyPolicyConfigurationPlayReady(Licenses);
+
+
+
+
+                        }
+                        else if (option.Configuration.GetType() == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyWidevineConfiguration))
+                        {
+                            var config = option.Configuration as Azure.ResourceManager.Media.Models.ContentKeyPolicyWidevineConfiguration;
+                            configNew = new MK.IO.ContentKeyPolicyConfigurationWidevine(config.WidevineTemplate);
+                        }
+                        else
+                        {
+                            throw new Exception("Unknown configuration type");
+                        }
+
+                        /*
+
+                    MKIOclient.ContentKeyPolicies.CreateAsync(ck.Data.Name, new MK.IO.ContentKeyPolicyProperties
                     {
-                        configNew = new MK.IO.ContentKeyPolicyClearKeyConfiguration();
-                    }
-                    else if (option.Configuration.GetType() == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyFairPlayConfiguration))
-                    {
-                        var config = option.Configuration as Azure.ResourceManager.Media.Models.ContentKeyPolicyFairPlayConfiguration;
-                        configNew = new MK.IO.ContentKeyPolicyConfigurationFairPlay(Convert.ToBase64String(config.ApplicationSecretKey), config.FairPlayPfx, config.FairPlayPfxPassword, (int)config.RentalDuration, config.RentalAndLeaseKeyType.ToString());
-                    }
-                    else if (option.Configuration.GetType() == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyPlayReadyConfiguration))
-                    {
-                        var config = option.Configuration as Azure.ResourceManager.Media.Models.ContentKeyPolicyPlayReadyConfiguration;
-                        string licensesJson = JsonConvert.SerializeObject(config.Licenses, Newtonsoft.Json.Formatting.Indented);
-                        var Licenses = JsonConvert.DeserializeObject<List<MK.IO.ContentKeyPolicyPlayReadyLicense>>(licensesJson);
-                        configNew = new MK.IO.ContentKeyPolicyConfigurationPlayReady(Licenses);
-                    }
-                    else if (option.Configuration.GetType() == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyWidevineConfiguration))
-                    {
-                        var config = option.Configuration as Azure.ResourceManager.Media.Models.ContentKeyPolicyWidevineConfiguration;
-                        configNew = new MK.IO.ContentKeyPolicyConfigurationWidevine(config.WidevineTemplate);
-                    }
-                    else
-                    {
-                        throw new Exception("Unknown configuration type");
+                        Options = new MK.IO.ContentKeyPolicyOption
+                  {
+                        new MK.IO.ContentKeyPolicyOption
+                        {
+                            Configuration = new MK.IO.ContentKeyPolicyClearKeyConfiguration
+                            {
+                                OdataType = "#Microsoft.Media.ContentKeyPolicyClearKeyConfiguration"
+                            },
+                            Restriction = new MK.IO.ContentKeyPolicyRestriction
+                            {
+                                OpenRestriction = new ContentKeyPolicyOpenRestriction()
+                            }
+                        }
+                  }
+                    });
+                   */
+
                     }
 
-                    /*
+                    catch
+                    {
+                        TextBoxLogWriteLine($"Error when creating content key policy '{ck.Data.Name}' in MK/IO", true);
+                    }
 
-                     MKIOclient.ContentKeyPolicies.CreateAsync(ck.Data.Name, new MK.IO.ContentKeyPolicyProperties
-                     {
-                         Options = new MK.IO.ContentKeyPolicyOption
-                   {
-                         new MK.IO.ContentKeyPolicyOption
-                         {
-                             Configuration = new MK.IO.ContentKeyPolicyClearKeyConfiguration
-                             {
-                                 OdataType = "#Microsoft.Media.ContentKeyPolicyClearKeyConfiguration"
-                             },
-                             Restriction = new MK.IO.ContentKeyPolicyRestriction
-                             {
-                                 OpenRestriction = new ContentKeyPolicyOpenRestriction()
-                             }
-                         }
-                   }
-                     });
-                    */
+
                 }
             }
         }

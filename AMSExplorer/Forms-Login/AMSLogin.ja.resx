@@ -1,4 +1,64 @@
-﻿<root>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema 
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -139,27 +199,6 @@
     <value>0</value>
   </data>
   <data name="label1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="linkLabelAADAut.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="linkLabelAADAut.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="linkLabelAADAut.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="linkLabelAADAut.Location" type="System.Drawing.Point, System.Drawing">
-    <value>279, 90</value>
-  </data>
-  <data name="linkLabelAADAut.Size" type="System.Drawing.Size, System.Drawing">
-    <value>150, 15</value>
-  </data>
-  <data name="linkLabelAADAut.Text" xml:space="preserve">
-    <value>Azure AD 認証に関する情報 </value>
-  </data>
-  <data name="linkLabelAADAut.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="groupBoxAADAutMode.Error" xml:space="preserve">
@@ -339,7 +378,7 @@
   <data name="pictureBoxJob.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAS4AAAA8CAYAAADYKVdnAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAAD85JREFUeF7tnW9MXWcZwO8HXfxmot/4Yozfzf3Ah6Zhq11XtlUwoiVrlbVsra2u
+        vgAADr4B6kKxwAAAD85JREFUeF7tnW9MXWcZwO8HXfxmot/4Yozfzf3Ah6Zhq11XtlUwoiVrlbVsra2u
         SsZwtGOlK4OtrDgZRSsyu65aKzoFtAO0EcwUNE0gWQK6rI0hkKwKDuc1rd5kMY/Pc855z3nPe57z73Jv
         Oy7PTX7Jdu/58/47v/d5/xyauXXrFgiCIGwkRFyCIGw4RFyCIGw4RFyCIGw4RFyCIGw4SiquzM5OyNz3
         LNIBmR3EScjcSzwDme0nHNoh85njNtuehlfeAfZagiAIiqKLK1P9HNJlS6sAcVkcW7Dgri8IglA0cWXu
@@ -422,6 +461,18 @@
     <value>0</value>
   </data>
   <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="linkLabelAMSRetire.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="linkLabelAMSRetire.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="linkLabelAMSRetire.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="linkLabelAMSRetire.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="labelVersion.Error" xml:space="preserve">
@@ -512,6 +563,30 @@
     <value>0</value>
   </data>
   <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBoxMKIO.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBoxMKIO.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="pictureBoxMKIO.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="pictureBoxMKIO.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label3.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label3.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
     <value />
   </data>
 </root>

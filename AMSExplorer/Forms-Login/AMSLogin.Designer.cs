@@ -72,7 +72,11 @@
             // buttonLogin
             // 
             resources.ApplyResources(buttonLogin, "buttonLogin");
+            errorProvider1.SetError(buttonLogin, resources.GetString("buttonLogin.Error"));
+            errorProvider1.SetIconAlignment(buttonLogin, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("buttonLogin.IconAlignment"));
+            errorProvider1.SetIconPadding(buttonLogin, (int)resources.GetObject("buttonLogin.IconPadding"));
             buttonLogin.Name = "buttonLogin";
+            toolTip1.SetToolTip(buttonLogin, resources.GetString("buttonLogin.ToolTip"));
             buttonLogin.UseVisualStyleBackColor = true;
             buttonLogin.Click += ButtonLogin_Click;
             // 
@@ -80,87 +84,142 @@
             // 
             resources.ApplyResources(buttonCancel, "buttonCancel");
             buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            errorProvider1.SetError(buttonCancel, resources.GetString("buttonCancel.Error"));
+            errorProvider1.SetIconAlignment(buttonCancel, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("buttonCancel.IconAlignment"));
+            errorProvider1.SetIconPadding(buttonCancel, (int)resources.GetObject("buttonCancel.IconPadding"));
             buttonCancel.Name = "buttonCancel";
+            toolTip1.SetToolTip(buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonDeleteAccountEntry
             // 
             resources.ApplyResources(buttonDeleteAccountEntry, "buttonDeleteAccountEntry");
+            errorProvider1.SetError(buttonDeleteAccountEntry, resources.GetString("buttonDeleteAccountEntry.Error"));
+            errorProvider1.SetIconAlignment(buttonDeleteAccountEntry, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("buttonDeleteAccountEntry.IconAlignment"));
+            errorProvider1.SetIconPadding(buttonDeleteAccountEntry, (int)resources.GetObject("buttonDeleteAccountEntry.IconPadding"));
             buttonDeleteAccountEntry.Name = "buttonDeleteAccountEntry";
+            toolTip1.SetToolTip(buttonDeleteAccountEntry, resources.GetString("buttonDeleteAccountEntry.ToolTip"));
             buttonDeleteAccountEntry.UseVisualStyleBackColor = true;
             buttonDeleteAccountEntry.Click += ButtonDeleteAccount_Click;
             // 
             // textBoxDescription
             // 
             resources.ApplyResources(textBoxDescription, "textBoxDescription");
+            errorProvider1.SetError(textBoxDescription, resources.GetString("textBoxDescription.Error"));
+            errorProvider1.SetIconAlignment(textBoxDescription, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("textBoxDescription.IconAlignment"));
+            errorProvider1.SetIconPadding(textBoxDescription, (int)resources.GetObject("textBoxDescription.IconPadding"));
             textBoxDescription.Name = "textBoxDescription";
+            toolTip1.SetToolTip(textBoxDescription, resources.GetString("textBoxDescription.ToolTip"));
             textBoxDescription.TextChanged += textBoxDescription_TextChanged;
             // 
             // label1
             // 
             resources.ApplyResources(label1, "label1");
+            errorProvider1.SetError(label1, resources.GetString("label1.Error"));
+            errorProvider1.SetIconAlignment(label1, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("label1.IconAlignment"));
+            errorProvider1.SetIconPadding(label1, (int)resources.GetObject("label1.IconPadding"));
             label1.Name = "label1";
+            toolTip1.SetToolTip(label1, resources.GetString("label1.ToolTip"));
             // 
             // groupBoxAADAutMode
             // 
+            resources.ApplyResources(groupBoxAADAutMode, "groupBoxAADAutMode");
             groupBoxAADAutMode.Controls.Add(radioButtonAADServicePrincipal);
             groupBoxAADAutMode.Controls.Add(radioButtonAADInteractive);
-            resources.ApplyResources(groupBoxAADAutMode, "groupBoxAADAutMode");
+            errorProvider1.SetError(groupBoxAADAutMode, resources.GetString("groupBoxAADAutMode.Error"));
+            errorProvider1.SetIconAlignment(groupBoxAADAutMode, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("groupBoxAADAutMode.IconAlignment"));
+            errorProvider1.SetIconPadding(groupBoxAADAutMode, (int)resources.GetObject("groupBoxAADAutMode.IconPadding"));
             groupBoxAADAutMode.Name = "groupBoxAADAutMode";
             groupBoxAADAutMode.TabStop = false;
+            toolTip1.SetToolTip(groupBoxAADAutMode, resources.GetString("groupBoxAADAutMode.ToolTip"));
             // 
             // radioButtonAADServicePrincipal
             // 
             resources.ApplyResources(radioButtonAADServicePrincipal, "radioButtonAADServicePrincipal");
+            errorProvider1.SetError(radioButtonAADServicePrincipal, resources.GetString("radioButtonAADServicePrincipal.Error"));
+            errorProvider1.SetIconAlignment(radioButtonAADServicePrincipal, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("radioButtonAADServicePrincipal.IconAlignment"));
+            errorProvider1.SetIconPadding(radioButtonAADServicePrincipal, (int)resources.GetObject("radioButtonAADServicePrincipal.IconPadding"));
             radioButtonAADServicePrincipal.Name = "radioButtonAADServicePrincipal";
+            toolTip1.SetToolTip(radioButtonAADServicePrincipal, resources.GetString("radioButtonAADServicePrincipal.ToolTip"));
             radioButtonAADServicePrincipal.UseVisualStyleBackColor = true;
             // 
             // radioButtonAADInteractive
             // 
             resources.ApplyResources(radioButtonAADInteractive, "radioButtonAADInteractive");
             radioButtonAADInteractive.Checked = true;
+            errorProvider1.SetError(radioButtonAADInteractive, resources.GetString("radioButtonAADInteractive.Error"));
+            errorProvider1.SetIconAlignment(radioButtonAADInteractive, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("radioButtonAADInteractive.IconAlignment"));
+            errorProvider1.SetIconPadding(radioButtonAADInteractive, (int)resources.GetObject("radioButtonAADInteractive.IconPadding"));
             radioButtonAADInteractive.Name = "radioButtonAADInteractive";
             radioButtonAADInteractive.TabStop = true;
+            toolTip1.SetToolTip(radioButtonAADInteractive, resources.GetString("radioButtonAADInteractive.ToolTip"));
             radioButtonAADInteractive.UseVisualStyleBackColor = true;
             // 
             // textBoxResourceGroup
             // 
             resources.ApplyResources(textBoxResourceGroup, "textBoxResourceGroup");
+            errorProvider1.SetError(textBoxResourceGroup, resources.GetString("textBoxResourceGroup.Error"));
+            errorProvider1.SetIconAlignment(textBoxResourceGroup, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("textBoxResourceGroup.IconAlignment"));
+            errorProvider1.SetIconPadding(textBoxResourceGroup, (int)resources.GetObject("textBoxResourceGroup.IconPadding"));
             textBoxResourceGroup.Name = "textBoxResourceGroup";
             toolTip1.SetToolTip(textBoxResourceGroup, resources.GetString("textBoxResourceGroup.ToolTip"));
             // 
             // textBoxAADtenantId
             // 
             resources.ApplyResources(textBoxAADtenantId, "textBoxAADtenantId");
+            errorProvider1.SetError(textBoxAADtenantId, resources.GetString("textBoxAADtenantId.Error"));
+            errorProvider1.SetIconAlignment(textBoxAADtenantId, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("textBoxAADtenantId.IconAlignment"));
+            errorProvider1.SetIconPadding(textBoxAADtenantId, (int)resources.GetObject("textBoxAADtenantId.IconPadding"));
             textBoxAADtenantId.Name = "textBoxAADtenantId";
+            toolTip1.SetToolTip(textBoxAADtenantId, resources.GetString("textBoxAADtenantId.ToolTip"));
             // 
             // labelADTenant
             // 
             resources.ApplyResources(labelADTenant, "labelADTenant");
+            errorProvider1.SetError(labelADTenant, resources.GetString("labelADTenant.Error"));
+            errorProvider1.SetIconAlignment(labelADTenant, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("labelADTenant.IconAlignment"));
+            errorProvider1.SetIconPadding(labelADTenant, (int)resources.GetObject("labelADTenant.IconPadding"));
             labelADTenant.Name = "labelADTenant";
+            toolTip1.SetToolTip(labelADTenant, resources.GetString("labelADTenant.ToolTip"));
             // 
             // labelE2
             // 
             resources.ApplyResources(labelE2, "labelE2");
+            errorProvider1.SetError(labelE2, resources.GetString("labelE2.Error"));
+            errorProvider1.SetIconAlignment(labelE2, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("labelE2.IconAlignment"));
+            errorProvider1.SetIconPadding(labelE2, (int)resources.GetObject("labelE2.IconPadding"));
             labelE2.Name = "labelE2";
+            toolTip1.SetToolTip(labelE2, resources.GetString("labelE2.ToolTip"));
             // 
             // labelenteramsacct
             // 
             resources.ApplyResources(labelenteramsacct, "labelenteramsacct");
+            errorProvider1.SetError(labelenteramsacct, resources.GetString("labelenteramsacct.Error"));
             labelenteramsacct.ForeColor = System.Drawing.Color.DarkBlue;
+            errorProvider1.SetIconAlignment(labelenteramsacct, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("labelenteramsacct.IconAlignment"));
+            errorProvider1.SetIconPadding(labelenteramsacct, (int)resources.GetObject("labelenteramsacct.IconPadding"));
             labelenteramsacct.Name = "labelenteramsacct";
+            toolTip1.SetToolTip(labelenteramsacct, resources.GetString("labelenteramsacct.ToolTip"));
             // 
             // buttonExport
             // 
             resources.ApplyResources(buttonExport, "buttonExport");
+            errorProvider1.SetError(buttonExport, resources.GetString("buttonExport.Error"));
+            errorProvider1.SetIconAlignment(buttonExport, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("buttonExport.IconAlignment"));
+            errorProvider1.SetIconPadding(buttonExport, (int)resources.GetObject("buttonExport.IconPadding"));
             buttonExport.Name = "buttonExport";
+            toolTip1.SetToolTip(buttonExport, resources.GetString("buttonExport.ToolTip"));
             buttonExport.UseVisualStyleBackColor = true;
             buttonExport.Click += ButtonExport_Click;
             // 
             // buttonImportAll
             // 
             resources.ApplyResources(buttonImportAll, "buttonImportAll");
+            errorProvider1.SetError(buttonImportAll, resources.GetString("buttonImportAll.Error"));
+            errorProvider1.SetIconAlignment(buttonImportAll, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("buttonImportAll.IconAlignment"));
+            errorProvider1.SetIconPadding(buttonImportAll, (int)resources.GetObject("buttonImportAll.IconPadding"));
             buttonImportAll.Name = "buttonImportAll";
+            toolTip1.SetToolTip(buttonImportAll, resources.GetString("buttonImportAll.ToolTip"));
             buttonImportAll.UseVisualStyleBackColor = true;
             buttonImportAll.Click += ButtonImportAll_Click;
             // 
@@ -177,48 +236,72 @@
             // pictureBoxJob
             // 
             resources.ApplyResources(pictureBoxJob, "pictureBoxJob");
+            errorProvider1.SetError(pictureBoxJob, resources.GetString("pictureBoxJob.Error"));
+            errorProvider1.SetIconAlignment(pictureBoxJob, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("pictureBoxJob.IconAlignment"));
+            errorProvider1.SetIconPadding(pictureBoxJob, (int)resources.GetObject("pictureBoxJob.IconPadding"));
             pictureBoxJob.Name = "pictureBoxJob";
             pictureBoxJob.TabStop = false;
+            toolTip1.SetToolTip(pictureBoxJob, resources.GetString("pictureBoxJob.ToolTip"));
             // 
             // panel1
             // 
+            resources.ApplyResources(panel1, "panel1");
             panel1.BackColor = System.Drawing.SystemColors.Control;
             panel1.Controls.Add(linkLabelAMSRetire);
             panel1.Controls.Add(labelVersion);
             panel1.Controls.Add(buttonLogin);
             panel1.Controls.Add(buttonCancel);
-            resources.ApplyResources(panel1, "panel1");
+            errorProvider1.SetError(panel1, resources.GetString("panel1.Error"));
+            errorProvider1.SetIconAlignment(panel1, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("panel1.IconAlignment"));
+            errorProvider1.SetIconPadding(panel1, (int)resources.GetObject("panel1.IconPadding"));
             panel1.Name = "panel1";
+            toolTip1.SetToolTip(panel1, resources.GetString("panel1.ToolTip"));
             panel1.Paint += Panel1_Paint;
             // 
             // linkLabelAMSRetire
             // 
             resources.ApplyResources(linkLabelAMSRetire, "linkLabelAMSRetire");
+            errorProvider1.SetError(linkLabelAMSRetire, resources.GetString("linkLabelAMSRetire.Error"));
+            errorProvider1.SetIconAlignment(linkLabelAMSRetire, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("linkLabelAMSRetire.IconAlignment"));
+            errorProvider1.SetIconPadding(linkLabelAMSRetire, (int)resources.GetObject("linkLabelAMSRetire.IconPadding"));
             linkLabelAMSRetire.LinkColor = System.Drawing.Color.Red;
             linkLabelAMSRetire.Name = "linkLabelAMSRetire";
             linkLabelAMSRetire.TabStop = true;
+            toolTip1.SetToolTip(linkLabelAMSRetire, resources.GetString("linkLabelAMSRetire.ToolTip"));
             linkLabelAMSRetire.LinkClicked += Accountmgtlink_LinkClicked;
             // 
             // labelVersion
             // 
             resources.ApplyResources(labelVersion, "labelVersion");
+            errorProvider1.SetError(labelVersion, resources.GetString("labelVersion.Error"));
             labelVersion.ForeColor = System.Drawing.SystemColors.ControlText;
+            errorProvider1.SetIconAlignment(labelVersion, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("labelVersion.IconAlignment"));
+            errorProvider1.SetIconPadding(labelVersion, (int)resources.GetObject("labelVersion.IconPadding"));
             labelVersion.Name = "labelVersion";
+            toolTip1.SetToolTip(labelVersion, resources.GetString("labelVersion.ToolTip"));
             // 
             // buttonPickupAccount
             // 
             resources.ApplyResources(buttonPickupAccount, "buttonPickupAccount");
+            errorProvider1.SetError(buttonPickupAccount, resources.GetString("buttonPickupAccount.Error"));
+            errorProvider1.SetIconAlignment(buttonPickupAccount, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("buttonPickupAccount.IconAlignment"));
+            errorProvider1.SetIconPadding(buttonPickupAccount, (int)resources.GetObject("buttonPickupAccount.IconPadding"));
             buttonPickupAccount.Name = "buttonPickupAccount";
+            toolTip1.SetToolTip(buttonPickupAccount, resources.GetString("buttonPickupAccount.ToolTip"));
             buttonPickupAccount.UseVisualStyleBackColor = true;
             buttonPickupAccount.Click += buttonPickupAccount_Click;
             // 
             // listViewAccounts
             // 
             resources.ApplyResources(listViewAccounts, "listViewAccounts");
+            errorProvider1.SetError(listViewAccounts, resources.GetString("listViewAccounts.Error"));
             listViewAccounts.FullRowSelect = true;
             listViewAccounts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            errorProvider1.SetIconAlignment(listViewAccounts, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("listViewAccounts.IconAlignment"));
+            errorProvider1.SetIconPadding(listViewAccounts, (int)resources.GetObject("listViewAccounts.IconPadding"));
             listViewAccounts.Name = "listViewAccounts";
             listViewAccounts.ShowItemToolTips = true;
+            toolTip1.SetToolTip(listViewAccounts, resources.GetString("listViewAccounts.ToolTip"));
             listViewAccounts.UseCompatibleStateImageBehavior = false;
             listViewAccounts.View = System.Windows.Forms.View.List;
             listViewAccounts.SelectedIndexChanged += ListViewAccounts_SelectedIndexChanged;
@@ -228,8 +311,12 @@
             // linkLabelAMSOfflineDoc
             // 
             resources.ApplyResources(linkLabelAMSOfflineDoc, "linkLabelAMSOfflineDoc");
+            errorProvider1.SetError(linkLabelAMSOfflineDoc, resources.GetString("linkLabelAMSOfflineDoc.Error"));
+            errorProvider1.SetIconAlignment(linkLabelAMSOfflineDoc, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("linkLabelAMSOfflineDoc.IconAlignment"));
+            errorProvider1.SetIconPadding(linkLabelAMSOfflineDoc, (int)resources.GetObject("linkLabelAMSOfflineDoc.IconPadding"));
             linkLabelAMSOfflineDoc.Name = "linkLabelAMSOfflineDoc";
             linkLabelAMSOfflineDoc.TabStop = true;
+            toolTip1.SetToolTip(linkLabelAMSOfflineDoc, resources.GetString("linkLabelAMSOfflineDoc.ToolTip"));
             linkLabelAMSOfflineDoc.LinkClicked += linkLabelAMSOfflineDoc_LinkClicked;
             // 
             // tableLayoutPanel1
@@ -243,34 +330,55 @@
             tableLayoutPanel1.Controls.Add(labelE2, 0, 4);
             tableLayoutPanel1.Controls.Add(labelADTenant, 0, 0);
             tableLayoutPanel1.Controls.Add(textBoxAADtenantId, 0, 1);
+            errorProvider1.SetError(tableLayoutPanel1, resources.GetString("tableLayoutPanel1.Error"));
+            errorProvider1.SetIconAlignment(tableLayoutPanel1, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("tableLayoutPanel1.IconAlignment"));
+            errorProvider1.SetIconPadding(tableLayoutPanel1, (int)resources.GetObject("tableLayoutPanel1.IconPadding"));
             tableLayoutPanel1.Name = "tableLayoutPanel1";
+            toolTip1.SetToolTip(tableLayoutPanel1, resources.GetString("tableLayoutPanel1.ToolTip"));
             // 
             // textBoxSubscription
             // 
             resources.ApplyResources(textBoxSubscription, "textBoxSubscription");
+            errorProvider1.SetError(textBoxSubscription, resources.GetString("textBoxSubscription.Error"));
+            errorProvider1.SetIconAlignment(textBoxSubscription, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("textBoxSubscription.IconAlignment"));
+            errorProvider1.SetIconPadding(textBoxSubscription, (int)resources.GetObject("textBoxSubscription.IconPadding"));
             textBoxSubscription.Name = "textBoxSubscription";
+            toolTip1.SetToolTip(textBoxSubscription, resources.GetString("textBoxSubscription.ToolTip"));
             // 
             // label2
             // 
             resources.ApplyResources(label2, "label2");
+            errorProvider1.SetError(label2, resources.GetString("label2.Error"));
+            errorProvider1.SetIconAlignment(label2, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("label2.IconAlignment"));
+            errorProvider1.SetIconPadding(label2, (int)resources.GetObject("label2.IconPadding"));
             label2.Name = "label2";
+            toolTip1.SetToolTip(label2, resources.GetString("label2.ToolTip"));
             // 
             // errorProvider1
             // 
             errorProvider1.ContainerControl = this;
+            resources.ApplyResources(errorProvider1, "errorProvider1");
             // 
             // pictureBoxMKIO
             // 
             resources.ApplyResources(pictureBoxMKIO, "pictureBoxMKIO");
+            errorProvider1.SetError(pictureBoxMKIO, resources.GetString("pictureBoxMKIO.Error"));
+            errorProvider1.SetIconAlignment(pictureBoxMKIO, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("pictureBoxMKIO.IconAlignment"));
+            errorProvider1.SetIconPadding(pictureBoxMKIO, (int)resources.GetObject("pictureBoxMKIO.IconPadding"));
             pictureBoxMKIO.Image = Bitmaps.mk_io_blue;
             pictureBoxMKIO.Name = "pictureBoxMKIO";
             pictureBoxMKIO.TabStop = false;
+            toolTip1.SetToolTip(pictureBoxMKIO, resources.GetString("pictureBoxMKIO.ToolTip"));
             // 
             // label3
             // 
             resources.ApplyResources(label3, "label3");
+            errorProvider1.SetError(label3, resources.GetString("label3.Error"));
             label3.ForeColor = System.Drawing.SystemColors.ControlText;
+            errorProvider1.SetIconAlignment(label3, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("label3.IconAlignment"));
+            errorProvider1.SetIconPadding(label3, (int)resources.GetObject("label3.IconPadding"));
             label3.Name = "label3";
+            toolTip1.SetToolTip(label3, resources.GetString("label3.ToolTip"));
             // 
             // AmsLogin
             // 
@@ -295,6 +403,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "AmsLogin";
+            toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             Load += AMSLogin_Load;
             Shown += AMSLogin_ShownAsync;
             DpiChanged += AmsLogin_DpiChanged;
