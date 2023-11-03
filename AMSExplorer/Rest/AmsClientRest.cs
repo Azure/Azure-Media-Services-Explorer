@@ -90,12 +90,21 @@ namespace AMSExplorer.Rest
         // Content key policy
         //
         private const string ckpiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/contentKeyPolicies/{3}?api-version=2022-08-01";
-
+     
         public async Task<string> GetContentKeyPolicyAsync(string contentKeyPolicyName)
 
         {
             string URL = GenerateApiUrl(ckpiUrl, contentKeyPolicyName);
             return await GetObjectContentAsync(URL);
+        }
+
+        private const string ckpiPropSecretsUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/contentKeyPolicies/{3}/getPolicyPropertiesWithSecrets?api-version=2023-01-01";
+
+        public async Task<string> GetContentKeyPolicyPropertiesWithSecretsAsync(string contentKeyPolicyName)
+
+        {
+            string URL = GenerateApiUrl(ckpiPropSecretsUrl, contentKeyPolicyName);
+            return await PostObjectContentAsync(URL);
         }
 
         //

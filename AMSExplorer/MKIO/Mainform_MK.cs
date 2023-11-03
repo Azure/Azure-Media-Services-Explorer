@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MK.IO;
 using Newtonsoft.Json.Serialization;
+using AMSExplorer.Rest;
 
 namespace AMSExplorer
 {
@@ -41,87 +42,29 @@ namespace AMSExplorer
         {
             Telemetry.TrackEvent("DoMKIOCreateContentKeyPolicyAsync");
 
+            var _restClient = new AmsClientRest(_amsClient);
             var ckpols = await ReturnSelectedCKPoliciessAsync();
 
             foreach (var ck in ckpols)
             {
-                var cknewprop = new MK.IO.ContentKeyPolicyProperties();
-
-                foreach (var option in ck.Data.Options)
+                try
                 {
-                    try
-                    {
-                        MK.IO.ContentKeyPolicyConfiguration configNew;
+                    var cknewprop = new MK.IO.ContentKeyPolicyProperties();
 
-                        if (option.Configuration.GetType() == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyClearKeyConfiguration))
-                        {
-                            configNew = new MK.IO.ContentKeyPolicyClearKeyConfiguration();
-                        }
-                        else if (option.Configuration.GetType() == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyFairPlayConfiguration))
-                        {
-                            var config = option.Configuration as Azure.ResourceManager.Media.Models.ContentKeyPolicyFairPlayConfiguration;
-                            configNew = new MK.IO.ContentKeyPolicyConfigurationFairPlay(Convert.ToBase64String(config.ApplicationSecretKey), config.FairPlayPfx, config.FairPlayPfxPassword, (int)config.RentalDuration, config.RentalAndLeaseKeyType.ToString());
-                        }
-                        else if (option.Configuration.GetType() == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyPlayReadyConfiguration))
-                        {
+                    // use REST with AMS
+                    var existingCkProp = await _restClient.GetContentKeyPolicyPropertiesWithSecretsAsync(ck.Data.Name);
+                    //dynamic existingCkDyn = JsonConvert.DeserializeObject(existingCk);
 
-                            var config = option.Configuration as Azure.ResourceManager.Media.Models.ContentKeyPolicyPlayReadyConfiguration;
-                            string licensesJson = JsonConvert.SerializeObject(
-                                config.Licenses,
-                                new JsonSerializerSettings
-                                {
-                                    ContractResolver = new CamelCasePropertyNamesContractResolver()
-                                });
-                            var Licenses = JsonConvert.DeserializeObject<List<MK.IO.ContentKeyPolicyPlayReadyLicense>>(licensesJson);
-                            configNew = new MK.IO.ContentKeyPolicyConfigurationPlayReady(Licenses);
-
-
-
-
-                        }
-                        else if (option.Configuration.GetType() == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyWidevineConfiguration))
-                        {
-                            var config = option.Configuration as Azure.ResourceManager.Media.Models.ContentKeyPolicyWidevineConfiguration;
-                            configNew = new MK.IO.ContentKeyPolicyConfigurationWidevine(config.WidevineTemplate);
-                        }
-                        else
-                        {
-                            throw new Exception("Unknown configuration type");
-                        }
-
-                        /*
-
-                    MKIOclient.ContentKeyPolicies.CreateAsync(ck.Data.Name, new MK.IO.ContentKeyPolicyProperties
-                    {
-                        Options = new MK.IO.ContentKeyPolicyOption
-                  {
-                        new MK.IO.ContentKeyPolicyOption
-                        {
-                            Configuration = new MK.IO.ContentKeyPolicyClearKeyConfiguration
-                            {
-                                OdataType = "#Microsoft.Media.ContentKeyPolicyClearKeyConfiguration"
-                            },
-                            Restriction = new MK.IO.ContentKeyPolicyRestriction
-                            {
-                                OpenRestriction = new ContentKeyPolicyOpenRestriction()
-                            }
-                        }
-                  }
-                    });
-                   */
-
-                    }
-
-                    catch
-                    {
-                        TextBoxLogWriteLine($"Error when creating content key policy '{ck.Data.Name}' in MK/IO", true);
-                    }
-
-
+                    var ckPolProp = JsonConvert.DeserializeObject<ContentKeyPolicyProperties>(existingCkProp);
+                    var createdPol = await MKIOclient.ContentKeyPolicies.CreateAsync(ck.Data.Name, new ContentKeyPolicy(ckPolProp));
+                    TextBoxLogWriteLine($"Succesfully created content key policy '{ck.Data.Name}' in MK/IO");
+                }
+                catch
+                {
+                    TextBoxLogWriteLine($"Error when creating content key policy '{ck.Data.Name}' in MK/IO", true);
                 }
             }
         }
-
 
         /// <summary>
         /// Storage accounts creation in MK/IO
