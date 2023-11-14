@@ -8497,7 +8497,7 @@ namespace AMSExplorer
 
             if (!found || myTransform == null)
             {
-                var data = new MediaTransformData()
+                myTransformData = new MediaTransformData()
                 {
                     Outputs = {
                             new MediaTransformOutput(preset)
@@ -8692,7 +8692,7 @@ namespace AMSExplorer
 
                         TextBoxLogWriteLine("Job '{0}' created.", job.Data.Name); // Warning
                         Dictionary<string, string> dictionary = new() { { "FromHttps", false.ToString() } };
-                        Dictionary<string, double> dictionaryM = new() { { "Input count", jobInput is MediaJobInputAsset ? 1 : (jobInput as MediaJobInputSequence).Inputs.Count }, { "Output count", jobData.Outputs.Count } };
+                        Dictionary<string, double> dictionaryM = new() { { "Input count", job.Data.Input is MediaJobInputAsset ? 1 : (job.Data.Input as MediaJobInputSequence).Inputs.Count }, { "Output count", job.Data.Outputs.Count } };
                         Telemetry.TrackEvent("Job created", dictionary, dictionaryM);
 
                         dataGridViewJobsV.DoJobProgress(new JobExtension() { Job = job, TransformName = transform.Data.Name }, _amsClient);
