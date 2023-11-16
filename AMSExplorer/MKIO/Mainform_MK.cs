@@ -310,16 +310,16 @@ namespace AMSExplorer
 
                                 //TextBoxLogWriteLine($"Asset '{assetName}' : locator '{locator.Name}' not created in MK/IO because there are attached content keys.", true);
 
-                                var startT = locatorRes.Data.StartOn?.UtcDateTime.ToString("s");
-                                var endT = locatorRes.Data.EndOn?.UtcDateTime.ToString("s");
+                                var startT = locatorRes.Data.StartOn?.UtcDateTime;
+                                var endT = locatorRes.Data.EndOn?.UtcDateTime;
 
                                 try
                                 {
                                     await MKIOclient.StreamingLocators.CreateAsync(locator.Name, new StreamingLocatorProperties
                                     {
                                         AssetName = assetName,
-                                        StartTime = startT != null ? startT + "Z" : null,
-                                        EndTime = endT != null ? endT + "Z" : null,
+                                        StartTime = startT,
+                                        EndTime = endT,
                                         StreamingPolicyName = locatorRes.Data.StreamingPolicyName,
                                         StreamingLocatorId = locatorRes.Data.StreamingLocatorId.ToString(),
                                         Filters = locatorRes.Data.Filters?.ToList(),

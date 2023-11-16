@@ -2888,12 +2888,10 @@ namespace AMSExplorer
                     LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Default content key policy name: {0}", locator.Properties.DefaultContentKeyPolicyName);
                     LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Alt media Id: {0}", locator.Properties.AlternativeMediaId);
 
-                    DateTime startTime;
-                    string startTimeS = DateTime.TryParse(locator.Properties.StartTime, out startTime) ? startTime.ToLocalTime().ToString() : string.Empty;
+                    string startTimeS = locator.Properties.StartTime.ToString();
                     LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Start time: {0}", startTimeS);
 
-                    DateTime endTime;
-                    string endTimeS = DateTime.TryParse(locator.Properties.EndTime, out endTime) ? endTime.ToLocalTime().ToString() : string.Empty;
+                    string endTimeS = locator.Properties.EndTime.ToString(); ;
                     LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "End time: {0}", endTimeS);
 
                     LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Filters: {0}", string.Join(", ", locator.Properties.Filters != null ? locator.Properties.Filters.ToArray() : new List<string>()));
