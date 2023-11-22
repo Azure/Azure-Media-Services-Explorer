@@ -2843,6 +2843,8 @@ namespace AMSExplorer
 
             if (SelectedSE != null)
             {
+                Cursor = Cursors.WaitCursor;
+
                 Color colornodeRU = Color.Black;
 
                 TreeViewLocatorsMKIO.BeginUpdate();
@@ -2933,6 +2935,7 @@ namespace AMSExplorer
                     }
                 }
                 TreeViewLocatorsMKIO.EndUpdate();
+                Cursor = Cursors.Arrow;
             }
         }
 
