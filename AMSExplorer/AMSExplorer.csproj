@@ -4,6 +4,8 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+	<ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
+	<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
     <StartupObject>AMSExplorer.Program</StartupObject>
     <Version>5.7.2.0</Version>
     <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>

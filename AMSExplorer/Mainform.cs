@@ -9885,5 +9885,10 @@ namespace AMSExplorer
         {
             await DoMKIOCreateContentKeyPolicyAsync();
         }
+
+        private async void deleteSelectedAssetsFromMKIOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await MKIODeleteAssetAsync();
+        }
     }
 }

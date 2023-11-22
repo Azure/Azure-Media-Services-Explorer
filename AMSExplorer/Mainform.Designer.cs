@@ -87,7 +87,8 @@
             withCustomPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuMKIOGeneral = new System.Windows.Forms.ToolStripMenuItem();
-            createAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            createMKIOAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            deleteSelectedAssetsFromMKIOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             textBoxAssetsPageNumber = new System.Windows.Forms.TextBox();
             butNextPageAsset = new System.Windows.Forms.Button();
             textBoxAssetSearch = new System.Windows.Forms.TextBox();
@@ -769,16 +770,23 @@
             // 
             // toolStripMenuMKIOGeneral
             // 
-            toolStripMenuMKIOGeneral.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { createAssetToolStripMenuItem });
+            toolStripMenuMKIOGeneral.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { createMKIOAssetToolStripMenuItem, deleteSelectedAssetsFromMKIOToolStripMenuItem });
             toolStripMenuMKIOGeneral.Name = "toolStripMenuMKIOGeneral";
             resources.ApplyResources(toolStripMenuMKIOGeneral, "toolStripMenuMKIOGeneral");
             // 
-            // createAssetToolStripMenuItem
+            // createMKIOAssetToolStripMenuItem
             // 
-            createAssetToolStripMenuItem.Image = Bitmaps.create;
-            createAssetToolStripMenuItem.Name = "createAssetToolStripMenuItem";
-            resources.ApplyResources(createAssetToolStripMenuItem, "createAssetToolStripMenuItem");
-            createAssetToolStripMenuItem.Click += createAssetToolStripMenuItem_Click;
+            createMKIOAssetToolStripMenuItem.Image = Bitmaps.create;
+            createMKIOAssetToolStripMenuItem.Name = "createMKIOAssetToolStripMenuItem";
+            resources.ApplyResources(createMKIOAssetToolStripMenuItem, "createMKIOAssetToolStripMenuItem");
+            createMKIOAssetToolStripMenuItem.Click += createAssetToolStripMenuItem_Click;
+            // 
+            // deleteSelectedAssetsFromMKIOToolStripMenuItem
+            // 
+            deleteSelectedAssetsFromMKIOToolStripMenuItem.Image = Bitmaps.delete;
+            deleteSelectedAssetsFromMKIOToolStripMenuItem.Name = "deleteSelectedAssetsFromMKIOToolStripMenuItem";
+            resources.ApplyResources(deleteSelectedAssetsFromMKIOToolStripMenuItem, "deleteSelectedAssetsFromMKIOToolStripMenuItem");
+            deleteSelectedAssetsFromMKIOToolStripMenuItem.Click += deleteSelectedAssetsFromMKIOToolStripMenuItem_Click;
             // 
             // textBoxAssetsPageNumber
             // 
@@ -2885,7 +2893,7 @@
         private System.Windows.Forms.ToolStripMenuItem displayOutputUrlsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuMKIOGeneral;
-        private System.Windows.Forms.ToolStripMenuItem createAssetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createMKIOAssetToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.ToolStripMenuItem mediaKindMKIOToolStripMenuItemStor;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddStorageMKIO;
@@ -2894,6 +2902,7 @@
         private System.Windows.Forms.ToolStripMenuItem mKIOPortalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mediaKindMKIOToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCreateCKInMKIO;
+        private System.Windows.Forms.ToolStripMenuItem deleteSelectedAssetsFromMKIOToolStripMenuItem;
     }
 }
 

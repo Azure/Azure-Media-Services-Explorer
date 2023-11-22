@@ -653,11 +653,17 @@
   <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
     <value>286, 6</value>
   </data>
-  <data name="createAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 22</value>
+  <data name="createMKIOAssetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 22</value>
   </data>
-  <data name="createAssetToolStripMenuItem.Text" xml:space="preserve">
-    <value>Create selected assets in MK/IO</value>
+  <data name="createMKIOAssetToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create asset(s) in MK/IO...</value>
+  </data>
+  <data name="deleteSelectedAssetsFromMKIOToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 22</value>
+  </data>
+  <data name="deleteSelectedAssetsFromMKIOToolStripMenuItem.Text" xml:space="preserve">
+    <value>Delete asset(s) from MK/IO...</value>
   </data>
   <data name="toolStripMenuMKIOGeneral.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>
@@ -666,7 +672,7 @@
     <value>MediaKind MK/IO</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 430</value>
+    <value>290, 452</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -1270,7 +1276,7 @@
     <value>False</value>
   </data>
   <data name="toolStripMenuItemCreateCKInMKIO.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>159, 22</value>
   </data>
   <data name="toolStripMenuItemCreateCKInMKIO.Text" xml:space="preserve">
     <value>Create in MK/IO</value>
@@ -1282,7 +1288,7 @@
     <value>MediaKind MK/IO</value>
   </data>
   <data name="contextMenuStripCKPolicies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 164</value>
+    <value>222, 142</value>
   </data>
   <data name="&gt;&gt;contextMenuStripCKPolicies.Name" xml:space="preserve">
     <value>contextMenuStripCKPolicies</value>
@@ -5212,10 +5218,16 @@
   <data name="&gt;&gt;toolStripMenuMKIOGeneral.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;createAssetToolStripMenuItem.Name" xml:space="preserve">
-    <value>createAssetToolStripMenuItem</value>
+  <data name="&gt;&gt;createMKIOAssetToolStripMenuItem.Name" xml:space="preserve">
+    <value>createMKIOAssetToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;createAssetToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;createMKIOAssetToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;deleteSelectedAssetsFromMKIOToolStripMenuItem.Name" xml:space="preserve">
+    <value>deleteSelectedAssetsFromMKIOToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;deleteSelectedAssetsFromMKIOToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem12.Name" xml:space="preserve">

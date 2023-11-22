@@ -202,7 +202,7 @@ namespace AMSExplorer
         }
 
         /// <summary>
-        /// Create/migrate asset(s) in MK/IO
+        /// Create asset(s) in MK/IO
         /// </summary>
         /// <returns></returns>
         private async Task MKIOCreateAssetAsync()
@@ -345,5 +345,59 @@ namespace AMSExplorer
             }
             DoRefreshGridAssetV(false);
         }
+
+
+        /// <summary>
+        /// Delete asset(s) in MK/IO
+        /// </summary>
+        /// <returns></returns>
+        private async Task MKIODeleteAssetAsync()
+        {
+            Telemetry.TrackEvent("MKIODeleteAssetAsync");
+            if (MKIOclient == null)
+            {
+                MessageBox.Show("Can't delete", "MK/IO is not connected. Restart the application to connect.");
+            }
+
+            var assets = await ReturnSelectedAssetsAsync();
+            if (assets.Count == 0) return;
+
+            string message = assets.Count == 1 ? string.Format("Delete asset '{0}' from MK/IO ?", assets.First().Data.Name) : string.Format("Delete these {0} assets from MK/IO ?", assets.Count);
+            if (MessageBox.Show(message, "MK/IO asset deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                return;
+            }
+
+            foreach (var asset in assets)
+            {
+                string assetName = asset.Data.Name;
+
+                // let's verify that asset is in MK/IO
+                var assetInMKIO = migratedAssetsToMKIO.Where(a => a.Properties.Container == asset.Data.Container && a.Properties.StorageAccountName == asset.Data.StorageAccountName).FirstOrDefault();
+
+                if (assetInMKIO == null)
+                {
+                    TextBoxLogWriteLine($"Asset '{assetName}' is not in MK/IO, skipping the deletion.", true);
+
+                }
+                else // asset is in MK/IO
+                {
+                    try
+                    {
+                        await MKIOclient.Assets.DeleteAsync(assetName);
+                        TextBoxLogWriteLine($"Asset '{assetName}' deleted in MK/IO.");
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine($"Error when deleting asset '{assetName}' in MK/IO.", true);
+                        TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
+                    }
+                }
+            }
+
+            DoRefreshGridAssetV(false);
+        }
+
     }
 }
