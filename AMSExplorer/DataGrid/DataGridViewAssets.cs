@@ -65,6 +65,7 @@ namespace AMSExplorer
         private static readonly Bitmap BitmapCancel = Program.MakeRed(Bitmaps.cancel);
         private static BindingList<AssetEntry> _MyObservAssetV3;
         private SynchronizationContext _syncontext;
+        private bool _enableMKIOInfo;
 
         public int CurrentPage => _currentPageNumber;
 
@@ -106,6 +107,7 @@ namespace AMSExplorer
             Debug.WriteLine("AssetsInit");
 
             _syncontext = syncontext;
+            _enableMKIOInfo = enableMKIOInfo;
 
             Pageable<MediaAssetResource> assetsList = Task.Run(() =>
                                         client.AMSclient.GetMediaAssets().GetAll()
@@ -299,6 +301,9 @@ namespace AMSExplorer
                             AE.SizeLong = data.Size;
                             AE.Size = AssetTools.FormatByteSize(AE.SizeLong);
                             AE.AssetWarning = (AE.SizeLong == 0);
+                        }
+                        if (_enableMKIOInfo)
+                        {
                             AE.MKIOMigrated = ListMKIOAssets.Where(a => asset.Data.StorageAccountName == a.Properties.StorageAccountName && asset.Data.Container == a.Properties.Container).Any();
                         }
 

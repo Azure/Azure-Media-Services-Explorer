@@ -42,6 +42,8 @@ namespace AMSExplorer
         {
             Telemetry.TrackEvent("DoMKIOCreateContentKeyPolicyAsync");
 
+            migratedContentKeyPoliciesToMKIO = await MKIOclient.ContentKeyPolicies.ListAsync();
+
             var _restClient = new AmsClientRest(_amsClient);
             var ckpols = await ReturnSelectedCKPoliciessAsync();
 
@@ -64,6 +66,7 @@ namespace AMSExplorer
                     TextBoxLogWriteLine($"Error when creating content key policy '{ck.Data.Name}' in MK/IO", true);
                 }
             }
+            await DoRefreshGridCKPoliciesVAsync(false);
         }
 
         /// <summary>

@@ -96,6 +96,7 @@ namespace AMSExplorer
 
         public List<AssetSchema> migratedAssetsToMKIO;
         public List<StorageResponseSchema> migratedStorageAccountsToMKIO;
+        public List<ContentKeyPolicy> migratedContentKeyPoliciesToMKIO;
 
         public Mainform(string[] args)
         {
@@ -197,6 +198,7 @@ namespace AMSExplorer
                     MKIOclient = new MKIOClient(_amsClient.credentialsEntry.MKIOSubscriptionName, _amsClient.credentialsEntry.MKIOClearToken);
                     migratedAssetsToMKIO = MKIOclient.Assets.List();
                     migratedStorageAccountsToMKIO = MKIOclient.StorageAccounts.List();
+                    migratedContentKeyPoliciesToMKIO = MKIOclient.ContentKeyPolicies.List();
 
                     if (migratedStorageAccountsToMKIO.Count == 0)
                     {
@@ -4634,7 +4636,7 @@ namespace AMSExplorer
             if (firstime)
             {
                 // Storage tab
-                dataGridViewCKPolicies.ColumnCount = 5;
+                dataGridViewCKPolicies.ColumnCount = 6;
                 dataGridViewCKPolicies.Columns[0].HeaderText = "Name";
                 dataGridViewCKPolicies.Columns[0].Name = "Name";
                 dataGridViewCKPolicies.Columns[0].ReadOnly = true;
@@ -4651,9 +4653,23 @@ namespace AMSExplorer
                 dataGridViewCKPolicies.Columns[4].HeaderText = "Last modified";
                 dataGridViewCKPolicies.Columns[4].Name = "LastModified";
                 dataGridViewCKPolicies.Columns[4].Width = 110;
+
+                // MK/IO column
+                dataGridViewCKPolicies.Columns.RemoveAt(5);
+                var c = new DataGridViewCheckBoxColumn();
+                c.ValueType = typeof(bool);
+                c.HeaderText = "in MK/IO";
+                c.Name = "MKIOMigrated";
+                c.Visible = MKIOclient != null;
+                c.Width = 700;
+                dataGridViewCKPolicies.Columns.Insert(5, c);
             }
             dataGridViewCKPolicies.Rows.Clear();
 
+            if (MKIOclient != null)
+            {
+                migratedContentKeyPoliciesToMKIO = await MKIOclient.ContentKeyPolicies.ListAsync();
+            }
 
             var ckPolicies = _amsClient.AMSclient.GetContentKeyPolicies().GetAllAsync();
             int nbPol = 0;
@@ -4662,6 +4678,7 @@ namespace AMSExplorer
             {
                 nbPol++;
                 string typeStr = null;
+                int rowi;
 
                 if (ckPolicy.Data.Options != null && ckPolicy.Data.Options.Count > 0)
                 {
@@ -4687,11 +4704,17 @@ namespace AMSExplorer
                 try
                 {
                     int nbOptions = ckPolicy.Data.Options.Count;
-                    int rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Data.Name, ckPolicy.Data.Description, typeStr, nbOptions, ckPolicy.Data.LastModifiedOn?.DateTime.ToLocalTime());
+                    rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Data.Name, ckPolicy.Data.Description, typeStr, nbOptions, ckPolicy.Data.LastModifiedOn?.DateTime.ToLocalTime());
                 }
                 catch
                 {
-                    int rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Data.Name, "Error");
+                    rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Data.Name, "Error");
+                }
+
+                // MK/IO flag storage display
+                if (MKIOclient != null)
+                {
+                    dataGridViewCKPolicies.Rows[rowi].Cells[5].Value = migratedContentKeyPoliciesToMKIO.Select(s => s.Name).ToList().Contains(ckPolicy.Data.Name);
                 }
             }
 
