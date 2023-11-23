@@ -672,7 +672,7 @@
     <value>MediaKind MK/IO</value>
   </data>
   <data name="contextMenuStripAssets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 452</value>
+    <value>290, 430</value>
   </data>
   <data name="&gt;&gt;contextMenuStripAssets.Name" xml:space="preserve">
     <value>contextMenuStripAssets</value>
@@ -1272,23 +1272,26 @@
   <data name="keyDeliveryConfigurationToolStripMenuItem1.Text" xml:space="preserve">
     <value>Key delivery configuration...</value>
   </data>
-  <data name="toolStripMenuItemCreateCKInMKIO.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="toolStripMenuItemCreateCKInMKIO.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 22</value>
+    <value>183, 22</value>
   </data>
   <data name="toolStripMenuItemCreateCKInMKIO.Text" xml:space="preserve">
     <value>Create in MK/IO</value>
   </data>
-  <data name="mediaKindMKIOToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="deleteFromMKIOToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="deleteFromMKIOToolStripMenuItem.Text" xml:space="preserve">
+    <value>Delete from MK/IO...</value>
+  </data>
+  <data name="MKIOCKGeneral.Size" type="System.Drawing.Size, System.Drawing">
     <value>221, 22</value>
   </data>
-  <data name="mediaKindMKIOToolStripMenuItem.Text" xml:space="preserve">
+  <data name="MKIOCKGeneral.Text" xml:space="preserve">
     <value>MediaKind MK/IO</value>
   </data>
   <data name="contextMenuStripCKPolicies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 142</value>
+    <value>222, 164</value>
   </data>
   <data name="&gt;&gt;contextMenuStripCKPolicies.Name" xml:space="preserve">
     <value>contextMenuStripCKPolicies</value>
@@ -3763,10 +3766,10 @@
   <data name="toolStripMenuItemRemoveStorageMKIO.Text" xml:space="preserve">
     <value>Remove storage from MK/IO...</value>
   </data>
-  <data name="mediaKindMKIOToolStripMenuItemStor.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MKIOStorageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>253, 22</value>
   </data>
-  <data name="mediaKindMKIOToolStripMenuItemStor.Text" xml:space="preserve">
+  <data name="MKIOStorageToolStripMenuItem.Text" xml:space="preserve">
     <value>MediaKind MK/IO</value>
   </data>
   <data name="contextMenuStripStorage.Size" type="System.Drawing.Size, System.Drawing">
@@ -5296,16 +5299,22 @@
   <data name="&gt;&gt;keyDeliveryConfigurationToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;mediaKindMKIOToolStripMenuItem.Name" xml:space="preserve">
-    <value>mediaKindMKIOToolStripMenuItem</value>
+  <data name="&gt;&gt;MKIOCKGeneral.Name" xml:space="preserve">
+    <value>MKIOCKGeneral</value>
   </data>
-  <data name="&gt;&gt;mediaKindMKIOToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;MKIOCKGeneral.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItemCreateCKInMKIO.Name" xml:space="preserve">
     <value>toolStripMenuItemCreateCKInMKIO</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItemCreateCKInMKIO.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;deleteFromMKIOToolStripMenuItem.Name" xml:space="preserve">
+    <value>deleteFromMKIOToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;deleteFromMKIOToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ContextMenuItemTransferOpenDest.Name" xml:space="preserve">
@@ -5752,10 +5761,10 @@
   <data name="&gt;&gt;toolStripSeparator17.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;mediaKindMKIOToolStripMenuItemStor.Name" xml:space="preserve">
-    <value>mediaKindMKIOToolStripMenuItemStor</value>
+  <data name="&gt;&gt;MKIOStorageToolStripMenuItem.Name" xml:space="preserve">
+    <value>MKIOStorageToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;mediaKindMKIOToolStripMenuItemStor.Type" xml:space="preserve">
+  <data name="&gt;&gt;MKIOStorageToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItemAddStorageMKIO.Name" xml:space="preserve">

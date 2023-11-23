@@ -402,5 +402,55 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
         }
 
+        /// <summary>
+        /// Delete content key policies from MK/IO
+        /// </summary>
+        /// <returns></returns>
+        private async Task MKIODeleteCKPolAsync()
+        {
+            Telemetry.TrackEvent("MKIODeleteCKPolAsync");
+            if (MKIOclient == null)
+            {
+                MessageBox.Show("Can't delete", "MK/IO is not connected. Restart the application to connect.");
+            }
+
+            var contentKeyPols = await ReturnSelectedCKPoliciessAsync();
+            if (contentKeyPols.Count == 0) return;
+
+            string message = contentKeyPols.Count == 1 ? string.Format("Delete content key policy '{0}' from MK/IO ?", contentKeyPols.First().Data.Name) : string.Format("Delete these {0} content key policies from MK/IO ?", contentKeyPols.Count);
+            if (MessageBox.Show(message, "MK/IO content key policy deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                return;
+            }
+
+            foreach (var ckpol in contentKeyPols)
+            {
+                string ckpolName = ckpol.Data.Name;
+
+                // let's verify that asset is in MK/IO
+                var ckpInMKIO = migratedContentKeyPoliciesToMKIO.Where(ckp => ckp.Name == ckpol.Data.Name).FirstOrDefault();
+
+                if (ckpInMKIO == null)
+                {
+                    TextBoxLogWriteLine($"Content key policy '{ckpolName}' is not in MK/IO, skipping the deletion.", true);
+
+                }
+                else // ckpol is in MK/IO
+                {
+                    try
+                    {
+                        await MKIOclient.ContentKeyPolicies.DeleteAsync(ckpolName);
+                        TextBoxLogWriteLine($"Content key policy '{ckpolName}' deleted in MK/IO.");
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine($"Error when deleting content key policy '{ckpolName}' in MK/IO.", true);
+                        TextBoxLogWriteLine(ex);
+                        Telemetry.TrackException(ex);
+                    }
+                }
+            }
+            await DoRefreshGridCKPoliciesVAsync(false);
+        }
     }
 }

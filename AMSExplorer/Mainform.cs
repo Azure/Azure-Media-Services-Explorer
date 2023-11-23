@@ -7225,7 +7225,7 @@ namespace AMSExplorer
 
         private void contextMenuStripStorage_Opening(object sender, CancelEventArgs e)
         {
-
+            MKIOStorageToolStripMenuItem.Enabled = MKIOclient != null;
         }
 
         private async void toolStripMenuItem12_Click_1(object sender, EventArgs e)
@@ -9912,6 +9912,16 @@ namespace AMSExplorer
         private async void deleteSelectedAssetsFromMKIOToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await MKIODeleteAssetAsync();
+        }
+
+        private async void deleteCKPolFromMKIOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await MKIODeleteCKPolAsync();
+        }
+
+        private void contextMenuStripCKPolicies_Opening(object sender, CancelEventArgs e)
+        {
+            MKIOCKGeneral.Enabled = MKIOclient != null;
         }
     }
 }
