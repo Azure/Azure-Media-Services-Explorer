@@ -9,9 +9,11 @@ products:
 
 # Azure Media Services Explorer (for AMS v3)
 
-Azure Media Services Explorer (AMSE) is a .NET 7.0 (C#) application for Windows that does upload, download, encode and stream VOD and live content with [Azure Media Services v3](https://azure.microsoft.com/en-us/services/media-services/).
+Azure Media Services Explorer (AMSE) is a .NET 7.0 (C#) application for Windows that does upload, download, encode and stream VOD and live content with [Azure Media Services v3](https://azure.microsoft.com/services/media-services/).
 
-See a full description [here](http://azure.microsoft.com/blog/2014/10/08/managing-media-workflows-with-the-new-azure-media-services-explorer-tool).
+Important : Azure Media Services will be [retired on June 30th, 2024](https://learn.microsoft.com/azure/media-services/latest/azure-media-services-retirement).
+
+This tool can help you migrate to MediaKind [MK/IO](https://io.mediakind.com).
 
 ## Installing the tool with Winget
 
@@ -47,8 +49,6 @@ This version of the Azure Media Services Explorer supports creating assets in Me
 You must have an active MediaKind MK/IO subscription and access to the MediaKind I/O portal:
 [https://io.mediakind.com](https://io.mediakind.com)
 
-You must have the Azure storage account configured in MK/IO for the existing assets and this will be used for the new MK/IO assets. NOTE: This storage account's name must exactly match the Azure resource name, including case.
-
 To connect with MK I/O you will need:
 
 - Subscription Name
@@ -64,11 +64,9 @@ You can force the English or Japanese language by using /language:en-US or /lang
 
 AMSE uses Application Insights for Telemetry. This feature can be turned off in the Options of AMSE.
 
-A `mkio-with-mkiolib` branch with the support of **MediaKind MK/IO** is available [here](https://github.com/Azure/Azure-Media-Services-Explorer/tree/mkio-with-mkiolib).
-
 ## Contacts
 
-Contact: amse@microsoft.com
+Contact: <amse@microsoft.com>
 
 Open a bug [here](https://github.com/Azure/Azure-Media-Services-Explorer/issues/new).
 
