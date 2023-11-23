@@ -9923,5 +9923,28 @@ namespace AMSExplorer
         {
             MKIOCKGeneral.Enabled = MKIOclient != null;
         }
+
+        private void pictureBoxMKIO_Click(object sender, EventArgs e)
+        {
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Constants.MKIOApp + _amsClient.credentialsEntry.MKIOSubscriptionName,
+                    UseShellExecute = true
+                }
+            };
+            p.Start();
+        }
+
+        private void pictureBoxMKIO_MouseEnter(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+
+        private void pictureBoxMKIO_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Arrow;
+        }
     }
 }

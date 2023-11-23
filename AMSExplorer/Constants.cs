@@ -93,6 +93,7 @@ namespace AMSExplorer
         public const string DemoCaptionMaker = @"https://testdrive-archive.azurewebsites.net/Graphics/CaptionMaker/Default.html";
 
         public const string MKIOPortal = @"https://io.mediakind.com";
+        public const string MKIOApp = @"https://app.io.mediakind.com/";
 
         public const string LinkFeedbackAMS = "https://aka.ms/amsvoice";
 

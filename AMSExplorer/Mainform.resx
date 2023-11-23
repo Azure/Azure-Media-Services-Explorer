@@ -1291,7 +1291,7 @@
     <value>MediaKind MK/IO</value>
   </data>
   <data name="contextMenuStripCKPolicies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 164</value>
+    <value>222, 142</value>
   </data>
   <data name="&gt;&gt;contextMenuStripCKPolicies.Name" xml:space="preserve">
     <value>contextMenuStripCKPolicies</value>

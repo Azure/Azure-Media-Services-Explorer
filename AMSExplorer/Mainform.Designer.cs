@@ -2519,6 +2519,9 @@
             pictureBoxMKIO.Image = Bitmaps.mk_io_blue;
             pictureBoxMKIO.Name = "pictureBoxMKIO";
             pictureBoxMKIO.TabStop = false;
+            pictureBoxMKIO.Click += pictureBoxMKIO_Click;
+            pictureBoxMKIO.MouseEnter += pictureBoxMKIO_MouseEnter;
+            pictureBoxMKIO.MouseLeave += pictureBoxMKIO_MouseLeave;
             // 
             // Mainform
             // 
