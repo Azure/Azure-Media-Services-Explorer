@@ -22,12 +22,14 @@ namespace AMSExplorer
 {
     public class CredentialsEntryV4 : IEquatable<CredentialsEntryV4>
     {
-        // public MediaServicesAccountData MediaService;
-
         public string ADSPClientId;
 
         //  A contract is used to ignore this property when exporting the entry
         public string EncryptedADSPClientSecret;
+
+        public string MKIOSubscriptionName;
+        //  A contract is used to ignore this property when exporting the entry
+        public string MKIOEncryptedToken;
 
         public string AadTenantId;
         public AzureEnvironment Environment;
@@ -38,7 +40,6 @@ namespace AMSExplorer
         public string AccountName;
         public string SubscriptionId;
         public string ResourceGroupName;
-
 
         public CredentialsEntryV4(string accountName, string subscriptionId, string resourceGroupName, AzureEnvironment environment, bool promptUser, bool useSPAuth = false, string tenantId = null, bool manualConfig = false, string adSPClientId = null, string clearADSPClientSecret = null)
         {
@@ -62,6 +63,13 @@ namespace AMSExplorer
         {
             get => EncryptedADSPClientSecret != null ? DecryptSecret(EncryptedADSPClientSecret) : null;
             set => EncryptedADSPClientSecret = (value != null) ? EncryptSecret(value) : null;
+        }
+
+        //  A contract is used to ignore this property when saveing settings to disk
+        public string MKIOClearToken
+        {
+            get => MKIOEncryptedToken != null ? DecryptSecret(MKIOEncryptedToken) : null;
+            set => MKIOEncryptedToken = (value != null) ? EncryptSecret(value) : null;
         }
 
         public bool Equals(CredentialsEntryV4 other)
@@ -108,7 +116,6 @@ namespace AMSExplorer
             // Decrypt the data and store in a byte array.
             byte[] originalData = Unprotect(toDecrypt);
             return UnicodeEncoding.ASCII.GetString(originalData);
-
         }
 
         private static readonly byte[] s_aditionalEntropy = { 9, 1, 4, 5, 5 };

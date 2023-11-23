@@ -19,6 +19,7 @@ using Azure;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
 using Microsoft.Rest.Azure.OData;
+using MK.IO.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -64,6 +65,7 @@ namespace AMSExplorer
         private static readonly Bitmap BitmapCancel = Program.MakeRed(Bitmaps.cancel);
         private static BindingList<AssetEntry> _MyObservAssetV3;
         private SynchronizationContext _syncontext;
+        private bool _enableMKIOInfo;
 
         public int CurrentPage => _currentPageNumber;
 
@@ -98,12 +100,14 @@ namespace AMSExplorer
         }
         public int? DisplayedCount => _MyObservAssetV3 != null ? _MyObservAssetV3.Count : null;
 
+        public List<AssetSchema> ListMKIOAssets;
 
-        public void Init(AMSClientV3 client, SynchronizationContext syncontext)
+        public void Init(AMSClientV3 client, SynchronizationContext syncontext, bool enableMKIOInfo)
         {
             Debug.WriteLine("AssetsInit");
 
             _syncontext = syncontext;
+            _enableMKIOInfo = enableMKIOInfo;
 
             Pageable<MediaAssetResource> assetsList = Task.Run(() =>
                                         client.AMSclient.GetMediaAssets().GetAll()
@@ -171,6 +175,8 @@ namespace AMSExplorer
             Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetAltIDinGrid;
             Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
             Columns["StorageAccountName"].HeaderText = "Storage account";
+            Columns["MKIOMigrated"].HeaderText = "In MK/IO";
+            Columns["MKIOMigrated"].Visible = enableMKIOInfo;
             Columns["SizeLong"].Visible = false;
             Columns["LastModifiedOn"].Visible = false;
             Columns[_filter].DisplayIndex = lastColumn_sIndex;
@@ -295,6 +301,10 @@ namespace AMSExplorer
                             AE.SizeLong = data.Size;
                             AE.Size = AssetTools.FormatByteSize(AE.SizeLong);
                             AE.AssetWarning = (AE.SizeLong == 0);
+                        }
+                        if (_enableMKIOInfo)
+                        {
+                            AE.MKIOMigrated = ListMKIOAssets.Where(a => asset.Data.StorageAccountName == a.Properties.StorageAccountName && asset.Data.Container == a.Properties.Container).Any();
                         }
 
                         assetBitmapAndText = await BuildBitmapDynEncryptionAsync(asset, amsClient, locators);

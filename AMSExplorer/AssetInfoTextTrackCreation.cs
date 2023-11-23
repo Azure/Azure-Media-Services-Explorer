@@ -130,7 +130,7 @@ namespace AMSExplorer
             {
                 buttonUpdate.Text = (string)buttonUpdate.Tag;
                 textBoxTrackName.Enabled = false;
-                
+
                 if (_textTrack.LanguageCode != null)
                 {
                     checkBoxLanguage.Checked = true;

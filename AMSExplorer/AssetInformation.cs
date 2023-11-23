@@ -20,12 +20,12 @@ using AMSExplorer.Rest;
 using Azure;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
-using DocumentFormat.OpenXml.Drawing.Diagrams;
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.Storage.DataMovement;
+using MK.IO;
+using MK.IO.Models;
 using Newtonsoft.Json;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -55,12 +55,15 @@ namespace AMSExplorer
         private ManifestTimingData myassetmanifesttimingdata = null;
         private CloudBlobContainer container = null;
         private List<IListBlobItem> blobs = null;
-        private List<StreamingLocatorContentKey> contentKeysForCurrentLocator;
+        private List<Azure.ResourceManager.Media.Models.StreamingLocatorContentKey> contentKeysForCurrentLocator;
         private Uri _containerSasUrl = null;
         private string _serverManifestName = null;
         private AmsClientRest _restClient;
+        private MKIOClient _MKIOclient;
+        private List<StreamingEndpointSchema> _MKIOStreamingEndpointList;
+        private AssetSchema _mkioasset = null;
 
-        public AssetInformation(Mainform mainform, AMSClientV3 amsClient, MediaAssetResource asset, IEnumerable<StreamingEndpointResource> streamingEndpoints)
+        public AssetInformation(Mainform mainform, AMSClientV3 amsClient, MediaAssetResource asset, IEnumerable<StreamingEndpointResource> streamingEndpoints, MKIOClient MKIOclient = null)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
@@ -69,6 +72,81 @@ namespace AMSExplorer
             _asset = asset;
             _streamingEndpoints = streamingEndpoints;
             _restClient = new AmsClientRest(_amsClient);
+            _MKIOclient = MKIOclient;
+        }
+
+        private async void AssetInformation_Load(object sender, EventArgs e)
+        {
+            await LoadAsync();
+        }
+
+        private async Task LoadAsync()
+        {
+            // DpiUtils.InitPerMonitorDpi(this);
+
+            labelAssetNameTitle.Text += _asset.Data.Name;
+
+            DGAsset.ColumnCount = 2;
+            DGFiles.ColumnCount = 2;
+            DGFiles.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+            dGTracks.ColumnCount = 2;
+            dGTracks.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+            dataGridViewKeys.ColumnCount = 2;
+            dataGridViewKeys.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+            DGMKIOInfo.ColumnCount = 2;
+
+            // asset info
+            DGAsset.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _asset.Data.Name);
+            DGAsset.Rows.Add("Description", _asset.Data.Description);
+            DGAsset.Rows.Add("Id", _asset.Data.Id);
+            DGAsset.Rows.Add("AlternateId", _asset.Data.AlternateId);
+            DGAsset.Rows.Add("AssetId", _asset.Data.AssetId);
+            DGAsset.Rows.Add("Container", _asset.Data.Container);
+            DGAsset.Rows.Add("StorageAccountName", _asset.Data.StorageAccountName);
+            DGAsset.Rows.Add("StorageEncryptionFormat", _asset.Data.StorageEncryptionFormat);
+
+            AssetInfoData MyAssetTypeInfo = await AssetTools.GetAssetTypeAsync(_asset, _amsClient);
+            if (MyAssetTypeInfo != null)
+            {
+                DGAsset.Rows.Add("Type", MyAssetTypeInfo.Type);
+                DGAsset.Rows.Add("Size", AssetTools.FormatByteSize(MyAssetTypeInfo.Size));
+            }
+
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _asset.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"));
+            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _asset.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
+
+            if (_MKIOclient == null)
+            {
+                tabControl1.TabPages.Remove(tabPageMKIO);
+            }
+
+            if (_streamingEndpoints == null)
+            {
+                _streamingEndpoints = await _amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync().ToListAsync();
+            }
+
+            foreach (var se in _streamingEndpoints)
+            {
+                comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Data.Name, se.Data.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.Data.HostName));
+                if (se.Data.Name == "default")
+                {
+                    comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
+                }
+
+                foreach (string custom in se.Data.CustomHostNames)
+                {
+                    comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Data.Name, se.Data.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se), custom), custom));
+                }
+            }
+            // if no SE has been selected (there is no SE named "default") then let's select the fist in the list
+            if (_streamingEndpoints.Any() && comboBoxStreamingEndpoint.SelectedIndex == -1)
+            {
+                comboBoxStreamingEndpoint.SelectedIndex = 0;
+            }
+            oktobuildlocator = true;
+
+            return;
         }
 
         private void ToolStripMenuItemCopy_Click(object sender, EventArgs e)
@@ -115,32 +193,32 @@ namespace AMSExplorer
             {
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = false;
+                    toolStripMenuItemAzureMediaPlayer.Enabled = false;
                     toolStripMenuItemDASHIF.Enabled = false;
                     toolStripMenuItemOpen.Enabled = false;
                     deleteLocatorToolStripMenuItem.Enabled = false;
 
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._smooth) || TreeViewLocators.SelectedNode.Parent.Text.Contains(AssetTools._smooth_legacy))
                     {
-                        toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = true;
+                        toolStripMenuItemAzureMediaPlayer.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemOpen.Enabled = false;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._dash_csf) || (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._dash_cmaf)))
                     {
-                        toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = true;
+                        toolStripMenuItemAzureMediaPlayer.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = true;
                         toolStripMenuItemOpen.Enabled = false;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._prog_down_https_SAS))
                     {
-                        toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
+                        toolStripMenuItemAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemOpen.Enabled = true;
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetTools._prog_down_http_streaming))
                     {
-                        toolStripMenuItemAzureMediaPlayer.Enabled = toolStripMenuItemAdvPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
+                        toolStripMenuItemAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemOpen.Enabled = !(TreeViewLocators.SelectedNode.Text.ToLower().Contains(".ism"));
                     }
@@ -152,22 +230,6 @@ namespace AMSExplorer
             }
         }
 
-        private async void ToolStripMenuItemPlaybackMP4_Click(object sender, EventArgs e)
-        {
-            await DoAdvcTestPlayerAsync();
-        }
-
-        private async Task DoAdvcTestPlayerAsync()
-        {
-            if (TreeViewLocators.SelectedNode != null)
-            {
-                // Root node's Parent property is null, so do check
-                if (TreeViewLocators.SelectedNode.Parent != null)
-                {
-                    await AssetTools.DoPlayBackWithStreamingEndpointAsync(typeplayer: PlayerType.AdvancedTestPlayer, path: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, client: _amsClient, mainForm: myMainForm);
-                }
-            }
-        }
 
         private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
         {
@@ -200,20 +262,10 @@ namespace AMSExplorer
                     ExpireOn = DateTime.Now.AddHours(2).ToUniversalTime()
                 };
 
-                /*
-                ListContainerSasInput input = new()
-                {
-                    Permissions = AssetContainerPermission.ReadWriteDelete,
-                    ExpiryTime = DateTime.Now.AddHours(2).ToUniversalTime()
-                };
-                */
-
-                //AssetContainerSas response;
                 Pageable<Uri> response;
                 try
                 {
                     response = _asset.GetStorageContainerUris(content);
-                    //response = await _amsClient.AMSclient.Assets.ListContainerSasAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, _asset.Name, input.Permissions, input.ExpiryTime);
                 }
                 catch (Exception ex)
                 {
@@ -221,21 +273,8 @@ namespace AMSExplorer
                     return;
                 }
 
-                //string uploadSasUrl = response.AssetContainerSasUrls.First();
-                // Uri sasUri = new(uploadSasUrl);
-
                 container = new CloudBlobContainer(response.First());
             }
-
-            /*
-            var keys = _amsClient.GetStorageKeys(myAssetV3.StorageAccountName);
-
-            CloudStorageAccount storageAccount;
-            storageAccount = new CloudStorageAccount(new StorageCredentials(myAssetV3.StorageAccountName, keys.StorageAccountKeys.Key1), _amsClient.environment.ReturnStorageSuffix(), true);
-            var cloudBlobClient = storageAccount.CreateCloudBlobClient();
-
-            var container = cloudBlobClient.GetContainerReference(myAssetV3.Container);
-            */
 
             listViewBlobs.Items.Clear();
             DGFiles.Rows.Clear();
@@ -272,16 +311,9 @@ namespace AMSExplorer
                         {
                             item.ForeColor = Color.Red;
                         }
-                        /*
-                        if (file.AssetFileOptions == AssetFileOptions.Fragmented)
-                        {
-                            item.ForeColor = Color.DarkGoldenrod;
-                        }
-                        */
                         item.SubItems.Add(AssetTools.FormatByteSize(bl.Properties.Length));
 
                         listViewBlobs.Items.Add(item);
-                        //size += file.ContentFileSize;
                     }
                     else if (blob is CloudBlobDirectory blobd)
                     {
@@ -314,8 +346,6 @@ namespace AMSExplorer
 
         private async Task ListAssetTracksAsync()
         {
-
-            // IEnumerable<AssetTrack> response;
 
             try
             {
@@ -413,79 +443,10 @@ namespace AMSExplorer
         }
 
 
-        private async void AssetInformation_Load(object sender, EventArgs e)
-        {
-            await LoadAsync();
-        }
-
-        private async Task LoadAsync()
-        {
-            // DpiUtils.InitPerMonitorDpi(this);
-
-            labelAssetNameTitle.Text += _asset.Data.Name;
-
-            DGAsset.ColumnCount = 2;
-            DGFiles.ColumnCount = 2;
-            DGFiles.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            dGTracks.ColumnCount = 2;
-            dGTracks.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            dataGridViewKeys.ColumnCount = 2;
-            dataGridViewKeys.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-
-            // asset info
-            DGAsset.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name, _asset.Data.Name);
-            DGAsset.Rows.Add("Description", _asset.Data.Description);
-            DGAsset.Rows.Add("Id", _asset.Data.Id);
-            DGAsset.Rows.Add("AlternateId", _asset.Data.AlternateId);
-            DGAsset.Rows.Add("AssetId", _asset.Data.AssetId);
-            DGAsset.Rows.Add("Container", _asset.Data.Container);
-            DGAsset.Rows.Add("StorageAccountName", _asset.Data.StorageAccountName);
-            DGAsset.Rows.Add("StorageEncryptionFormat", _asset.Data.StorageEncryptionFormat);
-
-            AssetInfoData MyAssetTypeInfo = await AssetTools.GetAssetTypeAsync(_asset, _amsClient);
-            if (MyAssetTypeInfo != null)
-            {
-                DGAsset.Rows.Add("Type", MyAssetTypeInfo.Type);
-                DGAsset.Rows.Add("Size", AssetTools.FormatByteSize(MyAssetTypeInfo.Size));
-            }
-
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Created, _asset.Data.CreatedOn?.DateTime.ToLocalTime().ToString("G"));
-            DGAsset.Rows.Add(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_LastModified, _asset.Data.LastModifiedOn?.DateTime.ToLocalTime().ToString("G"));
-
-            if (_streamingEndpoints == null)
-            {
-                _streamingEndpoints = await _amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync().ToListAsync();
-            }
-
-            foreach (var se in _streamingEndpoints)
-            {
-                comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnit, se.Data.Name, se.Data.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se)), se.Data.HostName));
-                if (se.Data.Name == "default")
-                {
-                    comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
-                }
-
-                foreach (string custom in se.Data.CustomHostNames)
-                {
-                    comboBoxStreamingEndpoint.Items.Add(new Item(string.Format(AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_012ScaleUnitCustomHostname3, se.Data.Name, se.Data.ResourceState, StreamingEndpointInformation.ReturnTypeSE(se), custom), custom));
-                }
-            }
-            // if no SE has been selected (there is no SE named "default") then let's select the fist in the list
-            if (_streamingEndpoints.Any() && comboBoxStreamingEndpoint.SelectedIndex == -1)
-            {
-                comboBoxStreamingEndpoint.SelectedIndex = 0;
-            }
-            oktobuildlocator = true;
-
-            return;
-        }
-
         private async Task DisplayAssetFiltersAsync()
         {
             //            List<AssetFilter> assetFilters = new();
             var assetFilters = _asset.GetMediaAssetFilters().GetAllAsync();
-
 
             dataGridViewFilters.ColumnCount = 6;
             dataGridViewFilters.Columns[0].HeaderText = AMSExplorer.Properties.Resources.AssetInformation_AssetInformation_Load_Name;
@@ -640,25 +601,25 @@ namespace AMSExplorer
             }
         }
 
-        private void LocTreeAddTextEntryToNode(int indexLoc, int indexNode, string text, string value)
+        private void LocTreeAddTextEntryToNode(TreeView treeView, int indexLoc, int indexNode, string text, string value)
 
         {
-            TreeViewLocators.Nodes[indexLoc].Nodes[indexNode].Nodes.Add(new TreeNode(
+            treeView.Nodes[indexLoc].Nodes[indexNode].Nodes.Add(new TreeNode(
                      string.Format(text, value)
                      ));
         }
 
-        private void LocTreeAddTextEntryToNode(int indexLoc, int indexNode, string text, DateTime value)
+        private void LocTreeAddTextEntryToNode(TreeView treeView, int indexLoc, int indexNode, string text, DateTime value)
 
         {
-            LocTreeAddTextEntryToNode(indexLoc, indexNode, text, value.ToLocalTime().ToString("G"));
+            LocTreeAddTextEntryToNode(treeView, indexLoc, indexNode, text, value.ToLocalTime().ToString("G"));
         }
 
-        private void LocTreeAddTextEntryToNode(int indexLoc, int indexNode, string text, DateTime? value)
+        private void LocTreeAddTextEntryToNode(TreeView treeView, int indexLoc, int indexNode, string text, DateTime? value)
         {
             if (value != null)
             {
-                LocTreeAddTextEntryToNode(indexLoc, indexNode, text, (DateTime)value);
+                LocTreeAddTextEntryToNode(treeView, indexLoc, indexNode, text, (DateTime)value);
             }
         }
 
@@ -706,9 +667,6 @@ namespace AMSExplorer
                 {
                     var locator = (await _amsClient.AMSclient.GetStreamingLocatorAsync(locatorbase.Name)).Value;
                     var listPaths = await locator.GetStreamingPathsAsync();
-                    //StreamingLocator locator = await _amsClient.AMSclient.strea.StreamingLocators.GetAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locatorbase.Name);
-
-                    // ListPathsResponse listPaths = await _amsClient.AMSclient.StreamingLocators.ListPathsAsync(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName, locator.Name);
 
                     indexloc++;
                     string locatorstatus = string.Empty;
@@ -727,15 +685,15 @@ namespace AMSExplorer
                     TreeViewLocators.Nodes.Add(myLocNode);
                     TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_LocatorInformation));
 
-                    LocTreeAddTextEntryToNode(indexloc, 0, "Streaming locator Id: {0}", locator.Data.StreamingLocatorId.ToString());
-                    LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Name0, locator.Data.Name);
-                    LocTreeAddTextEntryToNode(indexloc, 0, "Streaming policy name: {0}", locator.Data.StreamingPolicyName);
-                    LocTreeAddTextEntryToNode(indexloc, 0, "Default content key policy name: {0}", locator.Data.DefaultContentKeyPolicyName);
-                    LocTreeAddTextEntryToNode(indexloc, 0, "Alt media Id: {0}", locator.Data.AlternativeMediaId);
-                    LocTreeAddTextEntryToNode(indexloc, 0, "Created: {0}", locator.Data.CreatedOn?.DateTime.ToString());
-                    LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_StartTime0, locator.Data.StartOn?.DateTime.ToString());
-                    LocTreeAddTextEntryToNode(indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_ExpirationDateTime0, locator.Data.EndOn?.DateTime.ToString());
-                    LocTreeAddTextEntryToNode(indexloc, 0, "Filters: {0}", string.Join(", ", locator.Data.Filters.ToArray()));
+                    LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, "Streaming locator Id: {0}", locator.Data.StreamingLocatorId.ToString());
+                    LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Name0, locator.Data.Name);
+                    LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, "Streaming policy name: {0}", locator.Data.StreamingPolicyName);
+                    LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, "Default content key policy name: {0}", locator.Data.DefaultContentKeyPolicyName);
+                    LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, "Alt media Id: {0}", locator.Data.AlternativeMediaId);
+                    LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, "Created: {0}", locator.Data.CreatedOn?.DateTime.ToString());
+                    LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_StartTime0, locator.Data.StartOn?.DateTime.ToString());
+                    LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_ExpirationDateTime0, locator.Data.EndOn?.DateTime.ToString());
+                    LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, "Filters: {0}", string.Join(", ", locator.Data.Filters.ToArray()));
 
                     int indexn = 1;
                     if (listPaths.Value.StreamingPaths.Count > 0)
@@ -1125,20 +1083,19 @@ namespace AMSExplorer
                         case "SmoothStreaming":
                         case "Hls":
                             buttonDASH.Enabled = false;
-                            buttonAzureMediaPlayer.Enabled = buttonAdvancedTestPlayer.Enabled = true;
+                            buttonAzureMediaPlayer.Enabled = true;
                             buttonOpen.Enabled = false;
                             break;
 
                         case "Dash":
                             buttonDASH.Enabled = true;
                             buttonAzureMediaPlayer.Enabled = true;
-                            buttonAdvancedTestPlayer.Enabled = true;
                             buttonOpen.Enabled = false;
                             break;
 
                         case "Download":
                             buttonDASH.Enabled = false;
-                            buttonAzureMediaPlayer.Enabled = buttonAdvancedTestPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
+                            buttonAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
                             buttonOpen.Enabled = true;
                             break;
                         /*
@@ -2181,7 +2138,7 @@ namespace AMSExplorer
             {
             }
 
-            if (ckpolicy == null || (ckpolicy.Data.Options.First().Restriction.GetType() != typeof(ContentKeyPolicyTokenRestriction)))
+            if (ckpolicy == null || (ckpolicy.Data.Options.First().Restriction.GetType() != typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyTokenRestriction)))
             {
                 comboBoxOptions.Enabled = false;
                 buttonGetDRMToken.Enabled = false;
@@ -2191,9 +2148,9 @@ namespace AMSExplorer
             comboBoxOptions.Enabled = true;
             buttonGetDRMToken.Enabled = true;
 
-            foreach (ContentKeyPolicyOption o in ckpolicy.Data.Options)
+            foreach (Azure.ResourceManager.Media.Models.ContentKeyPolicyOption o in ckpolicy.Data.Options)
             {
-                if (o.Restriction.GetType() == typeof(ContentKeyPolicyTokenRestriction))
+                if (o.Restriction.GetType() == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyTokenRestriction))
                 {
                     comboBoxOptions.Items.Add(new Item(string.Format("{0} ({1}) {2}", o.Name, o.PolicyOptionId, o.Configuration.GetType().Name), o.PolicyOptionId.ToString()));
                 }
@@ -2229,7 +2186,7 @@ namespace AMSExplorer
 
         private void DisplayKeyInfo(string keyId)
         {
-            StreamingLocatorContentKey key = contentKeysForCurrentLocator.Where(k => k.Id == Guid.Parse(keyId)).FirstOrDefault();
+            Azure.ResourceManager.Media.Models.StreamingLocatorContentKey key = contentKeysForCurrentLocator.Where(k => k.Id == Guid.Parse(keyId)).FirstOrDefault();
             if (key == null)
             {
                 return;
@@ -2284,7 +2241,7 @@ namespace AMSExplorer
 
             // let's find active key policy
             //ContentKeyPolicyResource ckpolicy = null;
-            ContentKeyPolicyProperties cKproperties = null;
+            Azure.ResourceManager.Media.Models.ContentKeyPolicyProperties cKproperties = null;
             try
             {
                 if (!string.IsNullOrEmpty(locator.Data.DefaultContentKeyPolicyName))
@@ -2305,16 +2262,16 @@ namespace AMSExplorer
 
             Guid optionId = Guid.Parse((comboBoxOptions.SelectedItem as Item).Value);
 
-            ContentKeyPolicyTokenRestriction ckrestriction = (ContentKeyPolicyTokenRestriction)cKproperties.Options.Where(o => o.PolicyOptionId == optionId).FirstOrDefault()?.Restriction;
+            Azure.ResourceManager.Media.Models.ContentKeyPolicyTokenRestriction ckrestriction = (Azure.ResourceManager.Media.Models.ContentKeyPolicyTokenRestriction)cKproperties.Options.Where(o => o.PolicyOptionId == optionId).FirstOrDefault()?.Restriction;
 
             // we support only symmetric key
-            if (ckrestriction.PrimaryVerificationKey.GetType() != typeof(ContentKeyPolicySymmetricTokenKey))
+            if (ckrestriction.PrimaryVerificationKey.GetType() != typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicySymmetricTokenKey))
             {
                 MessageBox.Show("From the asset information dialog box, AMSE can only generate a test token key when the signing key in the policy is symmetric.", "Not a symmetric key", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            ContentKeyPolicySymmetricTokenKey SymKey = (ContentKeyPolicySymmetricTokenKey)ckrestriction.PrimaryVerificationKey;
+            Azure.ResourceManager.Media.Models.ContentKeyPolicySymmetricTokenKey SymKey = (Azure.ResourceManager.Media.Models.ContentKeyPolicySymmetricTokenKey)ckrestriction.PrimaryVerificationKey;
 
             string keyIdentifier = (comboBoxKeys.SelectedItem as Item).Value;
 
@@ -2372,11 +2329,6 @@ namespace AMSExplorer
             // for controls which are not using the default font
             // DpiUtils.UpdatedSizeFontAfterDPIChange(new List<Control> { labelAssetNameTitle, textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator, contextMenuStripLocators, contextMenuStripDG, contextMenuStripBlobs, contextMenuStripKey, contextMenuStripFilter }, e, this);
             //DpiUtils.UpdatedSizeFontAfterDPIChangeV8(new List<Control> { textBoxStreamingPolicyOfLocator, textBoxContentKeyPolicyOfStreamingPolicy, textBoxContentKeyPolicyOfLocator }, e, this);
-        }
-
-        private async void Button1_Click_2(object sender, EventArgs e)
-        {
-            await DoAzureMediaPlayerAsync(PlayerType.AdvancedTestPlayer);
         }
 
         private void ListViewFiles_DragEnter(object sender, DragEventArgs e)
@@ -2821,6 +2773,189 @@ namespace AMSExplorer
                 }
                 await DoDisplayTrackPropertiesAsync();
             }
+        }
+
+        private async void tabPageMKIO_Enter(object sender, EventArgs e)
+        {
+            await DisplayMKIOAssetInfoAsync();
+        }
+
+        private async Task DisplayMKIOAssetInfoAsync()
+        {
+            if (myMainForm.migratedAssetsToMKIO != null)
+            {
+                _mkioasset = myMainForm.migratedAssetsToMKIO.FirstOrDefault(a => a.Properties.StorageAccountName == _asset.Data.StorageAccountName && a.Properties.Container == _asset.Data.Container);
+
+                if (_mkioasset == null)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                return;
+            }
+
+            DGMKIOInfo.Rows.Clear();
+
+            DGMKIOInfo.Rows.Add("MK/IO Name", _mkioasset.Name);
+            DGMKIOInfo.Rows.Add("MK/IO Description", _mkioasset.Properties.Description);
+
+            // fill the combo with list of MK/IO streaming endpoints
+            _MKIOStreamingEndpointList = await _MKIOclient.StreamingEndpoints.ListAsync();
+            comboBoxSEMKIO.Items.Clear();
+            foreach (var se in _MKIOStreamingEndpointList)
+            {
+                comboBoxSEMKIO.Items.Add(new Item(se.Name, se.Properties.HostName));
+            }
+
+            // let's select the fist in the list
+            if (_MKIOStreamingEndpointList.Any())
+            {
+                comboBoxSEMKIO.SelectedIndex = 0;
+            }
+        }
+
+        /// <summary>
+        /// Build the treeview of locators for MK/IO
+        /// </summary>
+        /// <returns></returns>
+        private async Task BuildMKIOLocatorsTreeAsync(AssetSchema mkioasset)
+        {
+            // LOCATORS TREE
+            if (!oktobuildlocator)
+            {
+                return;
+            }
+
+            var SelectedSE = ReturnSelectedMKIOStreamingEndpoint();
+
+            if (SelectedSE == null)
+            {
+                return;
+            }
+
+            UriBuilder uriBuilder = new()
+            {
+                Scheme = checkBoxHttps.Checked ? "https" : "http",
+                Host = SelectedSE.Properties.HostName
+            };
+
+            if (SelectedSE != null)
+            {
+                Cursor = Cursors.WaitCursor;
+
+                Color colornodeRU = Color.Black;
+
+                TreeViewLocatorsMKIO.BeginUpdate();
+                TreeViewLocatorsMKIO.Nodes.Clear();
+                int indexloc = -1;
+
+                List<AssetStreamingLocator> locators;
+                try
+                {
+                    locators = await _MKIOclient.Assets.ListStreamingLocatorsAsync(mkioasset.Name);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(Program.GetErrorMessage(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                foreach (var locatorbase in locators)
+                {
+                    var locator = await _MKIOclient.StreamingLocators.GetAsync(locatorbase.Name);
+                    var listPaths = await _MKIOclient.StreamingLocators.ListUrlPathsAsync(locatorbase.Name);
+
+                    indexloc++;
+                    string locatorstatus = string.Empty;
+
+                    Color colornode = Color.Black;
+                    if (SelectedSE.Properties.ResourceState != StreamingEndpointResourceState.Running)
+                    {
+                        colornode = Color.Red;
+                    }
+
+                    TreeNode myLocNode = new(locator.Name)
+                    {
+                        ForeColor = colornode
+                    };
+
+                    TreeViewLocatorsMKIO.Nodes.Add(myLocNode);
+                    TreeViewLocatorsMKIO.Nodes[indexloc].Nodes.Add(new TreeNode(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_LocatorInformation));
+
+                    LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Streaming locator Id: {0}", locator.Properties.StreamingLocatorId);
+                    LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Name0, locator.Name);
+                    LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Streaming policy name: {0}", locator.Properties.StreamingPolicyName);
+                    LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Default content key policy name: {0}", locator.Properties.DefaultContentKeyPolicyName);
+                    LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Alt media Id: {0}", locator.Properties.AlternativeMediaId);
+
+                    string startTimeS = locator.Properties.StartTime.ToString();
+                    LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Start time: {0}", startTimeS);
+
+                    string endTimeS = locator.Properties.EndTime.ToString(); ;
+                    LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "End time: {0}", endTimeS);
+
+                    LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Filters: {0}", string.Join(", ", locator.Properties.Filters != null ? locator.Properties.Filters.ToArray() : new List<string>()));
+
+                    int indexn = 1;
+                    if (listPaths.StreamingPaths.Count > 0)
+                    {
+                        string appendExtension = string.Empty;
+                        foreach (var path in listPaths.StreamingPaths)
+                        {
+                            TreeViewLocatorsMKIO.Nodes[indexloc].Nodes.Add(new TreeNode(path.StreamingProtocol.ToString()) { ForeColor = colornodeRU });
+                            foreach (string p in path.Paths)
+                            {
+                                appendExtension = string.Empty;
+                                if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Dash && !p.EndsWith(Constants.mpd))
+                                {
+                                    appendExtension = Constants.mpd;
+                                }
+                                else if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Hls && !p.EndsWith(Constants.m3u8))
+                                {
+                                    appendExtension = Constants.m3u8;
+                                }
+                                uriBuilder.Path = p + appendExtension;
+                                TreeViewLocatorsMKIO.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uriBuilder.ToString()) { ForeColor = colornodeRU });
+                            }
+                            indexn += 1;
+                        }
+                    }
+
+                    if (listPaths.DownloadPaths.Count > 0)
+                    {
+                        TreeViewLocatorsMKIO.Nodes[indexloc].Nodes.Add(new TreeNode("Download") { ForeColor = colornodeRU });
+
+                        foreach (string p in listPaths.DownloadPaths)
+                        {
+                            uriBuilder.Path = p;
+                            TreeViewLocatorsMKIO.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uriBuilder.ToString()));
+                        }
+                    }
+                }
+                TreeViewLocatorsMKIO.EndUpdate();
+                Cursor = Cursors.Arrow;
+            }
+        }
+
+
+        private StreamingEndpointSchema ReturnSelectedMKIOStreamingEndpoint()
+        {
+            if (comboBoxSEMKIO.SelectedItem != null)
+            {
+                string hostname = ((Item)comboBoxSEMKIO.SelectedItem).Value;
+                return _MKIOStreamingEndpointList.Where(se => se.Properties.HostName == hostname).FirstOrDefault();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private async void comboBoxSEMKIO_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            await BuildMKIOLocatorsTreeAsync(_mkioasset);
         }
     }
 }

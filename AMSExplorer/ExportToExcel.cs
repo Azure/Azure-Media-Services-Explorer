@@ -337,7 +337,7 @@ namespace AMSExplorer
                             workbookpart.Workbook.Save();
 
                             // Close the document.  
-                            spreadsheetDocument.Close();
+                            spreadsheetDocument.Dispose();
 
                             e.Cancel = true;
                             return;
@@ -368,7 +368,7 @@ namespace AMSExplorer
                             workbookpart.Workbook.Save();
 
                             // Close the document.
-                            spreadsheetDocument.Close();
+                            spreadsheetDocument.Dispose();
                             e.Cancel = true;
                             return;
                         }
@@ -416,7 +416,7 @@ namespace AMSExplorer
                 workbookpart.Workbook.Save();
 
                 // Close the document.  
-                spreadsheetDocument.Close();
+                spreadsheetDocument.Dispose();
 
                 // Let's open the Excel file.
                 if (checkBoxOpenFileAfterExport.Checked)

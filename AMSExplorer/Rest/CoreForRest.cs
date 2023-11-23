@@ -103,6 +103,25 @@ namespace AMSExplorer.Rest
             return responseContent;
         }
 
+        private async Task<string> PostObjectContentAsync(string url)
+        {
+            HttpClient client = GetHttpClient();
+
+            // Request headers
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _amsClient.authResult.AccessToken);
+
+            HttpResponseMessage amsRequestResult = await client.PostAsync(url, null).ConfigureAwait(false);
+
+            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            if (!amsRequestResult.IsSuccessStatusCode)
+            {
+                dynamic error = JsonConvert.DeserializeObject(responseContent);
+                throw new Exception((string)error?.error?.message);
+            }
+            return responseContent;
+        }
 
         private async Task<string> CreateObjectAsync(string url, string amsJSONObject)
         {

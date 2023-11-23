@@ -77,7 +77,7 @@ namespace AMSExplorer
         {
             IList<MediaServicesStorageAccount> storAccounts = _amsClientV3.AMSclient.Data.StorageAccounts;
             comboBoxStorage.Invoke(c => c.Items.Clear());
-            
+
             foreach (var storage in storAccounts)
             {
                 string sname = AMSClientV3.GetStorageName(storage.Id);

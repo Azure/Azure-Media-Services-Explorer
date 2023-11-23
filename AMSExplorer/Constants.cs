@@ -25,11 +25,11 @@ namespace AMSExplorer
         public const string Webview2Installer = "https://go.microsoft.com/fwlink/p/?LinkId=2124703";
         public const string Webview2RegPath64 = "SOFTWARE\\WOW6432Node\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
         public const string Webview2RegPath32 = "SOFTWARE\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
-        public const string Webview2MinVersion = "114.0.1823.32";
+        public const string Webview2MinVersion = "119.0.2151.40";
 
         public const string GitHubAMSEVersionPrimaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/main/versionv3.json";
         public const string GitHubAMSEVersionSecondaryV3 = "https://amsexplorer.azureedge.net/release/versionv3.json";
-        
+
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
         public const string GitHubAMSELink = "http://aka.ms/amse";
 
@@ -46,6 +46,7 @@ namespace AMSExplorer
         public const string NameconvManifestURL = "{manifest url}";
         public const string NameconvToken = "{token}";
         public const string NameconvAsset = "{Asset Name}";
+        public const string NameconvAssetDesc = "{Asset Description}";
         public const string NameconvJob = "{Job Name}";
         public const string NameconvTransform = "{Transform Name}";
         public const string NameconvShortUniqueness = "{Uniqueness}";
@@ -84,14 +85,15 @@ namespace AMSExplorer
         public const string PlayerDASHIFToLaunch = @"https://reference.dashif.org/dash.js/latest/samples/dash-if-reference-player/index.html?url={0}";
 
         public const string PlayerMP4AzurePage = @"https://ampdemo.azureedge.net/azuremediaplayer.html?player=html5&format=mp4&url={0}&mp4url={0}";
-        public const string AdvancedTestPlayerRoot = @"https://openidconnectweb.azurewebsites.net/AMTestPlayer";
-        public const string AdvancedTestPlayer = AdvancedTestPlayerRoot + @"?url={0}";
 
         public const string PlayerInfoHTML5Video = @"https://www.w3schools.com/html/html5_video.asp";
         public const string PlayerJWPlayerPartnership = @"https://www.jwplayer.com/";
         public const string PlayerTHEOplayerPartnership = @"https://www.theoplayer.com/partners/azure";
 
         public const string DemoCaptionMaker = @"https://testdrive-archive.azurewebsites.net/Graphics/CaptionMaker/Default.html";
+
+        public const string MKIOPortal = @"https://io.mediakind.com";
+        public const string MKIOApp = @"https://app.io.mediakind.com/";
 
         public const string LinkFeedbackAMS = "https://aka.ms/amsvoice";
 
@@ -141,6 +143,9 @@ namespace AMSExplorer
         public const string LinkAMSAvailabilityZones = "https://learn.microsoft.com/en-us/azure/media-services/latest/concept-availability-zones";
         public const string LinkAMSManagedIdentities = "https://learn.microsoft.com/en-us/azure/media-services/latest/concept-managed-identities";
         public const string LinkAMSCustomerManagedKeys = "https://learn.microsoft.com/en-us/azure/media-services/latest/concept-use-customer-managed-keys-byok";
+
+        public const string LinkMKIOPortal = "https://io.mediakind.com";
+        public const string LinkMKIOMigrationDoc = "https://docs.io.mediakind.com/docs/migrating-from-ams";
 
         public const string LinkAMSE = "https://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
