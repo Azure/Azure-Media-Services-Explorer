@@ -7526,7 +7526,7 @@ namespace AMSExplorer
         private async Task DoExportMetadataAsync()
         {
             Telemetry.TrackEvent("DoExportMetadataAsync");
-            ExportToExcel form = new(_amsClient, await ReturnSelectedAssetsAsync());
+            ExportToExcel form = new(_amsClient, await ReturnSelectedAssetsAsync(), MKIOclient);
             if (form.ShowDialog() == DialogResult.OK)
             {
 
