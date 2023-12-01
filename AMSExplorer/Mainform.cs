@@ -2518,6 +2518,9 @@ namespace AMSExplorer
                                     configuration: new Azure.ResourceManager.Media.Models.ContentKeyPolicyClearKeyConfiguration(),
                                     restriction: formClearKeyTokenClaims[0].GetContentKeyPolicyRestriction
                                     )
+                                {
+                                    Name = "Clear Key option"
+                                }
                                     );
                             }
 
