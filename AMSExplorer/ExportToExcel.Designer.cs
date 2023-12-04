@@ -51,9 +51,7 @@
             textBoxExcelFile = new System.Windows.Forms.TextBox();
             progressBarExport = new System.Windows.Forms.ProgressBar();
             labelProgress = new System.Windows.Forms.Label();
-            backgroundWorkerExcel = new System.ComponentModel.BackgroundWorker();
             label5 = new System.Windows.Forms.Label();
-            backgroundWorkerCSV = new System.ComponentModel.BackgroundWorker();
             groupBox2.SuspendLayout();
             groupBox4.SuspendLayout();
             panel1.SuspendLayout();
@@ -216,27 +214,11 @@
             resources.ApplyResources(labelProgress, "labelProgress");
             labelProgress.Name = "labelProgress";
             // 
-            // backgroundWorkerExcel
-            // 
-            backgroundWorkerExcel.WorkerReportsProgress = true;
-            backgroundWorkerExcel.WorkerSupportsCancellation = true;
-            backgroundWorkerExcel.DoWork += backgroundWorkerExcel_DoWork;
-            backgroundWorkerExcel.ProgressChanged += backgroundWorker1_ProgressChanged;
-            backgroundWorkerExcel.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
-            // 
             // label5
             // 
             resources.ApplyResources(label5, "label5");
             label5.ForeColor = System.Drawing.Color.DarkBlue;
             label5.Name = "label5";
-            // 
-            // backgroundWorkerCSV
-            // 
-            backgroundWorkerCSV.WorkerReportsProgress = true;
-            backgroundWorkerCSV.WorkerSupportsCancellation = true;
-            backgroundWorkerCSV.DoWork += backgroundWorkerCSV_DoWork;
-            backgroundWorkerCSV.ProgressChanged += backgroundWorker1_ProgressChanged;
-            backgroundWorkerCSV.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
             // 
             // ExportToExcel
             // 
@@ -286,7 +268,6 @@
         private System.Windows.Forms.TextBox textBoxExcelFile;
         private System.Windows.Forms.ProgressBar progressBarExport;
         private System.Windows.Forms.Label labelProgress;
-        private System.ComponentModel.BackgroundWorker backgroundWorkerExcel;
         private System.Windows.Forms.CheckBox checkBoxOpenFileAfterExport;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label1;
@@ -294,6 +275,5 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButtonFormatExcel;
-        private System.ComponentModel.BackgroundWorker backgroundWorkerCSV;
     }
 }
