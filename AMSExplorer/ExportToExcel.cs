@@ -210,7 +210,7 @@ namespace AMSExplorer
                 asset.Data.StorageAccountName,
                 asset.Data.Container
             };
- 
+
             if (detailed)
             {
                 var assetType = await AssetTools.GetAssetTypeAsync(asset, _amsClient);
@@ -368,8 +368,13 @@ namespace AMSExplorer
                             numberMaxLocators = Math.Max(numberMaxLocators, (int)output.Item1);
                         Rows.Add(output.Item2);
 
-                        backgroundWorkerExcel.ReportProgress((int)index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                        //if cancellation is pending, cancel work.  
+                        if (backgroundWorkerExcel.IsBusy)
+                        {
+                            //notify progress to main thread.
+                            backgroundWorkerExcel.ReportProgress((int)index, DateTime.Now);
+                        }
+
+                        //if cancellation is pending, cancel work.  
                         if (backgroundWorkerExcel.CancellationPending)
                         {
                             ////////
@@ -405,8 +410,13 @@ namespace AMSExplorer
 
                         Rows.Add(output.Item2);
 
-                        backgroundWorkerExcel.ReportProgress((int)(100d * index / total), DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                                         //if cancellation is pending, cancel work.  
+                        if (backgroundWorkerExcel.IsBusy)
+                        {
+                            //notify progress to main thread.
+                            backgroundWorkerExcel.ReportProgress((int)(100d * index / total), DateTime.Now);
+                        }
+
+                        //if cancellation is pending, cancel work.  
                         if (backgroundWorkerExcel.CancellationPending)
                         {
                             // Save the new worksheet.
@@ -753,8 +763,13 @@ namespace AMSExplorer
                         if (res.locatorCount != null)
                             numberMaxLocators = Math.Max(numberMaxLocators, (int)res.locatorCount);
 
-                        backgroundWorkerCSV.ReportProgress(index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                 //if cancellation is pending, cancel work.  
+                        if (backgroundWorkerCSV.IsBusy)
+                        {
+                            //notify progress to main thread.
+                            backgroundWorkerCSV.ReportProgress(index, DateTime.Now);
+                        }
+
+                        //if cancellation is pending, cancel work.  
                         if (backgroundWorkerCSV.CancellationPending)
                         {
                             e.Cancel = true;
@@ -780,8 +795,13 @@ namespace AMSExplorer
                         if (res.locatorCount != null)
                             numberMaxLocators = Math.Max(numberMaxLocators, (int)res.locatorCount);
 
-                        backgroundWorkerCSV.ReportProgress(100 * index / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                               //if cancellation is pending, cancel work.  
+                        if (backgroundWorkerCSV.IsBusy)
+                        {
+                            //notify progress to main thread.
+                            backgroundWorkerCSV.ReportProgress(100 * index / total, DateTime.Now);
+                        }
+
+                        //if cancellation is pending, cancel work.  
                         if (backgroundWorkerCSV.CancellationPending)
                         {
                             e.Cancel = true;
