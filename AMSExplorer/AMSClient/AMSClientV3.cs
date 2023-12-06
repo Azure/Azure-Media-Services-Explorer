@@ -105,12 +105,11 @@ namespace AMSExplorer
         }
 
 
-        public async Task<MediaServicesAccountResource> ConnectAndGetNewClientV3Async(Form callerForm = null)
+        public async Task<MediaServicesAccountResource> ConnectAndGetNewClientV3Async(Form callerForm = null, bool connectToMKIO = true)
         {
             if (!credentialsEntry.UseSPAuth)
             {
                 var accounts = await _appInteract.GetAccountsAsync();
-
 
                 try
                 {
@@ -179,15 +178,17 @@ namespace AMSExplorer
 
             }
 
-
-            // form for MK/IO
-            MKIOConnection mkioConnectionForm = new(credentialsEntry.MKIOSubscriptionName, credentialsEntry.MKIOClearToken);
-
-            if (mkioConnectionForm.ShowDialog() == DialogResult.OK)
+            if (firstTimeAuth && connectToMKIO)
             {
-                useMKIOConnection = true;
-                credentialsEntry.MKIOSubscriptionName = mkioConnectionForm.MKIOSubscriptionName;
-                credentialsEntry.MKIOClearToken = mkioConnectionForm.MKIOToken;
+                // form for MK/IO
+                MKIOConnection mkioConnectionForm = new(credentialsEntry.MKIOSubscriptionName, credentialsEntry.MKIOClearToken);
+
+                if (mkioConnectionForm.ShowDialog() == DialogResult.OK)
+                {
+                    useMKIOConnection = true;
+                    credentialsEntry.MKIOSubscriptionName = mkioConnectionForm.MKIOSubscriptionName;
+                    credentialsEntry.MKIOClearToken = mkioConnectionForm.MKIOToken;
+                }
             }
 
             credentials = new TokenCredentials(authResult.AccessToken, "Bearer");
