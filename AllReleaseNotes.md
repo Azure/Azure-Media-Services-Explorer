@@ -1,5 +1,10 @@
 # AMSE release notes history
 
+## Version 5.8.1.0 (December 12th, 2023) brings the following features and improvements
+
+* Bug fixes
+* Nugget packages and documentation update
+
 ## Version 5.8.0.0 (November 23rd, 2023) brings the following features and improvements
 
 * Support for MediaKind MK/IO
