@@ -90,7 +90,7 @@ namespace AMSExplorer.Rest
         // Content key policy
         //
         private const string ckpiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}/contentKeyPolicies/{3}?api-version=2022-08-01";
-     
+
         public async Task<string> GetContentKeyPolicyAsync(string contentKeyPolicyName)
 
         {

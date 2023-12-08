@@ -22,7 +22,6 @@ using Azure.Core;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
 using Microsoft.Identity.Client;
-using Microsoft.Identity.Client.Extensibility;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure.Authentication;
 using Newtonsoft.Json;

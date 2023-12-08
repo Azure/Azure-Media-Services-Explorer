@@ -17,8 +17,6 @@
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
 using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using MK.IO;
@@ -179,7 +177,7 @@ namespace AMSExplorer
 
             return (nbLocators, CreateNewRow(listContent));
         }
-            
+
 
         private static DateTime? returnDate(bool localtime, DateTimeOffset? time)
         {
