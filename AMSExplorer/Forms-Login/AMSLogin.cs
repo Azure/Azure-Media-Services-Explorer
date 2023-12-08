@@ -22,6 +22,7 @@ using Azure.Core;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
 using Microsoft.Identity.Client;
+using Microsoft.Identity.Client.Extensibility;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure.Authentication;
 using Newtonsoft.Json;
@@ -469,9 +470,8 @@ namespace AMSExplorer
 
                     environment = addaccount1.GetEnvironment();
                     var scopes = new[] { environment.AADSettings.TokenAudience.ToString() + "/user_impersonation" };
-
                     IPublicClientApplication appPickUp = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
-                        .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "common")
+                        .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "organizations")
                         .WithDefaultRedirectUri()
                         //.WithRedirectUri("http://localhost")
                         .WithBroker(true)
@@ -492,13 +492,15 @@ namespace AMSExplorer
                             accessToken = await appPickUp.AcquireTokenInteractive(scopes)
                                 //.WithPrompt(addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.SelectAccount)
                                 //.WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
-                                .WithAccount(null)
+                                //.WithAccount(null)
                                 .WithParentActivityOrWindow(this.Handle)
                                 .ExecuteAsync();
                         }
-                        catch (MsalException)
+                        catch (MsalException exMsal)
                         {
-
+                            Cursor = Cursors.Default;
+                            MessageBox.Show(exMsal.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                         }
                     }
                     catch (Exception ex)

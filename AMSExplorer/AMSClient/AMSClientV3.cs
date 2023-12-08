@@ -60,7 +60,7 @@ namespace AMSExplorer
                 _appInteract = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
 
                   //.WithAuthority(AzureCloudInstance.AzurePublic, credentialsEntry.AadTenantId)
-                  .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"))
+                  .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "organizations"))
                   .WithDefaultRedirectUri()
                   //.WithRedirectUri("http://localhost")
                   .WithBroker(true)
@@ -70,7 +70,7 @@ namespace AMSExplorer
             {
                 _appSP = ConfidentialClientApplicationBuilder.Create(credentialsEntry.ADSPClientId)
                      .WithClientSecret(credentialsEntry.ClearADSPClientSecret)
-                      .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "common"), true)
+                     .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "organizations"), true)
                      .Build();
             }
 
