@@ -1,1 +1,1 @@
-wingetcreate submit C:\Repos\Azure-Media-Services-Explorer\winget\manifests\m\Microsoft\AzureMediaServicesExplorer\5.7.2
+wingetcreate submit C:\Repos\Azure-Media-Services-Explorer\winget\manifests\m\Microsoft\AzureMediaServicesExplorer\5.8.0

@@ -362,18 +362,19 @@ namespace AMSExplorer
         {
             Telemetry.TrackPageView(this.Name);
 
-            //await Task.Run(() => Program.CheckAMSEVersionAsync()).ConfigureAwait(false); //let not wait for this task - no need
-            DisplayAMSRetirementNotice();
-
             ScaleListViewColumns(listViewAccounts);
             await Program.CheckWebView2VersionAsync();
             await Program.CheckAMSEVersionAsync();
+
+            DisplayAMSRetirementNotice();
         }
 
         private void DisplayAMSRetirementNotice()
         {
-            int days = (new DateTime(2024, 6, 30).Subtract(DateTime.Now)).Days;
-            if (Settings.Default.RetirementNotifDays != days)
+            int days = new DateTime(2024, 6, 30).Subtract(DateTime.Now).Days;
+
+            // we display the message only once a week
+            if (Settings.Default.RetirementNotifDays - days >= 7)
             {
                 MessageBox.Show("Azure Media Services will be retired on 30 June 2024.\r\n\r\nYou can continue to use Azure Media Services without any disruptions. After 30 June 2024, Azure Media Services won’t be supported, and customers won’t have access to their Azure Media Services accounts.\r\n\r\nTo avoid any service disruptions, you’ll need to transition to Azure Video Indexer for on-demand video and audio analysis workflows or to a Microsoft partner solution for all other media services workflows before 30 June 2024\r\n\r\nThis tool supports the migration of your assets to MK/IO. More features may be added in the future to help your migration.", $"Retirement notice - {days} days left", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Settings.Default.RetirementNotifDays = days;
@@ -468,9 +469,8 @@ namespace AMSExplorer
 
                     environment = addaccount1.GetEnvironment();
                     var scopes = new[] { environment.AADSettings.TokenAudience.ToString() + "/user_impersonation" };
-
                     IPublicClientApplication appPickUp = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
-                        .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "common")
+                        .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "organizations")
                         .WithDefaultRedirectUri()
                         //.WithRedirectUri("http://localhost")
                         .WithBroker(true)
@@ -491,13 +491,15 @@ namespace AMSExplorer
                             accessToken = await appPickUp.AcquireTokenInteractive(scopes)
                                 //.WithPrompt(addaccount1.SelectUser ? Prompt.ForceLogin : Prompt.SelectAccount)
                                 //.WithCustomWebUi(new EmbeddedBrowserCustomWebUI(this))
-                                .WithAccount(null)
+                                //.WithAccount(null)
                                 .WithParentActivityOrWindow(this.Handle)
                                 .ExecuteAsync();
                         }
-                        catch (MsalException)
+                        catch (MsalException exMsal)
                         {
-
+                            Cursor = Cursors.Default;
+                            MessageBox.Show(exMsal.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                         }
                     }
                     catch (Exception ex)

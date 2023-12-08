@@ -265,9 +265,7 @@ namespace AMSExplorer
 
             }
 
-
             // end of quotas
-
             Dictionary<string, double> dictionaryM = new()
             {
                 { "StorageAccountsCount", _amsClient.AMSclient.Data.StorageAccounts.Count }
@@ -507,7 +505,10 @@ namespace AMSExplorer
                 try
                 {
                     dataGridViewAssetsV.Init(_amsClient, SynchronizationContext.Current, MKIOclient != null);
-                    dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
+                    if (MKIOclient != null)
+                    {
+                        dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -527,7 +528,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    if (!firstime)
+                    if (!firstime && MKIOclient != null)
                     {
                         //Refresh MK/IO Assets
                         migratedAssetsToMKIO = await MKIOclient.Assets.ListAsync();
@@ -541,7 +542,6 @@ namespace AMSExplorer
                     TextBoxLogWriteLine(ex);
                     Telemetry.TrackException(ex);
                 }
-
             });
 
             // quota is null...
@@ -2518,6 +2518,9 @@ namespace AMSExplorer
                                     configuration: new Azure.ResourceManager.Media.Models.ContentKeyPolicyClearKeyConfiguration(),
                                     restriction: formClearKeyTokenClaims[0].GetContentKeyPolicyRestriction
                                     )
+                                {
+                                    Name = "Clear Key option"
+                                }
                                     );
                             }
 
@@ -4540,8 +4543,6 @@ namespace AMSExplorer
 
         public async Task DoRefreshGridFiltersVAsync(bool firstime)
         {
-
-
             if (firstime)
             {
                 // Storage tab
@@ -7523,7 +7524,7 @@ namespace AMSExplorer
         private async Task DoExportMetadataAsync()
         {
             Telemetry.TrackEvent("DoExportMetadataAsync");
-            ExportToExcel form = new(_amsClient, await ReturnSelectedAssetsAsync());
+            ExportToExcel form = new(_amsClient, await ReturnSelectedAssetsAsync(), MKIOclient);
             if (form.ShowDialog() == DialogResult.OK)
             {
 

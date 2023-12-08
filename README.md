@@ -58,6 +58,8 @@ The subscription name is also called the resource name and is available in the p
 
 An MK/IO token can be obtained by following the directions contained in this [article](https://support.mediakind.com/portal/en/kb/articles/how-to-use-mkio-apis-step-by-step).
 
+AMSE relies on the MK/IO SDK available [here](https://www.nuget.org/packages/MK.IO).
+
 ## Notes
 
 You can force the English or Japanese language by using /language:en-US or /language:ja-JA as a parameter of the AMSExplorer.exe executable.

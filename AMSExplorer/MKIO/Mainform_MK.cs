@@ -14,8 +14,10 @@
 //    limitations under the License.
 //--------------------------------------------------------------------------------------------- 
 
-using Microsoft.Azure.Storage.Auth;
+using AMSExplorer.Rest;
 using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Auth;
+using MK.IO;
 using MK.IO.Models;
 using Newtonsoft.Json;
 using System;
@@ -23,9 +25,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MK.IO;
-using Newtonsoft.Json.Serialization;
-using AMSExplorer.Rest;
 
 namespace AMSExplorer
 {

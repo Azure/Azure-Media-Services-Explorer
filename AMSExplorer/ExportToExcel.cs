@@ -19,6 +19,8 @@ using Azure.ResourceManager.Media.Models;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using MK.IO;
+using MK.IO.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +30,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -37,17 +40,17 @@ namespace AMSExplorer
     {
         private readonly AMSClientV3 _amsClient;
         private readonly List<MediaAssetResource> _selassets;
+        private readonly MKIOClient _mkioClient;
         private string filename;
+        private CancellationTokenSource source = new CancellationTokenSource();
 
-        public ExportToExcel(AMSClientV3 amsClient, List<MediaAssetResource> selassets)
+        public ExportToExcel(AMSClientV3 amsClient, List<MediaAssetResource> selassets, MKIOClient mkioClient)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _amsClient = amsClient;
             _selassets = selassets;
-
-            backgroundWorkerExcel.WorkerReportsProgress = true;
-            backgroundWorkerExcel.WorkerSupportsCancellation = true;
+            _mkioClient = mkioClient;
         }
 
 
@@ -70,7 +73,7 @@ namespace AMSExplorer
             saveFileDialog1.Filter = filter;
         }
 
-        private void buttonOk_Click(object sender, EventArgs e)
+        private async void buttonOk_Click(object sender, EventArgs e)
         {
 
             if (File.Exists(textBoxExcelFile.Text))
@@ -108,18 +111,21 @@ namespace AMSExplorer
 
             progressBarExport.Visible = labelProgress.Visible = true;
 
+            source.TryReset();
             if (radioButtonFormatExcel.Checked)
             {
-                backgroundWorkerExcel.RunWorkerAsync();
+                await Excel_DoWorkAsync(source.Token);
             }
             else
             {
-                backgroundWorkerCSV.RunWorkerAsync();
+                await CSV_DoWorkAsync(source.Token);
             }
+            progressBarExport.Visible = labelProgress.Visible = false;
+            buttonOk.Enabled = true;
         }
 
 
-        private async Task<(int?, Row)> ExportAssetExcelAsync(MediaAssetResource asset, uint row, bool detailed, bool localtime, List<StreamingEndpointResource> seList)
+        private async Task<(int?, Row)> ExportAssetExcelAsync(MediaAssetResource asset, uint row, bool detailed, bool localtime, List<StreamingEndpointResource> seList, AssetSchema mkioAsset)
         {
             int? nbLocators = null;
 
@@ -144,6 +150,10 @@ namespace AMSExplorer
             IList<MediaAssetStreamingLocator> locators = asset.GetStreamingLocators().ToList();
             nbLocators = locators.Count();
             listContent.Add((decimal)nbLocators);
+            if (_mkioClient != null)
+            {
+                listContent.Add((mkioAsset != null).ToString());
+            }
 
             if (detailed)
             {
@@ -168,12 +178,6 @@ namespace AMSExplorer
             return (nbLocators, CreateNewRow(listContent));
         }
 
-        /*
-        private static DateTime returnDate(bool localtime, DateTime time)
-        {
-            return localtime ? time.ToLocalTime() : time;
-        }
-        */
 
         private static DateTime? returnDate(bool localtime, DateTimeOffset? time)
         {
@@ -182,7 +186,7 @@ namespace AMSExplorer
             return localtime ? ((DateTimeOffset)time?.ToLocalTime()).DateTime : ((DateTimeOffset)time).DateTime;
         }
 
-        private async Task<CsvLineResult> ExportAssetCSVLineAsync(MediaAssetResource asset, bool detailed, bool localtime, List<StreamingEndpointResource> seList)
+        private async Task<CsvLineResult> ExportAssetCSVLineAsync(MediaAssetResource asset, bool detailed, bool localtime, List<StreamingEndpointResource> seList, AssetSchema mkioAsset)
         {
             int? nbLocators = null;
 
@@ -208,6 +212,11 @@ namespace AMSExplorer
             IList<MediaAssetStreamingLocator> locators = asset.GetStreamingLocators().ToList();
             nbLocators = locators.Count();
             linec.Add(nbLocators.ToString());
+
+            if (_mkioClient != null)
+            {
+                linec.Add((mkioAsset != null).ToString());
+            }
 
             if (detailed)
             {
@@ -244,7 +253,7 @@ namespace AMSExplorer
             }
         }
 
-        private void backgroundWorkerExcel_DoWork(object sender, DoWorkEventArgs e)
+        private async Task Excel_DoWorkAsync(CancellationToken cancellationToken)
         {
             try
             {
@@ -311,6 +320,23 @@ namespace AMSExplorer
                    );
                 Row rowAMSENote = CreateNewRow(AMSENote);
 
+
+                // MK/IO
+                var allMKIOAssets = new List<AssetSchema>();
+
+                if (_mkioClient != null)
+                {
+                    // list assets with pages
+                    var mkioAssetsResult = await _mkioClient.Assets.ListAsPageAsync(null, 20);
+                    while (true)
+                    {
+                        // do stuff here using mkioAssetsResult.Results
+                        allMKIOAssets.AddRange(mkioAssetsResult.Results);
+                        if (mkioAssetsResult.NextPageLink == null) break;
+                        mkioAssetsResult = await _mkioClient.Assets.ListAsPageNextAsync(mkioAssetsResult.NextPageLink);
+                    }
+                }
+
                 // ASSET ROWS
 
                 uint row = 4;
@@ -318,18 +344,23 @@ namespace AMSExplorer
 
                 if (radioButtonAllAssets.Checked)
                 {
-                    var allAssets = _amsClient.AMSclient.GetMediaAssets().GetAll();
+                    var allAssets = _amsClient.AMSclient.GetMediaAssets().GetAllAsync();
 
-                    foreach (MediaAssetResource asset in allAssets)
+                    await foreach (MediaAssetResource asset in allAssets)
                     {
-                        var output = Task.Run(async () => await ExportAssetExcelAsync(asset, row, detailed, checkBoxLocalTime.Checked, selist)).Result;
+                        AssetSchema assetMKIO = null;
+                        if (_mkioClient != null)
+                        {
+                            assetMKIO = allMKIOAssets.Where(a => a.Properties.StorageAccountName == asset.Data.StorageAccountName && a.Properties.Container == asset.Data.Container).FirstOrDefault();
+                        }
+
+                        var output = await ExportAssetExcelAsync(asset, row, detailed, checkBoxLocalTime.Checked, selist, assetMKIO);
                         if (output.Item1 != null)
                             numberMaxLocators = Math.Max(numberMaxLocators, (int)output.Item1);
                         Rows.Add(output.Item2);
 
-                        backgroundWorkerExcel.ReportProgress((int)index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                        //if cancellation is pending, cancel work.  
-                        if (backgroundWorkerExcel.CancellationPending)
+                        //if cancellation is pending, cancel work.  
+                        if (cancellationToken.IsCancellationRequested)
                         {
                             ////////
                             worksheet.Append(sheetData);
@@ -339,7 +370,6 @@ namespace AMSExplorer
                             // Close the document.  
                             spreadsheetDocument.Dispose();
 
-                            e.Cancel = true;
                             return;
                         }
                         index++;
@@ -352,15 +382,24 @@ namespace AMSExplorer
 
                     foreach (var asset in _selassets)
                     {
-                        var output = Task.Run(async () => await ExportAssetExcelAsync(asset, row, detailed, checkBoxLocalTime.Checked, selist)).Result;
+                        AssetSchema assetMKIO = null;
+                        if (_mkioClient != null)
+                        {
+                            assetMKIO = allMKIOAssets.Where(a => a.Properties.StorageAccountName == asset.Data.StorageAccountName && a.Properties.Container == asset.Data.Container).FirstOrDefault();
+                        }
+
+                        var output = await ExportAssetExcelAsync(asset, row, detailed, checkBoxLocalTime.Checked, selist, assetMKIO);
                         if (output.Item1 != null)
                             numberMaxLocators = Math.Max(numberMaxLocators, (int)output.Item1);
 
                         Rows.Add(output.Item2);
 
-                        backgroundWorkerExcel.ReportProgress((int)(100d * index / total), DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                                         //if cancellation is pending, cancel work.  
-                        if (backgroundWorkerExcel.CancellationPending)
+                        //notify progress to main thread.
+                        ProgressChanged((int)(100d * index / total));
+
+
+                        //if cancellation is pending, cancel work.  
+                        if (cancellationToken.IsCancellationRequested)
                         {
                             // Save the new worksheet.
                             worksheetPart.Worksheet.Save();
@@ -369,7 +408,7 @@ namespace AMSExplorer
 
                             // Close the document.
                             spreadsheetDocument.Dispose();
-                            e.Cancel = true;
+
                             return;
                         }
                         index++;
@@ -386,6 +425,11 @@ namespace AMSExplorer
                     listHeader.Add("Size");
                 }
                 listHeader.Add("Streaming locators count");
+                if (_mkioClient != null)
+                {
+                    listHeader.Add("In MK/IO");
+                }
+
                 if (detailed)
                 {
                     for (int iloc = 0; iloc < numberMaxLocators; iloc++)
@@ -437,6 +481,8 @@ namespace AMSExplorer
                 MessageBox.Show(AMSExplorer.Properties.Resources.ExportToExcel_backgroundWorker1_DoWork_Error + ex.Message);
             }
         }
+
+
 
         private static Row CreateNewRow(string cellValue, UInt32Value styleIndex = null)
         {
@@ -649,7 +695,7 @@ namespace AMSExplorer
         }
 
 
-        private async void backgroundWorkerCSV_DoWork(object sender, DoWorkEventArgs e)
+        private async Task CSV_DoWorkAsync(CancellationToken cancellationToken)
         {
 
             int numberMaxLocators = 0;
@@ -661,8 +707,23 @@ namespace AMSExplorer
             {
                 // Streaming endpoints
                 var streamingEndpoints = _amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync().ToListAsync();
-                //Microsoft.Rest.Azure.IPage<StreamingEndpointResource> streamingEndpoints = _amsClient.AMSclient.StreamingEndpoints.List(_amsClient.credentialsEntry.ResourceGroup, _amsClient.credentialsEntry.AccountName);
                 var selist = streamingEndpoints.Result;
+
+                // MK/IO
+                var allMKIOAssets = new List<AssetSchema>();
+
+                if (_mkioClient != null)
+                {
+                    // list assets with pages
+                    var mkioAssetsResult = _mkioClient.Assets.ListAsPage(null, 20);
+                    while (true)
+                    {
+                        // do stuff here using mkioAssetsResult.Results
+                        allMKIOAssets.AddRange(mkioAssetsResult.Results);
+                        if (mkioAssetsResult.NextPageLink == null) break;
+                        mkioAssetsResult = _mkioClient.Assets.ListAsPageNext(mkioAssetsResult.NextPageLink);
+                    }
+                }
 
                 // Asset lines 
                 int index = 1;
@@ -673,16 +734,20 @@ namespace AMSExplorer
 
                     await foreach (var asset in assets)
                     {
-                        var res = Task.Run(async () => await ExportAssetCSVLineAsync(asset, detailed, checkBoxLocalTime.Checked, selist)).Result;
+                        AssetSchema assetMKIO = null;
+                        if (_mkioClient != null)
+                        {
+                            assetMKIO = allMKIOAssets.Where(a => a.Properties.StorageAccountName == asset.Data.StorageAccountName && a.Properties.Container == asset.Data.Container).FirstOrDefault();
+                        }
+
+                        var res = await ExportAssetCSVLineAsync(asset, detailed, checkBoxLocalTime.Checked, selist, assetMKIO);
                         csv.AppendLine(res.line);
                         if (res.locatorCount != null)
                             numberMaxLocators = Math.Max(numberMaxLocators, (int)res.locatorCount);
 
-                        backgroundWorkerCSV.ReportProgress(index, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                 //if cancellation is pending, cancel work.  
-                        if (backgroundWorkerCSV.CancellationPending)
+                        //if cancellation is pending, cancel work.  
+                        if (cancellationToken.IsCancellationRequested)
                         {
-                            e.Cancel = true;
                             return;
                         }
                         index++;
@@ -694,16 +759,23 @@ namespace AMSExplorer
 
                     foreach (var asset in _selassets)
                     {
-                        var res = Task.Run(async () => await ExportAssetCSVLineAsync(asset, detailed, checkBoxLocalTime.Checked, selist)).Result;
+                        AssetSchema assetMKIO = null;
+                        if (_mkioClient != null)
+                        {
+                            assetMKIO = allMKIOAssets.Where(a => a.Properties.StorageAccountName == asset.Data.StorageAccountName && a.Properties.Container == asset.Data.Container).FirstOrDefault();
+                        }
+
+                        var res = await ExportAssetCSVLineAsync(asset, detailed, checkBoxLocalTime.Checked, selist, assetMKIO);
                         csv.AppendLine(res.line);
                         if (res.locatorCount != null)
                             numberMaxLocators = Math.Max(numberMaxLocators, (int)res.locatorCount);
 
-                        backgroundWorkerCSV.ReportProgress(100 * index / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
-                                                                                               //if cancellation is pending, cancel work.  
-                        if (backgroundWorkerCSV.CancellationPending)
+
+                        ProgressChanged((int)(100d * index / total));
+
+                        //if cancellation is pending, cancel work.  
+                        if (cancellationToken.IsCancellationRequested)
                         {
-                            e.Cancel = true;
                             return;
                         }
                         index++;
@@ -745,6 +817,11 @@ namespace AMSExplorer
                 }
 
                 linec.Add("Streaming locators count");
+
+                if (_mkioClient != null)
+                {
+                    linec.Add("In MK/IO");
+                }
 
                 if (detailed)
                 {
@@ -793,7 +870,7 @@ namespace AMSExplorer
         }
 
 
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void ProgressChanged(int percentage)
         {
             if (radioButtonSelectedAssets.Checked)
             {
@@ -801,17 +878,17 @@ namespace AMSExplorer
                 {
                     progressBarExport.BeginInvoke(new Action(() =>
                     {
-                        progressBarExport.Value = e.ProgressPercentage; //update progress bar 
+                        progressBarExport.Value = percentage; //update progress bar 
                     }));
                 }
                 else
                 {
-                    progressBarExport.Value = e.ProgressPercentage; //update progress bar  
+                    progressBarExport.Value = percentage; //update progress bar  
                 }
             }
             else
             {
-                string text = $"Progress ({e.ProgressPercentage} assets)";
+                string text = $"Progress ({percentage} assets)";
                 if (labelProgress.InvokeRequired)
                 {
                     labelProgress.BeginInvoke(new Action(() =>
@@ -869,8 +946,8 @@ namespace AMSExplorer
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            backgroundWorkerExcel.CancelAsync();
-            backgroundWorkerCSV.CancelAsync();
+
+            source.Cancel();
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
