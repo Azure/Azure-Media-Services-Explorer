@@ -63,7 +63,7 @@ AMSE relies on the MK/IO SDK available [here](https://www.nuget.org/packages/MK.
 Learn more on the migration:
 
 [<img src="https://github.com/Azure/Azure-Media-Services-Explorer/assets/8104205/6f65b990-90be-4edc-adef-ef594d49162f" width="600" height="381"
-/>](https://learn-video.azurefd.net/vod/player?id=0cb909ce-ebcd-4012-baf2-5ba8a7b63d12)
+/>](https://youtu.be/uMRn7bDcb-o)
 
 ## Notes
 
