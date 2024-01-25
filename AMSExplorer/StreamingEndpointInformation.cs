@@ -130,7 +130,7 @@ namespace AMSExplorer
                 DGOrigin.Rows.Add("ResourceState", MySE.Data.ResourceState);
                 DGOrigin.Rows.Add("Description", MySE.Data.Description);
                 DGOrigin.Rows.Add("HostName", MySE.Data.HostName);
-                DGOrigin.Rows.Add("IsCdnEnabled", MySE.Data.IsCdnEnabled);
+                DGOrigin.Rows.Add("IsCdnEnabled", MySE.Data.IsCdnEnabled.GetValueOrDefault());
                 DGOrigin.Rows.Add("CDNProfile", MySE.Data.CdnProfile ?? Constants.stringNull);
                 DGOrigin.Rows.Add("CDNProvider", MySE.Data.CdnProvider ?? Constants.stringNull);
                 DGOrigin.Rows.Add("FreeTrialEndOn", MySE.Data.FreeTrialEndOn?.ToLocalTime().ToString("G"));
@@ -158,8 +158,10 @@ namespace AMSExplorer
             dataGridViewCustomHostname.DataSource = CustomHostNamesList;
 
             // AZURE CDN
-            panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !(bool)MySE.Data.IsCdnEnabled;
-            labelcdn.Visible = (bool)MySE.Data.IsCdnEnabled;
+            bool isCdnEnabled = MySE.Data.IsCdnEnabled.GetValueOrDefault();
+
+            panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !isCdnEnabled;            
+            labelcdn.Visible = isCdnEnabled;
 
             // Streaming units
 

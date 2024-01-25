@@ -17,21 +17,6 @@
 // Azure Management dependencies
 
 
-using AMSExplorer.Rest;
-using AMSExplorer.Utils.JobInfo;
-using AMSExplorer.Utils.TransformInfo;
-using Azure;
-using Azure.Monitor.Query;
-using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
-using Microsoft.Azure.Storage;
-using Microsoft.Azure.Storage.Auth;
-using Microsoft.Azure.Storage.Blob;
-using Microsoft.Azure.Storage.DataMovement;
-using Microsoft.Azure.Storage.Shared.Protocol;
-using MK.IO;
-using MK.IO.Models;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -48,6 +33,26 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+
+using AMSExplorer.Rest;
+using AMSExplorer.Utils.JobInfo;
+using AMSExplorer.Utils.TransformInfo;
+
+using Azure;
+using Azure.Monitor.Query;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
+
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Auth;
+using Microsoft.Azure.Storage.Blob;
+using Microsoft.Azure.Storage.DataMovement;
+using Microsoft.Azure.Storage.Shared.Protocol;
+
+using MK.IO;
+using MK.IO.Models;
+
+using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
@@ -272,6 +277,7 @@ namespace AMSExplorer
             };
 
             // Let's check if there is one streaming unit running
+
             try
             {
                 var seResults = _amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync().ToListAsync().Result;
@@ -281,21 +287,31 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
                 }
 
-                var leResults = _amsClient.AMSclient.GetMediaLiveEvents().GetAllAsync().ToListAsync().Result;
-                double nbLiveEvents = leResults.Count();
                 double nbse = seResults.Count();
-                if (nbse > 0 && nbLiveEvents > 0 && (nbLiveEvents / nbse) > 5)
-                {
-                    TextBoxLogWriteLine("There are {0} live events and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 live events.", nbLiveEvents, nbse, true); // Warning
-                }
-
                 dictionaryM.Add("StreamingEndpointsCount", nbse);
-                dictionaryM.Add("LiveEventsCount", nbLiveEvents);
+
+                if (!_amsClient.IsRavnurClient)
+                {
+                    var leResults = _amsClient.AMSclient.GetMediaLiveEvents().GetAllAsync().ToListAsync().Result;
+                    double nbLiveEvents = leResults.Count();
+                    if (nbse > 0 && nbLiveEvents > 0 && (nbLiveEvents / nbse) > 5)
+                    {
+                        TextBoxLogWriteLine("There are {0} live events and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 live events.", nbLiveEvents, nbse, true); // Warning
+                    }
+
+                    dictionaryM.Add("LiveEventsCount", nbLiveEvents);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(Program.GetErrorMessage(ex) + "\n\nAMS Explorer will exit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(0);
+            }
+
+            if (_amsClient.IsRavnurClient)
+            {
+                HideAMSOnlyFeatures();
+                ShowRavnurOnlyFeatures();
             }
 
             string mes = @"To use Azure CLI with this account, use a syntax like : ""az ams asset list -g {0} -a {1}""";
@@ -304,7 +320,39 @@ namespace AMSExplorer
             Telemetry.TrackEvent("Account connected", dictionary, dictionaryM);
         }
 
+        private void HideAMSOnlyFeatures()
+        {
+            // Hide Live Events feature
+            tabControlMain.TabPages.Remove(tabPageLive);
+            liveLiveEventToolStripMenuItem.Visible = false;
 
+            // Hide Asset Filters feature
+            tabControlMain.TabPages.Remove(tabPageFilters);
+            createAnAssetFilterToolStripMenuItem.Visible = false;
+
+            // Hide Streaming Endpoints feature
+            originToolStripMenuItem.Visible = false;
+            ContextMenuItemOriginStart.Visible = false;
+            ContextMenuItemOriginStop.Visible = false;
+            ContextMenuItemOriginDelete.Visible = false;
+            createStreamingEndpointToolStripMenuItem.Visible = false;
+
+            // Hide Attach/Detach storage account feature
+            // TODO: Consider replace with RMS Console functionality
+            attachAnotherStorageAccountToolStripMenuItem.Visible = false;
+            attachAnotherStoragheAccountToolStripMenuItem.Visible = false;
+
+            // Hide Key Delivery Configuration feature
+            // TODO: Check whether we can use this feature with Ravnur
+            keyDeliveryConfigurationToolStripMenuItem.Visible = false;
+            keyDeliveryConfigurationToolStripMenuItem1.Visible = false;
+        }
+
+        private void ShowRavnurOnlyFeatures()
+        {
+            // Show link to Ravnur Console
+            ravnurConsoleToolStripMenuItem.Visible = true;
+        }
 
         private async void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
@@ -1603,7 +1651,6 @@ namespace AMSExplorer
 
             var response2 = asset.GetStorageContainerUris(content);
             Uri containerSasUrl = response2.First();
-
             CloudBlobContainer container = new(containerSasUrl);
 
             if (downloadOption == DownloadToFolderOption.SubfolderAssetName)
@@ -4279,33 +4326,33 @@ namespace AMSExplorer
 
 
             // Enable/Disable asset menus
-            EnableChildItems(ref contextMenuStripAssets, tabcontrol.SelectedIndex == 0);
-            EnableChildItems(ref assetToolStripMenuItem, tabcontrol.SelectedIndex == 0);
+            EnableChildItems(ref contextMenuStripAssets, tabcontrol.SelectedTab == tabPageAssets);
+            EnableChildItems(ref assetToolStripMenuItem, tabcontrol.SelectedTab == tabPageAssets);
 
             // Enable/Disable account filter menu
-            EnableChildItems(ref contextMenuStripFilters, tabcontrol.SelectedIndex == 1);
+            EnableChildItems(ref contextMenuStripFilters, tabcontrol.SelectedTab == tabPageFilters);
 
             // Enable/Disable Content key policies context menu
-            EnableChildItems(ref contextMenuStripCKPolicies, tabcontrol.SelectedIndex == 2);
+            EnableChildItems(ref contextMenuStripCKPolicies, tabcontrol.SelectedTab == tabPageCKPol);
 
             // Enable/Disable transfer menu
-            EnableChildItems(ref contextMenuStripTransfers, tabcontrol.SelectedIndex == 3);
+            EnableChildItems(ref contextMenuStripTransfers, tabcontrol.SelectedTab == tabPageTransfers);
 
             // Enable/Disable transforms and jobs menus
-            EnableChildItems(ref contextMenuStripTransforms, tabcontrol.SelectedIndex == 4);
-            EnableChildItems(ref contextMenuStripJobs, tabcontrol.SelectedIndex == 4);
+            EnableChildItems(ref contextMenuStripTransforms, tabcontrol.SelectedTab == tabPageJobs);
+            EnableChildItems(ref contextMenuStripJobs, tabcontrol.SelectedTab == tabPageJobs);
 
             // Enable/Disable live objects menus
-            EnableChildItems(ref liveLiveEventToolStripMenuItem, tabcontrol.SelectedIndex == 5);
-            EnableChildItems(ref contextMenuStripLiveEvents, tabcontrol.SelectedIndex == 5);
-            EnableChildItems(ref contextMenuStripLiveOutputs, tabcontrol.SelectedIndex == 5);
+            EnableChildItems(ref liveLiveEventToolStripMenuItem, tabcontrol.SelectedTab == tabPageLive);
+            EnableChildItems(ref contextMenuStripLiveEvents, tabcontrol.SelectedTab == tabPageLive);
+            EnableChildItems(ref contextMenuStripLiveOutputs, tabcontrol.SelectedTab == tabPageLive);
 
             // Enable/Disable se menus
-            EnableChildItems(ref originToolStripMenuItem, tabcontrol.SelectedIndex == 6);
-            EnableChildItems(ref contextMenuStripStreaminEndpoints, tabcontrol.SelectedIndex == 6);
+            EnableChildItems(ref originToolStripMenuItem, tabcontrol.SelectedTab == tabPageOrigins);
+            EnableChildItems(ref contextMenuStripStreaminEndpoints, tabcontrol.SelectedTab == tabPageOrigins);
 
             // Enable/Disable storage menu
-            EnableChildItems(ref contextMenuStripStorage, tabcontrol.SelectedIndex == 7);
+            EnableChildItems(ref contextMenuStripStorage, tabcontrol.SelectedTab == tabPageStorage);
 
             Telemetry.TrackPageView("tab " + tabcontrol.SelectedTab.Name);
 
@@ -4415,6 +4462,11 @@ namespace AMSExplorer
 
         private async Task DoRefreshGridLiveEventVAsync(bool firstime)
         {
+            if (_amsClient.IsRavnurClient)
+            {
+                return;
+            }
+
             if (firstime)
             {
                 await dataGridViewLiveEventsV.InitAsync(_amsClient);
@@ -4441,6 +4493,10 @@ namespace AMSExplorer
 
         private void DoRefreshGridLiveOutputV(bool firstime)
         {
+            if (_amsClient.IsRavnurClient)
+            {
+                return;
+            }
 
             if (firstime)
             {
@@ -6688,7 +6744,17 @@ namespace AMSExplorer
                 linkPortal = @"https://portal.azure.com";
             }
 
-            string path = @"#@{0}/resource/subscriptions/{1}/resourceGroups/{2}/providers/microsoft.media/mediaservices/{3}";
+            string path;
+
+            if (_amsClient.IsRavnurClient)
+            {
+                path = @"#@{0}/resource/subscriptions/{1}/resourceGroups/{2}";
+            }
+            else
+            {
+                path = @"#@{0}/resource/subscriptions/{1}/resourceGroups/{2}/providers/microsoft.media/mediaservices/{3}";
+            }
+
             linkPortal += string.Format(path, _amsClient.credentialsEntry.AadTenantId, _amsClient.credentialsEntry.SubscriptionId, _amsClient.credentialsEntry.ResourceGroupName, _amsClient.credentialsEntry.AccountName);
 
             var p = new Process
@@ -7011,7 +7077,7 @@ namespace AMSExplorer
             {
                 var se = streamingendpoints.FirstOrDefault();
                 bool sestopped = (se.Data.ResourceState == StreamingEndpointResourceState.Stopped);
-                bool cdnenabled = (bool)se.Data.IsCdnEnabled;
+                bool cdnenabled = (bool)se.Data.IsCdnEnabled.GetValueOrDefault();
 
                 disableAzureCDNToolStripMenuItem1.Enabled = sestopped && cdnenabled;
                 enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !cdnenabled;
@@ -9927,15 +9993,7 @@ namespace AMSExplorer
 
         private void pictureBoxMKIO_Click(object sender, EventArgs e)
         {
-            var p = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = Constants.MKIOApp + _amsClient.credentialsEntry.MKIOSubscriptionName,
-                    UseShellExecute = true
-                }
-            };
-            p.Start();
+            OpenExternalLink(Constants.MKIOApp + _amsClient.credentialsEntry.MKIOSubscriptionName);
         }
 
         private void pictureBoxMKIO_MouseEnter(object sender, EventArgs e)
@@ -9946,6 +10004,40 @@ namespace AMSExplorer
         private void pictureBoxMKIO_MouseLeave(object sender, EventArgs e)
         {
             Cursor = Cursors.Arrow;
+        }
+
+        private void ravnurPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenExternalLink(Constants.RavnurPlayerDemo);
+        }
+
+        private void ravnurPortalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenExternalLink(Constants.RavnurPortal);
+        }
+
+        private static void OpenExternalLink(string link)
+        {
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = link,
+                    UseShellExecute = true
+                }
+            };
+            p.Start();
+        }
+
+        private void ravnurConsoleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_amsClient.IsRavnurClient)
+            {
+                return;
+            }
+
+            var consoleLink = new Uri(_amsClient.credentialsEntry.RavnurApiEndpoint, "console");
+            OpenExternalLink(consoleLink.AbsoluteUri);
         }
     }
 }

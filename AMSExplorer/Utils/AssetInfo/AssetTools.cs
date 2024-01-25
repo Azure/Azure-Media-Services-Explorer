@@ -1338,7 +1338,7 @@ namespace AMSExplorer
             var SEList = client.AMSclient.GetStreamingEndpoints().GetAllAsync().ToListAsync().Result;
 
             // IEnumerable<StreamingEndpoint>
-            var SESelected = SEList.Where(se => se.Data.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.Data.IsCdnEnabled).OrderBy(se => se.Data.ScaleUnits).LastOrDefault();
+            var SESelected = SEList.Where(se => se.Data.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.Data.IsCdnEnabled.GetValueOrDefault()).OrderBy(se => se.Data.ScaleUnits).LastOrDefault();
             if (SESelected == null)
             {
                 SESelected = await client.GetStreamingEndpointAsync("default");

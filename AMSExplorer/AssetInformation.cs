@@ -17,14 +17,19 @@
 
 using AMSExplorer.ManifestGeneration;
 using AMSExplorer.Rest;
+
 using Azure;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
+
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.Storage.DataMovement;
+
 using MK.IO;
 using MK.IO.Models;
+
 using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -145,6 +150,12 @@ namespace AMSExplorer
                 comboBoxStreamingEndpoint.SelectedIndex = 0;
             }
             oktobuildlocator = true;
+
+            if (_amsClient.IsRavnurClient)
+            {
+                tabControl1.TabPages.Remove(tabPageAssetFilters);
+                tabControl1.TabPages.Remove(tabPageTracks);
+            }
 
             return;
         }
