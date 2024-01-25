@@ -14,11 +14,6 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-using AMSClient;
-using Azure.ResourceManager;
-using Azure.ResourceManager.Media;
-using Microsoft.Identity.Client;
-using Microsoft.Rest;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -27,6 +22,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+
+using AMSClient;
+
+using AMSExplorer.Ravnur;
+
+using Azure.ResourceManager;
+using Azure.ResourceManager.Media;
+
+using Microsoft.Identity.Client;
+using Microsoft.Rest;
 
 namespace AMSExplorer
 {
@@ -47,6 +52,8 @@ namespace AMSExplorer
         private readonly System.Timers.Timer TimerAutoRefreshAuthToken;
         public bool useMKIOConnection = false;
 
+        public bool IsRavnurClient => credentialsEntry.RavnurApiEndpoint != null;
+        public string RavnurAccessToken;
 
         public AMSClientV3(AzureEnvironment myEnvironment, string azureSubscriptionId, CredentialsEntryV4 myCredentialsEntry, Form form)
         {
@@ -148,7 +155,6 @@ namespace AMSExplorer
                     Debug.Print("MSAL silent authentication exception !" + maslException.Message);
                 }
             }
-
             else // Service Principal
             {
                 if (firstTimeAuth)
@@ -194,19 +200,28 @@ namespace AMSExplorer
             credentials = new TokenCredentials(authResult.AccessToken, "Bearer");
             credentialForArmClient = new BearerTokenCredential(authResult.AccessToken);
 
+            //var credential = new DefaultAzureCredential(includeInteractiveCredentials: true);
+            ArmClient armClient = null;
+
+            if (IsRavnurClient)
+            {
+                armClient = RavnurClientFactory.GetRavnurArmClient(credentialsEntry);
+                RavnurAccessToken = await RavnurClientFactory.GetRavnurAccessToken(credentialsEntry);
+            }
+            else
+            {
+                armClient = new ArmClient(credentialForArmClient);
+            }
+
             // new code
             var MediaServiceAccount = MediaServicesAccountResource.CreateResourceIdentifier(
                 subscriptionId: _azureSubscriptionId,
                 resourceGroupName: credentialsEntry.ResourceGroupName,
-                accountName: credentialsEntry.AccountName
-                );
-            //var credential = new DefaultAzureCredential(includeInteractiveCredentials: true);
-            var armClient = new ArmClient(credentialForArmClient);
+                accountName: credentialsEntry.AccountName);
 
             var amsClient = armClient.GetMediaServicesAccountResource(MediaServiceAccount);
 
             AMSclient = await amsClient.GetAsync();
-
 
             /*
             // Getting Media Services account...

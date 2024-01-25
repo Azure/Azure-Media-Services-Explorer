@@ -95,6 +95,9 @@ namespace AMSExplorer
         public const string MKIOPortal = @"https://io.mediakind.com";
         public const string MKIOApp = @"https://app.io.mediakind.com/";
 
+        public const string RavnurPortal = @"https://www.ravnur.com/";
+        public const string RavnurPlayerDemo = @"https://strmsdemo.z13.web.core.windows.net/";
+
         public const string LinkFeedbackAMS = "https://aka.ms/amsvoice";
 
         public const string TemporaryWidevineLicenseServer = "https://thiswillbereplacedbytheAMSwidevineurl/?KID=00000000-0000-0000-0000-000000000000";
