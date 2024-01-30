@@ -14,7 +14,17 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-
+using AMSClient;
+using AMSExplorer.Properties;
+using AMSExplorer.Ravnur;
+using AMSExplorer.Rest;
+using Azure.Core;
+using Azure.ResourceManager;
+using Azure.ResourceManager.Media;
+using Microsoft.Identity.Client;
+using Microsoft.Rest;
+using Microsoft.Rest.Azure.Authentication;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,22 +35,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using AMSClient;
-
-using AMSExplorer.Properties;
-using AMSExplorer.Ravnur;
-using AMSExplorer.Rest;
-
-using Azure.Core;
-using Azure.ResourceManager;
-using Azure.ResourceManager.Media;
-
-using Microsoft.Identity.Client;
-using Microsoft.Rest;
-using Microsoft.Rest.Azure.Authentication;
-
-using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
@@ -772,7 +766,7 @@ namespace AMSExplorer
         {
             string example = @"{
   ""AZURE_SUBSCRIPTION_ID"": ""00000000-0000-0000-0000-000000000000"",
-  ""AZURE_RESOURCE_GROUP"": ""amsResourceGroup"",
+  ""AZURE_RESOURCE_GROUP"": ""rmsResourceGroup"",
   ""RAVNUR_MEDIA_SERVICES_ACCOUNT_NAME"": ""rmsAccount"",
   ""RAVNUR_API_ENDPOINT"": ""https://rms.myaccount.ravnur.net/"",
   ""RAVNUR_API_KEY"": ""rmsApiKey""

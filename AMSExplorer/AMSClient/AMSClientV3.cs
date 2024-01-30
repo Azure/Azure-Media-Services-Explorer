@@ -14,6 +14,13 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
+using AMSClient;
+using AMSExplorer.Ravnur;
+using Azure.ResourceManager;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
+using Microsoft.Identity.Client;
+using Microsoft.Rest;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -22,16 +29,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
-
-using AMSClient;
-
-using AMSExplorer.Ravnur;
-
-using Azure.ResourceManager;
-using Azure.ResourceManager.Media;
-
-using Microsoft.Identity.Client;
-using Microsoft.Rest;
 
 namespace AMSExplorer
 {
@@ -205,6 +202,8 @@ namespace AMSExplorer
 
             if (IsRavnurClient)
             {
+                // When the credentials are configured for Ravnur Media Services,
+                // we need to instantiate ARM client configured to connect to Ravnur endpoints
                 armClient = RavnurClientFactory.GetRavnurArmClient(credentialsEntry);
                 RavnurAccessToken = await RavnurClientFactory.GetRavnurAccessToken(credentialsEntry);
             }
@@ -292,6 +291,16 @@ namespace AMSExplorer
         public async Task<StreamingEndpointResource> GetStreamingEndpointAsync(string seName)
         {
             return await AMSclient.GetStreamingEndpointAsync(seName).ConfigureAwait(false);
+        }
+
+        public StreamingPolicyStreamingProtocol GetDefaultStreamingProtocol()
+        {
+            if (IsRavnurClient)
+            {
+                return StreamingPolicyStreamingProtocol.Hls;
+            }
+
+            return StreamingPolicyStreamingProtocol.SmoothStreaming;
         }
     }
 }

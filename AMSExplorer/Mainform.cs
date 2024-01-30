@@ -17,6 +17,21 @@
 // Azure Management dependencies
 
 
+using AMSExplorer.Rest;
+using AMSExplorer.Utils.JobInfo;
+using AMSExplorer.Utils.TransformInfo;
+using Azure;
+using Azure.Monitor.Query;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Auth;
+using Microsoft.Azure.Storage.Blob;
+using Microsoft.Azure.Storage.DataMovement;
+using Microsoft.Azure.Storage.Shared.Protocol;
+using MK.IO;
+using MK.IO.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,26 +48,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
-
-using AMSExplorer.Rest;
-using AMSExplorer.Utils.JobInfo;
-using AMSExplorer.Utils.TransformInfo;
-
-using Azure;
-using Azure.Monitor.Query;
-using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
-
-using Microsoft.Azure.Storage;
-using Microsoft.Azure.Storage.Auth;
-using Microsoft.Azure.Storage.Blob;
-using Microsoft.Azure.Storage.DataMovement;
-using Microsoft.Azure.Storage.Shared.Protocol;
-
-using MK.IO;
-using MK.IO.Models;
-
-using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
@@ -277,7 +272,6 @@ namespace AMSExplorer
             };
 
             // Let's check if there is one streaming unit running
-
             try
             {
                 var seResults = _amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync().ToListAsync().Result;
@@ -338,12 +332,10 @@ namespace AMSExplorer
             createStreamingEndpointToolStripMenuItem.Visible = false;
 
             // Hide Attach/Detach storage account feature
-            // TODO: Consider replace with RMS Console functionality
             attachAnotherStorageAccountToolStripMenuItem.Visible = false;
             attachAnotherStoragheAccountToolStripMenuItem.Visible = false;
 
             // Hide Key Delivery Configuration feature
-            // TODO: Check whether we can use this feature with Ravnur
             keyDeliveryConfigurationToolStripMenuItem.Visible = false;
             keyDeliveryConfigurationToolStripMenuItem1.Visible = false;
         }
@@ -7077,7 +7069,7 @@ namespace AMSExplorer
             {
                 var se = streamingendpoints.FirstOrDefault();
                 bool sestopped = (se.Data.ResourceState == StreamingEndpointResourceState.Stopped);
-                bool cdnenabled = (bool)se.Data.IsCdnEnabled.GetValueOrDefault();
+                bool cdnenabled = (bool)se.Data.IsCdnEnabled;
 
                 disableAzureCDNToolStripMenuItem1.Enabled = sestopped && cdnenabled;
                 enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !cdnenabled;
@@ -10016,6 +10008,17 @@ namespace AMSExplorer
             OpenExternalLink(Constants.RavnurPortal);
         }
 
+        private void ravnurConsoleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!_amsClient.IsRavnurClient)
+            {
+                return;
+            }
+
+            var consoleLink = new Uri(_amsClient.credentialsEntry.RavnurApiEndpoint, "console");
+            OpenExternalLink(consoleLink.AbsoluteUri);
+        }
+
         private static void OpenExternalLink(string link)
         {
             var p = new Process
@@ -10027,17 +10030,6 @@ namespace AMSExplorer
                 }
             };
             p.Start();
-        }
-
-        private void ravnurConsoleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!_amsClient.IsRavnurClient)
-            {
-                return;
-            }
-
-            var consoleLink = new Uri(_amsClient.credentialsEntry.RavnurApiEndpoint, "console");
-            OpenExternalLink(consoleLink.AbsoluteUri);
         }
     }
 }

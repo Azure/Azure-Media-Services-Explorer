@@ -388,9 +388,12 @@ namespace AMSExplorer
 
             if (!_emptyliveOutput)
             {
+                var streamingProtocol = _amsClient.GetDefaultStreamingProtocol();
+
                 var loc = (await _amsClient.AMSclient.GetStreamingLocatorAsync(locator.Name)).Value;
-                _path = loc.GetStreamingPaths().Value.StreamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming)
-            .FirstOrDefault().Paths.FirstOrDefault();
+                _path = loc.GetStreamingPaths().Value.StreamingPaths
+                    .Where(p => p.StreamingProtocol == streamingProtocol)
+                    .FirstOrDefault().Paths.FirstOrDefault();
             }
             else // we should not use ListPaths as liveOutput is empty
             {

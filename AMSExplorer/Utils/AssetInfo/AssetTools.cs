@@ -143,8 +143,10 @@ namespace AMSExplorer
                 string locatorName = useThisLocatorName ?? locators.First().Data.Name;
                 var locatorToUse = locators.Where(l => l.Data.Name == locatorName).First();
 
+                var streamingProtocol = _amsClient.GetDefaultStreamingProtocol();
+
                 var streamingPaths = locatorToUse.GetStreamingPaths().Value.StreamingPaths;
-                IEnumerable<StreamingPath> smoothPath = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming);
+                IEnumerable<StreamingPath> smoothPath = streamingPaths.Where(p => p.StreamingProtocol == streamingProtocol);
                 if (smoothPath.Any(s => s.Paths.Count != 0))
                 {
                     UriBuilder uribuilder = new()
@@ -675,6 +677,7 @@ namespace AMSExplorer
 
             CloudBlockBlob[] ismfiles = blocsc.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
             CloudBlockBlob[] ismcfiles = blocsc.Where(f => f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).ToArray();
+            CloudBlockBlob[] jsonManifestFiles = blocsc.Where(f => f.Name.EndsWith("manifest.json", StringComparison.OrdinalIgnoreCase)).ToArray();
 
             // size calculation - for the root now
             blocsc.ForEach(b => size += b.Properties.Length);
@@ -737,6 +740,13 @@ namespace AMSExplorer
             else
             {
                 type = Type_Unknown;
+            }
+
+            // Add check for the Ravnur .json manifest
+            if (type == Type_Unknown && jsonManifestFiles.Length == 1 && mp4files.Length > 0)
+            {
+                number = mp4files.Length;
+                type = number == 1 ? Type_Single : Type_Multi;
             }
 
             return new AssetInfoData()
@@ -1338,7 +1348,7 @@ namespace AMSExplorer
             var SEList = client.AMSclient.GetStreamingEndpoints().GetAllAsync().ToListAsync().Result;
 
             // IEnumerable<StreamingEndpoint>
-            var SESelected = SEList.Where(se => se.Data.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.Data.IsCdnEnabled.GetValueOrDefault()).OrderBy(se => se.Data.ScaleUnits).LastOrDefault();
+            var SESelected = SEList.Where(se => se.Data.ResourceState == StreamingEndpointResourceState.Running).OrderBy(se => se.Data.IsCdnEnabled).OrderBy(se => se.Data.ScaleUnits).LastOrDefault();
             if (SESelected == null)
             {
                 SESelected = await client.GetStreamingEndpointAsync("default");

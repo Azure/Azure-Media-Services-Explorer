@@ -17,19 +17,14 @@
 
 using AMSExplorer.ManifestGeneration;
 using AMSExplorer.Rest;
-
 using Azure;
 using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
-
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.Storage.DataMovement;
-
 using MK.IO;
 using MK.IO.Models;
-
 using Newtonsoft.Json;
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -153,8 +148,13 @@ namespace AMSExplorer
 
             if (_amsClient.IsRavnurClient)
             {
+                // Asset Filters API is not supported in Ravnur
                 tabControl1.TabPages.Remove(tabPageAssetFilters);
+
+                // Tracks API is not supported in Ravnur
                 tabControl1.TabPages.Remove(tabPageTracks);
+                createAnAudioTrackFromThisBlobToolStripMenuItem.Visible = false;
+                createTextTrackFromThisBlobToolStripMenuItem.Visible = false;
             }
 
             return;

@@ -88,7 +88,7 @@ namespace AMSExplorer
                     Name = o.Data.Name,
                     Id = o.Data.Id,
                     Description = o.Data.Description,
-                    CDN = ((bool)o.Data.IsCdnEnabled.GetValueOrDefault()) ? StreamingEndpointInformation.ReturnDisplayedProvider(o.Data.CdnProvider) ?? "CDN" : string.Empty,
+                    CDN = ((bool)o.Data.IsCdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(o.Data.CdnProvider) ?? "CDN" : string.Empty,
                     ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(o) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : o.Data.ScaleUnits.ToString(),
                     Type = StreamingEndpointInformation.ReturnTypeSE(o),
                     State = (StreamingEndpointResourceState)o.Data.ResourceState,
@@ -133,7 +133,7 @@ namespace AMSExplorer
                     _MyObservStreamingEndpoints[index].Description = streamingEndpoint.Data.Description;
                     _MyObservStreamingEndpoints[index].LastModifiedOn = streamingEndpoint.Data.LastModifiedOn?.DateTime.ToLocalTime();
                     _MyObservStreamingEndpoints[index].Type = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint);
-                    _MyObservStreamingEndpoints[index].CDN = ((bool)streamingEndpoint.Data.IsCdnEnabled.GetValueOrDefault()) ? StreamingEndpointInformation.ReturnDisplayedProvider(streamingEndpoint.Data.CdnProvider) ?? "CDN" : string.Empty;
+                    _MyObservStreamingEndpoints[index].CDN = ((bool)streamingEndpoint.Data.IsCdnEnabled) ? StreamingEndpointInformation.ReturnDisplayedProvider(streamingEndpoint.Data.CdnProvider) ?? "CDN" : string.Empty;
                     _MyObservStreamingEndpoints[index].ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(streamingEndpoint) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : streamingEndpoint.Data.ScaleUnits.ToString();
                     BeginInvoke(new Action(Refresh));
                 }
@@ -181,7 +181,7 @@ namespace AMSExplorer
                                 Name = c.Data.Name,
                                 Id = c.Data.Id,
                                 Description = c.Data.Description,
-                                CDN = c.Data.IsCdnEnabled.GetValueOrDefault() ? StreamingEndpointInformation.ReturnDisplayedProvider(c.Data.CdnProvider) ?? "CDN" : string.Empty,
+                                CDN = (bool)c.Data.IsCdnEnabled ? StreamingEndpointInformation.ReturnDisplayedProvider(c.Data.CdnProvider) ?? "CDN" : string.Empty,
                                 ScaleUnits = StreamingEndpointInformation.ReturnTypeSE(c) != StreamingEndpointInformation.StreamEndpointType.Premium ? string.Empty : c.Data.ScaleUnits.ToString(),
                                 State = (StreamingEndpointResourceState)c.Data.ResourceState,
                                 LastModifiedOn = c.Data.LastModifiedOn?.DateTime.ToLocalTime(),
