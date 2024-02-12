@@ -319,6 +319,7 @@ namespace AMSExplorer
             // Hide Live Events feature
             tabControlMain.TabPages.Remove(tabPageLive);
             liveLiveEventToolStripMenuItem.Visible = false;
+            subclipToolStripMenuItem.Visible = false;
 
             // Hide Asset Filters feature
             tabControlMain.TabPages.Remove(tabPageFilters);
@@ -2432,8 +2433,14 @@ namespace AMSExplorer
                                 {
                                     bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1) && (formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine == 0);
 
-                                    formPlayreadyTokenClaims.Add(new form_DRM_Config_TokenClaims(step++, i + 1, "PlayReady", tokenSymKey, false)
-                                    { Left = left, Top = top });
+                                    formPlayreadyTokenClaims.Add(
+                                        new form_DRM_Config_TokenClaims(step++, i + 1, "PlayReady", tokenSymKey, false)
+                                        {
+                                            Left = left,
+                                            Top = top,
+                                            AllowX509Certificate = !_amsClient.IsRavnurClient,
+                                            AllowOpenId = !_amsClient.IsRavnurClient,
+                                        });
 
                                     if (formPlayreadyTokenClaims[i].ShowDialog() != DialogResult.OK)
                                     {
@@ -2468,7 +2475,15 @@ namespace AMSExplorer
                                 {
                                     bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsWidevine - 1);
 
-                                    formWidevineTokenClaims.Add(new form_DRM_Config_TokenClaims(step++, i + 1, "Widevine", tokenSymKey, false) { Left = left, Top = top });
+                                    formWidevineTokenClaims.Add(
+                                        new form_DRM_Config_TokenClaims(step++, i + 1, "Widevine", tokenSymKey, false)
+                                        {
+                                            Left = left,
+                                            Top = top,
+                                            AllowX509Certificate = !_amsClient.IsRavnurClient,
+                                            AllowOpenId = !_amsClient.IsRavnurClient,
+                                        });
+
                                     if (formWidevineTokenClaims[i].ShowDialog() != DialogResult.OK)
                                     {
                                         return;
@@ -2503,7 +2518,15 @@ namespace AMSExplorer
                                 {
                                     bool laststep = (i == formCencDelivery.GetNumberOfAuthorizationPolicyOptionsFairPlay - 1);
 
-                                    formFairPlayTokenClaims.Add(new form_DRM_Config_TokenClaims(step++, i + 1, "FairPlay", tokenSymKey, false) { Left = left, Top = top });
+                                    formFairPlayTokenClaims.Add(
+                                        new form_DRM_Config_TokenClaims(step++, i + 1, "FairPlay", tokenSymKey, false)
+                                        {
+                                            Left = left,
+                                            Top = top,
+                                            AllowX509Certificate = !_amsClient.IsRavnurClient,
+                                            AllowOpenId = !_amsClient.IsRavnurClient,
+                                        });
+
                                     if (formFairPlayTokenClaims[i].ShowDialog() != DialogResult.OK)
                                     {
                                         return;
@@ -2546,7 +2569,15 @@ namespace AMSExplorer
                             {
                                 dictionaryM.Add("AuthorizationPolicyOptionsClearKey", 1);
 
-                                formClearKeyTokenClaims.Add(new form_DRM_Config_TokenClaims(1, 1, "Clear Key", tokenSymKey, true) { Left = left, Top = top });
+                                formClearKeyTokenClaims.Add(
+                                    new form_DRM_Config_TokenClaims(1, 1, "Clear Key", tokenSymKey, true)
+                                    {
+                                        Left = left,
+                                        Top = top,
+                                        AllowX509Certificate = !_amsClient.IsRavnurClient,
+                                        AllowOpenId = !_amsClient.IsRavnurClient,
+                                    });
+
                                 if (formClearKeyTokenClaims[0].ShowDialog() != DialogResult.OK)
                                 {
                                     return;
@@ -5892,7 +5923,7 @@ namespace AMSExplorer
 
             bool multiselection = streamingendpoints.Count > 1;
 
-            StreamingEndpointInformation form = new(streamingendpoints.FirstOrDefault())
+            StreamingEndpointInformation form = new(streamingendpoints.FirstOrDefault(), _amsClient.IsRavnurClient)
             {
                 MultipleSelection = multiselection
             };
@@ -8512,7 +8543,7 @@ namespace AMSExplorer
         /// <returns>The name of the transform and data</returns>
         public static Tuple<string, MediaTransformData> GetSettingsStandardEncoderTransform(string existingTransformName = null, string existingTransformDesc = null)
         {
-            PresetStandardEncoder form = new(existingTransformName, existingTransformDesc);
+            PresetStandardEncoder form = new(existingTransformName, existingTransformDesc, !_amsClient.IsRavnurClient);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -9351,7 +9382,7 @@ namespace AMSExplorer
             {
                 Tuple<string, MediaTransformData> transformInfo;
 
-                TransformTypeCreation form = new(existingTransform == null);
+                TransformTypeCreation form = new(existingTransform == null, !_amsClient.IsRavnurClient);
                 form.ShowDialog();
 
                 if (form.DialogResult == DialogResult.OK)

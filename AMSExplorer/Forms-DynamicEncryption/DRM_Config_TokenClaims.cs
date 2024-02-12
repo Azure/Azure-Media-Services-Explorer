@@ -153,6 +153,12 @@ namespace AMSExplorer
 
         public string GetOpenIdDiscoveryDocument => radioButtonJWTOpenId.Checked ? textBoxOpenIdDocument.Text : null;
 
+        public bool AllowSymmetricKey { get; set; } = true;
+
+        public bool AllowX509Certificate { get; set; } = true;
+
+        public bool AllowOpenId { get; set; } = true;
+
         public form_DRM_Config_TokenClaims(int step, int option, string DRMName, string tokenSymmetricKey, bool laststep = true)
         {
             InitializeComponent();
@@ -246,6 +252,10 @@ namespace AMSExplorer
 
             textBoxIssuer.Text = Properties.Settings.Default.DynEncTokenIssuerv3;
             textBoxAudience.Text = Properties.Settings.Default.DynEncTokenAudiencev3;
+
+            radioButtonJWTSymmetric.Enabled = AllowSymmetricKey;
+            radioButtonJWTX509.Enabled = AllowX509Certificate;
+            radioButtonJWTOpenId.Enabled = AllowOpenId;
         }
 
         private void radioButtonToken_CheckedChanged(object sender, EventArgs e)

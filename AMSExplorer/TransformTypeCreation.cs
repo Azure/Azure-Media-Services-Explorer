@@ -30,6 +30,7 @@ namespace AMSExplorer
     public partial class TransformTypeCreation : Form
     {
         private readonly bool _displayNewTransforMsg;
+        private readonly bool _displayAvAnalyze;
 
         public simpleTransformType TransformType
         {
@@ -51,17 +52,22 @@ namespace AMSExplorer
         }
 
 
-        public TransformTypeCreation(bool displayNewTransforMsg = true)
+        public TransformTypeCreation(bool displayNewTransforMsg = true, bool displayAvAnalyze = true)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
+
             _displayNewTransforMsg = displayNewTransforMsg;
+            _displayAvAnalyze = displayAvAnalyze;
         }
 
         private void TransformTypeCreation_Load(object sender, EventArgs e)
         {
             // DpiUtils.InitPerMonitorDpi(this);
             labelNoAssetFilter.Visible = _displayNewTransforMsg;
+
+            pictureBoxAVAnalyze.Visible = _displayAvAnalyze;
+            radioButtonAVAnalyze.Visible = _displayAvAnalyze;
         }
 
         private void TransformTypeCreation_DpiChanged(object sender, DpiChangedEventArgs e)
