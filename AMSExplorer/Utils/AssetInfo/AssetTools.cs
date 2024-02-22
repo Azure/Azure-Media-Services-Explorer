@@ -1260,6 +1260,10 @@ namespace AMSExplorer
                     string myurl = Properties.Settings.Default.CustomPlayerUrl;
                     FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, HttpUtility.UrlEncode(path)).Replace(Constants.NameconvToken, string.Empty /*tokenresult.TokenString*/);
                     break;
+
+                case PlayerType.RavnurMediaPlayer:
+                    FullPlayBackLink = string.Format(Constants.RavnurPlayerDemoTemplate, HttpUtility.UrlEncode(path));
+                    break;
             }
 
             if (FullPlayBackLink != null && launchbrowser)

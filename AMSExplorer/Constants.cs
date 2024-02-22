@@ -97,6 +97,7 @@ namespace AMSExplorer
 
         public const string RavnurPortal = @"https://www.ravnur.com/";
         public const string RavnurPlayerDemo = @"https://strmsdemo.z13.web.core.windows.net/";
+        public const string RavnurPlayerDemoTemplate = @"https://strmsdemo.z13.web.core.windows.net/?url={0}";
 
         public const string LinkFeedbackAMS = "https://aka.ms/amsvoice";
 

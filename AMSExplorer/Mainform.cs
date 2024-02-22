@@ -339,6 +339,10 @@ namespace AMSExplorer
             // Hide Key Delivery Configuration feature
             keyDeliveryConfigurationToolStripMenuItem.Visible = false;
             keyDeliveryConfigurationToolStripMenuItem1.Visible = false;
+
+            // Replace link to Azure Media Player with link to Ravnur Player
+            withAzureMediaPlayerToolStripMenuItem.Text = "with Ravnur Player";
+
         }
 
         private void ShowRavnurOnlyFeatures()
@@ -6899,7 +6903,7 @@ namespace AMSExplorer
 
         private async void withAzureMediaPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(PlayerType.AzureMediaPlayer);
+            await DoPlaySelectedAssetsOrProgramsWithPlayerAsync(_amsClient.GetPlayerType());
         }
 
 

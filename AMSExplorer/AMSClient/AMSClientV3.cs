@@ -181,7 +181,7 @@ namespace AMSExplorer
 
             }
 
-            if (firstTimeAuth && connectToMKIO)
+            if (firstTimeAuth && connectToMKIO && !IsRavnurClient)
             {
                 // form for MK/IO
                 MKIOConnection mkioConnectionForm = new(credentialsEntry.MKIOSubscriptionName, credentialsEntry.MKIOClearToken);
@@ -301,6 +301,11 @@ namespace AMSExplorer
             }
 
             return StreamingPolicyStreamingProtocol.SmoothStreaming;
+        }
+
+        public PlayerType GetPlayerType()
+        {
+            return IsRavnurClient ? PlayerType.RavnurMediaPlayer : PlayerType.AzureMediaPlayer;
         }
     }
 }

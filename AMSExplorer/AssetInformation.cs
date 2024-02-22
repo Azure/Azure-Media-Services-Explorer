@@ -159,6 +159,9 @@ namespace AMSExplorer
                 // Ravnur use *.json files for manifests instead of *.ism and *.ismc
                 buttonGenerateServerManifest.Visible = false;
                 buttonGenerateClientManifest.Visible = false;
+
+                // Replace link to Azure Media Player with link to Ravnur Player
+                buttonAzureMediaPlayer.Text = "Ravnur Player";
             }
 
             return;
@@ -1142,7 +1145,7 @@ namespace AMSExplorer
 
         private async void playbackWithToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await DoAzureMediaPlayerAsync();
+            await DoAzureMediaPlayerAsync(_amsClient.GetPlayerType());
         }
 
         private async Task DoAzureMediaPlayerAsync(PlayerType playerType = PlayerType.AzureMediaPlayer)
@@ -1182,7 +1185,7 @@ namespace AMSExplorer
 
         private async void Button1_Click(object sender, EventArgs e)
         {
-            await DoAzureMediaPlayerAsync();
+            await DoAzureMediaPlayerAsync(_amsClient.GetPlayerType());
         }
 
         private async Task DoDuplicateAsync()
