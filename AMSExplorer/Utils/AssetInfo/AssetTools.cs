@@ -14,12 +14,6 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Azure;
-using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
-using Microsoft.Azure.Storage;
-using Microsoft.Azure.Storage.Blob;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,6 +28,14 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 using System.Xml.Linq;
+
+using Azure;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
+
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Blob;
+using Microsoft.Win32;
 
 namespace AMSExplorer
 {
@@ -143,16 +145,19 @@ namespace AMSExplorer
                 string locatorName = useThisLocatorName ?? locators.First().Data.Name;
                 var locatorToUse = locators.Where(l => l.Data.Name == locatorName).First();
 
-                var streamingProtocol = _amsClient.GetDefaultStreamingProtocol();
-
+                var defaultProtocol = _amsClient.GetDefaultStreamingProtocol();
                 var streamingPaths = locatorToUse.GetStreamingPaths().Value.StreamingPaths;
-                IEnumerable<StreamingPath> smoothPath = streamingPaths.Where(p => p.StreamingProtocol == streamingProtocol);
-                if (smoothPath.Any(s => s.Paths.Count != 0))
+
+                IEnumerable<StreamingPath> defaultPaths = streamingPaths.Where(p => p.StreamingProtocol == defaultProtocol);
+
+                if (defaultPaths.Any(s => s.Paths.Count != 0))
                 {
+                    string smoothPath = GetSmoothPath(defaultPaths);
+
                     UriBuilder uribuilder = new()
                     {
                         Host = runningSes.Data.HostName,
-                        Path = smoothPath.FirstOrDefault().Paths.FirstOrDefault()
+                        Path = smoothPath
                     };
                     if (https)
                     {
@@ -160,7 +165,7 @@ namespace AMSExplorer
                     }
                     return (uribuilder.Uri, emptyLiveOutput);
                 }
-                else if (smoothPath.Any() && liveOutput != null) // A live output with no data in it as live event not started. But we can determine the output URLs
+                else if (defaultPaths.Any() && liveOutput != null) // A live output with no data in it as live event not started. But we can determine the output URLs
                 {
                     UriBuilder uribuilder = new()
                     {
@@ -185,7 +190,20 @@ namespace AMSExplorer
             }
         }
 
+        public static string GetSmoothPath(IEnumerable<StreamingPath> paths)
+        {
+            string smoothPath = paths.FirstOrDefault().Paths.FirstOrDefault();
+            if (!smoothPath.EndsWith("/manifest", StringComparison.OrdinalIgnoreCase))
+            {
+                var index = smoothPath.LastIndexOf("/manifest", StringComparison.OrdinalIgnoreCase);
+                if (index > 0)
+                {
+                    smoothPath = smoothPath[..index] + "/manifest";
+                }
+            }
 
+            return smoothPath;
+        }
 
         public static MediaAssetStreamingLocator IsThereALocatorValid(MediaAssetResource asset, AMSClientV3 amsClient)
         {
