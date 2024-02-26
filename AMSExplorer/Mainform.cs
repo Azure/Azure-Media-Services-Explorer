@@ -343,6 +343,9 @@ namespace AMSExplorer
             // Replace link to Azure Media Player with link to Ravnur Player
             withAzureMediaPlayerToolStripMenuItem.Text = "with Ravnur Player";
 
+            // Ravnur doesn't use *.ism or *.ismc manifest files
+            generateClientManifestsismcWhenNeededToolStripMenuItem.Visible = false;
+
         }
 
         private void ShowRavnurOnlyFeatures()
