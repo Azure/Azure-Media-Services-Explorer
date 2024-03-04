@@ -15,6 +15,8 @@
 //---------------------------------------------------------------------------------------------
 
 using AMSClient;
+
+using AMSExplorer.Forms_Login;
 using AMSExplorer.Properties;
 using AMSExplorer.Ravnur;
 using AMSExplorer.Rest;
@@ -764,6 +766,19 @@ namespace AMSExplorer
 
         private void buttonConnectRavnur_Click(object sender, EventArgs e)
         {
+            AzureEnvironment azureEnv;
+
+            SelectEnvironment environmentForm = new();
+            if(environmentForm.ShowDialog() == DialogResult.OK)
+            {
+                azureEnv = environmentForm.GetEnvironment();
+            }
+            else
+            {
+                return;
+            }   
+
+
             string example = @"{
   ""AZURE_SUBSCRIPTION_ID"": ""00000000-0000-0000-0000-000000000000"",
   ""AZURE_RESOURCE_GROUP"": ""rmsResourceGroup"",
@@ -771,14 +786,14 @@ namespace AMSExplorer
   ""RAVNUR_API_ENDPOINT"": ""https://rms.myaccount.ravnur.net/"",
   ""RAVNUR_API_KEY"": ""rmsApiKey""
 }";
-            EditorXMLJSON form = new("Enter the configuration of your Ravnur instance", example, true, ShowSampleMode.None, true);
+            EditorXMLJSON configForm = new("Enter the configuration of your Ravnur instance", example, true, ShowSampleMode.None, true);
 
-            if (form.ShowDialog() == DialogResult.OK)
+            if (configForm.ShowDialog() == DialogResult.OK)
             {
                 RavnurConfigurationOptions json;
                 try
                 {
-                    json = (RavnurConfigurationOptions)JsonConvert.DeserializeObject(form.TextData, typeof(RavnurConfigurationOptions));
+                    json = (RavnurConfigurationOptions)JsonConvert.DeserializeObject(configForm.TextData, typeof(RavnurConfigurationOptions));
                 }
                 catch (Exception ex)
                 {
@@ -786,25 +801,11 @@ namespace AMSExplorer
                     return;
                 }
 
-                // Azure environment settings
-                ActiveDirectoryServiceSettings aadSettings = new()
-                {
-                    AuthenticationEndpoint = new Uri("https://login.microsoftonline.com"),
-                    TokenAudience = new Uri("https://management.core.windows.net/"),
-                    ValidateAuthority = true
-                };
-
-                AzureEnvironment env = new(AzureEnvType.Custom)
-                {
-                    AADSettings = aadSettings,
-                    ArmEndpoint = new Uri("https://management.azure.com/")
-                };
-
                 CredentialsEntryV4 entry = new(
                                                 accountName: json.AccountName,
                                                 subscriptionId: json.SubscriptionId,
                                                 resourceGroupName: json.ResourceGroup,
-                                                environment: env,
+                                                environment: azureEnv,
                                                 promptUser: true,
                                                 useSPAuth: false,
                                                 tenantId: null)
