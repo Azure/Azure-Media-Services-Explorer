@@ -672,7 +672,7 @@ namespace AMSExplorer
                     string locatorstatus = string.Empty;
 
                     Color colornode = GetLocatorApparence(locator, ref locatorstatus);
-                    if (SelectedSE.Data.ResourceState != StreamingEndpointResourceState.Running)
+                    if (SelectedSE.Data.ResourceState != Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Running)
                     {
                         colornode = Color.Red;
                     }
@@ -2286,7 +2286,7 @@ namespace AMSExplorer
 
                     List<Claim> claims = new();
 
-                    foreach (ContentKeyPolicyTokenClaim claim in ckrestriction.RequiredClaims)
+                    foreach (Azure.ResourceManager.Media.Models.ContentKeyPolicyTokenClaim claim in ckrestriction.RequiredClaims)
                     {
                         if (claim.ClaimType == "urn:microsoft:azure:mediaservices:contentkeyidentifier")
                         {
@@ -2871,7 +2871,7 @@ namespace AMSExplorer
                     string locatorstatus = string.Empty;
 
                     Color colornode = Color.Black;
-                    if (SelectedSE.Properties.ResourceState != StreamingEndpointResourceState.Running)
+                    if (SelectedSE.Properties.ResourceState != MK.IO.StreamingEndpointResourceState.Running)
                     {
                         colornode = Color.Red;
                     }
@@ -2908,11 +2908,11 @@ namespace AMSExplorer
                             foreach (string p in path.Paths)
                             {
                                 appendExtension = string.Empty;
-                                if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Dash && !p.EndsWith(Constants.mpd))
+                                if (path.StreamingProtocol == StreamingPathsStreamingProtocol.Dash && !p.EndsWith(Constants.mpd))
                                 {
                                     appendExtension = Constants.mpd;
                                 }
-                                else if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Hls && !p.EndsWith(Constants.m3u8))
+                                else if (path.StreamingProtocol == StreamingPathsStreamingProtocol.Hls && !p.EndsWith(Constants.m3u8))
                                 {
                                     appendExtension = Constants.m3u8;
                                 }

@@ -96,7 +96,7 @@ namespace AMSExplorer
 
         public List<AssetSchema> migratedAssetsToMKIO;
         public List<StorageResponseSchema> migratedStorageAccountsToMKIO;
-        public List<ContentKeyPolicy> migratedContentKeyPoliciesToMKIO;
+        public List<ContentKeyPolicySchema> migratedContentKeyPoliciesToMKIO;
 
         public Mainform(string[] args)
         {
@@ -276,7 +276,7 @@ namespace AMSExplorer
             {
                 var seResults = _amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync().ToListAsync().Result;
 
-                if (seResults.AsEnumerable().Where(o => o.Data.ResourceState == StreamingEndpointResourceState.Running).ToList().Count == 0)
+                if (seResults.AsEnumerable().Where(o => o.Data.ResourceState == Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Running).ToList().Count == 0)
                 {
                     TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
                 }
@@ -2483,7 +2483,7 @@ namespace AMSExplorer
 
                                     contentKeyPolicyData.Options.Add(
                                                 new Azure.ResourceManager.Media.Models.ContentKeyPolicyOption(
-                                                configuration: new ContentKeyPolicyFairPlayConfiguration
+                                                configuration: new Azure.ResourceManager.Media.Models.ContentKeyPolicyFairPlayConfiguration
                                                 (
                                                     applicationSecretKey: formCencDelivery.FairPlayASK,
                                                     fairPlayPfxPassword: formCencDelivery.FairPlayCertificate.Password,
@@ -4687,15 +4687,15 @@ namespace AMSExplorer
                     foreach (Azure.ResourceManager.Media.Models.ContentKeyPolicyOption option in ckPolicy.Data.Options)
                     {
                         Type typeConfig = option.Configuration.GetType();
-                        if (typeConfig == typeof(ContentKeyPolicyPlayReadyConfiguration))
+                        if (typeConfig == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyPlayReadyConfiguration))
                         {
                             listTypeConfig.Add("PlayReady");
                         }
-                        else if (typeConfig == typeof(ContentKeyPolicyWidevineConfiguration))
+                        else if (typeConfig == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyWidevineConfiguration))
                         {
                             listTypeConfig.Add("Widevine");
                         }
-                        else if (typeConfig == typeof(ContentKeyPolicyFairPlayConfiguration))
+                        else if (typeConfig == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyFairPlayConfiguration))
                         {
                             listTypeConfig.Add("FairPlay");
                         }
@@ -5475,14 +5475,14 @@ namespace AMSExplorer
         private async Task DoStartStreamingEndpointEngineAsync(List<StreamingEndpointResource> ListStreamingEndpoints, AMSClientV3 amsClient)
         {
             // Start the streaming endpoint which are stopped
-            List<StreamingEndpointResource> streamingendpointsstopped = ListStreamingEndpoints.Where(p => p.Data.ResourceState == StreamingEndpointResourceState.Stopped).ToList();
+            List<StreamingEndpointResource> streamingendpointsstopped = ListStreamingEndpoints.Where(p => p.Data.ResourceState == Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Stopped).ToList();
             string names = string.Join(", ", streamingendpointsstopped.Select(le => le.Data.Name).ToArray());
             if (streamingendpointsstopped.Count > 0)
             {
                 try
                 {
                     TextBoxLogWriteLine("Starting streaming endpoint(s) : {0}...", names);
-                    List<StreamingEndpointResourceState?> states = streamingendpointsstopped.Select(p => p.Data.ResourceState).ToList();
+                    List<Azure.ResourceManager.Media.Models.StreamingEndpointResourceState?> states = streamingendpointsstopped.Select(p => p.Data.ResourceState).ToList();
                     Task[] taskSEStart = streamingendpointsstopped.Select(c => c.StartAsync(WaitUntil.Completed)).ToArray();
                     int complete = 0;
 
@@ -5501,7 +5501,7 @@ namespace AMSExplorer
 
                                     await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR, amsClient);
 
-                                    if (loitemR.Data.ResourceState == StreamingEndpointResourceState.Running)
+                                    if (loitemR.Data.ResourceState == Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Running)
                                     {
                                         TextBoxLogWriteLine("Streaming endpoint started : {0}.", loitemR.Data.Name);
                                         Telemetry.TrackEvent("Streaming endpoint started");
@@ -5565,7 +5565,7 @@ namespace AMSExplorer
         private async Task DoStopOrDeleteStreamingEndpointsEngineAsync(List<StreamingEndpointResource> ListStreamingEndpoints, bool deleteStreamingEndpoints)
         {
             // Stop the streaming endpoints which run
-            List<StreamingEndpointResource> sesrunning = ListStreamingEndpoints.Where(p => p.Data.ResourceState == StreamingEndpointResourceState.Running).ToList();
+            List<StreamingEndpointResource> sesrunning = ListStreamingEndpoints.Where(p => p.Data.ResourceState == Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Running).ToList();
             string names = string.Join(", ", sesrunning.Select(le => le.Data.Name).ToArray());
 
             if (sesrunning.Count > 0)
@@ -5573,7 +5573,7 @@ namespace AMSExplorer
                 try
                 {
                     TextBoxLogWriteLine("Stopping streaming endpoints(s) : {0}...", names);
-                    List<StreamingEndpointResourceState?> states = sesrunning.Select(p => p.Data.ResourceState).ToList();
+                    List<Azure.ResourceManager.Media.Models.StreamingEndpointResourceState?> states = sesrunning.Select(p => p.Data.ResourceState).ToList();
                     Task[] taskSEstop = sesrunning.Select(c => c.StopAsync(WaitUntil.Completed)).ToArray();
 
                     int complete = 0;
@@ -5591,7 +5591,7 @@ namespace AMSExplorer
                                     states[sesrunning.IndexOf(loitem)] = loitemR.Data.ResourceState;
                                     await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR, _amsClient);
 
-                                    if (loitemR.Data.ResourceState == StreamingEndpointResourceState.Stopped)
+                                    if (loitemR.Data.ResourceState == Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Stopped)
                                     {
                                         TextBoxLogWriteLine("Streaming endpoint '{0}' stopped.", loitemR.Data.Name);
                                         Telemetry.TrackEvent("Streaming endpoint stopped");
@@ -5626,7 +5626,7 @@ namespace AMSExplorer
                     string names2 = string.Join(", ", ListStreamingEndpoints.Select(le => le.Data.Name).ToArray());
                     TextBoxLogWriteLine("Deleting streaming endpoints(s) : {0}...", names2);
 
-                    List<StreamingEndpointResourceState?> states = ListStreamingEndpoints.Select(p => p.Data.ResourceState).ToList();
+                    List<Azure.ResourceManager.Media.Models.StreamingEndpointResourceState?> states = ListStreamingEndpoints.Select(p => p.Data.ResourceState).ToList();
                     Task[] taskSEdel = ListStreamingEndpoints.Select(c => c.DeleteAsync(WaitUntil.Completed)).ToArray();
 
                     while (!taskSEdel.All(t => t.IsCompleted))
@@ -5817,14 +5817,14 @@ namespace AMSExplorer
 
             if (cellSEstatevalue != null)
             {
-                StreamingEndpointResourceState SES = (StreamingEndpointResourceState)cellSEstatevalue;
+                var SES = (Azure.ResourceManager.Media.Models.StreamingEndpointResourceState)cellSEstatevalue;
                 var mycolor = SES.ToString() switch
                 {
-                    nameof(StreamingEndpointResourceState.Deleting) => Color.Red,
-                    nameof(StreamingEndpointResourceState.Stopping) => Color.OrangeRed,
-                    nameof(StreamingEndpointResourceState.Starting) => Color.DarkCyan,
-                    nameof(StreamingEndpointResourceState.Stopped) => Color.Red,
-                    nameof(StreamingEndpointResourceState.Running) => Color.Green,
+                    nameof(Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Deleting) => Color.Red,
+                    nameof(Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Stopping) => Color.OrangeRed,
+                    nameof(Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Starting) => Color.DarkCyan,
+                    nameof(Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Stopped) => Color.Red,
+                    nameof(Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Running) => Color.Green,
                     _ => Color.Black,
                 };
                 e.CellStyle.ForeColor = mycolor;
@@ -6955,7 +6955,7 @@ namespace AMSExplorer
 
             var streamingendpoint = (await ReturnSelectedStreamingEndpointsAsync()).FirstOrDefault();
 
-            if (streamingendpoint.Data.ResourceState != StreamingEndpointResourceState.Stopped)
+            if (streamingendpoint.Data.ResourceState != Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Stopped)
             {
                 MessageBox.Show(string.Format("Streaming endpoint must be stopped in order to {0} CDN.", enable ? "enable" : "disable"), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -7011,7 +7011,7 @@ namespace AMSExplorer
             if (streamingendpoints.Count == 1)
             {
                 var se = streamingendpoints.FirstOrDefault();
-                bool sestopped = (se.Data.ResourceState == StreamingEndpointResourceState.Stopped);
+                bool sestopped = (se.Data.ResourceState == Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Stopped);
                 bool cdnenabled = (bool)se.Data.IsCdnEnabled;
 
                 disableAzureCDNToolStripMenuItem1.Enabled = sestopped && cdnenabled;
