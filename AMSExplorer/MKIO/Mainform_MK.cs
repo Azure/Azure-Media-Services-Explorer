@@ -50,14 +50,12 @@ namespace AMSExplorer
             {
                 try
                 {
-                    var cknewprop = new MK.IO.ContentKeyPolicyProperties();
-
                     // use REST with AMS
                     var existingCkProp = await _restClient.GetContentKeyPolicyPropertiesWithSecretsAsync(ck.Data.Name);
                     //dynamic existingCkDyn = JsonConvert.DeserializeObject(existingCk);
 
                     var ckPolProp = JsonConvert.DeserializeObject<ContentKeyPolicyProperties>(existingCkProp);
-                    var createdPol = await MKIOclient.ContentKeyPolicies.CreateAsync(ck.Data.Name, new ContentKeyPolicy(ckPolProp));
+                    var createdPol = await MKIOclient.ContentKeyPolicies.CreateAsync(ck.Data.Name, ckPolProp);
                     TextBoxLogWriteLine($"Succesfully created content key policy '{ck.Data.Name}' in MK/IO");
                 }
                 catch
@@ -129,17 +127,14 @@ namespace AMSExplorer
 
                 try
                 {
-                    var storageMKIO = await MKIOclient.StorageAccounts.CreateAsync(new StorageRequestSchema
+                    var storageMKIO = await MKIOclient.StorageAccounts.CreateAsync(new StorageSchema
                     {
-                        Spec = new StorageSchema
+                        Name = storName,
+                        Location = _amsClient.AMSclient.Get().Value.Data.Location.Name,
+                        Description = formStorageCreation.StorageDescription,
+                        AzureStorageConfiguration = new BlobStorageAzureProperties
                         {
-                            Name = storName,
-                            Location = _amsClient.AMSclient.Get().Value.Data.Location.Name,
-                            Description = formStorageCreation.StorageDescription,
-                            AzureStorageConfiguration = new BlobStorageAzureProperties
-                            {
-                                Url = blobEndpoint.ToString() + sasSig
-                            }
+                            Url = blobEndpoint.ToString() + sasSig
                         }
                     }
                     );
@@ -301,10 +296,11 @@ namespace AMSExplorer
                                                 Id = k.Id.ToString(),
                                                 PolicyName = k.PolicyName,
                                                 LabelReferenceInStreamingPolicy = k.LabelReferenceInStreamingPolicy,
-                                                Type = k.KeyType.ToString(),
+                                                Type = (StreamingLocatorContentKeyType)Enum.Parse(typeof(StreamingLocatorContentKeyType), k.KeyType.ToString()),
+                                                //.k.KeyType.ToString(),
                                                 Value = k.Value,
                                                 Tracks = JsonConvert.DeserializeObject<List<TrackSelection>>(tracksJson)
-                                            });
+                                            }); ;
 
                                         };
                                     }
