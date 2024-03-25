@@ -146,6 +146,24 @@ namespace AMSExplorer
             }
             oktobuildlocator = true;
 
+            if (_amsClient.IsRavnurClient)
+            {
+                // Asset Filters API is not supported in Ravnur
+                tabControl1.TabPages.Remove(tabPageAssetFilters);
+
+                // Tracks API is not supported in Ravnur
+                tabControl1.TabPages.Remove(tabPageTracks);
+                createAnAudioTrackFromThisBlobToolStripMenuItem.Visible = false;
+                createTextTrackFromThisBlobToolStripMenuItem.Visible = false;
+
+                // Ravnur use *.json files for manifests instead of *.ism and *.ismc
+                buttonGenerateServerManifest.Visible = false;
+                buttonGenerateClientManifest.Visible = false;
+
+                // Replace link to Azure Media Player with link to Ravnur Player
+                buttonAzureMediaPlayer.Text = "Ravnur Player";
+            }
+
             return;
         }
 
@@ -691,9 +709,18 @@ namespace AMSExplorer
                     LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, "Default content key policy name: {0}", locator.Data.DefaultContentKeyPolicyName);
                     LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, "Alt media Id: {0}", locator.Data.AlternativeMediaId);
                     LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, "Created: {0}", locator.Data.CreatedOn?.DateTime.ToString());
-                    LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_StartTime0, locator.Data.StartOn?.DateTime.ToString());
+
+                    if (!_amsClient.IsRavnurClient)
+                    {
+                        LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_StartTime0, locator.Data.StartOn?.DateTime.ToString());
+                    }
+
                     LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_ExpirationDateTime0, locator.Data.EndOn?.DateTime.ToString());
-                    LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, "Filters: {0}", string.Join(", ", locator.Data.Filters.ToArray()));
+
+                    if (!_amsClient.IsRavnurClient)
+                    {
+                        LocTreeAddTextEntryToNode(TreeViewLocators, indexloc, 0, "Filters: {0}", string.Join(", ", locator.Data.Filters.ToArray()));
+                    }
 
                     int indexn = 1;
                     if (listPaths.Value.StreamingPaths.Count > 0)
@@ -1118,7 +1145,7 @@ namespace AMSExplorer
 
         private async void playbackWithToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await DoAzureMediaPlayerAsync();
+            await DoAzureMediaPlayerAsync(_amsClient.GetPlayerType());
         }
 
         private async Task DoAzureMediaPlayerAsync(PlayerType playerType = PlayerType.AzureMediaPlayer)
@@ -1158,7 +1185,7 @@ namespace AMSExplorer
 
         private async void Button1_Click(object sender, EventArgs e)
         {
-            await DoAzureMediaPlayerAsync();
+            await DoAzureMediaPlayerAsync(_amsClient.GetPlayerType());
         }
 
         private async Task DoDuplicateAsync()

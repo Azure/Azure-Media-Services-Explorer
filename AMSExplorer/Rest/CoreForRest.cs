@@ -15,13 +15,15 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+
+using Newtonsoft.Json;
 
 namespace AMSExplorer.Rest
 {
@@ -36,13 +38,14 @@ namespace AMSExplorer.Rest
 
         private string GenerateApiUrl(string url, string objectName)
         {
-            return _amsClient.environment.ArmEndpoint
-                                       + string.Format(url,
-                                                          _amsClient.credentialsEntry.SubscriptionId,
-                                                          _amsClient.credentialsEntry.ResourceGroupName,
-                                                          _amsClient.credentialsEntry.AccountName,
-                                                          objectName
-                                                  );
+            Uri endpointUri = _amsClient.IsRavnurClient ? _amsClient.credentialsEntry.RavnurApiEndpoint : _amsClient.environment.ArmEndpoint;
+
+            return endpointUri + string.Format(
+                url,
+                _amsClient.credentialsEntry.SubscriptionId,
+                _amsClient.credentialsEntry.ResourceGroupName,
+                _amsClient.credentialsEntry.AccountName,
+                objectName);
         }
 
         private string GetToken()
@@ -89,7 +92,7 @@ namespace AMSExplorer.Rest
 
             // Request headers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _amsClient.authResult.AccessToken);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetAccessTokenFromClient());
 
             HttpResponseMessage amsRequestResult = await client.GetAsync(url).ConfigureAwait(false);
 
@@ -109,7 +112,7 @@ namespace AMSExplorer.Rest
 
             // Request headers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _amsClient.authResult.AccessToken);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetAccessTokenFromClient());
 
             HttpResponseMessage amsRequestResult = await client.PostAsync(url, null).ConfigureAwait(false);
 
@@ -129,7 +132,7 @@ namespace AMSExplorer.Rest
 
             // Request headers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _amsClient.authResult.AccessToken);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetAccessTokenFromClient());
 
             string _requestContent = amsJSONObject;
             StringContent httpContent = new(_requestContent, System.Text.Encoding.UTF8);
@@ -161,6 +164,11 @@ namespace AMSExplorer.Rest
                 while (notComplete);
             }
             return responseContent;
+        }
+
+        private string GetAccessTokenFromClient()
+        {
+            return _amsClient.IsRavnurClient ? _amsClient.RavnurAccessToken : _amsClient.authResult.AccessToken;
         }
     }
 }

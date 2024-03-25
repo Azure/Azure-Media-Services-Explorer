@@ -188,6 +188,18 @@ namespace AMSExplorer
         {
             // DpiUtils.InitPerMonitorDpi(this);
 
+            // Hide features that are not implemented in Ravnur Media Services
+            if (_client.IsRavnurClient)
+            {
+                groupBoxForceLocator.Visible = false;
+                labelNoAssetFilter.Visible = false;
+
+                tabControlLocator.TabPages.Remove(tabPageStartEndTime);
+                tabControlLocator.TabPages.Remove(tabPageAdvanced);
+
+                return;
+            }
+
             // Filters
             List<string> afiltersnames = new();
 

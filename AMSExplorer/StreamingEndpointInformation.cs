@@ -31,6 +31,7 @@ namespace AMSExplorer
     public partial class StreamingEndpointInformation : Form
     {
         public StreamingEndpointResource MySE;
+        public bool IsSEReadOnly = false;
         public bool MultipleSelection = false;
         public ExplorerSEModifications Modifications = new();
 
@@ -103,11 +104,12 @@ namespace AMSExplorer
 
         public string GetOriginCrossdomaintPolicy => (checkBoxcrossdomain.Checked) ? textBoxCrossDomPolicy.Text : null;
 
-        public StreamingEndpointInformation(StreamingEndpointResource streamingEndpoint)
+        public StreamingEndpointInformation(StreamingEndpointResource streamingEndpoint, bool isReadOnly = false)
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             MySE = streamingEndpoint;
+            IsSEReadOnly = isReadOnly;
         }
 
 
@@ -143,7 +145,7 @@ namespace AMSExplorer
             else
             {
                 labelSEName.Text = "(multiple streaming endpoints have been selected)";
-                tabControl1.TabPages.Remove(tabPageInfo); // no SE info page
+                tabControlStreamingEndpoint.TabPages.Remove(tabPageInfo); // no SE info page
             }
 
 
@@ -251,6 +253,13 @@ namespace AMSExplorer
                 StreamingAllowedIPAddresses = false,
                 StreamingUnits = false
             };
+
+            if(IsSEReadOnly)
+            {
+                tabControlStreamingEndpoint.TabPages.Remove(tabPageSettings);
+                tabControlStreamingEndpoint.TabPages.Remove(tabPagePolicies);
+                buttonUpdateClose.Visible = false;
+            }
         }
 
         public static StreamEndpointType ReturnTypeSE(StreamingEndpointResource mySE)

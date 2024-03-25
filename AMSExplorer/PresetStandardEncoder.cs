@@ -34,6 +34,7 @@ namespace AMSExplorer
 
         private readonly string _existingTransformName;
         private readonly string _existingTransformDesc;
+        private readonly bool _showCopyOptions;
 
         public readonly IList<EncodingProfile> Profiles = new List<EncodingProfile> {
             new EncodingProfile() {Prof=@"AdaptiveStreaming", Desc="Auto-generate a bitrate ladder (bitrate-resolution pairs) based on the input resolution and bitrate. This built-in encoder setting, or preset, will never exceed the input resolution and bitrate. For example, if the input is 720p at 3 Mbps, output remains 720p at best, and will start at rates lower than 3 Mbps. The output contains an audio-only MP4 file with stereo audio encoded at 128 kbps.", Automatic=true, LabelCodec="H.264 / AAC"},
@@ -133,12 +134,13 @@ namespace AMSExplorer
 
         public string TransformDescription => string.IsNullOrWhiteSpace(textBoxDescription.Text) ? null : textBoxDescription.Text;
 
-        public PresetStandardEncoder(string existingTransformName = null, string existingTransformDesc = null)
+        public PresetStandardEncoder(string existingTransformName = null, string existingTransformDesc = null, bool showCopyOptions = true )
         {
             InitializeComponent();
             Icon = Bitmaps.Azure_Explorer_ico;
             _existingTransformName = existingTransformName;
             _existingTransformDesc = existingTransformDesc;
+            _showCopyOptions = showCopyOptions;
         }
 
         private void PresetStandardEncoder_Load(object sender, EventArgs e)
@@ -161,13 +163,17 @@ namespace AMSExplorer
             listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate1080P.ToString(), EncoderNamedPreset.H265SingleBitrate1080P.ToString()));
             listboxPresets.Items.Add(new Item(EncoderNamedPreset.H265SingleBitrate720P.ToString(), EncoderNamedPreset.H265SingleBitrate720P.ToString()));
 
-            listboxPresets.Items.Add(new Item("SaasCopyCodec", "SaasCopyCodec"));
-            listboxPresets.Items.Add(new Item("SaasProxyCopyCodec", "SaasProxyCopyCodec"));
-            listboxPresets.Items.Add(new Item("SaasSourceAligned360pOnly", "SaasSourceAligned360pOnly"));
-            listboxPresets.Items.Add(new Item("SaasSourceAligned540pOnly", "SaasSourceAligned540pOnly"));
-            listboxPresets.Items.Add(new Item("SaasSourceAligned360p", "SaasSourceAligned360p"));
-            listboxPresets.Items.Add(new Item("SaasSourceAligned540p", "SaasSourceAligned540p"));
+            if(_showCopyOptions)
+            {
+                listboxPresets.Items.Add(new Item("SaasCopyCodec", "SaasCopyCodec"));
+                listboxPresets.Items.Add(new Item("SaasProxyCopyCodec", "SaasProxyCopyCodec"));
+                listboxPresets.Items.Add(new Item("SaasSourceAligned360pOnly", "SaasSourceAligned360pOnly"));
+                listboxPresets.Items.Add(new Item("SaasSourceAligned540pOnly", "SaasSourceAligned540pOnly"));
+                listboxPresets.Items.Add(new Item("SaasSourceAligned360p", "SaasSourceAligned360p"));
+                listboxPresets.Items.Add(new Item("SaasSourceAligned540p", "SaasSourceAligned540p"));
+            }
 
+            radioButtonCustomCopy.Visible = _showCopyOptions;
 
             listboxPresets.SelectedIndex = 0;
 

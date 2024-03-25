@@ -18,6 +18,8 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
+using AMSExplorer.Forms_Login;
+
 namespace AMSExplorer
 {
     public partial class AddAMSAccount1 : Form
@@ -41,7 +43,7 @@ namespace AMSExplorer
         {
             // DpiUtils.InitPerMonitorDpi(this);
 
-            AzureEnvType[] envs = new AzureEnvType[] { AzureEnvType.Azure, AzureEnvType.AzureChina, AzureEnvType.AzureUSGovernment, AzureEnvType.AzureGermany, AzureEnvType.DevTest };
+            AzureEnvType[] envs = AzureEnvironments.GetEnvironments();
 
             foreach (AzureEnvType env in envs)
             {

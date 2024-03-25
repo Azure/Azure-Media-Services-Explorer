@@ -30,12 +30,12 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetInformation));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             DGAsset = new System.Windows.Forms.DataGridView();
             contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(components);
             toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,7 +73,7 @@
             buttonDeleteAll = new System.Windows.Forms.Button();
             progressBarUpload = new System.Windows.Forms.ProgressBar();
             buttonUpload = new System.Windows.Forms.Button();
-            tabPage8 = new System.Windows.Forms.TabPage();
+            tabPageTracks = new System.Windows.Forms.TabPage();
             label13 = new System.Windows.Forms.Label();
             dGTracks = new System.Windows.Forms.DataGridView();
             listViewTracks = new System.Windows.Forms.ListView();
@@ -83,7 +83,7 @@
             deleteTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             addTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             editSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            tabPage6 = new System.Windows.Forms.TabPage();
+            tabPageAssetFilters = new System.Windows.Forms.TabPage();
             buttonPlayFilter = new System.Windows.Forms.Button();
             buttonDuplicateFilter = new System.Windows.Forms.Button();
             buttonDeleteFilter = new System.Windows.Forms.Button();
@@ -168,10 +168,10 @@
             tabPage1.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
             tabPage2.SuspendLayout();
-            tabPage8.SuspendLayout();
+            tabPageTracks.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dGTracks).BeginInit();
             contextMenuStripTracks.SuspendLayout();
-            tabPage6.SuspendLayout();
+            tabPageAssetFilters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewFilters).BeginInit();
             contextMenuStripFilter.SuspendLayout();
             tabPagePolicy.SuspendLayout();
@@ -213,6 +213,7 @@
             // 
             // contextMenuStripDG
             // 
+            contextMenuStripDG.ImageScalingSize = new System.Drawing.Size(20, 20);
             contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemFilesCopyClipboard });
             contextMenuStripDG.Name = "contextMenuStripDG";
             resources.ApplyResources(contextMenuStripDG, "contextMenuStripDG");
@@ -234,6 +235,7 @@
             // 
             // contextMenuStripLocators
             // 
+            contextMenuStripLocators.ImageScalingSize = new System.Drawing.Size(20, 20);
             contextMenuStripLocators.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemCopy, deleteLocatorToolStripMenuItem, toolStripMenuItemOpen, toolStripMenuItemAzureMediaPlayer, toolStripMenuItemDASHIF });
             contextMenuStripLocators.Name = "contextMenuStripLocators";
             resources.ApplyResources(contextMenuStripLocators, "contextMenuStripLocators");
@@ -294,6 +296,7 @@
             // 
             // contextMenuStripBlobs
             // 
+            contextMenuStripBlobs.ImageScalingSize = new System.Drawing.Size(20, 20);
             contextMenuStripBlobs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemOpenFile, editToolStripMenuItem, deleteBlobToolStripMenuItem, duplicateBlobToolStripMenuItem, toolStripMenuItemDownloadFile, createTextTrackFromThisBlobToolStripMenuItem, createAnAudioTrackFromThisBlobToolStripMenuItem });
             contextMenuStripBlobs.Name = "contextMenuStripFiles";
             resources.ApplyResources(contextMenuStripBlobs, "contextMenuStripBlobs");
@@ -381,8 +384,8 @@
             resources.ApplyResources(tabControl1, "tabControl1");
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
-            tabControl1.Controls.Add(tabPage8);
-            tabControl1.Controls.Add(tabPage6);
+            tabControl1.Controls.Add(tabPageTracks);
+            tabControl1.Controls.Add(tabPageAssetFilters);
             tabControl1.Controls.Add(tabPagePolicy);
             tabControl1.Controls.Add(tabPage3);
             tabControl1.Controls.Add(tabPageMKIO);
@@ -478,15 +481,15 @@
             buttonUpload.UseVisualStyleBackColor = true;
             buttonUpload.Click += button2_Click;
             // 
-            // tabPage8
+            // tabPageTracks
             // 
-            tabPage8.Controls.Add(label13);
-            tabPage8.Controls.Add(dGTracks);
-            tabPage8.Controls.Add(listViewTracks);
-            resources.ApplyResources(tabPage8, "tabPage8");
-            tabPage8.Name = "tabPage8";
-            tabPage8.UseVisualStyleBackColor = true;
-            tabPage8.Enter += tabPage8_Enter;
+            tabPageTracks.Controls.Add(label13);
+            tabPageTracks.Controls.Add(dGTracks);
+            tabPageTracks.Controls.Add(listViewTracks);
+            resources.ApplyResources(tabPageTracks, "tabPageTracks");
+            tabPageTracks.Name = "tabPageTracks";
+            tabPageTracks.UseVisualStyleBackColor = true;
+            tabPageTracks.Enter += tabPage8_Enter;
             // 
             // label13
             // 
@@ -502,36 +505,36 @@
             resources.ApplyResources(dGTracks, "dGTracks");
             dGTracks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             dGTracks.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dGTracks.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dGTracks.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dGTracks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dGTracks.ColumnHeadersVisible = false;
             dGTracks.ContextMenuStrip = contextMenuStripDG;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            dGTracks.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            dGTracks.DefaultCellStyle = dataGridViewCellStyle8;
             dGTracks.MultiSelect = false;
             dGTracks.Name = "dGTracks";
             dGTracks.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dGTracks.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dGTracks.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dGTracks.RowHeadersVisible = false;
             // 
             // listViewTracks
@@ -556,6 +559,7 @@
             // 
             // contextMenuStripTracks
             // 
+            contextMenuStripTracks.ImageScalingSize = new System.Drawing.Size(20, 20);
             contextMenuStripTracks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { deleteTrackToolStripMenuItem, addTrackToolStripMenuItem, editSettingsToolStripMenuItem });
             contextMenuStripTracks.Name = "contextMenuStripTracks";
             resources.ApplyResources(contextMenuStripTracks, "contextMenuStripTracks");
@@ -579,18 +583,18 @@
             resources.ApplyResources(editSettingsToolStripMenuItem, "editSettingsToolStripMenuItem");
             editSettingsToolStripMenuItem.Click += editSettingsToolStripMenuItem_Click;
             // 
-            // tabPage6
+            // tabPageAssetFilters
             // 
-            tabPage6.Controls.Add(buttonPlayFilter);
-            tabPage6.Controls.Add(buttonDuplicateFilter);
-            tabPage6.Controls.Add(buttonDeleteFilter);
-            tabPage6.Controls.Add(buttonCreateAssetFilter);
-            tabPage6.Controls.Add(buttonFilterInfo);
-            tabPage6.Controls.Add(dataGridViewFilters);
-            resources.ApplyResources(tabPage6, "tabPage6");
-            tabPage6.Name = "tabPage6";
-            tabPage6.UseVisualStyleBackColor = true;
-            tabPage6.Enter += tabPage6_Enter;
+            tabPageAssetFilters.Controls.Add(buttonPlayFilter);
+            tabPageAssetFilters.Controls.Add(buttonDuplicateFilter);
+            tabPageAssetFilters.Controls.Add(buttonDeleteFilter);
+            tabPageAssetFilters.Controls.Add(buttonCreateAssetFilter);
+            tabPageAssetFilters.Controls.Add(buttonFilterInfo);
+            tabPageAssetFilters.Controls.Add(dataGridViewFilters);
+            resources.ApplyResources(tabPageAssetFilters, "tabPageAssetFilters");
+            tabPageAssetFilters.Name = "tabPageAssetFilters";
+            tabPageAssetFilters.UseVisualStyleBackColor = true;
+            tabPageAssetFilters.Enter += tabPage6_Enter;
             // 
             // buttonPlayFilter
             // 
@@ -646,6 +650,7 @@
             // 
             // contextMenuStripFilter
             // 
+            contextMenuStripFilter.ImageScalingSize = new System.Drawing.Size(20, 20);
             contextMenuStripFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { filterInfoupdateToolStripMenuItem, createAnAssetFilterToolStripMenuItem, deleteToolStripMenuItem, duplicateToolStripMenuItem, playWithThisFilterToolStripMenuItem });
             contextMenuStripFilter.Name = "contextMenuStripFilter";
             resources.ApplyResources(contextMenuStripFilter, "contextMenuStripFilter");
@@ -992,40 +997,41 @@
             resources.ApplyResources(DGMKIOInfo, "DGMKIOInfo");
             DGMKIOInfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             DGMKIOInfo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            DGMKIOInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            DGMKIOInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             DGMKIOInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DGMKIOInfo.ColumnHeadersVisible = false;
             DGMKIOInfo.ContextMenuStrip = contextMenuStripDG;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            DGMKIOInfo.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            DGMKIOInfo.DefaultCellStyle = dataGridViewCellStyle2;
             DGMKIOInfo.MultiSelect = false;
             DGMKIOInfo.Name = "DGMKIOInfo";
             DGMKIOInfo.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            DGMKIOInfo.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            DGMKIOInfo.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             DGMKIOInfo.RowHeadersVisible = false;
             // 
             // contextMenuStripKey
             // 
+            contextMenuStripKey.ImageScalingSize = new System.Drawing.Size(20, 20);
             contextMenuStripKey.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { removeKeyToolStripMenuItem });
             contextMenuStripKey.Name = "contextMenuStripKey";
             resources.ApplyResources(contextMenuStripKey, "contextMenuStripKey");
@@ -1160,11 +1166,11 @@
             tableLayoutPanel5.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
-            tabPage8.ResumeLayout(false);
-            tabPage8.PerformLayout();
+            tabPageTracks.ResumeLayout(false);
+            tabPageTracks.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dGTracks).EndInit();
             contextMenuStripTracks.ResumeLayout(false);
-            tabPage6.ResumeLayout(false);
+            tabPageAssetFilters.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewFilters).EndInit();
             contextMenuStripFilter.ResumeLayout(false);
             tabPagePolicy.ResumeLayout(false);
@@ -1240,7 +1246,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripKey;
         private System.Windows.Forms.ToolStripMenuItem removeKeyToolStripMenuItem;
-        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TabPage tabPageAssetFilters;
         private System.Windows.Forms.DataGridView dataGridViewFilters;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripFilter;
         private System.Windows.Forms.ToolStripMenuItem createAnAssetFilterToolStripMenuItem;
@@ -1283,7 +1289,7 @@
         private System.Windows.Forms.DataGridView dataGridViewKeys;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button buttonGenerateClientManifest;
-        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.TabPage tabPageTracks;
         private System.Windows.Forms.ListView listViewTracks;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
