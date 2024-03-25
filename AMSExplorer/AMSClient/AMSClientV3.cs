@@ -15,8 +15,10 @@
 //---------------------------------------------------------------------------------------------
 
 using AMSClient;
+using AMSExplorer.Ravnur;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
 using Microsoft.Identity.Client;
 using Microsoft.Rest;
 using System;
@@ -47,6 +49,8 @@ namespace AMSExplorer
         private readonly System.Timers.Timer TimerAutoRefreshAuthToken;
         public bool useMKIOConnection = false;
 
+        public bool IsRavnurClient => credentialsEntry.RavnurApiEndpoint != null;
+        public string RavnurAccessToken;
 
         public AMSClientV3(AzureEnvironment myEnvironment, string azureSubscriptionId, CredentialsEntryV4 myCredentialsEntry, Form form)
         {
@@ -148,7 +152,6 @@ namespace AMSExplorer
                     Debug.Print("MSAL silent authentication exception !" + maslException.Message);
                 }
             }
-
             else // Service Principal
             {
                 if (firstTimeAuth)
@@ -178,7 +181,7 @@ namespace AMSExplorer
 
             }
 
-            if (firstTimeAuth && connectToMKIO)
+            if (firstTimeAuth && connectToMKIO && !IsRavnurClient)
             {
                 // form for MK/IO
                 MKIOConnection mkioConnectionForm = new(credentialsEntry.MKIOSubscriptionName, credentialsEntry.MKIOClearToken);
@@ -194,19 +197,30 @@ namespace AMSExplorer
             credentials = new TokenCredentials(authResult.AccessToken, "Bearer");
             credentialForArmClient = new BearerTokenCredential(authResult.AccessToken);
 
+            //var credential = new DefaultAzureCredential(includeInteractiveCredentials: true);
+            ArmClient armClient = null;
+
+            if (IsRavnurClient)
+            {
+                // When the credentials are configured for Ravnur Media Services,
+                // we need to instantiate ARM client configured to connect to Ravnur endpoints
+                armClient = RavnurClientFactory.GetRavnurArmClient(credentialsEntry);
+                RavnurAccessToken = await RavnurClientFactory.GetRavnurAccessToken(credentialsEntry);
+            }
+            else
+            {
+                armClient = new ArmClient(credentialForArmClient);
+            }
+
             // new code
             var MediaServiceAccount = MediaServicesAccountResource.CreateResourceIdentifier(
                 subscriptionId: _azureSubscriptionId,
                 resourceGroupName: credentialsEntry.ResourceGroupName,
-                accountName: credentialsEntry.AccountName
-                );
-            //var credential = new DefaultAzureCredential(includeInteractiveCredentials: true);
-            var armClient = new ArmClient(credentialForArmClient);
+                accountName: credentialsEntry.AccountName);
 
             var amsClient = armClient.GetMediaServicesAccountResource(MediaServiceAccount);
 
             AMSclient = await amsClient.GetAsync();
-
 
             /*
             // Getting Media Services account...
@@ -277,6 +291,21 @@ namespace AMSExplorer
         public async Task<StreamingEndpointResource> GetStreamingEndpointAsync(string seName)
         {
             return await AMSclient.GetStreamingEndpointAsync(seName).ConfigureAwait(false);
+        }
+
+        public StreamingPolicyStreamingProtocol GetDefaultStreamingProtocol()
+        {
+            if (IsRavnurClient)
+            {
+                return StreamingPolicyStreamingProtocol.Hls;
+            }
+
+            return StreamingPolicyStreamingProtocol.SmoothStreaming;
+        }
+
+        public PlayerType GetPlayerType()
+        {
+            return IsRavnurClient ? PlayerType.RavnurMediaPlayer : PlayerType.AzureMediaPlayer;
         }
     }
 }
