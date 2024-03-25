@@ -2871,7 +2871,7 @@ namespace AMSExplorer
                     string locatorstatus = string.Empty;
 
                     Color colornode = Color.Black;
-                    if (SelectedSE.Properties.ResourceState != MK.IO.StreamingEndpointResourceState.Running)
+                    if (SelectedSE.Properties.ResourceState != MK.IO.Models.StreamingEndpointResourceState.Running)
                     {
                         colornode = Color.Red;
                     }

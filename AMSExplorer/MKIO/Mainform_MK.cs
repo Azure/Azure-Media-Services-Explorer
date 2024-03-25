@@ -127,17 +127,14 @@ namespace AMSExplorer
 
                 try
                 {
-                    var storageMKIO = await MKIOclient.StorageAccounts.CreateAsync(new StorageRequestSchema
+                    var storageMKIO = await MKIOclient.StorageAccounts.CreateAsync(new StorageSchema
                     {
-                        Spec = new StorageSchema
+                        Name = storName,
+                        Location = _amsClient.AMSclient.Get().Value.Data.Location.Name,
+                        Description = formStorageCreation.StorageDescription,
+                        AzureStorageConfiguration = new BlobStorageAzureProperties
                         {
-                            Name = storName,
-                            Location = _amsClient.AMSclient.Get().Value.Data.Location.Name,
-                            Description = formStorageCreation.StorageDescription,
-                            AzureStorageConfiguration = new BlobStorageAzureProperties
-                            {
-                                Url = blobEndpoint.ToString() + sasSig
-                            }
+                            Url = blobEndpoint.ToString() + sasSig
                         }
                     }
                     );
