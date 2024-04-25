@@ -1,8 +1,10 @@
-﻿using System;
+using System;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Azure.Core;
+using Newtonsoft.Json;
 
 namespace AMSExplorer.Ravnur
 {
@@ -32,7 +34,16 @@ namespace AMSExplorer.Ravnur
         private async ValueTask<AccessToken> GetAccessToken(TokenRequestContext requestContext, CancellationToken cancellationToken)
         {
             string token = await RavnurAuthHelper.GetAccessToken(_subscriptionId, _authorityUri, _apiKey);
-            return new AccessToken(token, DateTime.UtcNow.AddDays(1));
+
+            string tokenDataPart = token[(token.IndexOf('.') + 1)..];
+            tokenDataPart = tokenDataPart[..tokenDataPart.IndexOf('.')];
+            string tokenDataStr = Encoding.UTF8.GetString(Convert.FromBase64String(tokenDataPart.PadRight(4 * ((tokenDataPart.Length + 3) / 4), '=')));
+
+            dynamic tokenData = JsonConvert.DeserializeObject<dynamic>(tokenDataStr);
+
+            var tokenValidTo = DateTime.UnixEpoch.AddSeconds((int)tokenData.exp);
+
+            return new AccessToken(token, tokenValidTo);
         }
 
         public class GetTokenRequest
