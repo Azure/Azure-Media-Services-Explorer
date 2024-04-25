@@ -14,9 +14,11 @@
 //    limitations under the License.
 //---------------------------------------------------------------------------------------------
 
-
 using AMSClient;
+
+using AMSExplorer.Forms_Login;
 using AMSExplorer.Properties;
+using AMSExplorer.Ravnur;
 using AMSExplorer.Rest;
 using Azure.Core;
 using Azure.ResourceManager;
@@ -234,11 +236,12 @@ namespace AMSExplorer
                 exportSPSecrets = form.checkBoxIncludeSPSecrets.Checked;
 
                 PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new();
-                List<string> properties = new() { "EncryptedADSPClientSecret" };
+                List<string> properties = new() { "EncryptedADSPClientSecret", "MKIOEncryptedToken", "RavnurEncryptedApiKey" };
                 if (!exportSPSecrets)
                 {
                     properties.Add("ClearADSPClientSecret");
                     properties.Add("MKIOClearToken");
+                    properties.Add("RavnurClearApiKey");
                 }
 
                 jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), properties.ToArray()); // let's not export encrypted secret and may be clear secret
@@ -340,6 +343,7 @@ namespace AMSExplorer
             PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new();
             jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), "ClearADSPClientSecret"); // let's not save the clear SP secret
             jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), "MKIOClearToken"); // let's not save the MK/IO token secret
+            jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), "RavnurClearApiKey"); // let's not save the clear Ravnur API Key
             JsonSerializerSettings settings = new() { ContractResolver = jsonResolver };
             Properties.Settings.Default.LoginListRPv4JSON = JsonConvert.SerializeObject(CredentialList, settings);
             Program.SaveAndProtectUserConfig();
@@ -376,7 +380,7 @@ namespace AMSExplorer
             // we display the message only once a week
             if (Settings.Default.RetirementNotifDays - days >= 7)
             {
-                MessageBox.Show("Azure Media Services will be retired on 30 June 2024.\r\n\r\nYou can continue to use Azure Media Services without any disruptions. After 30 June 2024, Azure Media Services won’t be supported, and customers won’t have access to their Azure Media Services accounts.\r\n\r\nTo avoid any service disruptions, you’ll need to transition to Azure Video Indexer for on-demand video and audio analysis workflows or to a Microsoft partner solution for all other media services workflows before 30 June 2024\r\n\r\nThis tool supports the migration of your assets to MK/IO. More features may be added in the future to help your migration.", $"Retirement notice - {days} days left", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Azure Media Services will be retired on 30 June 2024.\r\n\r\nYou can continue to use Azure Media Services without any disruptions. After 30 June 2024, Azure Media Services won’t be supported, and customers won’t have access to their Azure Media Services accounts.\r\n\r\nTo avoid any service disruptions, you’ll need to transition to Azure Video Indexer for on-demand video and audio analysis workflows or to a Microsoft partner solution for all other media services workflows before 30 June 2024\r\n\r\nThis tool supports the migration of your assets to MK/IO and connecting to you Ravnur Media Services instance. More features may be added in the future to help your migration.", $"Retirement notice - {days} days left", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Settings.Default.RetirementNotifDays = days;
                 Settings.Default.Save();
             }
@@ -758,6 +762,67 @@ namespace AMSExplorer
         private void AmsLogin_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             // DpiUtils.UpdatedSizeFontAfterDPIChange(labelenteramsacct, e);
+        }
+
+        private void buttonConnectRavnur_Click(object sender, EventArgs e)
+        {
+            AzureEnvironment azureEnv;
+
+            SelectEnvironment environmentForm = new();
+            if(environmentForm.ShowDialog() == DialogResult.OK)
+            {
+                azureEnv = environmentForm.GetEnvironment();
+            }
+            else
+            {
+                return;
+            }   
+
+
+            string example = @"{
+  ""AZURE_SUBSCRIPTION_ID"": ""00000000-0000-0000-0000-000000000000"",
+  ""AZURE_RESOURCE_GROUP"": ""rmsResourceGroup"",
+  ""RAVNUR_MEDIA_SERVICES_ACCOUNT_NAME"": ""rmsAccount"",
+  ""RAVNUR_API_ENDPOINT"": ""https://rms.myaccount.ravnur.net/"",
+  ""RAVNUR_API_KEY"": ""rmsApiKey""
+}";
+            EditorXMLJSON configForm = new("Enter the configuration of your Ravnur instance", example, true, ShowSampleMode.None, true);
+
+            if (configForm.ShowDialog() == DialogResult.OK)
+            {
+                RavnurConfigurationOptions json;
+                try
+                {
+                    json = (RavnurConfigurationOptions)JsonConvert.DeserializeObject(configForm.TextData, typeof(RavnurConfigurationOptions));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error reading the json", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                CredentialsEntryV4 entry = new(
+                                                accountName: json.AccountName,
+                                                subscriptionId: json.SubscriptionId,
+                                                resourceGroupName: json.ResourceGroup,
+                                                environment: azureEnv,
+                                                promptUser: true,
+                                                useSPAuth: false,
+                                                tenantId: null)
+                {
+                    RavnurApiEndpoint = json.ApiEndpoint,
+                    RavnurClearApiKey = json.ApiKey,
+                };
+
+                CredentialList.MediaServicesAccounts.Add(entry);
+                AddItemToListviewAccounts(entry);
+
+                SaveCredentialsToSettings();
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

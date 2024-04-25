@@ -23,13 +23,16 @@ namespace AMSExplorer
     public class CredentialsEntryV4 : IEquatable<CredentialsEntryV4>
     {
         public string ADSPClientId;
-
         //  A contract is used to ignore this property when exporting the entry
         public string EncryptedADSPClientSecret;
 
         public string MKIOSubscriptionName;
         //  A contract is used to ignore this property when exporting the entry
         public string MKIOEncryptedToken;
+
+        public Uri RavnurApiEndpoint;
+        //  A contract is used to ignore this property when exporting the entry
+        public string RavnurEncryptedApiKey;
 
         public string AadTenantId;
         public AzureEnvironment Environment;
@@ -58,18 +61,25 @@ namespace AMSExplorer
             }
         }
 
-        //  A contract is used to ignore this property when saveing settings to disk
+        //  A contract is used to ignore this property when saving settings to disk
         public string ClearADSPClientSecret
         {
             get => EncryptedADSPClientSecret != null ? DecryptSecret(EncryptedADSPClientSecret) : null;
             set => EncryptedADSPClientSecret = (value != null) ? EncryptSecret(value) : null;
         }
 
-        //  A contract is used to ignore this property when saveing settings to disk
+        //  A contract is used to ignore this property when saving settings to disk
         public string MKIOClearToken
         {
             get => MKIOEncryptedToken != null ? DecryptSecret(MKIOEncryptedToken) : null;
             set => MKIOEncryptedToken = (value != null) ? EncryptSecret(value) : null;
+        }
+
+        //  A contract is used to ignore this property when saving settings to disk
+        public string RavnurClearApiKey
+        {
+            get => RavnurEncryptedApiKey != null ? DecryptSecret(RavnurEncryptedApiKey) : null;
+            set => RavnurEncryptedApiKey = (value != null) ? EncryptSecret(value) : null;
         }
 
         public bool Equals(CredentialsEntryV4 other)

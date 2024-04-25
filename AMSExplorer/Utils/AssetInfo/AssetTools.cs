@@ -14,12 +14,6 @@
 //---------------------------------------------------------------------------------------------
 
 
-using Azure;
-using Azure.ResourceManager.Media;
-using Azure.ResourceManager.Media.Models;
-using Microsoft.Azure.Storage;
-using Microsoft.Azure.Storage.Blob;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,6 +28,14 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 using System.Xml.Linq;
+
+using Azure;
+using Azure.ResourceManager.Media;
+using Azure.ResourceManager.Media.Models;
+
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Blob;
+using Microsoft.Win32;
 
 namespace AMSExplorer
 {
@@ -143,14 +145,19 @@ namespace AMSExplorer
                 string locatorName = useThisLocatorName ?? locators.First().Data.Name;
                 var locatorToUse = locators.Where(l => l.Data.Name == locatorName).First();
 
+                var defaultProtocol = _amsClient.GetDefaultStreamingProtocol();
                 var streamingPaths = locatorToUse.GetStreamingPaths().Value.StreamingPaths;
-                IEnumerable<StreamingPath> smoothPath = streamingPaths.Where(p => p.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming);
-                if (smoothPath.Any(s => s.Paths.Count != 0))
+
+                IEnumerable<StreamingPath> defaultPaths = streamingPaths.Where(p => p.StreamingProtocol == defaultProtocol);
+
+                if (defaultPaths.Any(s => s.Paths.Count != 0))
                 {
+                    string smoothPath = GetSmoothPath(defaultPaths);
+
                     UriBuilder uribuilder = new()
                     {
                         Host = runningSes.Data.HostName,
-                        Path = smoothPath.FirstOrDefault().Paths.FirstOrDefault()
+                        Path = smoothPath
                     };
                     if (https)
                     {
@@ -158,7 +165,7 @@ namespace AMSExplorer
                     }
                     return (uribuilder.Uri, emptyLiveOutput);
                 }
-                else if (smoothPath.Any() && liveOutput != null) // A live output with no data in it as live event not started. But we can determine the output URLs
+                else if (defaultPaths.Any() && liveOutput != null) // A live output with no data in it as live event not started. But we can determine the output URLs
                 {
                     UriBuilder uribuilder = new()
                     {
@@ -183,7 +190,20 @@ namespace AMSExplorer
             }
         }
 
+        public static string GetSmoothPath(IEnumerable<StreamingPath> paths)
+        {
+            string smoothPath = paths.FirstOrDefault().Paths.FirstOrDefault();
+            if (!smoothPath.EndsWith("/manifest", StringComparison.OrdinalIgnoreCase))
+            {
+                var index = smoothPath.LastIndexOf("/manifest", StringComparison.OrdinalIgnoreCase);
+                if (index > 0)
+                {
+                    smoothPath = smoothPath[..index] + "/manifest";
+                }
+            }
 
+            return smoothPath;
+        }
 
         public static MediaAssetStreamingLocator IsThereALocatorValid(MediaAssetResource asset, AMSClientV3 amsClient)
         {
@@ -675,6 +695,7 @@ namespace AMSExplorer
 
             CloudBlockBlob[] ismfiles = blocsc.Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
             CloudBlockBlob[] ismcfiles = blocsc.Where(f => f.Name.EndsWith(".ismc", StringComparison.OrdinalIgnoreCase)).ToArray();
+            CloudBlockBlob[] jsonManifestFiles = blocsc.Where(f => f.Name.EndsWith("manifest.json", StringComparison.OrdinalIgnoreCase)).ToArray();
 
             // size calculation - for the root now
             blocsc.ForEach(b => size += b.Properties.Length);
@@ -737,6 +758,13 @@ namespace AMSExplorer
             else
             {
                 type = Type_Unknown;
+            }
+
+            // Add check for the Ravnur .json manifest
+            if (type == Type_Unknown && jsonManifestFiles.Length == 1 && mp4files.Length > 0)
+            {
+                number = mp4files.Length;
+                type = number == 1 ? Type_Single : Type_Multi;
             }
 
             return new AssetInfoData()
@@ -1249,6 +1277,10 @@ namespace AMSExplorer
                 case PlayerType.CustomPlayer:
                     string myurl = Properties.Settings.Default.CustomPlayerUrl;
                     FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, HttpUtility.UrlEncode(path)).Replace(Constants.NameconvToken, string.Empty /*tokenresult.TokenString*/);
+                    break;
+
+                case PlayerType.RavnurMediaPlayer:
+                    FullPlayBackLink = string.Format(Constants.RavnurPlayerDemoTemplate, HttpUtility.UrlEncode(path));
                     break;
             }
 

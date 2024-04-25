@@ -24,7 +24,8 @@ namespace AMSExplorer
         DASHIFRefPlayer,
         MP4AzurePage,
         AdvancedTestPlayer,
-        CustomPlayer
+        CustomPlayer,
+        RavnurMediaPlayer,
     }
 
 }
