@@ -563,9 +563,9 @@ namespace AMSExplorer {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap mk_io_blue {
+        internal static System.Drawing.Bitmap MKIO_Default {
             get {
-                object obj = ResourceManager.GetObject("mk_io_blue", resourceCulture);
+                object obj = ResourceManager.GetObject("MKIO_Default", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

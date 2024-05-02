@@ -80,7 +80,7 @@ namespace AMSExplorer
 
                 case AssetCreationMode.Multiple:
                     this.Text = "Create New Assets";
-                    labelNewAsset.Text = "Create these assets in MK/IO";
+                    labelNewAsset.Text = "Create these assets in MK.IO";
 
                     lblContainer.Visible = false;
                     textBoxContainer.Visible = false;
@@ -89,7 +89,7 @@ namespace AMSExplorer
 
                     textBoxInstructions.Text = @"Multiple assets have been selected and will be created. 
 
-The tag, {Asset Name}, must be included and allows you to add a prefix or suffix to the new asset names in MK/IO. 
+The tag, {Asset Name}, must be included and allows you to add a prefix or suffix to the new asset names in MK.IO. 
 
 Leave just the tag to keep the same name.
 

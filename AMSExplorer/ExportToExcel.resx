@@ -238,7 +238,7 @@
     <value>69</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
-    <value>asset name, description, times, storage info, locators count, MK/IO status</value>
+    <value>asset name, description, times, storage info, locators count, MK.IO status</value>
   </data>
   <data name="&gt;&gt;label8.Name" xml:space="preserve">
     <value>label8</value>

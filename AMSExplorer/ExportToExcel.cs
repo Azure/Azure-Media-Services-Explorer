@@ -321,7 +321,7 @@ namespace AMSExplorer
                 Row rowAMSENote = CreateNewRow(AMSENote);
 
 
-                // MK/IO
+                // MK.IO
                 var allMKIOAssets = new List<AssetSchema>();
 
                 if (_mkioClient != null)
@@ -427,7 +427,7 @@ namespace AMSExplorer
                 listHeader.Add("Streaming locators count");
                 if (_mkioClient != null)
                 {
-                    listHeader.Add("In MK/IO");
+                    listHeader.Add("In MK.IO");
                 }
 
                 if (detailed)
@@ -709,7 +709,7 @@ namespace AMSExplorer
                 var streamingEndpoints = _amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync().ToListAsync();
                 var selist = streamingEndpoints.Result;
 
-                // MK/IO
+                // MK.IO
                 var allMKIOAssets = new List<AssetSchema>();
 
                 if (_mkioClient != null)
@@ -820,7 +820,7 @@ namespace AMSExplorer
 
                 if (_mkioClient != null)
                 {
-                    linec.Add("In MK/IO");
+                    linec.Add("In MK.IO");
                 }
 
                 if (detailed)

@@ -161,7 +161,7 @@ namespace AMSExplorer
                 return;
             }
 
-            // let's save the credentials (SP) and MK/IO settings. They may be updated by the user when connecting
+            // let's save the credentials (SP) and MK.IO settings. They may be updated by the user when connecting
             CredentialList.MediaServicesAccounts[listViewAccounts.SelectedIndices[0]] = AmsClient.credentialsEntry;
             SaveCredentialsToSettings();
 
@@ -339,7 +339,7 @@ namespace AMSExplorer
         {
             PropertyRenameAndIgnoreSerializerContractResolver jsonResolver = new();
             jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), "ClearADSPClientSecret"); // let's not save the clear SP secret
-            jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), "MKIOClearToken"); // let's not save the MK/IO token secret
+            jsonResolver.IgnoreProperty(typeof(CredentialsEntryV4), "MKIOClearToken"); // let's not save the MK.IO token secret
             JsonSerializerSettings settings = new() { ContractResolver = jsonResolver };
             Properties.Settings.Default.LoginListRPv4JSON = JsonConvert.SerializeObject(CredentialList, settings);
             Program.SaveAndProtectUserConfig();
@@ -376,7 +376,7 @@ namespace AMSExplorer
             // we display the message only once a week
             if (Settings.Default.RetirementNotifDays - days >= 7)
             {
-                MessageBox.Show("Azure Media Services will be retired on 30 June 2024.\r\n\r\nYou can continue to use Azure Media Services without any disruptions. After 30 June 2024, Azure Media Services won’t be supported, and customers won’t have access to their Azure Media Services accounts.\r\n\r\nTo avoid any service disruptions, you’ll need to transition to Azure Video Indexer for on-demand video and audio analysis workflows or to a Microsoft partner solution for all other media services workflows before 30 June 2024\r\n\r\nThis tool supports the migration of your assets to MK/IO. More features may be added in the future to help your migration.", $"Retirement notice - {days} days left", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Azure Media Services will be retired on 30 June 2024.\r\n\r\nYou can continue to use Azure Media Services without any disruptions. After 30 June 2024, Azure Media Services won’t be supported, and customers won’t have access to their Azure Media Services accounts.\r\n\r\nTo avoid any service disruptions, you’ll need to transition to Azure Video Indexer for on-demand video and audio analysis workflows or to a Microsoft partner solution for all other media services workflows before 30 June 2024\r\n\r\nThis tool supports the migration of your assets to MK.IO. More features may be added in the future to help your migration.", $"Retirement notice - {days} days left", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Settings.Default.RetirementNotifDays = days;
                 Settings.Default.Save();
             }

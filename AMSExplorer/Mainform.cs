@@ -202,13 +202,13 @@ namespace AMSExplorer
 
                     if (migratedStorageAccountsToMKIO.Count == 0)
                     {
-                        MessageBox.Show($"No storage account found in MK/IO.{Constants.endline}Please add the storage account(s) of this AMS account to MK/IO by going to the Storage tab, right click and select 'MediaKind MK/IO' / 'Add Storage...'", "No MK/IO Storage Account");
+                        MessageBox.Show($"No storage account found in MK.IO.{Constants.endline}Please add the storage account(s) of this AMS account to MK.IO by going to the Storage tab, right click and select 'MediaKind MK.IO' / 'Add Storage...'", "No MK.IO Storage Account");
                     }
                 }
                 catch
                 {
                     MKIOclient = null;
-                    MessageBox.Show("Connection to MediaKind MK/IO failed. Restart the application to try again.", "No MK/IO Connection");
+                    MessageBox.Show("Connection to MediaKind MK.IO failed. Restart the application to try again.", "No MK.IO Connection");
                 }
             }
 
@@ -217,7 +217,7 @@ namespace AMSExplorer
 
             if (MKIOclient != null)
             {
-                toolStripStatusLabelConnection.Text += $" and '{_amsClient.credentialsEntry.MKIOSubscriptionName}' (MK/IO)";
+                toolStripStatusLabelConnection.Text += $" and '{_amsClient.credentialsEntry.MKIOSubscriptionName}' (MK.IO)";
                 pictureBoxMKIO.Visible = true;
             }
 
@@ -530,7 +530,7 @@ namespace AMSExplorer
                 {
                     if (!firstime && MKIOclient != null)
                     {
-                        //Refresh MK/IO Assets
+                        //Refresh MK.IO Assets
                         migratedAssetsToMKIO = await MKIOclient.Assets.ListAsync();
                         dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
                     }
@@ -4490,11 +4490,11 @@ namespace AMSExplorer
                 dataGridViewStorage.Columns[1].HeaderText = "Id";
                 dataGridViewStorage.Columns[1].Width = 700;
 
-                // MK/IO column
+                // MK.IO column
                 dataGridViewStorage.Columns.RemoveAt(2);
                 var c = new DataGridViewCheckBoxColumn();
                 c.ValueType = typeof(bool);
-                c.HeaderText = "in MK/IO";
+                c.HeaderText = "in MK.IO";
                 c.Name = "MKIOMigrated";
                 c.Visible = MKIOclient != null;
                 c.Width = 700;
@@ -4524,7 +4524,7 @@ namespace AMSExplorer
                     dataGridViewStorage.Rows[rowi].Cells[0].ToolTipText = "Primary storage account";
                 }
 
-                // MK/IO flag storage display
+                // MK.IO flag storage display
                 if (MKIOclient != null)
                 {
                     if (migratedStorageAccountsToMKIO.Select(s => s.Spec.Name).ToList().Contains(name))
@@ -4655,11 +4655,11 @@ namespace AMSExplorer
                 dataGridViewCKPolicies.Columns[4].Name = "LastModified";
                 dataGridViewCKPolicies.Columns[4].Width = 110;
 
-                // MK/IO column
+                // MK.IO column
                 dataGridViewCKPolicies.Columns.RemoveAt(5);
                 var c = new DataGridViewCheckBoxColumn();
                 c.ValueType = typeof(bool);
-                c.HeaderText = "in MK/IO";
+                c.HeaderText = "in MK.IO";
                 c.Name = "MKIOMigrated";
                 c.Visible = MKIOclient != null;
                 c.Width = 700;
@@ -4712,7 +4712,7 @@ namespace AMSExplorer
                     rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Data.Name, "Error");
                 }
 
-                // MK/IO flag storage display
+                // MK.IO flag storage display
                 if (MKIOclient != null)
                 {
                     dataGridViewCKPolicies.Rows[rowi].Cells[5].Value = migratedContentKeyPoliciesToMKIO.Select(s => s.Name).ToList().Contains(ckPolicy.Data.Name);
@@ -9899,7 +9899,7 @@ namespace AMSExplorer
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = Constants.DemoCaptionMaker,
+                    FileName = Constants.MKIOPortal,
                     UseShellExecute = true
                 }
             };
@@ -9932,7 +9932,7 @@ namespace AMSExplorer
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = Constants.MKIOApp + _amsClient.credentialsEntry.MKIOSubscriptionName,
+                    FileName = Constants.MKIOPortal + _amsClient.credentialsEntry.MKIOSubscriptionName,
                     UseShellExecute = true
                 }
             };

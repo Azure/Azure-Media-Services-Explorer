@@ -180,7 +180,7 @@ namespace AMSExplorer
 
             if (firstTimeAuth && connectToMKIO)
             {
-                // form for MK/IO
+                // form for MK.IO
                 MKIOConnection mkioConnectionForm = new(credentialsEntry.MKIOSubscriptionName, credentialsEntry.MKIOClearToken);
 
                 if (mkioConnectionForm.ShowDialog() == DialogResult.OK)

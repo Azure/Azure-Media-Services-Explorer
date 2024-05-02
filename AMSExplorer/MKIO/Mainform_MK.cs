@@ -30,10 +30,10 @@ namespace AMSExplorer
 {
     public partial class Mainform : Form
     {
-        // Placeholder for MK/IO code
+        // Placeholder for MK.IO code
 
         /// <summary>
-        /// Content key policies creation in MK/IO
+        /// Content key policies creation in MK.IO
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
@@ -56,18 +56,18 @@ namespace AMSExplorer
 
                     var ckPolProp = JsonConvert.DeserializeObject<ContentKeyPolicyProperties>(existingCkProp);
                     var createdPol = await MKIOclient.ContentKeyPolicies.CreateAsync(ck.Data.Name, ckPolProp);
-                    TextBoxLogWriteLine($"Succesfully created content key policy '{ck.Data.Name}' in MK/IO");
+                    TextBoxLogWriteLine($"Succesfully created content key policy '{ck.Data.Name}' in MK.IO");
                 }
                 catch
                 {
-                    TextBoxLogWriteLine($"Error when creating content key policy '{ck.Data.Name}' in MK/IO", true);
+                    TextBoxLogWriteLine($"Error when creating content key policy '{ck.Data.Name}' in MK.IO", true);
                 }
             }
             await DoRefreshGridCKPoliciesVAsync(false);
         }
 
         /// <summary>
-        /// Storage accounts creation in MK/IO
+        /// Storage accounts creation in MK.IO
         /// </summary>
         /// <returns></returns>
         private async Task DoMKIOStorageAddAsync()
@@ -84,7 +84,7 @@ namespace AMSExplorer
 
             if (storageMKIOName != null && storageMKIOName.Spec.Name == storName)
             {
-                MessageBox.Show($"Storage account {storName} is already migrated to MK/IO", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Storage account {storName} is already migrated to MK.IO", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -139,12 +139,12 @@ namespace AMSExplorer
                     }
                     );
 
-                    TextBoxLogWriteLine($"Storage account '{storName}' added to MK/IO");
+                    TextBoxLogWriteLine($"Storage account '{storName}' added to MK.IO");
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error adding storage account to MK/IO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Error adding storage account to MK.IO", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     TextBoxLogWriteLine(ex);
                     Telemetry.TrackException(ex);
                     Cursor = Cursors.Arrow;
@@ -158,7 +158,7 @@ namespace AMSExplorer
 
 
         /// <summary>
-        /// Remove storage account from MK/IO
+        /// Remove storage account from MK.IO
         /// </summary>
         /// <returns></returns>
         private async Task DoMKIOStorageRemoveAsync()
@@ -174,7 +174,7 @@ namespace AMSExplorer
 
             if (storageMKIOName == null)
             {
-                MessageBox.Show($"Storage account {storName} is not migrated to MK/IO", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Storage account {storName} is not migrated to MK.IO", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -185,11 +185,11 @@ namespace AMSExplorer
                 try
                 {
                     await MKIOclient.StorageAccounts.DeleteAsync((Guid)storageMKIOName.Metadata.Id);
-                    TextBoxLogWriteLine($"Storage account '{storName}' removed from MK/IO");
+                    TextBoxLogWriteLine($"Storage account '{storName}' removed from MK.IO");
                 }
                 catch (Exception ex)
                 {
-                    TextBoxLogWriteLine($"Error when removing storage account '{storName}' from MK/IO", true);
+                    TextBoxLogWriteLine($"Error when removing storage account '{storName}' from MK.IO", true);
                     TextBoxLogWriteLine(ex);
                     Telemetry.TrackException(ex);
                 }
@@ -199,7 +199,7 @@ namespace AMSExplorer
         }
 
         /// <summary>
-        /// Create asset(s) in MK/IO
+        /// Create asset(s) in MK.IO
         /// </summary>
         /// <returns></returns>
         private async Task MKIOCreateAssetAsync()
@@ -207,14 +207,14 @@ namespace AMSExplorer
             Telemetry.TrackEvent("MKIOCreateAssetAsync");
             if (MKIOclient == null)
             {
-                MessageBox.Show("Can't Create", "MK/IO is not connected. Restart the application to connect.");
+                MessageBox.Show("Can't Create", "MK.IO is not connected. Restart the application to connect.");
             }
 
             var assets = await ReturnSelectedAssetsAsync();
             if (assets.Count == 0) return;
 
 
-            //let's verify that storage account is in MK/IO !
+            //let's verify that storage account is in MK.IO !
             var storageNames = assets.Select(a => a.Data.StorageAccountName).Distinct().ToList();
             var storageMKIONames = migratedStorageAccountsToMKIO.Select(s => s.Spec.Name);
             if (!(storageNames.Intersect(storageMKIONames).Count() == storageNames.Count()))
@@ -223,11 +223,11 @@ namespace AMSExplorer
 
                 if (nonintersect.Count() == 1)
                 {
-                    MessageBox.Show($"Storage account {nonintersect.First()} has not be added to MK/IO. Please do it before creating the asset(s) in MK/IO.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Storage account {nonintersect.First()} has not be added to MK.IO. Please do it before creating the asset(s) in MK.IO.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    MessageBox.Show($"Storage accounts {string.Join(",", nonintersect.ToArray())} have not be added to MK/IO. Please do it before creating the assets in MK/IO.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Storage accounts {string.Join(",", nonintersect.ToArray())} have not be added to MK.IO. Please do it before creating the assets in MK.IO.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 return;
             }
@@ -255,11 +255,11 @@ namespace AMSExplorer
                     try
                     {
                         await MKIOclient.Assets.CreateOrUpdateAsync(assetName, asset.Data.Container, asset.Data.StorageAccountName, assetDescription);
-                        TextBoxLogWriteLine($"Asset '{assetName}' created in MK/IO");
+                        TextBoxLogWriteLine($"Asset '{assetName}' created in MK.IO");
                     }
                     catch (Exception ex)
                     {
-                        TextBoxLogWriteLine($"Error when creating asset '{assetName}' in MK/IO", true);
+                        TextBoxLogWriteLine($"Error when creating asset '{assetName}' in MK.IO", true);
                         TextBoxLogWriteLine(ex);
                         Telemetry.TrackException(ex);
                     }
@@ -306,7 +306,7 @@ namespace AMSExplorer
                                     }
                                 }
 
-                                //TextBoxLogWriteLine($"Asset '{assetName}' : locator '{locator.Name}' not created in MK/IO because there are attached content keys.", true);
+                                //TextBoxLogWriteLine($"Asset '{assetName}' : locator '{locator.Name}' not created in MK.IO because there are attached content keys.", true);
 
                                 var startT = locatorRes.Data.StartOn?.UtcDateTime;
                                 var endT = locatorRes.Data.EndOn?.UtcDateTime;
@@ -324,18 +324,18 @@ namespace AMSExplorer
                                         DefaultContentKeyPolicyName = locatorRes.Data.DefaultContentKeyPolicyName,
                                         ContentKeys = mkioContentKey
                                     });
-                                    TextBoxLogWriteLine($"Asset '{assetName}' : locator '{locator.Name}' created in MK/IO");
+                                    TextBoxLogWriteLine($"Asset '{assetName}' : locator '{locator.Name}' created in MK.IO");
                                 }
                                 catch (Exception ex)
                                 {
-                                    TextBoxLogWriteLine($"Error when creating locator '{locator.Name}' for asset '{assetName}' in MK/IO", true);
+                                    TextBoxLogWriteLine($"Error when creating locator '{locator.Name}' for asset '{assetName}' in MK.IO", true);
                                     TextBoxLogWriteLine(ex);
                                     Telemetry.TrackException(ex);
                                 }
                             }
                             else
                             {
-                                TextBoxLogWriteLine($"Asset '{assetName}' : locator '{locator.Name}' not created in MK/IO because it does not use a built-in streaming policy.", true);
+                                TextBoxLogWriteLine($"Asset '{assetName}' : locator '{locator.Name}' not created in MK.IO because it does not use a built-in streaming policy.", true);
                             }
                         }
                     }
@@ -346,7 +346,7 @@ namespace AMSExplorer
 
 
         /// <summary>
-        /// Delete asset(s) in MK/IO
+        /// Delete asset(s) in MK.IO
         /// </summary>
         /// <returns></returns>
         private async Task MKIODeleteAssetAsync()
@@ -354,14 +354,14 @@ namespace AMSExplorer
             Telemetry.TrackEvent("MKIODeleteAssetAsync");
             if (MKIOclient == null)
             {
-                MessageBox.Show("Can't delete", "MK/IO is not connected. Restart the application to connect.");
+                MessageBox.Show("Can't delete", "MK.IO is not connected. Restart the application to connect.");
             }
 
             var assets = await ReturnSelectedAssetsAsync();
             if (assets.Count == 0) return;
 
-            string message = assets.Count == 1 ? string.Format("Delete asset '{0}' from MK/IO ?", assets.First().Data.Name) : string.Format("Delete these {0} assets from MK/IO ?", assets.Count);
-            if (MessageBox.Show(message, "MK/IO asset deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            string message = assets.Count == 1 ? string.Format("Delete asset '{0}' from MK.IO ?", assets.First().Data.Name) : string.Format("Delete these {0} assets from MK.IO ?", assets.Count);
+            if (MessageBox.Show(message, "MK.IO asset deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 return;
             }
@@ -370,24 +370,24 @@ namespace AMSExplorer
             {
                 string assetName = asset.Data.Name;
 
-                // let's verify that asset is in MK/IO
+                // let's verify that asset is in MK.IO
                 var assetInMKIO = migratedAssetsToMKIO.Where(a => a.Properties.Container == asset.Data.Container && a.Properties.StorageAccountName == asset.Data.StorageAccountName).FirstOrDefault();
 
                 if (assetInMKIO == null)
                 {
-                    TextBoxLogWriteLine($"Asset '{assetName}' is not in MK/IO, skipping the deletion.", true);
+                    TextBoxLogWriteLine($"Asset '{assetName}' is not in MK.IO, skipping the deletion.", true);
 
                 }
-                else // asset is in MK/IO
+                else // asset is in MK.IO
                 {
                     try
                     {
                         await MKIOclient.Assets.DeleteAsync(assetName);
-                        TextBoxLogWriteLine($"Asset '{assetName}' deleted in MK/IO.");
+                        TextBoxLogWriteLine($"Asset '{assetName}' deleted in MK.IO.");
                     }
                     catch (Exception ex)
                     {
-                        TextBoxLogWriteLine($"Error when deleting asset '{assetName}' in MK/IO.", true);
+                        TextBoxLogWriteLine($"Error when deleting asset '{assetName}' in MK.IO.", true);
                         TextBoxLogWriteLine(ex);
                         Telemetry.TrackException(ex);
                     }
@@ -398,7 +398,7 @@ namespace AMSExplorer
         }
 
         /// <summary>
-        /// Delete content key policies from MK/IO
+        /// Delete content key policies from MK.IO
         /// </summary>
         /// <returns></returns>
         private async Task MKIODeleteCKPolAsync()
@@ -406,14 +406,14 @@ namespace AMSExplorer
             Telemetry.TrackEvent("MKIODeleteCKPolAsync");
             if (MKIOclient == null)
             {
-                MessageBox.Show("Can't delete", "MK/IO is not connected. Restart the application to connect.");
+                MessageBox.Show("Can't delete", "MK.IO is not connected. Restart the application to connect.");
             }
 
             var contentKeyPols = await ReturnSelectedCKPoliciessAsync();
             if (contentKeyPols.Count == 0) return;
 
-            string message = contentKeyPols.Count == 1 ? string.Format("Delete content key policy '{0}' from MK/IO ?", contentKeyPols.First().Data.Name) : string.Format("Delete these {0} content key policies from MK/IO ?", contentKeyPols.Count);
-            if (MessageBox.Show(message, "MK/IO content key policy deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            string message = contentKeyPols.Count == 1 ? string.Format("Delete content key policy '{0}' from MK.IO ?", contentKeyPols.First().Data.Name) : string.Format("Delete these {0} content key policies from MK.IO ?", contentKeyPols.Count);
+            if (MessageBox.Show(message, "MK.IO content key policy deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 return;
             }
@@ -422,24 +422,24 @@ namespace AMSExplorer
             {
                 string ckpolName = ckpol.Data.Name;
 
-                // let's verify that asset is in MK/IO
+                // let's verify that asset is in MK.IO
                 var ckpInMKIO = migratedContentKeyPoliciesToMKIO.Where(ckp => ckp.Name == ckpol.Data.Name).FirstOrDefault();
 
                 if (ckpInMKIO == null)
                 {
-                    TextBoxLogWriteLine($"Content key policy '{ckpolName}' is not in MK/IO, skipping the deletion.", true);
+                    TextBoxLogWriteLine($"Content key policy '{ckpolName}' is not in MK.IO, skipping the deletion.", true);
 
                 }
-                else // ckpol is in MK/IO
+                else // ckpol is in MK.IO
                 {
                     try
                     {
                         await MKIOclient.ContentKeyPolicies.DeleteAsync(ckpolName);
-                        TextBoxLogWriteLine($"Content key policy '{ckpolName}' deleted in MK/IO.");
+                        TextBoxLogWriteLine($"Content key policy '{ckpolName}' deleted in MK.IO.");
                     }
                     catch (Exception ex)
                     {
-                        TextBoxLogWriteLine($"Error when deleting content key policy '{ckpolName}' in MK/IO.", true);
+                        TextBoxLogWriteLine($"Error when deleting content key policy '{ckpolName}' in MK.IO.", true);
                         TextBoxLogWriteLine(ex);
                         Telemetry.TrackException(ex);
                     }

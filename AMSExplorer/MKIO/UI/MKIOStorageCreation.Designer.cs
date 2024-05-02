@@ -106,7 +106,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Bitmaps.mk_io_blue;
+            pictureBox1.Image = Bitmaps.MKIO_Default;
             resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
@@ -166,7 +166,7 @@
             resources.ApplyResources(label3, "label3");
             label3.Name = "label3";
             // 
-            // StorageCreation
+            // MKIOStorageCreation
             // 
             AcceptButton = buttonOk;
             resources.ApplyResources(this, "$this");
@@ -187,7 +187,7 @@
             Controls.Add(lblDescription);
             Controls.Add(labelNewAsset);
             Controls.Add(panel1);
-            Name = "StorageCreation";
+            Name = "MKIOStorageCreation";
             Load += StorageCreation_Load;
             Shown += StorageCreation_Shown;
             panel1.ResumeLayout(false);

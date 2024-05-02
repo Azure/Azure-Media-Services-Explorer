@@ -2798,10 +2798,10 @@ namespace AMSExplorer
 
             DGMKIOInfo.Rows.Clear();
 
-            DGMKIOInfo.Rows.Add("MK/IO Name", _mkioasset.Name);
-            DGMKIOInfo.Rows.Add("MK/IO Description", _mkioasset.Properties.Description);
+            DGMKIOInfo.Rows.Add("MK.IO Name", _mkioasset.Name);
+            DGMKIOInfo.Rows.Add("MK.IO Description", _mkioasset.Properties.Description);
 
-            // fill the combo with list of MK/IO streaming endpoints
+            // fill the combo with list of MK.IO streaming endpoints
             _MKIOStreamingEndpointList = await _MKIOclient.StreamingEndpoints.ListAsync();
             comboBoxSEMKIO.Items.Clear();
             foreach (var se in _MKIOStreamingEndpointList)
@@ -2817,7 +2817,7 @@ namespace AMSExplorer
         }
 
         /// <summary>
-        /// Build the treeview of locators for MK/IO
+        /// Build the treeview of locators for MK.IO
         /// </summary>
         /// <returns></returns>
         private async Task BuildMKIOLocatorsTreeAsync(AssetSchema mkioasset)
