@@ -20,6 +20,7 @@ using Azure.ResourceManager.Media;
 using Azure.ResourceManager.Media.Models;
 using Azure.ResourceManager.Resources;
 using Microsoft.Identity.Client;
+using Microsoft.Identity.Client.Desktop;
 using Microsoft.Rest;
 using System;
 using System.Collections.Generic;
@@ -106,7 +107,7 @@ namespace AMSExplorer
                 _clientApplications[selectedTenantId] = PublicClientApplicationBuilder.Create(environment.ClientApplicationId)
                 .WithAuthority(environment.AADSettings.AuthenticationEndpoint + selectedTenantId)
                 .WithDefaultRedirectUri()
-                .WithBroker(true)
+                .WithWindowsDesktopFeatures(new BrokerOptions(BrokerOptions.OperatingSystems.Windows))
                 //.WithRedirectUri("http://localhost")
                 .Build();
             }

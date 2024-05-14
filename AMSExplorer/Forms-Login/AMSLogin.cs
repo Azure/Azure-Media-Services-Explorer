@@ -22,6 +22,7 @@ using Azure.Core;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
 using Microsoft.Identity.Client;
+using Microsoft.Identity.Client.Desktop;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure.Authentication;
 using Newtonsoft.Json;
@@ -473,7 +474,7 @@ namespace AMSExplorer
                         .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "organizations")
                         .WithDefaultRedirectUri()
                         //.WithRedirectUri("http://localhost")
-                        .WithBroker(true)
+                        .WithWindowsDesktopFeatures(new BrokerOptions( BrokerOptions.OperatingSystems.Windows))
                         .Build();
 
                     AuthenticationResult accessToken = null;

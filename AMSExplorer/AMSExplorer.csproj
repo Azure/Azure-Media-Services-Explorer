@@ -90,24 +90,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Monitor.Query" Version="1.2.0" />
-    <PackageReference Include="Azure.ResourceManager" Version="1.11.0" />
+    <PackageReference Include="Azure.Monitor.Query" Version="1.3.1" />
+    <PackageReference Include="Azure.ResourceManager" Version="1.12.0" />
     <PackageReference Include="Azure.ResourceManager.Media" Version="1.3.0" />
-    <PackageReference Include="Azure.ResourceManager.Resources" Version="1.7.1" />
-    <PackageReference Include="Azure.ResourceManager.Storage" Version="1.2.0" />
+    <PackageReference Include="Azure.ResourceManager.Resources" Version="1.7.3" />
+    <PackageReference Include="Azure.ResourceManager.Storage" Version="1.2.3" />
     <PackageReference Include="DocumentFormat.OpenXml" Version="3.0.2" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.22.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer" Version="2.22.0" />
     <PackageReference Include="Microsoft.Azure.Management.Storage" Version="25.0.0" />
-    <PackageReference Include="Microsoft.Azure.Storage.DataMovement" Version="2.0.4" />
+    <PackageReference Include="Microsoft.Azure.Storage.DataMovement" Version="2.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Identity.Client.Broker" Version="4.59.0" />
+    <PackageReference Include="Microsoft.Identity.Client.Broker" Version="4.61.0" />
+    <PackageReference Include="Microsoft.Identity.Client.Desktop" Version="4.61.0" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.24" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.1" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2151.40" />
     <PackageReference Include="MK.IO" Version="1.6.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.2" />
     <PackageReference Include="System.Linq.Async.Queryable" Version="6.0.1" />
   </ItemGroup>
 
