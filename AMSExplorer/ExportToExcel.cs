@@ -327,7 +327,7 @@ namespace AMSExplorer
                 if (_mkioClient != null)
                 {
                     // list assets with pages
-                    var mkioAssetsResult = await _mkioClient.Assets.ListAsPageAsync(null, 20);
+                    var mkioAssetsResult = await _mkioClient.Assets.ListAsPageAsync(top : 20);
                     while (true)
                     {
                         // do stuff here using mkioAssetsResult.Results
@@ -715,7 +715,7 @@ namespace AMSExplorer
                 if (_mkioClient != null)
                 {
                     // list assets with pages
-                    var mkioAssetsResult = _mkioClient.Assets.ListAsPage(null, 20);
+                    var mkioAssetsResult = _mkioClient.Assets.ListAsPage(top: 20);
                     while (true)
                     {
                         // do stuff here using mkioAssetsResult.Results

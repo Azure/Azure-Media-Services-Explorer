@@ -94,9 +94,9 @@ namespace AMSExplorer
         public string MKIOSubscriptionName;
         public string MKIOToken;
 
-        public List<AssetSchema> migratedAssetsToMKIO;
-        public List<StorageResponseSchema> migratedStorageAccountsToMKIO;
-        public List<ContentKeyPolicySchema> migratedContentKeyPoliciesToMKIO;
+        public IEnumerable<AssetSchema> migratedAssetsToMKIO;
+        public IEnumerable<StorageResponseSchema> migratedStorageAccountsToMKIO;
+        public IEnumerable<ContentKeyPolicySchema> migratedContentKeyPoliciesToMKIO;
 
         public Mainform(string[] args)
         {
@@ -200,7 +200,7 @@ namespace AMSExplorer
                     migratedStorageAccountsToMKIO = MKIOclient.StorageAccounts.List();
                     migratedContentKeyPoliciesToMKIO = MKIOclient.ContentKeyPolicies.List();
 
-                    if (migratedStorageAccountsToMKIO.Count == 0)
+                    if (migratedStorageAccountsToMKIO.Count() == 0)
                     {
                         MessageBox.Show($"No storage account found in MK.IO.{Constants.endline}Please add the storage account(s) of this AMS account to MK.IO by going to the Storage tab, right click and select 'MediaKind MK.IO' / 'Add Storage...'", "No MK.IO Storage Account");
                     }

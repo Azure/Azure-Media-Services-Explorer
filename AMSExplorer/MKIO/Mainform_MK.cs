@@ -166,7 +166,7 @@ namespace AMSExplorer
             Telemetry.TrackEvent("DoMKIOStorageRemoveAsync");
 
             var storage = ReturnSelectedStorage();
-            if (storage == null || migratedStorageAccountsToMKIO.Count == 0) return;
+            if (storage == null || migratedStorageAccountsToMKIO.Count() == 0) return;
 
             string storName = AMSClientV3.GetStorageName(storage.Id);
 
@@ -319,7 +319,7 @@ namespace AMSExplorer
                                         StartTime = startT,
                                         EndTime = endT,
                                         StreamingPolicyName = locatorRes.Data.StreamingPolicyName,
-                                        StreamingLocatorId = locatorRes.Data.StreamingLocatorId.ToString(),
+                                        StreamingLocatorId = locatorRes.Data.StreamingLocatorId,
                                         Filters = locatorRes.Data.Filters?.ToList(),
                                         DefaultContentKeyPolicyName = locatorRes.Data.DefaultContentKeyPolicyName,
                                         ContentKeys = mkioContentKey

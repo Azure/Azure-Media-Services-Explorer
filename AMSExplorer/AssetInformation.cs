@@ -60,7 +60,7 @@ namespace AMSExplorer
         private string _serverManifestName = null;
         private AmsClientRest _restClient;
         private MKIOClient _MKIOclient;
-        private List<StreamingEndpointSchema> _MKIOStreamingEndpointList;
+        private IEnumerable<StreamingEndpointSchema> _MKIOStreamingEndpointList;
         private AssetSchema _mkioasset = null;
 
         public AssetInformation(Mainform mainform, AMSClientV3 amsClient, MediaAssetResource asset, IEnumerable<StreamingEndpointResource> streamingEndpoints, MKIOClient MKIOclient = null)
@@ -2884,7 +2884,7 @@ namespace AMSExplorer
                     TreeViewLocatorsMKIO.Nodes.Add(myLocNode);
                     TreeViewLocatorsMKIO.Nodes[indexloc].Nodes.Add(new TreeNode(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_LocatorInformation));
 
-                    LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Streaming locator Id: {0}", locator.Properties.StreamingLocatorId);
+                    LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Streaming locator Id: {0}", locator.Properties.StreamingLocatorId.ToString());
                     LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Name0, locator.Name);
                     LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Streaming policy name: {0}", locator.Properties.StreamingPolicyName);
                     LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Default content key policy name: {0}", locator.Properties.DefaultContentKeyPolicyName);
