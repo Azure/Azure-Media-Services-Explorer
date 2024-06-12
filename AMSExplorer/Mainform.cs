@@ -38,6 +38,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -296,6 +297,61 @@ namespace AMSExplorer
             {
                 MessageBox.Show(Program.GetErrorMessage(ex) + "\n\nAMS Explorer will exit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(0);
+            }
+
+
+            // RETIREMENT DATA DISPLAY AND EXTENSION MANAGEMENT
+            try
+            {
+                // let's get the info about retirement date using REST
+                var restTransformClient = new AmsClientRest(_amsClient);
+                var retirementDate = (DateTime)restTransformClient.GetAccountRetirementDate();
+                var culture = new CultureInfo("en-US");
+                if (retirementDate > DateTime.Now)
+                {
+                    // no extension but account still active
+                    MessageBox.Show($"Your account will expire on {retirementDate.ToString("D", culture)}.\r\n\r\nAll live events and streaming endpoints will be stopped. After this date, no new content can be created.\r\n\r\nMigrate to another service as soon as possible.\r\n\r\nYour account will be read-only after this date and will be deleted 90 days after.", "Account active BUT", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    // account is disabled
+                    var dif = retirementDate.AddDays(90) - DateTime.Now;
+                    MessageBox.Show($"Your account was deactivated on {retirementDate.ToString("D", culture)}.\r\n\r\nNo new content can be created.\r\n\r\nMigrate to another service as soon as possible.\r\n\r\nYour account is read-only and will be deleted in {dif.Days} days.", "Account disabled", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                if (retirementDate < new DateTime(2024, 8, 1))
+                {
+                    // we can propose an extension
+                    if (MessageBox.Show($"Your AMS account is eligible to a one-time extension.\r\n\r\nIf your account is still active, extend now to avoid interruptions.\r\nIf your account is already deactivated, you will need to manually start your streaming endpoints if they are stopped. It may take up to an hour before you can stream your content again and see the new account expiration time.\r\n\r\nDo you want to extend your account for an additional 30 days?", "One time extension", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            var returnCode = restTransformClient.ExtendAccount();
+                            if (returnCode == HttpStatusCode.Accepted)
+                            {
+                                MessageBox.Show("Account extended for 30 days.", "Account extended", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                retirementDate = (DateTime)restTransformClient.GetAccountRetirementDate();
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Account extension error code {returnCode.ToString()}.", "Account extension", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Account extension error : " + ex.Message, "Account extension", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                    }
+                }
+                TextBoxLogWriteLine("The retirement date for this account is {0}", retirementDate.ToString("d", culture), true); // Warning
+            }
+
+            catch
+            {
+
             }
 
             string mes = @"To use Azure CLI with this account, use a syntax like : ""az ams asset list -g {0} -a {1}""";

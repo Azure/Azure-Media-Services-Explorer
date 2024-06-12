@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -42,6 +43,17 @@ namespace AMSExplorer.Rest
                                                           _amsClient.credentialsEntry.ResourceGroupName,
                                                           _amsClient.credentialsEntry.AccountName,
                                                           objectName
+                                                  );
+        }
+
+        private string GenerateApiUrl(string url)
+        {
+            return _amsClient.environment.ArmEndpoint
+                                       + string.Format(url,
+                                                          _amsClient.credentialsEntry.SubscriptionId,
+                                                          _amsClient.credentialsEntry.ResourceGroupName,
+                                                          _amsClient.credentialsEntry.AccountName
+
                                                   );
         }
 
@@ -101,6 +113,50 @@ namespace AMSExplorer.Rest
                 throw new Exception((string)error?.error?.message);
             }
             return responseContent;
+        }
+
+        private async Task<(string, HttpResponseHeaders)> GetObjectContentAndHeaderAsync(string url)
+        {
+            HttpClient client = GetHttpClient();
+
+            // Request headers
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _amsClient.authResult.AccessToken);
+
+            HttpResponseMessage amsRequestResult = await client.GetAsync(url).ConfigureAwait(false);
+
+            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            if (!amsRequestResult.IsSuccessStatusCode)
+            {
+                dynamic error = JsonConvert.DeserializeObject(responseContent);
+                throw new Exception((string)error?.error?.message);
+            }
+            return (responseContent, amsRequestResult.Headers);
+        }
+
+        private async Task<(string,HttpStatusCode)> PatchObjectContentExtendAMSAsync(string url)
+        {
+            HttpClient client = GetHttpClient();
+
+            // Request headers
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _amsClient.authResult.AccessToken);
+
+            StringContent httpContent = new("{}", System.Text.Encoding.UTF8);
+            httpContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            httpContent.Headers.Add("ams-extend-retirement", "True");
+
+            HttpResponseMessage amsRequestResult = await client.PatchAsync(url, httpContent).ConfigureAwait(false);
+
+            string responseContent = await amsRequestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            if (!amsRequestResult.IsSuccessStatusCode)
+            {
+                dynamic error = JsonConvert.DeserializeObject(responseContent);
+                throw new Exception((string)error?.error?.message);
+            }
+            return (responseContent, amsRequestResult.StatusCode);
         }
 
         private async Task<string> PostObjectContentAsync(string url)

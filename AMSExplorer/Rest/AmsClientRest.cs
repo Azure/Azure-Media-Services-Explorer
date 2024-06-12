@@ -15,6 +15,9 @@
 //---------------------------------------------------------------------------------------------
 
 
+using System;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace AMSExplorer.Rest
@@ -119,5 +122,49 @@ namespace AMSExplorer.Rest
             return await GetObjectContentAsync(URL);
         }
 
+
+        //
+        // account extension
+        //
+
+        private const string accountApiUrl = "subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Media/mediaservices/{2}?api-version=2023-01-01";
+    
+
+        public DateTime? GetAccountRetirementDate()
+        {
+            return Task.Run(async () => await GetAccountRetirementDateAsync()).GetAwaiter().GetResult();
+        }
+
+        public async Task<DateTime?> GetAccountRetirementDateAsync()
+        {
+            DateTime? retirementDate = null;
+            string URL = GenerateApiUrl(accountApiUrl);
+            var responseHeaders = await GetObjectContentAndHeaderAsync(URL);
+
+            if (responseHeaders.Item2.TryGetValues("ams-retirement-date", out var values))
+            {
+                var headerValue = values.FirstOrDefault();
+                // Use the header value as needed
+                 retirementDate = DateTime.Parse(headerValue);
+            }
+            return retirementDate;
+        }
+
+        public HttpStatusCode ExtendAccount()
+        {
+            return Task.Run(async () => await ExtendAccountAsync()).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>HttpStatusCode.Accepted is ok</returns>
+        public async Task<HttpStatusCode> ExtendAccountAsync()
+        {
+            string URL = GenerateApiUrl(accountApiUrl);
+            var response = await PatchObjectContentExtendAMSAsync(URL);
+            
+            return response.Item2;
+        }
     }
 }

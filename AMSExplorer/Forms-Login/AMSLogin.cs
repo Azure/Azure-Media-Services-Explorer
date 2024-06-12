@@ -367,7 +367,8 @@ namespace AMSExplorer
             await Program.CheckWebView2VersionAsync();
             await Program.CheckAMSEVersionAsync();
 
-            DisplayAMSRetirementNotice();
+            // DisplayAMSRetirementNotice();
+            // Now we display custom message when connecting to an account
         }
 
         private void DisplayAMSRetirementNotice()
@@ -375,9 +376,13 @@ namespace AMSExplorer
             int days = new DateTime(2024, 6, 30).Subtract(DateTime.Now).Days;
 
             // we display the message only once a week
-            if (Settings.Default.RetirementNotifDays - days >= 7)
+            if (Settings.Default.RetirementNotifDays - days >= 7 || days < 0)
             {
-                MessageBox.Show("Azure Media Services will be retired on 30 June 2024.\r\n\r\nYou can continue to use Azure Media Services without any disruptions. After 30 June 2024, Azure Media Services won’t be supported, and customers won’t have access to their Azure Media Services accounts.\r\n\r\nTo avoid any service disruptions, you’ll need to transition to Azure Video Indexer for on-demand video and audio analysis workflows or to a Microsoft partner solution for all other media services workflows before 30 June 2024\r\n\r\nThis tool supports the migration of your assets to MK.IO. More features may be added in the future to help your migration.", $"Retirement notice - {days} days left", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                if (days < 0)
+                {
+                    days = 0;
+                }
+                MessageBox.Show("Azure Media Services will be retired on 30 June 2024.\r\n\r\nYou can continue to use Azure Media Services without any disruptions. After 30 June 2024, Azure Media Services won’t be supported, and customers won’t have access to their Azure Media Services accounts.\r\n\r\nTo avoid any service disruptions, you’ll need to transition to Azure Video Indexer for on-demand video and audio analysis workflows and to a Microsoft partner solution for all other media services workflows by 30 June 2024.\r\n\r\nThis tool supports the migration of your assets to MediaKind MK.IO. More features may be added in the future to help your migration.", $"Retirement notice - {days} days left", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Settings.Default.RetirementNotifDays = days;
                 Settings.Default.Save();
             }
@@ -474,7 +479,7 @@ namespace AMSExplorer
                         .WithAuthority(environment.AADSettings.AuthenticationEndpoint.ToString() + "organizations")
                         .WithDefaultRedirectUri()
                         //.WithRedirectUri("http://localhost")
-                        .WithWindowsDesktopFeatures(new BrokerOptions( BrokerOptions.OperatingSystems.Windows))
+                        .WithWindowsDesktopFeatures(new BrokerOptions(BrokerOptions.OperatingSystems.Windows))
                         .Build();
 
                     AuthenticationResult accessToken = null;
