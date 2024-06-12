@@ -102,13 +102,13 @@
     <PackageReference Include="Microsoft.Azure.Storage.DataMovement" Version="2.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Identity.Client.Broker" Version="4.61.1" />
-    <PackageReference Include="Microsoft.Identity.Client.Desktop" Version="4.61.1" />
+    <PackageReference Include="Microsoft.Identity.Client.Broker" Version="4.61.3" />
+    <PackageReference Include="Microsoft.Identity.Client.Desktop" Version="4.61.3" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.24" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.1" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2478.35" />
-    <PackageReference Include="MK.IO" Version="1.6.1" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.2" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2535.41" />
+    <PackageReference Include="MK.IO" Version="1.6.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.6.0" />
     <PackageReference Include="System.Linq.Async.Queryable" Version="6.0.1" />
   </ItemGroup>
 
