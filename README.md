@@ -11,9 +11,9 @@ products:
 
 Azure Media Services Explorer (AMSE) is a .NET 7.0 (C#) application for Windows that does upload, download, encode and stream VOD and live content with [Azure Media Services v3](https://azure.microsoft.com/services/media-services/).
 
-Important : Azure Media Services will be [retired on June 30th, 2024](https://learn.microsoft.com/azure/media-services/latest/azure-media-services-retirement).
+Important : Azure Media Services will be [retired on June 30th, 2024](https://learn.microsoft.com/azure/media-services/latest/azure-media-services-retirement) but you can request a one month extension with this tool.
 
-This tool can help you migrate to MediaKind [MK/IO](https://io.mediakind.com).
+This tool can help you migrate to MediaKind [MK.IO](https://mk.io) as it supports asset, locator and content key policy migration.
 
 ## Installing the tool with Winget
 
@@ -42,23 +42,23 @@ You need to install the [Microsoft Visual Studio Installer Projects](https://mar
 
 This solution requires [.NET SDK 7.0](https://dotnet.microsoft.com/download/dotnet/7.0) to compile.
 
-## MediaKind MK/IO
+## MediaKind MK.IO
 
-This version of the Azure Media Services Explorer supports creating assets in MediaKind MK/IO from existing AMS assets.
+This version of the Azure Media Services Explorer supports creating assets in MediaKind MK.IO from existing AMS assets. It also support locators and content key policies migration.
 
-You must have an active MediaKind MK/IO subscription and access to the MediaKind I/O portal:
-[https://io.mediakind.com](https://io.mediakind.com)
+You must have an active MediaKind MK.IO subscription and access to the MediaKind I/O portal:
+[https://mk.io](https://mk.io)
 
-To connect with MK I/O you will need:
+To connect with MK.IO you will need:
 
 - Subscription Name
-- MK/IO Token
+- MK.IO Token
 
 The subscription name is also called the resource name and is available in the portal.
 
-An MK/IO token can be obtained by following the directions contained in this [article](https://support.mediakind.com/portal/en/kb/articles/how-to-use-mkio-apis-step-by-step).
+An MK.IO token can be obtained by following the directions contained in this [article](https://support.mk.io/portal/en/kb/articles/how-to-use-mkio-apis-step-by-step).
 
-AMSE relies on the MK/IO SDK available [here](https://www.nuget.org/packages/MK.IO).
+AMSE relies on the MK.IO SDK available [here](https://www.nuget.org/packages/MK.IO).
 
 Learn more on the migration:
 
