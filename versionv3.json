@@ -1,7 +1,7 @@
 {
-    "Version": "5.8.1.0",
-    "ReleaseNotesUrl": "http://htmlpreview.github.io/?https://github.com/Azure/Azure-Media-Services-Explorer/blob/main/ReleaseNotes.html",
-    "AllReleaseNotesUrl": "http://htmlpreview.github.io/?https://github.com/Azure/Azure-Media-Services-Explorer/blob/main/AllReleaseNotes.html",
-    "BinaryUrl": "https://github.com/Azure/Azure-Media-Services-Explorer/releases/download/v5.8.1.0/AMSExplorerSetup_v5.8.1.msi",
+    "Version": "5.8.2.0",
+    "ReleaseNotesUrl": "https://htmlpreview.github.io/?https://github.com/Azure/Azure-Media-Services-Explorer/blob/main/ReleaseNotes.html",
+    "AllReleaseNotesUrl": "https://htmlpreview.github.io/?https://github.com/Azure/Azure-Media-Services-Explorer/blob/main/AllReleaseNotes.html",
+    "BinaryUrl": "https://github.com/Azure/Azure-Media-Services-Explorer/releases/download/v5.8.2.0/AMSExplorerSetup_v5.8.2.msi",
     "Parameters": ""
 }
