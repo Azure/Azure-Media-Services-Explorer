@@ -310,13 +310,13 @@ namespace AMSExplorer
                 if (retirementDate > DateTime.Now)
                 {
                     // no extension but account still active
-                    MessageBox.Show($"Your account will expire on {retirementDate.ToString("D", culture)}.\r\n\r\nAll live events and streaming endpoints will be stopped. After this date, no new content can be created.\r\n\r\nMigrate to another service as soon as possible.\r\n\r\nYour account will be read-only after this date and will be deleted 90 days after.", "Account active BUT", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"Your account will expire on {retirementDate.ToString("D", culture)}.\r\n\r\nAll live events and streaming endpoints will be stopped. After this date, no new content can be created.\r\nMigrate to another service as soon as possible.\r\nYour account will be read-only after this date and will be deleted 90 days after.", "Account active BUT", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
                     // account is disabled
                     var dif = retirementDate.AddDays(90) - DateTime.Now;
-                    MessageBox.Show($"Your account was deactivated on {retirementDate.ToString("D", culture)}.\r\n\r\nNo new content can be created.\r\n\r\nMigrate to another service as soon as possible.\r\n\r\nYour account is read-only and will be deleted in {dif.Days} days.", "Account disabled", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"Your account was deactivated on {retirementDate.ToString("D", culture)}.\r\n\r\nNo new content can be created.\r\nMigrate to another service as soon as possible.\r\nYour account is read-only and will be deleted in {dif.Days} days.", "Account disabled", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
                 if (retirementDate < new DateTime(2024, 8, 1))
@@ -346,7 +346,7 @@ namespace AMSExplorer
 
                     }
                 }
-                TextBoxLogWriteLine("The retirement date for this account is {0}", retirementDate.ToString("d", culture), true); // Warning
+                TextBoxLogWriteLine("The retirement date for this account is {0}.", retirementDate.ToString("d"), true); // Warning
             }
 
             catch
