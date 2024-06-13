@@ -378,7 +378,7 @@
   <data name="pictureBoxJob.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAS4AAAA8CAYAAADYKVdnAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAAD85JREFUeF7tnW9MXWcZwO8HXfxmot/4Yozfzf3Ah6Zhq11XtlUwoiVrlbVsra2u
+        vQAADr0BR/uQrQAAD85JREFUeF7tnW9MXWcZwO8HXfxmot/4Yozfzf3Ah6Zhq11XtlUwoiVrlbVsra2u
         SsZwtGOlK4OtrDgZRSsyu65aKzoFtAO0EcwUNE0gWQK6rI0hkKwKDuc1rd5kMY/Pc855z3nPe57z73Jv
         Oy7PTX7Jdu/58/47v/d5/xyauXXrFgiCIGwkRFyCIGw4RFyCIGw4RFyCIGw4RFyCIGw4SiquzM5OyNz3
         LNIBmR3EScjcSzwDme0nHNoh85njNtuehlfeAfZagiAIiqKLK1P9HNJlS6sAcVkcW7Dgri8IglA0cWXu
@@ -565,18 +565,6 @@
   <data name="label2.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="pictureBoxMKIO.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="pictureBoxMKIO.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="pictureBoxMKIO.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="pictureBoxMKIO.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label3.Error" xml:space="preserve">
     <value />
   </data>
@@ -587,6 +575,18 @@
     <value>0</value>
   </data>
   <data name="label3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBoxMKIO.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBoxMKIO.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="pictureBoxMKIO.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="pictureBoxMKIO.ToolTip" xml:space="preserve">
     <value />
   </data>
 </root>

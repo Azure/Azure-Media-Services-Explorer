@@ -310,7 +310,6 @@
             jwPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             tHEOPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator29 = new System.Windows.Forms.ToolStripSeparator();
-            hTML5CaptionMakerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             mKIOPortalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             azureMediaHelpFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -2281,7 +2280,7 @@
             // 
             // samplePlayersToolStripMenuItem
             // 
-            samplePlayersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemAzureUpdates, azureMediaBlogToolStripMenuItem, toolStripSeparator1, azureMediaServicesPlayerPageToolStripMenuItem, dASHIFHTML5ReferencePlayerToolStripMenuItem, hTML5VideoElementToolStripMenuItem, jwPlayerToolStripMenuItem, tHEOPlayerToolStripMenuItem, toolStripSeparator29, hTML5CaptionMakerToolStripMenuItem, mKIOPortalToolStripMenuItem });
+            samplePlayersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemAzureUpdates, azureMediaBlogToolStripMenuItem, toolStripSeparator1, azureMediaServicesPlayerPageToolStripMenuItem, dASHIFHTML5ReferencePlayerToolStripMenuItem, hTML5VideoElementToolStripMenuItem, jwPlayerToolStripMenuItem, tHEOPlayerToolStripMenuItem, toolStripSeparator29, mKIOPortalToolStripMenuItem });
             samplePlayersToolStripMenuItem.Name = "samplePlayersToolStripMenuItem";
             resources.ApplyResources(samplePlayersToolStripMenuItem, "samplePlayersToolStripMenuItem");
             // 
@@ -2336,12 +2335,6 @@
             // 
             toolStripSeparator29.Name = "toolStripSeparator29";
             resources.ApplyResources(toolStripSeparator29, "toolStripSeparator29");
-            // 
-            // hTML5CaptionMakerToolStripMenuItem
-            // 
-            resources.ApplyResources(hTML5CaptionMakerToolStripMenuItem, "hTML5CaptionMakerToolStripMenuItem");
-            hTML5CaptionMakerToolStripMenuItem.Name = "hTML5CaptionMakerToolStripMenuItem";
-            hTML5CaptionMakerToolStripMenuItem.Click += hTML5CaptionMakerToolStripMenuItem_Click;
             // 
             // mKIOPortalToolStripMenuItem
             // 
@@ -2516,7 +2509,7 @@
             // pictureBoxMKIO
             // 
             resources.ApplyResources(pictureBoxMKIO, "pictureBoxMKIO");
-            pictureBoxMKIO.Image = Bitmaps.mk_io_blue;
+            pictureBoxMKIO.Image = Bitmaps.MKIO_Default;
             pictureBoxMKIO.Name = "pictureBoxMKIO";
             pictureBoxMKIO.TabStop = false;
             pictureBoxMKIO.Click += pictureBoxMKIO_Click;
@@ -2758,7 +2751,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem withAzureMediaPlayerToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem withAzureMediaPlayerToolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem hTML5CaptionMakerToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator29;
         private System.Windows.Forms.ToolStripMenuItem toAnotherAzureMediaServicesAccountToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enableAzureCDNToolStripMenuItem;

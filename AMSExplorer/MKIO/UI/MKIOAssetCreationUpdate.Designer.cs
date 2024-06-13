@@ -131,7 +131,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Bitmaps.mk_io_blue;
+            pictureBox1.Image = Bitmaps.MKIO_Default;
             resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;

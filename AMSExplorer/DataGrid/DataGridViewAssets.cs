@@ -100,7 +100,7 @@ namespace AMSExplorer
         }
         public int? DisplayedCount => _MyObservAssetV3 != null ? _MyObservAssetV3.Count : null;
 
-        public List<AssetSchema> ListMKIOAssets;
+        public IEnumerable<AssetSchema> ListMKIOAssets;
 
         public void Init(AMSClientV3 client, SynchronizationContext syncontext, bool enableMKIOInfo)
         {
@@ -175,7 +175,7 @@ namespace AMSExplorer
             Columns["AlternateId"].Visible = Properties.Settings.Default.DisplayAssetAltIDinGrid;
             Columns["StorageAccountName"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
             Columns["StorageAccountName"].HeaderText = "Storage account";
-            Columns["MKIOMigrated"].HeaderText = "In MK/IO";
+            Columns["MKIOMigrated"].HeaderText = "In MK.IO";
             Columns["MKIOMigrated"].Visible = enableMKIOInfo;
             Columns["SizeLong"].Visible = false;
             Columns["LastModifiedOn"].Visible = false;

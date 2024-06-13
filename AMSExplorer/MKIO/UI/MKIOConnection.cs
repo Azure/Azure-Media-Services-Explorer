@@ -48,13 +48,13 @@ namespace AMSExplorer
 
             textInstructions.Text = @"Instructions:
 
-You must have a MediaKind I/O subscription set up and use the MK/IO portal:
-https://io.mediakind.com
-The Subscription name is the resource name in the MK/IO portal.
+You must have a MediaKind MK.IO subscription set up and use the MK.IO portal:
+https://app.mk.io
+The Subscription name is the resource name in the MK.IO portal.
 
-To get a MK/IO Token:
-1) Log into https://io.mediakind.com with Microsoft SSO
-2) Then use the URL: https://api.io.mediakind.com/auth/token/
+To get a MK.IO Token:
+1) Log into https://app.mk.io with Microsoft SSO
+2) Then use the URL: https://api.mk.io/auth/token/
 3) Copy the token";
 
             if (string.IsNullOrEmpty(subscriptionName))

@@ -38,6 +38,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -94,9 +95,9 @@ namespace AMSExplorer
         public string MKIOSubscriptionName;
         public string MKIOToken;
 
-        public List<AssetSchema> migratedAssetsToMKIO;
-        public List<StorageResponseSchema> migratedStorageAccountsToMKIO;
-        public List<ContentKeyPolicy> migratedContentKeyPoliciesToMKIO;
+        public IEnumerable<AssetSchema> migratedAssetsToMKIO;
+        public IEnumerable<StorageResponseSchema> migratedStorageAccountsToMKIO;
+        public IEnumerable<ContentKeyPolicySchema> migratedContentKeyPoliciesToMKIO;
 
         public Mainform(string[] args)
         {
@@ -200,15 +201,15 @@ namespace AMSExplorer
                     migratedStorageAccountsToMKIO = MKIOclient.StorageAccounts.List();
                     migratedContentKeyPoliciesToMKIO = MKIOclient.ContentKeyPolicies.List();
 
-                    if (migratedStorageAccountsToMKIO.Count == 0)
+                    if (migratedStorageAccountsToMKIO.Count() == 0)
                     {
-                        MessageBox.Show($"No storage account found in MK/IO.{Constants.endline}Please add the storage account(s) of this AMS account to MK/IO by going to the Storage tab, right click and select 'MediaKind MK/IO' / 'Add Storage...'", "No MK/IO Storage Account");
+                        MessageBox.Show($"No storage account found in MK.IO.{Constants.endline}Please add the storage account(s) of this AMS account to MK.IO by going to the Storage tab, right click and select 'MediaKind MK.IO' / 'Add Storage...'", "No MK.IO Storage Account");
                     }
                 }
                 catch
                 {
                     MKIOclient = null;
-                    MessageBox.Show("Connection to MediaKind MK/IO failed. Restart the application to try again.", "No MK/IO Connection");
+                    MessageBox.Show("Connection to MediaKind MK.IO failed. Restart the application to try again.", "No MK.IO Connection");
                 }
             }
 
@@ -217,7 +218,7 @@ namespace AMSExplorer
 
             if (MKIOclient != null)
             {
-                toolStripStatusLabelConnection.Text += $" and '{_amsClient.credentialsEntry.MKIOSubscriptionName}' (MK/IO)";
+                toolStripStatusLabelConnection.Text += $" and '{_amsClient.credentialsEntry.MKIOSubscriptionName}' (MK.IO)";
                 pictureBoxMKIO.Visible = true;
             }
 
@@ -276,7 +277,7 @@ namespace AMSExplorer
             {
                 var seResults = _amsClient.AMSclient.GetStreamingEndpoints().GetAllAsync().ToListAsync().Result;
 
-                if (seResults.AsEnumerable().Where(o => o.Data.ResourceState == StreamingEndpointResourceState.Running).ToList().Count == 0)
+                if (seResults.AsEnumerable().Where(o => o.Data.ResourceState == Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Running).ToList().Count == 0)
                 {
                     TextBoxLogWriteLine("There is no streaming endpoint running in this account.", true); // Warning
                 }
@@ -296,6 +297,61 @@ namespace AMSExplorer
             {
                 MessageBox.Show(Program.GetErrorMessage(ex) + "\n\nAMS Explorer will exit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(0);
+            }
+
+
+            // RETIREMENT DATA DISPLAY AND EXTENSION MANAGEMENT
+            try
+            {
+                // let's get the info about retirement date using REST
+                var restTransformClient = new AmsClientRest(_amsClient);
+                var retirementDate = (DateTime)restTransformClient.GetAccountRetirementDate();
+                var culture = new CultureInfo("en-US");
+                if (retirementDate > DateTime.Now)
+                {
+                    // no extension but account still active
+                    MessageBox.Show($"Your account will expire on {retirementDate.ToString("D", culture)}.\r\n\r\nAll live events and streaming endpoints will be stopped. After this date, no new content can be created.\r\nMigrate to another service as soon as possible.\r\nYour account will be read-only after this date and will be deleted 90 days after.", "Account active BUT", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    // account is disabled
+                    var dif = retirementDate.AddDays(90) - DateTime.Now;
+                    MessageBox.Show($"Your account was deactivated on {retirementDate.ToString("D", culture)}.\r\n\r\nNo new content can be created.\r\nMigrate to another service as soon as possible.\r\nYour account is read-only and will be deleted in {dif.Days} days.", "Account disabled", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                if (retirementDate < new DateTime(2024, 8, 1))
+                {
+                    // we can propose an extension
+                    if (MessageBox.Show($"Your AMS account is eligible to a one-time extension.\r\n\r\nIf your account is still active, extend now to avoid interruptions.\r\nIf your account is already deactivated, you will need to manually start your streaming endpoints if they are stopped. It may take up to an hour before you can stream your content again and see the new account expiration time.\r\n\r\nDo you want to extend your account for an additional 30 days?", "One time extension", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            var returnCode = restTransformClient.ExtendAccount();
+                            if (returnCode == HttpStatusCode.Accepted)
+                            {
+                                MessageBox.Show("Account extended for 30 days.", "Account extended", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                retirementDate = (DateTime)restTransformClient.GetAccountRetirementDate();
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Account extension error code {returnCode.ToString()}.", "Account extension", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Account extension error : " + ex.Message, "Account extension", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                    }
+                }
+                TextBoxLogWriteLine("The retirement date for this account is {0}.", retirementDate.ToString("d"), true); // Warning
+            }
+
+            catch
+            {
+
             }
 
             string mes = @"To use Azure CLI with this account, use a syntax like : ""az ams asset list -g {0} -a {1}""";
@@ -530,7 +586,7 @@ namespace AMSExplorer
                 {
                     if (!firstime && MKIOclient != null)
                     {
-                        //Refresh MK/IO Assets
+                        //Refresh MK.IO Assets
                         migratedAssetsToMKIO = await MKIOclient.Assets.ListAsync();
                         dataGridViewAssetsV.ListMKIOAssets = migratedAssetsToMKIO;
                     }
@@ -2483,7 +2539,7 @@ namespace AMSExplorer
 
                                     contentKeyPolicyData.Options.Add(
                                                 new Azure.ResourceManager.Media.Models.ContentKeyPolicyOption(
-                                                configuration: new ContentKeyPolicyFairPlayConfiguration
+                                                configuration: new Azure.ResourceManager.Media.Models.ContentKeyPolicyFairPlayConfiguration
                                                 (
                                                     applicationSecretKey: formCencDelivery.FairPlayASK,
                                                     fairPlayPfxPassword: formCencDelivery.FairPlayCertificate.Password,
@@ -3297,7 +3353,7 @@ namespace AMSExplorer
             comboBoxFilterTimeLiveEvent.SelectedIndex = 0;
 
             comboBoxStatusLiveEvent.Items.AddRange(
-              typeof(LiveEventResourceState)
+              typeof(Azure.ResourceManager.Media.Models.LiveEventResourceState)
               .GetProperties()//.GetFields()
               .Select(i => i.Name)
               .ToArray()
@@ -4490,11 +4546,11 @@ namespace AMSExplorer
                 dataGridViewStorage.Columns[1].HeaderText = "Id";
                 dataGridViewStorage.Columns[1].Width = 700;
 
-                // MK/IO column
+                // MK.IO column
                 dataGridViewStorage.Columns.RemoveAt(2);
                 var c = new DataGridViewCheckBoxColumn();
                 c.ValueType = typeof(bool);
-                c.HeaderText = "in MK/IO";
+                c.HeaderText = "in MK.IO";
                 c.Name = "MKIOMigrated";
                 c.Visible = MKIOclient != null;
                 c.Width = 700;
@@ -4524,7 +4580,7 @@ namespace AMSExplorer
                     dataGridViewStorage.Rows[rowi].Cells[0].ToolTipText = "Primary storage account";
                 }
 
-                // MK/IO flag storage display
+                // MK.IO flag storage display
                 if (MKIOclient != null)
                 {
                     if (migratedStorageAccountsToMKIO.Select(s => s.Spec.Name).ToList().Contains(name))
@@ -4655,11 +4711,11 @@ namespace AMSExplorer
                 dataGridViewCKPolicies.Columns[4].Name = "LastModified";
                 dataGridViewCKPolicies.Columns[4].Width = 110;
 
-                // MK/IO column
+                // MK.IO column
                 dataGridViewCKPolicies.Columns.RemoveAt(5);
                 var c = new DataGridViewCheckBoxColumn();
                 c.ValueType = typeof(bool);
-                c.HeaderText = "in MK/IO";
+                c.HeaderText = "in MK.IO";
                 c.Name = "MKIOMigrated";
                 c.Visible = MKIOclient != null;
                 c.Width = 700;
@@ -4687,15 +4743,15 @@ namespace AMSExplorer
                     foreach (Azure.ResourceManager.Media.Models.ContentKeyPolicyOption option in ckPolicy.Data.Options)
                     {
                         Type typeConfig = option.Configuration.GetType();
-                        if (typeConfig == typeof(ContentKeyPolicyPlayReadyConfiguration))
+                        if (typeConfig == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyPlayReadyConfiguration))
                         {
                             listTypeConfig.Add("PlayReady");
                         }
-                        else if (typeConfig == typeof(ContentKeyPolicyWidevineConfiguration))
+                        else if (typeConfig == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyWidevineConfiguration))
                         {
                             listTypeConfig.Add("Widevine");
                         }
-                        else if (typeConfig == typeof(ContentKeyPolicyFairPlayConfiguration))
+                        else if (typeConfig == typeof(Azure.ResourceManager.Media.Models.ContentKeyPolicyFairPlayConfiguration))
                         {
                             listTypeConfig.Add("FairPlay");
                         }
@@ -4712,7 +4768,7 @@ namespace AMSExplorer
                     rowi = dataGridViewCKPolicies.Rows.Add(ckPolicy.Data.Name, "Error");
                 }
 
-                // MK/IO flag storage display
+                // MK.IO flag storage display
                 if (MKIOclient != null)
                 {
                     dataGridViewCKPolicies.Rows[rowi].Cells[5].Value = migratedContentKeyPoliciesToMKIO.Select(s => s.Name).ToList().Contains(ckPolicy.Data.Name);
@@ -4800,14 +4856,14 @@ namespace AMSExplorer
 
             if (cellLiveEventStateValue != null)
             {
-                LiveEventResourceState CS = (LiveEventResourceState)cellLiveEventStateValue;
+                Azure.ResourceManager.Media.Models.LiveEventResourceState CS = (Azure.ResourceManager.Media.Models.LiveEventResourceState)cellLiveEventStateValue;
                 var mycolor = CS.ToString() switch
                 {
-                    nameof(LiveEventResourceState.Deleting) => Color.Red,
-                    nameof(LiveEventResourceState.Stopping) => Color.OrangeRed,
-                    nameof(LiveEventResourceState.Starting) => Color.DarkCyan,
-                    nameof(LiveEventResourceState.Stopped) => Color.Blue,
-                    nameof(LiveEventResourceState.Running) => Color.Green,
+                    nameof(Azure.ResourceManager.Media.Models.LiveEventResourceState.Deleting) => Color.Red,
+                    nameof(Azure.ResourceManager.Media.Models.LiveEventResourceState.Stopping) => Color.OrangeRed,
+                    nameof(Azure.ResourceManager.Media.Models.LiveEventResourceState.Starting) => Color.DarkCyan,
+                    nameof(Azure.ResourceManager.Media.Models.LiveEventResourceState.Stopped) => Color.Blue,
+                    nameof(Azure.ResourceManager.Media.Models.LiveEventResourceState.Running) => Color.Green,
                     _ => Color.Black,
                 };
                 e.CellStyle.ForeColor = mycolor;
@@ -4828,9 +4884,10 @@ namespace AMSExplorer
                 plist.ForEach(p => LOList.Add(new Program.LiveOutputExt() { LiveOutputItem = p, LiveEventName = le.Data.Name }));
             }
 
-            IEnumerable<Program.LiveOutputExt> liveOutputRunningQuery = LOList.Where(p => p.LiveOutputItem.Data.ResourceState == LiveOutputResourceState.Running);
+            IEnumerable<Program.LiveOutputExt> liveOutputRunningQuery = LOList.Where(p => p.LiveOutputItem.Data.ResourceState == Azure.ResourceManager.Media.Models.LiveOutputResourceState.Running);
 
-            if (LOList.Where(p => p.LiveOutputItem.Data.ResourceState == LiveOutputResourceState.Creating || p.LiveOutputItem.Data.ResourceState == LiveOutputResourceState.Deleting).Any()) // live outputs are in creation or deletion mode
+            if (LOList.Where(p => p.LiveOutputItem.Data.ResourceState == Azure.ResourceManager.Media.Models.LiveOutputResourceState.Creating
+            || p.LiveOutputItem.Data.ResourceState == Azure.ResourceManager.Media.Models.LiveOutputResourceState.Deleting).Any()) // live outputs are in creation or deletion mode
             {
                 MessageBox.Show("Some live outputs are being created or deleted. Live event(s) cannot be reset now.", "Live event(s) stop", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
@@ -5043,7 +5100,7 @@ namespace AMSExplorer
                             if (data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughStandard
                                 && data.Encoding.EncodingType != Azure.ResourceManager.Media.Models.LiveEventEncodingType.PassthroughBasic
                                 && data.Encoding != null
-                                && (data.ResourceState == LiveEventResourceState.Stopped || data.ResourceState == LiveEventResourceState.StandBy))
+                                && (data.ResourceState == Azure.ResourceManager.Media.Models.LiveEventResourceState.Stopped || data.ResourceState == Azure.ResourceManager.Media.Models.LiveEventResourceState.StandBy))
                             {
                                 if (modifications.SystemPreset)
                                 {
@@ -5199,7 +5256,7 @@ namespace AMSExplorer
         private async Task DoStopOrDeleteLiveEventsEngineAsync(List<MediaLiveEventResource> ListEvents, bool deleteLiveEvents)
         {
             // Stop the live events which run
-            List<MediaLiveEventResource> liveeventsrunning = ListEvents.Where(p => p.Data.ResourceState == LiveEventResourceState.Running).ToList();
+            List<MediaLiveEventResource> liveeventsrunning = ListEvents.Where(p => p.Data.ResourceState == Azure.ResourceManager.Media.Models.LiveEventResourceState.Running).ToList();
             string names = string.Join(", ", liveeventsrunning.Select(le => le.Data.Name).ToArray());
 
             if (liveeventsrunning.Count > 0)
@@ -5207,7 +5264,7 @@ namespace AMSExplorer
                 try
                 {
                     TextBoxLogWriteLine("Stopping live event(s) : {0}...", names);
-                    List<LiveEventResourceState?> states = liveeventsrunning.Select(p => p.Data.ResourceState).ToList();
+                    List<Azure.ResourceManager.Media.Models.LiveEventResourceState?> states = liveeventsrunning.Select(p => p.Data.ResourceState).ToList();
                     Task[] taskcstop = liveeventsrunning.Select(c => c.StopAsync(WaitUntil.Completed, new LiveEventActionContent() { RemoveOutputsOnStop = false })).ToArray();
 
                     int complete = 0;
@@ -5224,7 +5281,7 @@ namespace AMSExplorer
                                 {
                                     states[liveeventsrunning.IndexOf(loitem)] = loitemR.Data.ResourceState;
                                     dataGridViewLiveEventsV.BeginInvoke(new Action(async () => await dataGridViewLiveEventsV.RefreshLiveEventAsync(loitemR, _amsClient)), null);
-                                    if (loitemR.Data.ResourceState == LiveEventResourceState.Stopped)
+                                    if (loitemR.Data.ResourceState == Azure.ResourceManager.Media.Models.LiveEventResourceState.Stopped)
                                     {
                                         TextBoxLogWriteLine("Live event stopped : {0}.", loitemR.Data.Name);
                                         Telemetry.TrackEvent("Live event stopped");
@@ -5262,7 +5319,7 @@ namespace AMSExplorer
                     string names2 = string.Join(", ", ListEvents.Select(le => le.Data.Name).ToArray());
 
                     TextBoxLogWriteLine("Deleting live event(s) : {0}...", names2);
-                    List<LiveEventResourceState?> states = ListEvents.Select(p => p.Data.ResourceState).ToList();
+                    List<Azure.ResourceManager.Media.Models.LiveEventResourceState?> states = ListEvents.Select(p => p.Data.ResourceState).ToList();
                     Task[] taskcdel = ListEvents.Select(c => c.DeleteAsync(WaitUntil.Completed)).ToArray();
 
                     while (!taskcdel.All(t => t.IsCompleted))
@@ -5315,14 +5372,14 @@ namespace AMSExplorer
         private async Task DoStartLiveEventsEngineAsync(List<MediaLiveEventResource> ListEvents)
         {
             // Start the live events which are stopped
-            List<MediaLiveEventResource> liveevntsstopped = ListEvents.Where(p => p.Data.ResourceState == LiveEventResourceState.Stopped).ToList();
+            List<MediaLiveEventResource> liveevntsstopped = ListEvents.Where(p => p.Data.ResourceState == Azure.ResourceManager.Media.Models.LiveEventResourceState.Stopped).ToList();
             string names = string.Join(", ", liveevntsstopped.Select(le => le.Data.Name).ToArray());
             if (liveevntsstopped.Count > 0)
             {
                 try
                 {
                     TextBoxLogWriteLine("Starting live event(s) : {0}...", names);
-                    List<LiveEventResourceState?> states = liveevntsstopped.Select(p => p.Data.ResourceState).ToList();
+                    List<Azure.ResourceManager.Media.Models.LiveEventResourceState?> states = liveevntsstopped.Select(p => p.Data.ResourceState).ToList();
                     Task[] taskLEStart = liveevntsstopped.Select(c => c.StartAsync(WaitUntil.Completed)).ToArray();
                     int complete = 0;
 
@@ -5339,7 +5396,7 @@ namespace AMSExplorer
                                 {
                                     states[liveevntsstopped.IndexOf(loitem)] = loitemR.Data.ResourceState;
                                     dataGridViewLiveEventsV.BeginInvoke(new Action(async () => await dataGridViewLiveEventsV.RefreshLiveEventAsync(loitemR, _amsClient)), null);
-                                    if (loitemR.Data.ResourceState == LiveEventResourceState.Running)
+                                    if (loitemR.Data.ResourceState == Azure.ResourceManager.Media.Models.LiveEventResourceState.Running)
                                     {
                                         TextBoxLogWriteLine("Live event started : {0}.", loitemR.Data.Name);
                                         Telemetry.TrackEvent("Live event started");
@@ -5405,7 +5462,7 @@ namespace AMSExplorer
             try
             {   // delete programs
                 ListOutputs.ToList().ForEach(p => TextBoxLogWriteLine("Live output '{0}' : deleting...", p.Data.Name));
-                List<LiveOutputResourceState?> states = ListOutputs.Select(p => p.Data.ResourceState).ToList();
+                List<Azure.ResourceManager.Media.Models.LiveOutputResourceState?> states = ListOutputs.Select(p => p.Data.ResourceState).ToList();
                 Task[] tasks = ListOutputs.Select(p => p.DeleteAsync(WaitUntil.Completed)).ToArray();
 
                 while (!tasks.All(t => t.IsCompleted))
@@ -5474,14 +5531,14 @@ namespace AMSExplorer
         private async Task DoStartStreamingEndpointEngineAsync(List<StreamingEndpointResource> ListStreamingEndpoints, AMSClientV3 amsClient)
         {
             // Start the streaming endpoint which are stopped
-            List<StreamingEndpointResource> streamingendpointsstopped = ListStreamingEndpoints.Where(p => p.Data.ResourceState == StreamingEndpointResourceState.Stopped).ToList();
+            List<StreamingEndpointResource> streamingendpointsstopped = ListStreamingEndpoints.Where(p => p.Data.ResourceState == Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Stopped).ToList();
             string names = string.Join(", ", streamingendpointsstopped.Select(le => le.Data.Name).ToArray());
             if (streamingendpointsstopped.Count > 0)
             {
                 try
                 {
                     TextBoxLogWriteLine("Starting streaming endpoint(s) : {0}...", names);
-                    List<StreamingEndpointResourceState?> states = streamingendpointsstopped.Select(p => p.Data.ResourceState).ToList();
+                    List<Azure.ResourceManager.Media.Models.StreamingEndpointResourceState?> states = streamingendpointsstopped.Select(p => p.Data.ResourceState).ToList();
                     Task[] taskSEStart = streamingendpointsstopped.Select(c => c.StartAsync(WaitUntil.Completed)).ToArray();
                     int complete = 0;
 
@@ -5500,7 +5557,7 @@ namespace AMSExplorer
 
                                     await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR, amsClient);
 
-                                    if (loitemR.Data.ResourceState == StreamingEndpointResourceState.Running)
+                                    if (loitemR.Data.ResourceState == Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Running)
                                     {
                                         TextBoxLogWriteLine("Streaming endpoint started : {0}.", loitemR.Data.Name);
                                         Telemetry.TrackEvent("Streaming endpoint started");
@@ -5564,7 +5621,7 @@ namespace AMSExplorer
         private async Task DoStopOrDeleteStreamingEndpointsEngineAsync(List<StreamingEndpointResource> ListStreamingEndpoints, bool deleteStreamingEndpoints)
         {
             // Stop the streaming endpoints which run
-            List<StreamingEndpointResource> sesrunning = ListStreamingEndpoints.Where(p => p.Data.ResourceState == StreamingEndpointResourceState.Running).ToList();
+            List<StreamingEndpointResource> sesrunning = ListStreamingEndpoints.Where(p => p.Data.ResourceState == Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Running).ToList();
             string names = string.Join(", ", sesrunning.Select(le => le.Data.Name).ToArray());
 
             if (sesrunning.Count > 0)
@@ -5572,7 +5629,7 @@ namespace AMSExplorer
                 try
                 {
                     TextBoxLogWriteLine("Stopping streaming endpoints(s) : {0}...", names);
-                    List<StreamingEndpointResourceState?> states = sesrunning.Select(p => p.Data.ResourceState).ToList();
+                    List<Azure.ResourceManager.Media.Models.StreamingEndpointResourceState?> states = sesrunning.Select(p => p.Data.ResourceState).ToList();
                     Task[] taskSEstop = sesrunning.Select(c => c.StopAsync(WaitUntil.Completed)).ToArray();
 
                     int complete = 0;
@@ -5590,7 +5647,7 @@ namespace AMSExplorer
                                     states[sesrunning.IndexOf(loitem)] = loitemR.Data.ResourceState;
                                     await dataGridViewStreamingEndpointsV.RefreshStreamingEndpointAsync(loitemR, _amsClient);
 
-                                    if (loitemR.Data.ResourceState == StreamingEndpointResourceState.Stopped)
+                                    if (loitemR.Data.ResourceState == Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Stopped)
                                     {
                                         TextBoxLogWriteLine("Streaming endpoint '{0}' stopped.", loitemR.Data.Name);
                                         Telemetry.TrackEvent("Streaming endpoint stopped");
@@ -5625,7 +5682,7 @@ namespace AMSExplorer
                     string names2 = string.Join(", ", ListStreamingEndpoints.Select(le => le.Data.Name).ToArray());
                     TextBoxLogWriteLine("Deleting streaming endpoints(s) : {0}...", names2);
 
-                    List<StreamingEndpointResourceState?> states = ListStreamingEndpoints.Select(p => p.Data.ResourceState).ToList();
+                    List<Azure.ResourceManager.Media.Models.StreamingEndpointResourceState?> states = ListStreamingEndpoints.Select(p => p.Data.ResourceState).ToList();
                     Task[] taskSEdel = ListStreamingEndpoints.Select(c => c.DeleteAsync(WaitUntil.Completed)).ToArray();
 
                     while (!taskSEdel.All(t => t.IsCompleted))
@@ -5765,12 +5822,12 @@ namespace AMSExplorer
 
             if (cellprogramstatevalue != null)
             {
-                LiveOutputResourceState PS = (LiveOutputResourceState)cellprogramstatevalue;
+                Azure.ResourceManager.Media.Models.LiveOutputResourceState PS = (Azure.ResourceManager.Media.Models.LiveOutputResourceState)cellprogramstatevalue;
                 var mycolor = PS.ToString() switch
                 {
-                    nameof(LiveOutputResourceState.Deleting) => Color.OrangeRed,
-                    nameof(LiveOutputResourceState.Creating) => Color.DarkCyan,
-                    nameof(LiveOutputResourceState.Running) => Color.Green,
+                    nameof(Azure.ResourceManager.Media.Models.LiveOutputResourceState.Deleting) => Color.OrangeRed,
+                    nameof(Azure.ResourceManager.Media.Models.LiveOutputResourceState.Creating) => Color.DarkCyan,
+                    nameof(Azure.ResourceManager.Media.Models.LiveOutputResourceState.Running) => Color.Green,
                     _ => Color.Black,
                 };
                 e.CellStyle.ForeColor = mycolor;
@@ -5816,14 +5873,14 @@ namespace AMSExplorer
 
             if (cellSEstatevalue != null)
             {
-                StreamingEndpointResourceState SES = (StreamingEndpointResourceState)cellSEstatevalue;
+                var SES = (Azure.ResourceManager.Media.Models.StreamingEndpointResourceState)cellSEstatevalue;
                 var mycolor = SES.ToString() switch
                 {
-                    nameof(StreamingEndpointResourceState.Deleting) => Color.Red,
-                    nameof(StreamingEndpointResourceState.Stopping) => Color.OrangeRed,
-                    nameof(StreamingEndpointResourceState.Starting) => Color.DarkCyan,
-                    nameof(StreamingEndpointResourceState.Stopped) => Color.Red,
-                    nameof(StreamingEndpointResourceState.Running) => Color.Green,
+                    nameof(Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Deleting) => Color.Red,
+                    nameof(Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Stopping) => Color.OrangeRed,
+                    nameof(Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Starting) => Color.DarkCyan,
+                    nameof(Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Stopped) => Color.Red,
+                    nameof(Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Running) => Color.Green,
                     _ => Color.Black,
                 };
                 e.CellStyle.ForeColor = mycolor;
@@ -6954,7 +7011,7 @@ namespace AMSExplorer
 
             var streamingendpoint = (await ReturnSelectedStreamingEndpointsAsync()).FirstOrDefault();
 
-            if (streamingendpoint.Data.ResourceState != StreamingEndpointResourceState.Stopped)
+            if (streamingendpoint.Data.ResourceState != Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Stopped)
             {
                 MessageBox.Show(string.Format("Streaming endpoint must be stopped in order to {0} CDN.", enable ? "enable" : "disable"), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -7010,7 +7067,7 @@ namespace AMSExplorer
             if (streamingendpoints.Count == 1)
             {
                 var se = streamingendpoints.FirstOrDefault();
-                bool sestopped = (se.Data.ResourceState == StreamingEndpointResourceState.Stopped);
+                bool sestopped = (se.Data.ResourceState == Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Stopped);
                 bool cdnenabled = (bool)se.Data.IsCdnEnabled;
 
                 disableAzureCDNToolStripMenuItem1.Enabled = sestopped && cdnenabled;
@@ -7125,13 +7182,13 @@ namespace AMSExplorer
             ContextMenuItemLiveEventCopyPreviewURLToClipboard.Enabled = single && liveEvents.FirstOrDefault().Data.Preview != null;
 
             // start, stop, reset, delete, clone live event
-            ContextMenuItemLiveEventStart.Enabled = (single && liveEvents.FirstOrDefault().Data.ResourceState == LiveEventResourceState.Stopped) || several;
-            ContextMenuItemLiveEventStop.Enabled = (single && liveEvents.FirstOrDefault().Data.ResourceState == LiveEventResourceState.Running) || several;
-            ContextMenuItemLiveEventReset.Enabled = (single && liveEvents.FirstOrDefault().Data.ResourceState == LiveEventResourceState.Running) || several;
+            ContextMenuItemLiveEventStart.Enabled = (single && liveEvents.FirstOrDefault().Data.ResourceState == Azure.ResourceManager.Media.Models.LiveEventResourceState.Stopped) || several;
+            ContextMenuItemLiveEventStop.Enabled = (single && liveEvents.FirstOrDefault().Data.ResourceState == Azure.ResourceManager.Media.Models.LiveEventResourceState.Running) || several;
+            ContextMenuItemLiveEventReset.Enabled = (single && liveEvents.FirstOrDefault().Data.ResourceState == Azure.ResourceManager.Media.Models.LiveEventResourceState.Running) || several;
             ContextMenuItemLiveEventDelete.Enabled = oneOrMore;
 
             // playback preview
-            playbackTheProgramToolStripMenuItem.Enabled = (single && liveEvents.FirstOrDefault().Data.ResourceState == LiveEventResourceState.Running) || several;
+            playbackTheProgramToolStripMenuItem.Enabled = (single && liveEvents.FirstOrDefault().Data.ResourceState == Azure.ResourceManager.Media.Models.LiveEventResourceState.Running) || several;
         }
 
         private void liveLiveEventToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -9898,7 +9955,7 @@ namespace AMSExplorer
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = Constants.DemoCaptionMaker,
+                    FileName = Constants.MKIOPortal,
                     UseShellExecute = true
                 }
             };
@@ -9931,7 +9988,7 @@ namespace AMSExplorer
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = Constants.MKIOApp + _amsClient.credentialsEntry.MKIOSubscriptionName,
+                    FileName = Constants.MKIOPortal + _amsClient.credentialsEntry.MKIOSubscriptionName,
                     UseShellExecute = true
                 }
             };

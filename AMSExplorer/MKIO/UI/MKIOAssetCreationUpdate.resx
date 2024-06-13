@@ -220,13 +220,13 @@
     <value>26, 22</value>
   </data>
   <data name="labelNewAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 20</value>
+    <value>176, 20</value>
   </data>
   <data name="labelNewAsset.TabIndex" type="System.Int32, mscorlib">
     <value>75</value>
   </data>
   <data name="labelNewAsset.Text" xml:space="preserve">
-    <value>Create this asset in MK/IO</value>
+    <value>Create this asset in MK.IO</value>
   </data>
   <data name="&gt;&gt;labelNewAsset.Name" xml:space="preserve">
     <value>labelNewAsset</value>
@@ -286,7 +286,7 @@
     <value>0</value>
   </data>
   <data name="textBoxAssetName.ToolTip" xml:space="preserve">
-    <value>Asset name in MK/IO. It could be different from the AMS asset name</value>
+    <value>Asset name in MK.IO. It could be different from the AMS asset name</value>
   </data>
   <data name="&gt;&gt;textBoxAssetName.Name" xml:space="preserve">
     <value>textBoxAssetName</value>
@@ -313,7 +313,7 @@
     <value>1</value>
   </data>
   <data name="textBoxDescription.ToolTip" xml:space="preserve">
-    <value>Asset description in MK/IO</value>
+    <value>Asset description in MK.IO</value>
   </data>
   <data name="&gt;&gt;textBoxDescription.Name" xml:space="preserve">
     <value>textBoxDescription</value>
@@ -483,11 +483,8 @@
   <data name="checkBoxRecreateKeys.Text" xml:space="preserve">
     <value>Recreate existing keys</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>146, 17</value>
-  </metadata>
   <data name="checkBoxRecreateKeys.ToolTip" xml:space="preserve">
-    <value>Copy the existing keys of the AMS locator to the new MK/IO locator. Key properties to be copied : id, policy name, label ref in streaming policy, type, value, tracks.</value>
+    <value>Copy the existing keys of the AMS locator to the new MK.IO locator. Key properties to be copied : id, policy name, label ref in streaming policy, type, value, tracks.</value>
   </data>
   <data name="&gt;&gt;checkBoxRecreateKeys.Name" xml:space="preserve">
     <value>checkBoxRecreateKeys</value>
@@ -517,7 +514,7 @@
     <value>Recreate existing streaming locators</value>
   </data>
   <data name="checkBoxCloneClearLocator.ToolTip" xml:space="preserve">
-    <value>Copy the existing locators of the AMS asset to the new MK/IO asset. Locator properties will be copied : name, id, start time, end time, content key policy name, filters.</value>
+    <value>Copy the existing locators of the AMS asset to the new MK.IO asset. Locator properties will be copied : name, id, start time, end time, content key policy name, filters.</value>
   </data>
   <data name="&gt;&gt;checkBoxCloneClearLocator.Name" xml:space="preserve">
     <value>checkBoxCloneClearLocator</value>
@@ -595,7 +592,7 @@
     <value>287, 22</value>
   </data>
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 27</value>
+    <value>80, 24</value>
   </data>
   <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>AutoSize</value>
@@ -690,4 +687,7 @@
   <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
     <value>Value</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>146, 17</value>
+  </metadata>
 </root>

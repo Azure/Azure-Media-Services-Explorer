@@ -60,7 +60,7 @@ namespace AMSExplorer
         private string _serverManifestName = null;
         private AmsClientRest _restClient;
         private MKIOClient _MKIOclient;
-        private List<StreamingEndpointSchema> _MKIOStreamingEndpointList;
+        private IEnumerable<StreamingEndpointSchema> _MKIOStreamingEndpointList;
         private AssetSchema _mkioasset = null;
 
         public AssetInformation(Mainform mainform, AMSClientV3 amsClient, MediaAssetResource asset, IEnumerable<StreamingEndpointResource> streamingEndpoints, MKIOClient MKIOclient = null)
@@ -672,7 +672,7 @@ namespace AMSExplorer
                     string locatorstatus = string.Empty;
 
                     Color colornode = GetLocatorApparence(locator, ref locatorstatus);
-                    if (SelectedSE.Data.ResourceState != StreamingEndpointResourceState.Running)
+                    if (SelectedSE.Data.ResourceState != Azure.ResourceManager.Media.Models.StreamingEndpointResourceState.Running)
                     {
                         colornode = Color.Red;
                     }
@@ -2286,7 +2286,7 @@ namespace AMSExplorer
 
                     List<Claim> claims = new();
 
-                    foreach (ContentKeyPolicyTokenClaim claim in ckrestriction.RequiredClaims)
+                    foreach (Azure.ResourceManager.Media.Models.ContentKeyPolicyTokenClaim claim in ckrestriction.RequiredClaims)
                     {
                         if (claim.ClaimType == "urn:microsoft:azure:mediaservices:contentkeyidentifier")
                         {
@@ -2798,10 +2798,10 @@ namespace AMSExplorer
 
             DGMKIOInfo.Rows.Clear();
 
-            DGMKIOInfo.Rows.Add("MK/IO Name", _mkioasset.Name);
-            DGMKIOInfo.Rows.Add("MK/IO Description", _mkioasset.Properties.Description);
+            DGMKIOInfo.Rows.Add("MK.IO Name", _mkioasset.Name);
+            DGMKIOInfo.Rows.Add("MK.IO Description", _mkioasset.Properties.Description);
 
-            // fill the combo with list of MK/IO streaming endpoints
+            // fill the combo with list of MK.IO streaming endpoints
             _MKIOStreamingEndpointList = await _MKIOclient.StreamingEndpoints.ListAsync();
             comboBoxSEMKIO.Items.Clear();
             foreach (var se in _MKIOStreamingEndpointList)
@@ -2817,7 +2817,7 @@ namespace AMSExplorer
         }
 
         /// <summary>
-        /// Build the treeview of locators for MK/IO
+        /// Build the treeview of locators for MK.IO
         /// </summary>
         /// <returns></returns>
         private async Task BuildMKIOLocatorsTreeAsync(AssetSchema mkioasset)
@@ -2871,7 +2871,7 @@ namespace AMSExplorer
                     string locatorstatus = string.Empty;
 
                     Color colornode = Color.Black;
-                    if (SelectedSE.Properties.ResourceState != StreamingEndpointResourceState.Running)
+                    if (SelectedSE.Properties.ResourceState != MK.IO.Models.StreamingEndpointResourceState.Running)
                     {
                         colornode = Color.Red;
                     }
@@ -2884,7 +2884,7 @@ namespace AMSExplorer
                     TreeViewLocatorsMKIO.Nodes.Add(myLocNode);
                     TreeViewLocatorsMKIO.Nodes[indexloc].Nodes.Add(new TreeNode(AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_LocatorInformation));
 
-                    LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Streaming locator Id: {0}", locator.Properties.StreamingLocatorId);
+                    LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Streaming locator Id: {0}", locator.Properties.StreamingLocatorId.ToString());
                     LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, AMSExplorer.Properties.Resources.AssetInformation_BuildLocatorsTree_Name0, locator.Name);
                     LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Streaming policy name: {0}", locator.Properties.StreamingPolicyName);
                     LocTreeAddTextEntryToNode(TreeViewLocatorsMKIO, indexloc, 0, "Default content key policy name: {0}", locator.Properties.DefaultContentKeyPolicyName);
@@ -2908,11 +2908,11 @@ namespace AMSExplorer
                             foreach (string p in path.Paths)
                             {
                                 appendExtension = string.Empty;
-                                if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Dash && !p.EndsWith(Constants.mpd))
+                                if (path.StreamingProtocol == StreamingPathsStreamingProtocol.Dash && !p.EndsWith(Constants.mpd))
                                 {
                                     appendExtension = Constants.mpd;
                                 }
-                                else if (path.StreamingProtocol == StreamingPolicyStreamingProtocol.Hls && !p.EndsWith(Constants.m3u8))
+                                else if (path.StreamingProtocol == StreamingPathsStreamingProtocol.Hls && !p.EndsWith(Constants.m3u8))
                                 {
                                     appendExtension = Constants.m3u8;
                                 }

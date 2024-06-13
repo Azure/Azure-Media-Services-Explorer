@@ -25,7 +25,7 @@ namespace AMSExplorer
         public const string Webview2Installer = "https://go.microsoft.com/fwlink/p/?LinkId=2124703";
         public const string Webview2RegPath64 = "SOFTWARE\\WOW6432Node\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
         public const string Webview2RegPath32 = "SOFTWARE\\Microsoft\\EdgeUpdate\\Clients\\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
-        public const string Webview2MinVersion = "119.0.2151.40";
+        public const string Webview2MinVersion = "125.0.2535.41";
 
         public const string GitHubAMSEVersionPrimaryV3 = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/main/versionv3.json";
         public const string GitHubAMSEVersionSecondaryV3 = "https://amsexplorer.azureedge.net/release/versionv3.json";
@@ -92,8 +92,8 @@ namespace AMSExplorer
 
         public const string DemoCaptionMaker = @"https://testdrive-archive.azurewebsites.net/Graphics/CaptionMaker/Default.html";
 
-        public const string MKIOPortal = @"https://io.mediakind.com";
-        public const string MKIOApp = @"https://app.io.mediakind.com/";
+        public const string MKIOWebSite = @"https://www.mk.io";
+        public const string MKIOPortal = @"https://app.mk.io/";
 
         public const string LinkFeedbackAMS = "https://aka.ms/amsvoice";
 
@@ -144,8 +144,8 @@ namespace AMSExplorer
         public const string LinkAMSManagedIdentities = "https://learn.microsoft.com/en-us/azure/media-services/latest/concept-managed-identities";
         public const string LinkAMSCustomerManagedKeys = "https://learn.microsoft.com/en-us/azure/media-services/latest/concept-use-customer-managed-keys-byok";
 
-        public const string LinkMKIOPortal = "https://io.mediakind.com";
-        public const string LinkMKIOMigrationDoc = "https://docs.io.mediakind.com/docs/migrating-from-ams";
+        public const string LinkMKIOPortal = "https://app.mk.io";
+        public const string LinkMKIOMigrationDoc = "https://docs.mk.io/docs/migrating-from-ams";
 
         public const string LinkAMSE = "https://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";

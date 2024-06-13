@@ -301,7 +301,7 @@
     <value>79</value>
   </data>
   <data name="checkBoxIncludeSPSecrets.Text" xml:space="preserve">
-    <value>Include Service Principal and MK/IO secrets</value>
+    <value>Include Service Principal and MK.IO secrets</value>
   </data>
   <data name="&gt;&gt;checkBoxIncludeSPSecrets.Name" xml:space="preserve">
     <value>checkBoxIncludeSPSecrets</value>

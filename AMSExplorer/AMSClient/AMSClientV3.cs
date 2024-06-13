@@ -18,6 +18,7 @@ using AMSClient;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Media;
 using Microsoft.Identity.Client;
+using Microsoft.Identity.Client.Desktop;
 using Microsoft.Rest;
 using System;
 using System.Diagnostics;
@@ -62,8 +63,8 @@ namespace AMSExplorer
                   //.WithAuthority(AzureCloudInstance.AzurePublic, credentialsEntry.AadTenantId)
                   .WithAuthority(environment.AADSettings.AuthenticationEndpoint + string.Format("{0}", credentialsEntry.AadTenantId ?? "organizations"))
                   .WithDefaultRedirectUri()
-                  //.WithRedirectUri("http://localhost")
-                  .WithBroker(true)
+                   //.WithRedirectUri("http://localhost")
+                  .WithWindowsDesktopFeatures(new BrokerOptions(BrokerOptions.OperatingSystems.Windows))
                   .Build();
             }
             else // SP
@@ -180,7 +181,7 @@ namespace AMSExplorer
 
             if (firstTimeAuth && connectToMKIO)
             {
-                // form for MK/IO
+                // form for MK.IO
                 MKIOConnection mkioConnectionForm = new(credentialsEntry.MKIOSubscriptionName, credentialsEntry.MKIOClearToken);
 
                 if (mkioConnectionForm.ShowDialog() == DialogResult.OK)

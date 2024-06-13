@@ -169,7 +169,7 @@
     <value>2</value>
   </data>
   <data name="buttonConnectMKIO.Text" xml:space="preserve">
-    <value>Connect with MK/IO</value>
+    <value>Connect with MK.IO</value>
   </data>
   <data name="&gt;&gt;buttonConnectMKIO.Name" xml:space="preserve">
     <value>buttonConnectMKIO</value>
@@ -220,13 +220,13 @@
     <value>26, 22</value>
   </data>
   <data name="labelNewAsset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>229, 20</value>
+    <value>226, 20</value>
   </data>
   <data name="labelNewAsset.TabIndex" type="System.Int32, mscorlib">
     <value>75</value>
   </data>
   <data name="labelNewAsset.Text" xml:space="preserve">
-    <value>Connect with MediaKind MK/IO ?</value>
+    <value>Connect with MediaKind MK.IO ?</value>
   </data>
   <data name="&gt;&gt;labelNewAsset.Name" xml:space="preserve">
     <value>labelNewAsset</value>
@@ -409,13 +409,13 @@
     <value>28, 61</value>
   </data>
   <data name="linkLabelMKIO.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 15</value>
+    <value>74, 15</value>
   </data>
   <data name="linkLabelMKIO.TabIndex" type="System.Int32, mscorlib">
     <value>90</value>
   </data>
   <data name="linkLabelMKIO.Text" xml:space="preserve">
-    <value>MK/IO Portal</value>
+    <value>MK.IO Portal</value>
   </data>
   <data name="&gt;&gt;linkLabelMKIO.Name" xml:space="preserve">
     <value>linkLabelMKIO</value>
@@ -463,7 +463,7 @@
     <value>339, 22</value>
   </data>
   <data name="pictureBoxMKIO.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 27</value>
+    <value>80, 24</value>
   </data>
   <data name="pictureBoxMKIO.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>AutoSize</value>
@@ -490,7 +490,7 @@
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>MediaKind MK/IO Connection</value>
+    <value>MediaKind MK.IO Connection</value>
   </data>
   <data name="&gt;&gt;errorProvider1.Name" xml:space="preserve">
     <value>errorProvider1</value>

@@ -58,9 +58,9 @@
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             textBoxSubscription = new System.Windows.Forms.TextBox();
             label2 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
             errorProvider1 = new System.Windows.Forms.ErrorProvider(components);
             pictureBoxMKIO = new System.Windows.Forms.PictureBox();
-            label3 = new System.Windows.Forms.Label();
             groupBoxAADAutMode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxJob).BeginInit();
             panel1.SuspendLayout();
@@ -354,6 +354,16 @@
             label2.Name = "label2";
             toolTip1.SetToolTip(label2, resources.GetString("label2.ToolTip"));
             // 
+            // label3
+            // 
+            resources.ApplyResources(label3, "label3");
+            errorProvider1.SetError(label3, resources.GetString("label3.Error"));
+            label3.ForeColor = System.Drawing.SystemColors.ControlText;
+            errorProvider1.SetIconAlignment(label3, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("label3.IconAlignment"));
+            errorProvider1.SetIconPadding(label3, (int)resources.GetObject("label3.IconPadding"));
+            label3.Name = "label3";
+            toolTip1.SetToolTip(label3, resources.GetString("label3.ToolTip"));
+            // 
             // errorProvider1
             // 
             errorProvider1.ContainerControl = this;
@@ -365,20 +375,10 @@
             errorProvider1.SetError(pictureBoxMKIO, resources.GetString("pictureBoxMKIO.Error"));
             errorProvider1.SetIconAlignment(pictureBoxMKIO, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("pictureBoxMKIO.IconAlignment"));
             errorProvider1.SetIconPadding(pictureBoxMKIO, (int)resources.GetObject("pictureBoxMKIO.IconPadding"));
-            pictureBoxMKIO.Image = Bitmaps.mk_io_blue;
+            pictureBoxMKIO.Image = Bitmaps.MKIO_Default;
             pictureBoxMKIO.Name = "pictureBoxMKIO";
             pictureBoxMKIO.TabStop = false;
             toolTip1.SetToolTip(pictureBoxMKIO, resources.GetString("pictureBoxMKIO.ToolTip"));
-            // 
-            // label3
-            // 
-            resources.ApplyResources(label3, "label3");
-            errorProvider1.SetError(label3, resources.GetString("label3.Error"));
-            label3.ForeColor = System.Drawing.SystemColors.ControlText;
-            errorProvider1.SetIconAlignment(label3, (System.Windows.Forms.ErrorIconAlignment)resources.GetObject("label3.IconAlignment"));
-            errorProvider1.SetIconPadding(label3, (int)resources.GetObject("label3.IconPadding"));
-            label3.Name = "label3";
-            toolTip1.SetToolTip(label3, resources.GetString("label3.ToolTip"));
             // 
             // AmsLogin
             // 
@@ -451,7 +451,7 @@
         private System.Windows.Forms.TextBox textBoxSubscription;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel linkLabelAMSRetire;
-        private System.Windows.Forms.PictureBox pictureBoxMKIO;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox pictureBoxMKIO;
     }
 }
