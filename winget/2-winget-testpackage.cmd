@@ -1,2 +1,0 @@
-winget validate --manifest C:\Repos\Azure-Media-Services-Explorer\winget\manifests\m\Microsoft\AzureMediaServicesExplorer\5.8.1
-winget install -m C:\Repos\Azure-Media-Services-Explorer\winget\manifests\m\Microsoft\AzureMediaServicesExplorer\5.8.1

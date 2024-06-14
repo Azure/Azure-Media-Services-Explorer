@@ -7,13 +7,13 @@
 	<ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
 	<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
     <StartupObject>AMSExplorer.Program</StartupObject>
-    <Version>5.8.2.0</Version>
+    <Version>5.8.3.0</Version>
     <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
     <Description></Description>
     <Copyright>Copyright © 2023</Copyright>
     <Company>$(Authors)Microsoft</Company>
-    <AssemblyVersion>5.8.2.0</AssemblyVersion>
-    <FileVersion>5.8.2.0</FileVersion>
+    <AssemblyVersion>5.8.3.0</AssemblyVersion>
+    <FileVersion>5.8.3.0</FileVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <PackageIcon>Azure Explorer.png</PackageIcon>
     <PackageIconUrl />

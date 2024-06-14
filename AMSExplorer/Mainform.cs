@@ -45,6 +45,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
@@ -192,6 +193,7 @@ namespace AMSExplorer
             // MKIO Connection            
             MKIOclient = null;
 
+            dictionary.Add("UseMKIOConnection", _amsClient.useMKIOConnection.ToString());
             if (_amsClient.useMKIOConnection)
             {
                 try
@@ -311,30 +313,40 @@ namespace AMSExplorer
                 {
                     // no extension but account still active
                     MessageBox.Show($"Your account will expire on {retirementDate.ToString("D", culture)}.\r\n\r\nAll live events and streaming endpoints will be stopped. After this date, no new content can be created.\r\nMigrate to another service as soon as possible.\r\nYour account will be read-only after this date and will be deleted 90 days after.", "Account active BUT", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Telemetry.TrackEvent("Retirement_Account_Enabled");
                 }
                 else
                 {
                     // account is disabled
                     var dif = retirementDate.AddDays(90) - DateTime.Now;
                     MessageBox.Show($"Your account was deactivated on {retirementDate.ToString("D", culture)}.\r\n\r\nNo new content can be created.\r\nMigrate to another service as soon as possible.\r\nYour account is read-only and will be deleted in {dif.Days} days.", "Account disabled", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Telemetry.TrackEvent("Retirement_Account_Disabled");
                 }
 
-                if (retirementDate < new DateTime(2024, 8, 1))
+                if (retirementDate < new DateTime(2024, 7, 31))
                 {
                     // we can propose an extension
+                    Telemetry.TrackEvent("Retirement_Extension_Proposed");
                     if (MessageBox.Show($"Your AMS account is eligible to a one-time extension.\r\n\r\nIf your account is still active, extend now to avoid interruptions.\r\nIf your account is already deactivated, you will need to manually start your streaming endpoints if they are stopped. It may take up to an hour before you can stream your content again and see the new account expiration time.\r\n\r\nDo you want to extend your account for an additional 30 days?", "One time extension", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                     == DialogResult.Yes)
                     {
+                        Telemetry.TrackEvent("Retirement_Extension_AcceptedByUser");
                         try
                         {
                             var returnCode = restTransformClient.ExtendAccount();
                             if (returnCode == HttpStatusCode.Accepted)
                             {
                                 MessageBox.Show("Account extended for 30 days.", "Account extended", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                Telemetry.TrackEvent("Retirement_Extension_Execution_Success");
                                 retirementDate = (DateTime)restTransformClient.GetAccountRetirementDate();
                             }
                             else
                             {
+                                Dictionary<string, string> dictionaryError = new()
+                                {
+                                    { "Error_code", returnCode.ToString() }
+                                };
+                                Telemetry.TrackEvent("Retirement_Extension_Execution_Error", dictionaryError);
                                 MessageBox.Show($"Account extension error code {returnCode.ToString()}.", "Account extension", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
@@ -342,16 +354,18 @@ namespace AMSExplorer
                         catch (Exception ex)
                         {
                             MessageBox.Show("Account extension error : " + ex.Message, "Account extension", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Telemetry.TrackException(ex);
                         }
 
                     }
                 }
                 TextBoxLogWriteLine("The retirement date for this account is {0}.", retirementDate.ToString("d"), true); // Warning
+                dictionary.Add("RetirementAccountDate", retirementDate.ToString("d", culture));
             }
 
-            catch
+            catch (Exception ex)
             {
-
+                Telemetry.TrackException(ex);
             }
 
             string mes = @"To use Azure CLI with this account, use a syntax like : ""az ams asset list -g {0} -a {1}""";
