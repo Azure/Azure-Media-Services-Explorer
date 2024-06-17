@@ -11,7 +11,7 @@ $packageArgs = @{
 
   softwareName  = 'Azure Media Services Explorer'
 
-  checksum      = '9C0C5AE2D7C2F070C4DAE65259BD1624C16EFD934BE51293B6B50EE220F29EE5'
+  checksum      = '0B87C516F61DCD0A46B815F8CA00EF6DB8C25115BD5D096B7E180C9D482EC4FE'
   checksumType  = 'sha256'
   checksum64    = ''
   checksumType64= 'sha256'

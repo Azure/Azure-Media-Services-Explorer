@@ -1,0 +1,1 @@
+choco install amsexplorer --debug --verbose --source "'.;https://community.chocolatey.org/api/v2/'"
