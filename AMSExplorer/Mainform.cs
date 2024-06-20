@@ -203,7 +203,19 @@ namespace AMSExplorer
                     migratedStorageAccountsToMKIO = MKIOclient.StorageAccounts.List();
                     migratedContentKeyPoliciesToMKIO = MKIOclient.ContentKeyPolicies.List();
 
-                    if (migratedStorageAccountsToMKIO.Count() == 0)
+                    // let's verify locations of AMS and MK.IO are the same
+                    var locationAMS = _amsClient.AMSclient.Get().Value.Data.Location.Name;
+                    var locationMKIOId = MKIOclient.Account.GetSubscription().Spec.LocationId;
+                    var locs = MKIOclient.Account.ListAllLocations();
+                    var locationOfMKSISub = locs.FirstOrDefault(l => l.Metadata.Id == locationMKIOId);
+                    if (locationOfMKSISub != null && locationAMS != locationOfMKSISub?.Metadata.Name)
+                    {
+                        MessageBox.Show($"The MK.IO subscription is located in '{locationOfMKSISub?.Metadata.Name}', and the AMS account is located in '{locationAMS}'.{Constants.endline}Please use a MK.IO subscription in the same location as the AMS account.", "MK.IO Location Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MKIOclient = null;
+                        _amsClient.useMKIOConnection = false;
+                        Telemetry.TrackEvent("MKIO_Location_Error", new Dictionary<string, string> { { "AMS loc", locationAMS }, { "MK.IO loc", locationOfMKSISub?.Metadata.Name } });
+                    }
+                    else if (migratedStorageAccountsToMKIO.Count() == 0)
                     {
                         MessageBox.Show($"No storage account found in MK.IO.{Constants.endline}Please add the storage account(s) of this AMS account to MK.IO by going to the Storage tab, right click and select 'MediaKind MK.IO' / 'Add Storage...'", "No MK.IO Storage Account");
                     }
@@ -211,7 +223,9 @@ namespace AMSExplorer
                 catch
                 {
                     MKIOclient = null;
+                    _amsClient.useMKIOConnection = false;
                     MessageBox.Show("Connection to MediaKind MK.IO failed. Restart the application to try again.", "No MK.IO Connection");
+                    Telemetry.TrackEvent("MKIO_Connection_Error");
                 }
             }
 
