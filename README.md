@@ -9,6 +9,8 @@ products:
 
 # Azure Media Services Explorer (for AMS v3)
 
+**IMPORTANT NOTE : Azure Media Services have been retired on June 30, 2024. Please see the [retirement guide](https://learn.microsoft.com/azure/media-services/latest/azure-media-services-retirement).**
+
 Azure Media Services Explorer (AMSE) is a .NET 7.0 (C#) application for Windows that does upload, download, encode and stream VOD and live content with [Azure Media Services v3](https://azure.microsoft.com/services/media-services/).
 
 Important : Azure Media Services will be [retired on June 30th, 2024](https://learn.microsoft.com/azure/media-services/latest/azure-media-services-retirement) but you can request a one month extension with this tool.
